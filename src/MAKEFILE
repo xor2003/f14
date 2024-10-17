@@ -1,8 +1,8 @@
 INCDIR=..\h
-CFLAGS=/FPa /G2 /AM /Osegcl /nologo /c -IC:\C700\INCLUDE -I$(INCDIR) /Yd
+CFLAGS=/FPa /G2 /AM /Osegcl /nologo /c -I$(INCDIR) /Zi /Zd
 #LFLAGS=/MAP /SEG:256 /ST:3500 /F /PACKC
 LFLAGS=/MAP /SEG:256 /ST:3500 /CODEVIEW
-AFLAGS=/n
+AFLAGS=/n /Zi /Zd
 OBJS = \
    monoprin.obj \
    adicrt.obj \
