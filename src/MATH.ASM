@@ -371,7 +371,7 @@ Dist2D	ENDP
 
 ;/**********************************************************************/
 ;Dist3D(A,B,C)	A=signed int delta, B= signed int delta, C=signed int delta
-Dist3D	PROC	USES es,A:WORD,B:WORD,C:WORD
+Dist3D	PROC	USES es,A:WORD,B:WORD,C_:WORD
 	mov	ax,A
 	mov	bx,B
 	push	bx
@@ -381,7 +381,7 @@ Dist3D	PROC	USES es,A:WORD,B:WORD,C:WORD
 ;check for overflow here
 	or	ax,ax
 	js	d3d_1		;too big fo 2d routine
-	mov	bx,C
+	mov	bx,C_
 	push	bx
 	push	ax
 	call	Dist2D
@@ -389,7 +389,7 @@ Dist3D	PROC	USES es,A:WORD,B:WORD,C:WORD
 	ret			;ax=dist unsigned
 d3d_1:
 	mov	bx,ax 		;val too big use biggest +smaller/2
-	mov	ax,C
+	mov	ax,C_
 	ABSAX
 	shr	ax,1
 	add	ax,bx
@@ -1119,7 +1119,7 @@ MakeMatRPH	PROC	USES di,R:WORD,P:WORD,H:WORD,M1:PTR
 	ret
 MakeMatRPH	ENDP
 ;/**********************************************************************/
-SumOfSquares	PROC	USES bx cx, A:WORD,B:WORD,C:WORD
+SumOfSquares	PROC	USES bx cx, A:WORD,B:WORD,C_:WORD
 	mov	ax,A
 	imul	ax
 	mov	bx,ax
@@ -1128,7 +1128,7 @@ SumOfSquares	PROC	USES bx cx, A:WORD,B:WORD,C:WORD
 	imul	ax
 	add	bx,ax
 	adc	cx,dx
-	mov	ax,C
+	mov	ax,C_
 	imul	ax
 	add	ax,bx
 	adc	dx,cx

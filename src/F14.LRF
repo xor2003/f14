@@ -14,7 +14,10 @@ emm.obj+
 +
 nqfly.obj+
 +
-	3dexcept.obj+
++
++
++
+3dexcept.obj+
 +
 3dloadt.obj+
 +
@@ -79,7 +82,10 @@ carrai.obj+
 +
 +
 +
-	cmds.obj+
++
++
++
+cmds.obj+
 +
 +
 +
@@ -90,7 +96,9 @@ cockpit.obj+
 +
 ctrlvect.obj+
 +
-ddd.obj	+
+ddd.obj+
++
++
 +
 +
 +
@@ -139,7 +147,9 @@ hud2.obj+
 +
 +
 +
-hsd.obj	+
+hsd.obj+
++
++
 +
 +
 +
@@ -160,9 +170,14 @@ keyjoy.obj+
 libglue.obj+
 +
 +
-	loadmiss.obj+
 +
-map.obj	+
++
++
+loadmiss.obj+
++
+map.obj+
++
++
 +
 +
 +
@@ -260,7 +275,9 @@ tews.obj+
 tgtflir.obj+
 +
 +
-tid.obj	+
+tid.obj+
++
++
 +
 +
 +
@@ -282,7 +299,9 @@ views.obj+
 +
 +
 +
-vdi.obj	+
+vdi.obj+
++
++
 +
 +
 +

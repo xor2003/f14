@@ -13,7 +13,7 @@
 
 .CODE
 
-TransScaleLine	PROC	USES si di bx ds es,SRCSEG:WORD,BASE:WORD,ADDR:WORD,X:WORD,Y:WORD,W:WORD,DEST:WORD,TRNSCLR:WORD
+TransScaleLine	PROC	USES si di bx ds es,SRCSEG:WORD,BASE:WORD,ADDR_:WORD,X:WORD,Y:WORD,W:WORD,DEST:WORD,TRNSCLR:WORD
 
 	mov	ds,SRCSEG
 	mov	si,BASE
@@ -39,7 +39,7 @@ TransScaleLine	PROC	USES si di bx ds es,SRCSEG:WORD,BASE:WORD,ADDR:WORD,X:WORD,Y
 	mov	dx,TRNSCLR
 	cmp	dx,-1
 	jne	L1
-	mov	bp,ADDR
+	mov	bp,ADDR_
 L4:
 	mov	bx,[bp]
 	mov	al,[bx+si]
@@ -49,7 +49,7 @@ L4:
 	loop	L4
 	ret
 L1:
-	mov	bp,ADDR
+	mov	bp,ADDR_
 L5:
 	mov	bx,[bp]
 	mov	al,[bx+si]
@@ -66,7 +66,7 @@ TransScaleLine	ENDP
 
 
 
-TacTransScaleLine	PROC	USES si di bx ds es,SRCSEG:WORD,BASE:WORD,ADDR:WORD,X:WORD,Y:WORD,W:WORD,DEST:WORD,TRNSCLR:WORD
+TacTransScaleLine	PROC	USES si di bx ds es,SRCSEG:WORD,BASE:WORD,ADDR_:WORD,X:WORD,Y:WORD,W:WORD,DEST:WORD,TRNSCLR:WORD
 
 	mov	ds,SRCSEG
 	mov	si,BASE
@@ -90,7 +90,7 @@ TacTransScaleLine	PROC	USES si di bx ds es,SRCSEG:WORD,BASE:WORD,ADDR:WORD,X:WOR
 	mov	cx,W
 
 	mov	dx,TRNSCLR
-	mov	bp,ADDR
+	mov	bp,ADDR_
 L5:
 	mov	bx,[bp]
 	mov	al,[bx+si]
@@ -158,10 +158,10 @@ defaultpal	dw	0FF00h,0FF01h,0FF02h,0FF03h,0FF04h,0FF05h,0FF06h,0FF07h
 
 Seg3D		dw	SEG bogusseg
 
-	ALIGN 16				;put at paragraph
+;TODO	ALIGN 16				;put at paragraph
 bogusseg 	dw	0
 
-        ALIGN 256
+;TODO        ALIGN 256
 
 FlirTbl	db	256 dup(0)
 

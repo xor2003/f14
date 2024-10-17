@@ -10,7 +10,7 @@
 ;
 ;******************************
 
-        EXTRN   _O:WORD, _SinHead:WORD, _CosHead:WORD, _SinPitch:WORD, 
+        EXTRN   _O:WORD, _SinHead:WORD, _CosHead:WORD, _SinPitch:WORD
         EXTRN   _CosPitch:WORD, _SinRoll:WORD, _CosRoll:WORD
 
         .CODE   
