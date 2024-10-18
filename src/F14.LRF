@@ -307,7 +307,13 @@ vdi.obj+
 +
 +
 +
-world.obj
+world.obj+
++
++
++
++
++
+_rp.obj
 f14.exe
 f14.map
 ..\lib\mpslibm.lib;

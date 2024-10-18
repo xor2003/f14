@@ -4,7 +4,7 @@
 ### Build Environment
 - DOSBox-X  
 - Microsoft Macro Assembler (MASM) 6.11  
-- Microsoft C/C++ 7.0  
+- Microsoft C/C++ 6.0  
 - HX DOS Extender (DPMI) 2.16
 
 Installing this software should correctly set environment variables to your `AUTOEXEC.BAT`. If you attempt to run without DPMI, you will get an error message:    
@@ -26,4 +26,4 @@ The target we are interested in compiling is `f14.exe` under `src`.
 There are various issues with building the source as it stands, some of which are fixed. The first issue was that various C files required headers, and only some C files referenced `INCDIR`. I've simply added `-I$(INCDIR)` to the `CFLAGS` in the `MAKEFILE`. Another issue was that it appeared `PASM.ASM` was using reserved keywords for procedure argument names (namely `ADDR`); I've simply renamed these.   
 
 ### Current Issues
-The biggest blocker right now is `3dmatrix.asm` fails on the linking stage because it requires definitions for various math `EXTERN`s. I see that the `MAKEFILE` references a `..\lib\mpslibm.lib`, which would presumably have these missing symbol definitions such as `_SinHead`, `_CosPitch`, etc. This static library is not a target in the `MAKEFILE` and does not appear to be included, so this may require people going on a difficult scavenger hunt to find it.
+The biggest blocker right now is missing `MPSLIBM.lib`. I see that the `MAKEFILE` references a `..\lib\mpslibm.lib`, which would presumably have these missing functions such as `_DrawDot`, `_MouseON`, etc. This static library is not a target in the `MAKEFILE` and does not appear to be included, so this may require people going on a difficult scavenger hunt to find it.
