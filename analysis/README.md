@@ -177,3 +177,47 @@ Result on the 117 low-nseq suspects (classified.tsv `deepnseq`/`deepaddr`):
   "different CRT rev" claim from the first sweep is retracted for
   `__output` (proved identical at the call-graph anchor) but holds for
   the `__astart`/`__setargv`/`__setenvp` startup cluster.
+
+## Byte-exact retail skeleton rebuild (ada -> alink)
+
+`tools/ada_script` now emits re-assemblable output (`--asm-code-encoding
+exact`): reloc sites are mandatory item boundaries so each relocated word
+is a standalone `dw seg`, `dd` far-pointers are claimed only on real
+header relocs, and the MZ SS:SP window becomes its own `seg_stack`
+fragment. Pipeline:
+
+    python -m tools.ada_script F14.EXE --asm-code-encoding exact
+    python3 tools/ada_segfix.py F14.asm analysis/gold/memmap_gold.txt \
+        /home/xor/games/f14gold/Fleetgold/F14GOLD/F14.EXE > F14_seg.asm
+    uasm -q -0 -Zm -Fo F14_seg.obj F14_seg.asm
+    ~/kvikdos/alink/alink -o build/F14_a.EXE F14_seg.obj
+    python3 tools/relocfix.py <orig> build/F14_a.EXE build/F14_ar.EXE \
+        analysis/gold/memmap_gold.txt
+
+`tools/ada_segfix.py` re-segments the flat `seg000_N` fragments along the
+real boundaries (Ghidra memmap), splits `dup(?)` BSS and instruction bytes
+at boundaries/`equ $+K` labels/mid-instruction seams, rewrites `seg`/`dw
+seg` operands to the real containing region, and emits the stack window as
+a `stack`-combine segment (`byte stack 'STACK'`) so the linker writes the
+real SS:SP.  Gap segments anchor at first-emitted address (not the 64K
+window start) so BSS `dup(?)` can't inflate them and misplace the stack.
+
+ALINK (emission-order, unlike LINK's record shuffling) then produces:
+
+- load image **byte-identical** to retail (0 diffs, 0x5c33e bytes)
+- all 5297 representable relocation sites present with matching values
+- SS:SP = `6357:0dac`, minalloc = `0x7fe` — matching retail
+- one site at image `0x1527f` straddles the CODE_24/CODE_25 boundary (low
+  byte is CODE_24's last, high byte CODE_25's first) — OMF cannot express
+  it; emitted literally (image-exact) and `tools/relocfix.py` re-inserts
+  the `1520:007f` table entry post-link, absorbing 4 bytes of post-table
+  pad.  Final: all 5298 sites, 0 value diffs.
+
+Remaining header-only diffs vs retail: header size (0x531 vs 0x540 paras —
+LINK pads the table area differently), reloc-table file offset (0x40 vs
+0x1e), lastpg convention (0x4e vs 0x13e — same decoded image size), and
+the checksum field (0 vs 0x86ad).  None affect the loaded program.
+
+kvikdos smoke test: `F14.EXE` vs rebuilt output — **byte-identical
+console transcript** through the intro render (15s).  kvikdos is a
+console-toolchain emulator; full gameplay needs DOSBox.
