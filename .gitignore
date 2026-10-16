@@ -40,3 +40,4 @@ test/
 war/
 artifacts/
 src/hiew.exe
+__pycache__/

@@ -120,16 +120,48 @@ Result on verify_sweep.txt (85 MATCH / 560 NOCAND), full table in
   - **432 nseq>=0.80** — same source, mechanical codegen drift
     (dev is /G0-ish + no-optimize codegen vs gold /G2 186; operand
     commutation, `enter` vs bp-frame, offset/jump-target shifts only).
-  - **113 nseq<0.80**, refined by cseq:
-    - ~8 cseq>=0.9 — call structure intact, still codegen-consistent.
-    - ~46 cseq 0.6-0.9 — drift-suspect.
-    - ~45 cseq<0.6 — real divergence, concentrated in gameplay/display
-      modules: PLANES/PLANES2/PLANES3 (AI), CARR (carrier ops), AWG9
-      (radar), HUD2/HSD/DDD/TID/RIOMAP (displays), SAMS, MESSAGE, TAC.
-    - Confirmed mechanisms: dev `PASM.ASM`/`MONOPRIN.ASM` are `.386`
-      code (`_LongDiv` = `cdq;idiv dword;shld` — retail can't run 386);
-      `_TEXT` CRT routines (`__output`, `__setenvp`, `__myalloc`) come
-      from a different CRT rev than the retail link.
+  - **113 nseq<0.80** — refined further by callpair/deeppair below.
 - Re-running the 32 worst top-1-vs-best candidates under
   `--order=nseq` recovered 0 further MATCHes — mzdiff's stream-level
   strictness already rejects what nseq merely re-ranks.
+
+### Call-graph propagation (callpair_gold.py)
+
+`tools/callpair_gold.py` pairs callees positionally through verified
+MATCH pairs' ordered call sites — relocation-independent and immune to
+histogram drift. First run: 39 anchor pairs, incl. `__output` ->
+`4140:14be` via `_sprintf`, `_main`->`18d5:000e`, `_malloc`->`4140:2066`,
+`_free`->`4140:206c`, `_unlink`->`4140:1e64`, `_vsprintf`->`4140:08de`,
+`__setenvp`->`18d5:0540`. Conflicts (multiple callers disagreeing on a
+target) are reported, not merged.
+
+### Open-ended sweep (deeppair_gold.py)
+
+`tools/deeppair_gold.py` scores **every** size-plausible gold function
+(not just the Jaccard top-8) by difflib mnemonic-sequence ratio, using
+LINK-map-style rebuilt gold extents (start -> next function start, from
+sorted `ranges_gold_full.txt` keys — Ghidra R-blocks truncate large
+functions at `call far`, e.g. `__output` was a 44-insn stub).
+
+Result on the 117 low-nseq suspects (classified.tsv `deepnseq`/`deepaddr`):
+
+- **28 recovered to nseq>=0.80** — pairing artifacts, not drift:
+  `__output` 1.00 @4140:14be (mzdiff-**MATCH**, verified — 86th
+  verification), `_pitchbar2`/`_diamondbox`/`_MBox`/`_TacBox`/
+  `_AISanitizeGroupCheck`/`_FlyCruise` 0.97, `_MsgBox` 0.96,
+  `_horiz_line`/`_TIDDisplayHorz` shared seg, `_DrawAltGauge` 0.98, ...
+- **26 stay <0.50** — the hardened drift list: `_HsdCrt` 0.04,
+  `_DrawRioMapInfo`/`_RioMap` 0.05/0.08, `__setargv` 0.05, `_DoLSO` 0.07,
+  `_Ladder` 0.08, `_LocationPicture` 0.11, `_Splatted` 0.12,
+  `_LaunchCruise`/`_GorillaBomb` 0.13, `_SetupView` 0.17, `__setenvp` 0.45
+  — concentrated in RIOMAP/HSD displays, AI/PLANES, LSO/carrier, and the
+  `_TEXT` startup CRT (`__setargv`/`__setenvp`/`__myalloc` genuinely
+  differ from dev's link).
+- mzdiff re-verified all 28 recoveries: only `__output` (nseq=1.00)
+  MATCHes — the rest remain codegen-DIFF as expected (mnemonic stream
+  conserved, operand selection differs).
+- Confirmed mechanism: dev `PASM.ASM`/`MONOPRIN.ASM` are `.386` code
+  (`_LongDiv` = `cdq;idiv dword;shld` — retail can't run 386). The
+  "different CRT rev" claim from the first sweep is retracted for
+  `__output` (proved identical at the call-graph anchor) but holds for
+  the `__astart`/`__setargv`/`__setenvp` startup cluster.
