@@ -129,11 +129,15 @@ Result on verify_sweep.txt (85 MATCH / 560 NOCAND), full table in
 
 `tools/callpair_gold.py` pairs callees positionally through verified
 MATCH pairs' ordered call sites — relocation-independent and immune to
-histogram drift. First run: 39 anchor pairs, incl. `__output` ->
-`4140:14be` via `_sprintf`, `_main`->`18d5:000e`, `_malloc`->`4140:2066`,
-`_free`->`4140:206c`, `_unlink`->`4140:1e64`, `_vsprintf`->`4140:08de`,
-`__setenvp`->`18d5:0540`. Conflicts (multiple callers disagreeing on a
-target) are reported, not merged.
+histogram drift. `--extra=SEEDS.tsv` folds earlier anchor rounds back in
+as callers (fixpoint); `--equal` gates callers to equal call counts.
+Two rounds produce 43 pairs (`callpairs.tsv`), incl. `__output` ->
+`4140:14be` via `_fread`, `_main`->`18d5:000e`, `_fread`->`4140:039a`,
+`_fwrite`->`4140:047e`, `__nullcheck`->`4140:101c`. Conflicts are
+resolved by nseq at each alternative (`anchors_nseq.tsv`): majority
+picks confirmed for `__cinit`/`_strcpy`; `__setargv`/`__setenvp`/
+`__searchseg` anchors hit degenerate Ghidra extents and are discarded
+as real startup-CRT drift.
 
 ### Open-ended sweep (deeppair_gold.py)
 
