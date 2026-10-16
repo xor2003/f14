@@ -47,11 +47,11 @@ def load_mymap(path):
     """mzretools map -> {name: (segname, codepara, off_lo, off_hi)}"""
     segs, out = {}, {}
     for l in open(path):
-        m = re.match(r'(\w+) CODE ([0-9a-f]+)', l)
+        m = re.match(r'(\S+) CODE ([0-9a-f]+)', l)
         if m:
             segs[m.group(1)] = int(m.group(2), 16)
             continue
-        m = re.match(r'(\S+): (\w+) (?:NEAR|FAR) ([0-9a-f]+)-([0-9a-f]+)',
+        m = re.match(r'(\S+): (\S+) (?:NEAR|FAR) ([0-9a-f]+)-([0-9a-f]+)',
                      l)
         if m:
             out[m.group(1)] = (m.group(2), segs[m.group(2)],
@@ -99,6 +99,11 @@ def main():
     mim = load_image(my_exe)
     mm = load_mymap(my_map)
 
+    order = 'jac'
+    if rest and rest[0] == '--order=nseq':
+        order = 'nseq'
+        rest = rest[1:]
+
     names = []
     if rest and rest[0] == '--diffs':
         for l in open(rest[1]):
@@ -113,7 +118,7 @@ def main():
         mns = disasm(gimg, blocks)
         if mns:
             gfuncs.append({'seg': seg, 'off': off, 'blocks': blocks,
-                           'h': collections.Counter(mns)})
+                           'h': collections.Counter(mns), 'mns': mns})
     print(f'gold funcs with code: {len(gfuncs)}', file=sys.stderr)
 
     tmpdir = tempfile.mkdtemp(prefix='vg_')
@@ -125,7 +130,8 @@ def main():
         segname, cpara, lo, hi = mm[name]
         mblocks = [(cpara * 16 + lo + GHIDRA_BASE,
                     cpara * 16 + hi + GHIDRA_BASE)]
-        mh = collections.Counter(disasm(mim, mblocks))
+        mns = disasm(mim, mblocks)
+        mh = collections.Counter(mns)
         n = max(1, sum(mh.values()))
 
         cands = []
@@ -134,7 +140,14 @@ def main():
             if 0.3 <= r <= 3.0:
                 cands.append((jaccard(g['h'], mh), g))
         cands.sort(key=lambda t: -t[0])
-        cands = [g for j, g in cands[:8] if j >= 0.3]
+        cands = [(j, g) for j, g in cands[:8] if j >= 0.3]
+        if order == 'nseq':
+            import difflib
+            for j, g in cands:
+                g['seq'] = difflib.SequenceMatcher(
+                    None, g['mns'], mns, autojunk=False).ratio()
+            cands.sort(key=lambda t: -t[1]['seq'])
+        cands = [g for j, g in cands]
 
         verdict = 'NOCAND'
         bestaddr = None
