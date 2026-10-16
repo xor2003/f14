@@ -1,0 +1,2817 @@
+{
+  "schema": "inertia.ada.signatures.v1",
+  "raw_fact_count": 256,
+  "normalized_fact_count": 82,
+  "classified_fact_count": 82,
+  "materialized_count": 82,
+  "failure_count": 12,
+  "named_count": 70,
+  "disabled": false,
+  "matches": [
+    {
+      "address": 140637,
+      "names": [
+        "PUTCOLOR"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 140637,
+          "name": "PUTCOLOR",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 140637,
+          "name": "PUTCOLOR",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 153891,
+      "names": [
+        "aFCIsinhl",
+        "aFCIsinl",
+        "aFsldq"
+      ],
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "address": 153891,
+          "name": "aFCIsinhl",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 153891,
+          "name": "aFCIsinl",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 153891,
+          "name": "aFsldq",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 153891,
+          "name": "aFCIsinhl",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 153891,
+          "name": "aFCIsinl",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 153891,
+          "name": "aFsldq",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 153895,
+      "names": [
+        "aFCIcoshl",
+        "aFCIcosl",
+        "aFeldq"
+      ],
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "address": 153895,
+          "name": "aFCIcoshl",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 153895,
+          "name": "aFCIcosl",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 153895,
+          "name": "aFeldq",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 153895,
+          "name": "aFCIcoshl",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 153895,
+          "name": "aFCIcosl",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 153895,
+          "name": "aFeldq",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 153899,
+      "names": [
+        "aFCItanhl",
+        "aFCItanl",
+        "aFfldq"
+      ],
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "address": 153899,
+          "name": "aFCItanhl",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 153899,
+          "name": "aFCItanl",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 153899,
+          "name": "aFfldq",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 153899,
+          "name": "aFCItanhl",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 153899,
+          "name": "aFCItanl",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 153899,
+          "name": "aFfldq",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 185384,
+      "names": [
+        "GetBiosCursor"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 185384,
+          "name": "GetBiosCursor",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 185384,
+          "name": "GetBiosCursor",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 286994,
+      "names": [
+        "REGISTERBUILDOPTIONSET"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 286994,
+          "name": "REGISTERBUILDOPTIONSET",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 286994,
+          "name": "REGISTERBUILDOPTIONSET",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 333020,
+      "names": [
+        "aNCIceill",
+        "aNCIfloorl",
+        "aNCIfmodl",
+        "aNCIsqrtl",
+        "aNfld1",
+        "aNftol"
+      ],
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "address": 333020,
+          "name": "aNCIceill",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNCIfloorl",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNCIfmodl",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNCIsqrtl",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNfld1",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNftol",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNCIceill",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNCIfloorl",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNCIfmodl",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNCIsqrtl",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNfld1",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333020,
+          "name": "aNftol",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 333275,
+      "names": [
+        "exit"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 333275,
+          "name": "exit",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333275,
+          "name": "exit",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 333282,
+      "names": [
+        "exit"
+      ],
+      "status": "name_collision",
+      "candidates": [
+        {
+          "address": 333282,
+          "name": "exit",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333282,
+          "name": "exit",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333282,
+          "name": "exit",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333282,
+          "name": "exit",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 333290,
+      "names": [
+        "cexit"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 333290,
+          "name": "cexit",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333290,
+          "name": "cexit",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 333656,
+      "names": [
+        "fsopen"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 333656,
+          "name": "fsopen",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 333656,
+          "name": "fsopen",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 333700,
+      "names": [
+        "fopen"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 333700,
+          "name": "fopen",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 333700,
+          "name": "fopen",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 334212,
+      "names": [
+        "printf"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334212,
+          "name": "printf",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334212,
+          "name": "printf",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 334274,
+      "names": [
+        "filbuf"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334274,
+          "name": "filbuf",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334274,
+          "name": "filbuf",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 334424,
+      "names": [
+        "strcat"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334424,
+          "name": "strcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334424,
+          "name": "strcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334424,
+          "name": "strcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334424,
+          "name": "strcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 334488,
+      "names": [
+        "strcpy"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334488,
+          "name": "strcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334488,
+          "name": "strcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334488,
+          "name": "strcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334488,
+          "name": "strcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 334538,
+      "names": [
+        "strcmp"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334538,
+          "name": "strcmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334538,
+          "name": "strcmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334538,
+          "name": "strcmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334538,
+          "name": "strcmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 334582,
+      "names": [
+        "strlen"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334582,
+          "name": "strlen",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334582,
+          "name": "strlen",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 334610,
+      "names": [
+        "strncpy"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334610,
+          "name": "strncpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334610,
+          "name": "strncpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334610,
+          "name": "strncpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334610,
+          "name": "strncpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 334650,
+      "names": [
+        "itoa"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334650,
+          "name": "itoa",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334650,
+          "name": "itoa",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 334678,
+      "names": [
+        "ltoa"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334678,
+          "name": "ltoa",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334678,
+          "name": "ltoa",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 334688,
+      "names": [
+        "toupper"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334688,
+          "name": "toupper",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334688,
+          "name": "toupper",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334688,
+          "name": "toupper",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334688,
+          "name": "toupper",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 334700,
+      "names": [
+        "toupper"
+      ],
+      "status": "name_collision",
+      "candidates": [
+        {
+          "address": 334700,
+          "name": "toupper",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334700,
+          "name": "toupper",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 334864,
+      "names": [
+        "kbhit"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334864,
+          "name": "kbhit",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 334864,
+          "name": "kbhit",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 334898,
+      "names": [
+        "getche"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 334898,
+          "name": "getche",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 334898,
+          "name": "getche",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335644,
+      "names": [
+        "movedata"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335644,
+          "name": "movedata",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335644,
+          "name": "movedata",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335674,
+      "names": [
+        "inp",
+        "inpw"
+      ],
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "address": 335674,
+          "name": "inp",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335674,
+          "name": "inpw",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335674,
+          "name": "inp",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335674,
+          "name": "inpw",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335688,
+      "names": [
+        "strchr"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335688,
+          "name": "strchr",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 335688,
+          "name": "strchr",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335688,
+          "name": "strchr",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 335688,
+          "name": "strchr",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335730,
+      "names": [
+        "strnicmp"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335730,
+          "name": "strnicmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 335730,
+          "name": "strnicmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335730,
+          "name": "strnicmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 335730,
+          "name": "strnicmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335818,
+      "names": [
+        "strupr"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335818,
+          "name": "strupr",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335818,
+          "name": "strupr",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335848,
+      "names": [
+        "memcpy"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335848,
+          "name": "memcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 335848,
+          "name": "memcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335848,
+          "name": "memcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 335848,
+          "name": "memcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335892,
+      "names": [
+        "isalpha"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335892,
+          "name": "isalpha",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335892,
+          "name": "isalpha",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335897,
+      "names": [
+        "isupper"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335897,
+          "name": "isupper",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335897,
+          "name": "isupper",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335902,
+      "names": [
+        "islower"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335902,
+          "name": "islower",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335902,
+          "name": "islower",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335907,
+      "names": [
+        "isdigit"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335907,
+          "name": "isdigit",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335907,
+          "name": "isdigit",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335912,
+      "names": [
+        "isxdigit"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335912,
+          "name": "isxdigit",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335912,
+          "name": "isxdigit",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335917,
+      "names": [
+        "isspace"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335917,
+          "name": "isspace",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335917,
+          "name": "isspace",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335922,
+      "names": [
+        "ispunct"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335922,
+          "name": "ispunct",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335922,
+          "name": "ispunct",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335927,
+      "names": [
+        "isalnum"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335927,
+          "name": "isalnum",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335927,
+          "name": "isalnum",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335932,
+      "names": [
+        "isprint"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335932,
+          "name": "isprint",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335932,
+          "name": "isprint",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335937,
+      "names": [
+        "isgraph"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335937,
+          "name": "isgraph",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335937,
+          "name": "isgraph",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335958,
+      "names": [
+        "labs"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335958,
+          "name": "labs",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335958,
+          "name": "labs",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335980,
+      "names": [
+        "srand"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335980,
+          "name": "srand",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 335980,
+          "name": "srand",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 335998,
+      "names": [
+        "rand"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 335998,
+          "name": "rand",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 335998,
+          "name": "rand",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 336038,
+      "names": [
+        "setjmp"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336038,
+          "name": "setjmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336038,
+          "name": "setjmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336038,
+          "name": "setjmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336038,
+          "name": "setjmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 336073,
+      "names": [
+        "longjmp"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336073,
+          "name": "longjmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336073,
+          "name": "longjmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336073,
+          "name": "longjmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336073,
+          "name": "longjmp",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 336112,
+      "names": [
+        "dos_allocmem"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336112,
+          "name": "dos_allocmem",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336112,
+          "name": "dos_allocmem",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336136,
+      "names": [
+        "bios_keybrd"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336136,
+          "name": "bios_keybrd",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336136,
+          "name": "bios_keybrd",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336136,
+          "name": "bios_keybrd",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336136,
+          "name": "bios_keybrd",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336172,
+      "names": [
+        "dos_close"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336172,
+          "name": "dos_close",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336172,
+          "name": "dos_close",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336186,
+      "names": [
+        "dos_creatnew"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336186,
+          "name": "dos_creatnew",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336186,
+          "name": "dos_creatnew",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336186,
+          "name": "dos_creatnew",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336186,
+          "name": "dos_creatnew",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 336193,
+      "names": [
+        "dos_creat"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336193,
+          "name": "dos_creat",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336193,
+          "name": "dos_creat",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 336228,
+      "names": [
+        "dos_open"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336228,
+          "name": "dos_open",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336228,
+          "name": "dos_open",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336252,
+      "names": [
+        "dos_read"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336252,
+          "name": "dos_read",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336252,
+          "name": "dos_read",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336252,
+          "name": "dos_read",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336252,
+          "name": "dos_read",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336252,
+          "name": "dos_read",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336252,
+          "name": "dos_read",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 336259,
+      "names": [
+        "dos_write"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336259,
+          "name": "dos_write",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336259,
+          "name": "dos_write",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336259,
+          "name": "dos_write",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336259,
+          "name": "dos_write",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 336300,
+      "names": [
+        "aFldiv"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336300,
+          "name": "aFldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336300,
+          "name": "aFldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336300,
+          "name": "aFldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336300,
+          "name": "aFldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336300,
+          "name": "aFldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336300,
+          "name": "aFldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 336454,
+      "names": [
+        "aFlmul",
+        "aFulmul"
+      ],
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "address": 336454,
+          "name": "aFlmul",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336454,
+          "name": "aFulmul",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336454,
+          "name": "aFlmul",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336454,
+          "name": "aFulmul",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336504,
+      "names": [
+        "aFlshl"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336504,
+          "name": "aFlshl",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336504,
+          "name": "aFlshl",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336516,
+      "names": [
+        "aFlshr"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336516,
+          "name": "aFlshr",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336516,
+          "name": "aFlshr",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336528,
+      "names": [
+        "aFNaldiv",
+        "aFNalrem",
+        "aFNauldiv",
+        "aFNaulrem"
+      ],
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "address": 336528,
+          "name": "aFNaldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336528,
+          "name": "aFNalrem",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336528,
+          "name": "aFNauldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336528,
+          "name": "aFNaulrem",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336528,
+          "name": "aFNaldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336528,
+          "name": "aFNalrem",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336528,
+          "name": "aFNauldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336528,
+          "name": "aFNaulrem",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336560,
+      "names": [
+        "aFNalmul"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336560,
+          "name": "aFNalmul",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336560,
+          "name": "aFNalmul",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336652,
+      "names": [
+        "aFuldiv"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336652,
+          "name": "aFuldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336652,
+          "name": "aFuldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336652,
+          "name": "aFuldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336652,
+          "name": "aFuldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336652,
+          "name": "aFuldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336652,
+          "name": "aFuldiv",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 336748,
+      "names": [
+        "aFulshr"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336748,
+          "name": "aFulshr",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336748,
+          "name": "aFulshr",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336760,
+      "names": [
+        "fstrcpy",
+        "strcpy"
+      ],
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "address": 336760,
+          "name": "fstrcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336760,
+          "name": "fstrcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336760,
+          "name": "strcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336760,
+          "name": "strcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336760,
+          "name": "fstrcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336760,
+          "name": "fstrcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336760,
+          "name": "strcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336760,
+          "name": "strcpy",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336814,
+      "names": [
+        "fstrcat",
+        "strcat"
+      ],
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "address": 336814,
+          "name": "fstrcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336814,
+          "name": "fstrcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336814,
+          "name": "strcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336814,
+          "name": "strcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336814,
+          "name": "fstrcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336814,
+          "name": "fstrcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 336814,
+          "name": "strcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336814,
+          "name": "strcat",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 336884,
+      "names": [
+        "FF_MSGBANNER"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336884,
+          "name": "FF_MSGBANNER",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336884,
+          "name": "FF_MSGBANNER",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 336924,
+      "names": [
+        "nullcheck"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 336924,
+          "name": "nullcheck",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 336924,
+          "name": "nullcheck",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 337058,
+      "names": [
+        "dosret0"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 337058,
+          "name": "dosret0",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 337058,
+          "name": "dosret0",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 337372,
+      "names": [
+        "freebuf"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 337372,
+          "name": "freebuf",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 337372,
+          "name": "freebuf",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 337416,
+      "names": [
+        "getbuf"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 337416,
+          "name": "getbuf",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 337416,
+          "name": "getbuf",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 337716,
+      "names": [
+        "stbuf"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 337716,
+          "name": "stbuf",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 337716,
+          "name": "stbuf",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 337831,
+      "names": [
+        "ftbuf"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 337831,
+          "name": "ftbuf",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 337831,
+          "name": "ftbuf",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 339350,
+      "names": [
+        "getstream"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 339350,
+          "name": "getstream",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 339350,
+          "name": "getstream",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 339402,
+      "names": [
+        "close"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 339402,
+          "name": "close",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 339402,
+          "name": "close",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 339790,
+      "names": [
+        "write"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 339790,
+          "name": "write",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 339790,
+          "name": "write",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 340484,
+      "names": [
+        "cltoasub"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 340484,
+          "name": "cltoasub",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 340484,
+          "name": "cltoasub",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 340484,
+          "name": "cltoasub",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 340484,
+          "name": "cltoasub",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 340496,
+      "names": [
+        "cxtoa"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 340496,
+          "name": "cxtoa",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 340496,
+          "name": "cxtoa",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 340496,
+          "name": "cxtoa",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 340496,
+          "name": "cxtoa",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 340580,
+      "names": [
+        "remove"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 340580,
+          "name": "remove",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 340580,
+          "name": "remove",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 340594,
+      "names": [
+        "aFchkstk",
+        "chkstk"
+      ],
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "address": 340594,
+          "name": "aFchkstk",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 340594,
+          "name": "chkstk",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 340594,
+          "name": "aFchkstk",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 340594,
+          "name": "chkstk",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        }
+      ]
+    },
+    {
+      "address": 341074,
+      "names": [
+        "stackavail"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 341074,
+          "name": "stackavail",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 341074,
+          "name": "stackavail",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 341180,
+      "names": [
+        "searchseg"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 341180,
+          "name": "searchseg",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 341180,
+          "name": "searchseg",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 341180,
+          "name": "searchseg",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": false
+        },
+        {
+          "address": 341180,
+          "name": "searchseg",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 341525,
+      "names": [
+        "findlast"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 341525,
+          "name": "findlast",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 341525,
+          "name": "findlast",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    },
+    {
+      "address": 431919,
+      "names": [
+        "b$Mode2VgaPal"
+      ],
+      "status": "named",
+      "candidates": [
+        {
+          "address": 431919,
+          "name": "b$Mode2VgaPal",
+          "catalog": "/home/xor/vextest/signature_catalogs/global.pat",
+          "source": "/home/xor/vextest/signature_catalogs/global.pat",
+          "compiler": "",
+          "function_start": true
+        },
+        {
+          "address": 431919,
+          "name": "b$Mode2VgaPal",
+          "catalog": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "source": "/home/xor/vextest/signature_catalogs/microsoft_c_compilers.pat",
+          "compiler": "",
+          "function_start": true
+        }
+      ]
+    }
+  ]
+}

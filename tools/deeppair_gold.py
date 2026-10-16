@@ -89,27 +89,28 @@ def load_segends(memmapfile):
 
 
 def rebuild_ranges(rangefile, segends=None):
-    """gold extents: start -> next function start in segment (LINK-map style).
-    Last-in-segment functions cap at the memmap segment end when given."""
-    starts = {}
+    """gold extents: start -> next function start (LINK-map style).
+    Returns {linear_start: (extent_lo, extent_hi, name)} — linear addresses in
+    Ghidra convention (image + 0x10000).  Ranges file lines may carry a
+    trailing name token (ada maps do).  segends caps last-in-seg extents."""
+    starts = []
     for l in open(rangefile):
         p = l.split()
         s, o = p[0].split(':')
-        s, o = int(s, 16), int(o, 16)
+        segbase = int(s, 16) * 16 + int(o, 16)
         first = p[1].split('-')
         st = int(first[0], 16)  # ranges are absolute linear addresses
         en = int(first[1], 16)
-        starts.setdefault(s, []).append((o, st, en))
+        name = p[-1] if not re.match(r'^[0-9a-f]+-[0-9a-f]+$', p[-1]) else None
+        starts.append((st, segbase, en, name, int(s, 16)))
+    starts.sort()
     out = {}
-    for s, es in starts.items():
-        es.sort()
-        segcap = s * 16 + segends[s] + 1 if segends and s in segends else None
-        for i, (o, st, en) in enumerate(es):
-            nxt = es[i + 1][1] if i + 1 < len(es) else st + 0x10000
-            hi = max(en, nxt)
-            if segcap is not None:
-                hi = min(hi, segcap)
-            out[(s, o)] = (st, hi)
+    for i, (st, base, en, name, s) in enumerate(starts):
+        nxt = starts[i + 1][0] if i + 1 < len(starts) else st + 0x10000
+        hi = max(en, nxt)
+        if segends and s in segends:
+            hi = min(hi, s * 16 + segends[s] + 1)
+        out[base] = (st, hi, name)
     return out
 
 
@@ -142,7 +143,6 @@ def main():
 
     img = load_image(gold_exe)
     myimg = load_image(my_exe)
-    gfuncs = load_gold(gmap)
     import os
     segends = (load_segends(os.environ['DEEPPAIR_MEMMAP'])
                if os.environ.get('DEEPPAIR_MEMMAP') else None)
@@ -151,14 +151,12 @@ def main():
 
     print('disassembling gold...', file=sys.stderr)
     gmns = {}
-    for nm, (segpara, off) in gfuncs.items():
-        gpara = segpara + (GHIDRA_BASE >> 4)
-        st, en = grebuilt.get((gpara, off),
-                            (gpara * 16 + off - GHIDRA_BASE,
-                             gpara * 16 + off - GHIDRA_BASE + 0x40))
+    for lin, (st, en, nm) in grebuilt.items():
         mns = []
         disasm(img, GHIDRA_BASE, st, st, min(en, st + 0x10000), mns)
-        gmns[nm] = ('@%04x:%04x' % (segpara, off), mns)
+        disp = nm or 'sub_%05x' % lin
+        addr = lin - GHIDRA_BASE
+        gmns[disp] = ('@%04x:%04x' % (addr >> 4, addr & 0xffff), mns)
     print('gold funcs=%d' % len(gmns), file=sys.stderr)
 
     for name in names:
