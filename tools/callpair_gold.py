@@ -146,6 +146,8 @@ def gold_func_at(gr, tseg_abs, toff):
 
 def main():
     gold_exe, gold_rng, my_exe, my_map, sweep = sys.argv[1:6]
+    extras = [a.split('=', 1)[1] for a in sys.argv[6:] if a.startswith('--extra=')]
+    equal_only = '--equal' in sys.argv[6:]
     gimg = load_image(gold_exe)
     gr = load_ranges(gold_rng)
     mim = load_image(my_exe)
@@ -157,6 +159,13 @@ def main():
         if len(p) >= 3 and p[1] == 'MATCH':
             s, o = p[2].lstrip('@').split(':')
             matches[p[0]] = (int(s, 16) + 0x1000, int(o, 16))
+    nseed = len(matches)
+    for ex in extras:
+        for l in open(ex):
+            p = l.split('\t')
+            if len(p) >= 2 and re.match(r'[0-9a-f]+:[0-9a-f]+$', p[1].strip()):
+                s, o = p[1].strip().split(':')
+                matches.setdefault(p[0], (int(s, 16) + 0x1000, int(o, 16)))
 
     # gold: function start (ghidra seg,off) -> sorted for containment lookup
     gstarts = sorted(gr.keys())
@@ -183,6 +192,8 @@ def main():
         if gkey not in gr:
             continue
         gc = call_targets(gimg, gr[gkey], GHIDRA_BASE)
+        if equal_only and len(mc) != len(gc):
+            continue
         # positional pairing: same call-site index
         for i, (mk, mv) in enumerate(zip(mc, gc)):
             # dev target -> name
@@ -215,10 +226,12 @@ def main():
         tag = '' if len(addrs) == 1 else (' CONFLICT(%s)' %
                                           ','.join('%04x:%04x' % a
                                                    for a in addrs))
-        print('%s\t%04x:%04x\tvia %s%s' % (dn, gkey[0] - 0x1000, gkey[1],
-                                          lst[0][1], tag))
+        print('%s\t%04x:%04x\tvia %s x%d%s' % (dn, gkey[0] - 0x1000, gkey[1],
+                                              lst[0][1], cnt, tag))
         out += 1
-    print('# %d call pairs' % out, file=sys.stderr)
+    print('# %d call pairs from %d+%d seeds' % (out, nseed,
+                                              len(matches) - nseed),
+          file=sys.stderr)
 
 
 if __name__ == '__main__':

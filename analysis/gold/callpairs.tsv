@@ -1,39 +1,43 @@
-F_CosDP	3e5c:0075	via MakeRotationMatrix
-F_SinDP	3e5c:0071	via MakeRotationMatrix
-_ColoSpecSetup	1c92:0008	via _ReadJoy2
-_InitJoy2	1c92:007a	via _ReadJoy2
-_SinB	1e8c:0002	via _Mult3X3
-_TrgMul	3e5c:0002	via _Icos
-__NMSG_TEXT	4140:1040	via __astart
-__aFNaldiv	4140:0c3c	via __filbuf
-__astart	4140:001e	via __dosreturn
-__c_exit	4140:01db	via _fread
-__cinit	4140:0116	via __astart CONFLICT(5140:0116,5140:00f1)
-__cintDIV	4140:001e	via __growseg
-__ctermsub	4140:001e	via __FF_MSGBANNER
-__flsbuf	4140:10f8	via _sprintf
-__fsopen	4140:0358	via _fopen
-__fstrcat	4140:0fae	via __astart
-__getstream	4140:1996	via __fsopen
-__openfile	4140:124c	via __fsopen
-__output	4140:14be	via _fread
-__searchseg	4140:2215	via __NMSG_WRITE CONFLICT(5140:2215,5140:029e)
-__setargv	18d5:053f	via __astart CONFLICT(28d5:053f,5140:0f0c)
-__setenvp	18d5:0540	via __astart
-_close	4140:19ca	via _fclose
-_fflush	4140:13e6	via _fclose
-_flushall	4140:1462	via __filbuf
-_free	4140:206c	via __freebuf
-_fseek	4140:0658	via _int86x
-_inp	4140:0a3e	via __flsbuf
-_itoa	4140:073a	via _fclose
-_lseek	4140:19ea	via _filelength
-_main	18d5:000e	via __astart
-_malloc	4140:2066	via __getbuf
-_sopen	4140:1e96	via __openfile
-_stackavail	4140:2052	via _write
-_strcat	4140:0658	via _fclose
-_strcpy	4140:0698	via _fclose CONFLICT(5140:0698,5140:0836)
-_unlink	4140:1e64	via _fclose
-_vsprintf	4140:08de	via __flsbuf
-_write	4140:1b4e	via _fflush
+F_CosDP	3e5c:0075	via MakeRotationMatrix x3
+F_SinDP	3e5c:0071	via MakeRotationMatrix x3
+_ColoSpecSetup	1c92:0008	via _InitJoy2 x2
+_InitJoy2	1c92:007a	via _ReadJoy2 x1
+_JoyConvert	1c92:0008	via _InitJoy2 x1
+_SinB	1e8c:0002	via _Mult3X3 x3
+_TrgMul	3e5c:0002	via _Icos x2
+_Trigger2	1c92:003c	via _InitJoy2 x1
+__NMSG_TEXT	4140:1040	via __astart x1
+__aFNaldiv	4140:0c3c	via __filbuf x1
+__astart	4140:001e	via __c_exit x11
+__c_exit	4140:01db	via _fread x1
+__cinit	4140:0116	via __astart x4 CONFLICT(5140:0116,5140:00f1)
+__cintDIV	4140:001e	via __growseg x1
+__ctermsub	4140:001e	via __FF_MSGBANNER x2
+__flsbuf	4140:10f8	via _sprintf x1
+__fsopen	4140:0358	via _fopen x1
+__fstrcat	4140:0fae	via __astart x1
+__getstream	4140:1996	via __fsopen x1
+__nullcheck	4140:101c	via __c_exit x1
+__openfile	4140:124c	via __fsopen x1
+__output	4140:14be	via _fread x2
+__searchseg	4140:2215	via __NMSG_WRITE x5 CONFLICT(5140:2215,5140:095e,5140:029e)
+__setargv	18d5:053f	via __astart x1 CONFLICT(28d5:053f,5140:0f0c)
+__setenvp	18d5:0540	via __astart x1
+_close	4140:19ca	via _fclose x1
+_fflush	4140:13e6	via _fclose x1
+_flushall	4140:1462	via __filbuf x1
+_fread	4140:039a	via __output x15 CONFLICT(5140:047e,5140:039a)
+_free	4140:206c	via __freebuf x1
+_fseek	4140:0658	via _int86x x1
+_fwrite	4140:047e	via __output x4
+_inp	4140:0a3e	via __flsbuf x2
+_itoa	4140:073a	via _fclose x1
+_lseek	4140:19ea	via _filelength x3
+_main	18d5:000e	via __astart x1
+_malloc	4140:2066	via __getbuf x2
+_sopen	4140:1e96	via __openfile x1
+_stackavail	4140:2052	via _write x1
+_strcat	4140:0658	via _fclose x1
+_strcpy	4140:0698	via _fclose x1 CONFLICT(5140:0698,5140:0836)
+_unlink	4140:1e64	via _fclose x1
+_vsprintf	4140:08de	via __flsbuf x1
