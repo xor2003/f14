@@ -1,222 +1,222 @@
 gold_seg	gold_off	name	source_module	lcs	mzdiff
 15ce	0022	MakeRotationMatrix	$3DLOADER	1.00	MATCH
 15ce	0008	_MakeRotationMatrix	$3DLOADER	1.00	MATCH
-15ce	015d	_MakeRotationMatrix	$3DLOADER	0.96	MATCH
-15ce	1222	_MakeRotationMatrix	$3DLOADER	0.93	MATCH
-15ce	1208	_MakeRotationMatrix	$3DLOADER	0.85	MATCH
-15ce	0c21	_MakeRotationMatrix	$3DLOADER	0.67	MATCH
-15ce	0e42	_MakeRotationMatrix	$3DLOADER	0.65	MATCH
-1125	009a	_MakeRotationMatrix	$3DLOADER	0.64	MATCH
-50aa	000e	_MakeRotationMatrix	$3DLOADER	0.64	MATCH
-4be9	01cc	_MakeRotationMatrix	$3DLOADER	0.61	MATCH
-28d5	00eb	_MakeRotationMatrix	$3DLOADER	0.61	MATCH
-18de	1b0e	_MakeRotationMatrix	$3DLOADER	0.56	MATCH
-5140	0c7e	_MakeRotationMatrix	$3DLOADER	0.52	MATCH
-1000	00d0	FUN_1021_00c5	?	0.95	-
-4fa0	0220	FUN_1021_00c5	?	0.53	-
-172e	00d1	FUN_1021_00c5	?	0.52	-
-4a9a	04a6	FUN_1021_00c5	?	0.51	-
-172e	016f	FUN_1021_00c5	?	0.49	-
-2528	04c8	FUN_1021_00c5	?	0.48	-
-172e	0515	FUN_1021_00c5	?	0.45	-
-4c08	0a53	FUN_1021_00c5	?	0.45	-
-50b5	0000	FUN_1021_00c5	?	0.43	-
-1125	03fa	FUN_1021_00c5	?	0.43	-
-1342	12c4	FUN_1021_00c5	?	0.43	-
-2f37	07cf	FUN_1021_00c5	?	0.42	-
-4e88	0f4e	FUN_1021_00c5	?	0.42	-
-4fa0	0432	FUN_1021_00c5	?	0.41	-
-3ad2	4274	FUN_1021_00c5	?	0.39	-
-14c7	0311	FUN_1021_00c5	?	0.17	-
-11ac	13ca	FUN_11cb_1220	?	1.00	-
-15ce	1332	FUN_11cb_1220	?	0.21	-
-2e8c	02e8	FUN_2e04_02aa	?	1.00	-
-2e8c	0344	FUN_2e04_02aa	?	0.88	-
-31ce	76b5	FUN_2fbc_784c	?	0.61	-
-31ce	7eac	FUN_2fbc_784c	?	0.58	-
-31ce	548e	FUN_2fbc_784c	?	0.56	-
-3ad2	4322	FUN_2fbc_784c	?	0.52	-
-3ad2	2a11	FUN_2fbc_784c	?	0.48	-
-31ce	5b70	FUN_2fbc_784c	?	0.47	-
-3060	158d	FUN_2fbc_784c	?	0.45	-
-2a48	0878	FUN_2fbc_784c	?	0.43	-
-4fa0	0981	FUN_2fbc_784c	?	0.43	-
-3060	0dbe	FUN_2fbc_784c	?	0.43	-
-48b6	0229	FUN_2fbc_784c	?	0.42	-
-1c38	07bf	FUN_2fbc_784c	?	0.42	-
-3ad2	0a05	FUN_2fbc_784c	?	0.41	-
-31ce	75c7	FUN_2fbc_784c	?	0.41	-
-3060	0b0c	FUN_2fbc_784c	?	0.41	-
-1058	0bf4	FUN_2fbc_784c	?	0.40	-
-3fb2	63b2	FUN_2fbc_784c	?	0.40	-
-3fb2	38b5	FUN_2fbc_784c	?	0.40	-
-3fb2	2e9a	FUN_2fbc_784c	?	0.40	-
-1342	05dc	FUN_2fbc_784c	?	0.40	-
-3fb2	679e	FUN_2fbc_784c	?	0.39	-
-47ba	0067	FUN_2fbc_784c	?	0.39	-
-31ce	68f8	FUN_2fbc_784c	?	0.38	-
-3ad2	22b3	FUN_2fbc_784c	?	0.37	-
-31ce	2926	FUN_2fbc_784c	?	0.37	-
-3fb2	5f44	FUN_2fbc_784c	?	0.36	-
-3fb2	344a	FUN_2fbc_784c	?	0.36	-
-1c38	0a9e	FUN_2fbc_784c	?	0.35	-
-3fb2	28ea	FUN_2fbc_784c	?	0.34	-
-1c38	0004	FUN_2fbc_784c	?	0.34	-
-3ad2	338e	FUN_2fbc_784c	?	0.33	-
-3fb2	3330	FUN_2fbc_784c	?	0.33	-
-31ce	1c90	FUN_2fbc_784c	?	0.33	-
-2604	284f	FUN_2fbc_784c	?	0.33	-
-31ce	4d58	FUN_2fbc_784c	?	0.33	-
-18de	18f8	FUN_2fbc_784c	?	0.32	-
-3fb2	4668	FUN_2fbc_784c	?	0.32	-
-3fb2	22f6	FUN_2fbc_784c	?	0.32	-
-18de	0fb0	FUN_2fbc_784c	?	0.31	-
-1dc3	169d	FUN_2fbc_784c	?	0.31	-
-1dc3	22c1	FUN_2fbc_784c	?	0.30	-
-2929	0e7a	FUN_2fbc_784c	?	0.30	-
-18de	1790	FUN_2fbc_784c	?	0.29	-
-3fb2	6147	FUN_2fbc_784c	?	0.29	-
-47ba	046a	FUN_2fbc_784c	?	0.28	-
-4b61	0296	FUN_2fbc_784c	?	0.28	-
-18de	2e9e	FUN_2fbc_784c	?	0.27	-
-3ad2	49ac	FUN_2fbc_784c	?	0.27	-
-2929	0fb5	FUN_2fbc_784c	?	0.27	-
-18de	252b	FUN_2fbc_784c	?	0.21	-
-4e65	000c	FUN_2fbc_784c	?	0.15	-
-1125	069e	FUN_2fbc_784c	?	0.08	-
-3fb2	51b1	FUN_3d0b_48bc	?	0.88	-
-31ce	4f55	FUN_3d0b_48bc	?	0.35	-
-48b6	0b6e	FUN_3d0b_48bc	?	0.33	-
-3fb2	0fa7	FUN_3d0b_48bc	?	0.30	-
-3fb2	6bb5	FUN_3d0b_48bc	?	0.30	-
-1dc3	08bc	FUN_3d0b_48bc	?	0.29	-
-3ad2	0004	FUN_3d0b_48bc	?	0.29	-
-31ce	1f35	FUN_3d0b_48bc	?	0.28	-
-3fb2	3cd8	FUN_3d0b_48bc	?	0.27	-
-172e	0dd7	FUN_3d0b_48bc	?	0.27	-
-18de	1cff	FUN_3d0b_48bc	?	0.26	-
-31ce	1580	FUN_3d0b_48bc	?	0.26	-
-3ad2	37a6	FUN_3d0b_48bc	?	0.26	-
-4e88	01a7	FUN_3d0b_48bc	?	0.26	-
-31ce	86b4	FUN_3d0b_48bc	?	0.25	-
-3ad2	1236	FUN_3d0b_48bc	?	0.24	-
-1058	008a	FUN_3d0b_48bc	?	0.24	-
-47ba	055f	FUN_3d0b_48bc	?	0.24	-
-48b6	05da	FUN_3d0b_48bc	?	0.24	-
-172e	01ce	FUN_3d0b_48bc	?	0.23	-
-46ad	00a7	FUN_3d0b_48bc	?	0.21	-
-47ba	096f	FUN_3d0b_48bc	?	0.21	-
-2929	0054	FUN_3d0b_48bc	?	0.21	-
-172e	077f	FUN_3d0b_48bc	?	0.21	-
-31ce	3e77	FUN_3d0b_48bc	?	0.20	-
-31ce	6a3c	FUN_3d0b_48bc	?	0.20	-
-31ce	0006	FUN_3d0b_48bc	?	0.20	-
-31ce	3736	FUN_3d0b_48bc	?	0.19	-
-4746	0008	FUN_3d0b_48bc	?	0.19	-
-1d04	01ee	FUN_3d0b_48bc	?	0.19	-
-2604	010e	FUN_3d0b_48bc	?	0.18	-
-1504	0833	FUN_3d0b_48bc	?	0.18	-
-4d7e	0892	FUN_3d0b_48bc	?	0.18	-
-1342	13ae	FUN_3d0b_48bc	?	0.17	-
-3fb2	4e4b	FUN_3d0b_48bc	?	0.14	-
-3fb2	09f2	FUN_3d0b_48bc	?	0.14	-
-31ce	0b7e	FUN_3d0b_48bc	?	0.14	-
-1342	09c6	FUN_3d0b_48bc	?	0.09	-
-4e5c	0079	FUN_4a21_0085	?	1.00	-
-4e5c	007d	FUN_4a21_0089	?	1.00	-
-5140	028b	FUN_4c76_027d	?	1.00	-
-5140	10ca	FUN_4c76_11a2	?	1.00	-
-5140	1462	FUN_4c76_153a	?	1.00	-
-3fb2	3a1a	FUN_4c76_153a	?	0.59	-
-3ad2	4099	FUN_4c76_153a	?	0.51	-
-189f	01b3	FUN_4c76_153a	?	0.44	-
-2604	0bed	FUN_4c76_153a	?	0.44	-
-18de	1117	FUN_4c76_153a	?	0.42	-
-3fb2	3865	FUN_4c76_153a	?	0.39	-
-5140	1c02	FUN_4c76_1cda	?	1.00	-
-5140	1c4c	FUN_4c76_1d24	?	1.00	-
-5140	1c5a	FUN_4c76_1d32	?	1.00	-
+15ce	015d	_MakeRotationMatrix	$3DLOADER	0.96	CAND
+15ce	1222	_MakeRotationMatrix	$3DLOADER	0.93	CAND
+15ce	1208	_MakeRotationMatrix	$3DLOADER	0.85	CAND
+15ce	0c21	_MakeRotationMatrix	$3DLOADER	0.67	CAND
+15ce	0e42	_MakeRotationMatrix	$3DLOADER	0.65	CAND
+1125	009a	_MakeRotationMatrix	$3DLOADER	0.64	CAND
+50aa	000e	_MakeRotationMatrix	$3DLOADER	0.64	CAND
+4be9	01cc	_MakeRotationMatrix	$3DLOADER	0.61	CAND
+28d5	00eb	_MakeRotationMatrix	$3DLOADER	0.61	CAND
+18de	1b0e	_MakeRotationMatrix	$3DLOADER	0.56	CAND
+5140	0c7e	_MakeRotationMatrix	$3DLOADER	0.52	CAND
+1000	00d0	FUN_1021_00c5	?	0.95	
+4fa0	0220	FUN_1021_00c5	?	0.53	
+172e	00d1	FUN_1021_00c5	?	0.52	
+4a9a	04a6	FUN_1021_00c5	?	0.51	
+172e	016f	FUN_1021_00c5	?	0.49	
+2528	04c8	FUN_1021_00c5	?	0.48	
+172e	0515	FUN_1021_00c5	?	0.45	
+4c08	0a53	FUN_1021_00c5	?	0.45	
+50b5	0000	FUN_1021_00c5	?	0.43	
+1125	03fa	FUN_1021_00c5	?	0.43	
+1342	12c4	FUN_1021_00c5	?	0.43	
+2f37	07cf	FUN_1021_00c5	?	0.42	
+4e88	0f4e	FUN_1021_00c5	?	0.42	
+4fa0	0432	FUN_1021_00c5	?	0.41	
+3ad2	4274	FUN_1021_00c5	?	0.39	
+14c7	0311	FUN_1021_00c5	?	0.17	
+11ac	13ca	FUN_11cb_1220	?	1.00	
+15ce	1332	FUN_11cb_1220	?	0.21	
+2e8c	02e8	FUN_2e04_02aa	?	1.00	
+2e8c	0344	FUN_2e04_02aa	?	0.88	
+31ce	76b5	FUN_2fbc_784c	?	0.61	
+31ce	7eac	FUN_2fbc_784c	?	0.58	
+31ce	548e	FUN_2fbc_784c	?	0.56	
+3ad2	4322	FUN_2fbc_784c	?	0.52	
+3ad2	2a11	FUN_2fbc_784c	?	0.48	
+31ce	5b70	FUN_2fbc_784c	?	0.47	
+3060	158d	FUN_2fbc_784c	?	0.45	
+2a48	0878	FUN_2fbc_784c	?	0.43	
+4fa0	0981	FUN_2fbc_784c	?	0.43	
+3060	0dbe	FUN_2fbc_784c	?	0.43	
+48b6	0229	FUN_2fbc_784c	?	0.42	
+1c38	07bf	FUN_2fbc_784c	?	0.42	
+3ad2	0a05	FUN_2fbc_784c	?	0.41	
+31ce	75c7	FUN_2fbc_784c	?	0.41	
+3060	0b0c	FUN_2fbc_784c	?	0.41	
+1058	0bf4	FUN_2fbc_784c	?	0.40	
+3fb2	63b2	FUN_2fbc_784c	?	0.40	
+3fb2	38b5	FUN_2fbc_784c	?	0.40	
+3fb2	2e9a	FUN_2fbc_784c	?	0.40	
+1342	05dc	FUN_2fbc_784c	?	0.40	
+3fb2	679e	FUN_2fbc_784c	?	0.39	
+47ba	0067	FUN_2fbc_784c	?	0.39	
+31ce	68f8	FUN_2fbc_784c	?	0.38	
+3ad2	22b3	FUN_2fbc_784c	?	0.37	
+31ce	2926	FUN_2fbc_784c	?	0.37	
+3fb2	5f44	FUN_2fbc_784c	?	0.36	
+3fb2	344a	FUN_2fbc_784c	?	0.36	
+1c38	0a9e	FUN_2fbc_784c	?	0.35	
+3fb2	28ea	FUN_2fbc_784c	?	0.34	
+1c38	0004	FUN_2fbc_784c	?	0.34	
+3ad2	338e	FUN_2fbc_784c	?	0.33	
+3fb2	3330	FUN_2fbc_784c	?	0.33	
+31ce	1c90	FUN_2fbc_784c	?	0.33	
+2604	284f	FUN_2fbc_784c	?	0.33	
+31ce	4d58	FUN_2fbc_784c	?	0.33	
+18de	18f8	FUN_2fbc_784c	?	0.32	
+3fb2	4668	FUN_2fbc_784c	?	0.32	
+3fb2	22f6	FUN_2fbc_784c	?	0.32	
+18de	0fb0	FUN_2fbc_784c	?	0.31	
+1dc3	169d	FUN_2fbc_784c	?	0.31	
+1dc3	22c1	FUN_2fbc_784c	?	0.30	
+2929	0e7a	FUN_2fbc_784c	?	0.30	
+18de	1790	FUN_2fbc_784c	?	0.29	
+3fb2	6147	FUN_2fbc_784c	?	0.29	
+47ba	046a	FUN_2fbc_784c	?	0.28	
+4b61	0296	FUN_2fbc_784c	?	0.28	
+18de	2e9e	FUN_2fbc_784c	?	0.27	
+3ad2	49ac	FUN_2fbc_784c	?	0.27	
+2929	0fb5	FUN_2fbc_784c	?	0.27	
+18de	252b	FUN_2fbc_784c	?	0.21	
+4e65	000c	FUN_2fbc_784c	?	0.15	
+1125	069e	FUN_2fbc_784c	?	0.08	
+3fb2	51b1	FUN_3d0b_48bc	?	0.88	
+31ce	4f55	FUN_3d0b_48bc	?	0.35	
+48b6	0b6e	FUN_3d0b_48bc	?	0.33	
+3fb2	0fa7	FUN_3d0b_48bc	?	0.30	
+3fb2	6bb5	FUN_3d0b_48bc	?	0.30	
+1dc3	08bc	FUN_3d0b_48bc	?	0.29	
+3ad2	0004	FUN_3d0b_48bc	?	0.29	
+31ce	1f35	FUN_3d0b_48bc	?	0.28	
+3fb2	3cd8	FUN_3d0b_48bc	?	0.27	
+172e	0dd7	FUN_3d0b_48bc	?	0.27	
+18de	1cff	FUN_3d0b_48bc	?	0.26	
+31ce	1580	FUN_3d0b_48bc	?	0.26	
+3ad2	37a6	FUN_3d0b_48bc	?	0.26	
+4e88	01a7	FUN_3d0b_48bc	?	0.26	
+31ce	86b4	FUN_3d0b_48bc	?	0.25	
+3ad2	1236	FUN_3d0b_48bc	?	0.24	
+1058	008a	FUN_3d0b_48bc	?	0.24	
+47ba	055f	FUN_3d0b_48bc	?	0.24	
+48b6	05da	FUN_3d0b_48bc	?	0.24	
+172e	01ce	FUN_3d0b_48bc	?	0.23	
+46ad	00a7	FUN_3d0b_48bc	?	0.21	
+47ba	096f	FUN_3d0b_48bc	?	0.21	
+2929	0054	FUN_3d0b_48bc	?	0.21	
+172e	077f	FUN_3d0b_48bc	?	0.21	
+31ce	3e77	FUN_3d0b_48bc	?	0.20	
+31ce	6a3c	FUN_3d0b_48bc	?	0.20	
+31ce	0006	FUN_3d0b_48bc	?	0.20	
+31ce	3736	FUN_3d0b_48bc	?	0.19	
+4746	0008	FUN_3d0b_48bc	?	0.19	
+1d04	01ee	FUN_3d0b_48bc	?	0.19	
+2604	010e	FUN_3d0b_48bc	?	0.18	
+1504	0833	FUN_3d0b_48bc	?	0.18	
+4d7e	0892	FUN_3d0b_48bc	?	0.18	
+1342	13ae	FUN_3d0b_48bc	?	0.17	
+3fb2	4e4b	FUN_3d0b_48bc	?	0.14	
+3fb2	09f2	FUN_3d0b_48bc	?	0.14	
+31ce	0b7e	FUN_3d0b_48bc	?	0.14	
+1342	09c6	FUN_3d0b_48bc	?	0.09	
+4e5c	0079	FUN_4a21_0085	?	1.00	
+4e5c	007d	FUN_4a21_0089	?	1.00	
+5140	028b	FUN_4c76_027d	?	1.00	
+5140	10ca	FUN_4c76_11a2	?	1.00	
+5140	1462	FUN_4c76_153a	?	1.00	
+3fb2	3a1a	FUN_4c76_153a	?	0.59	
+3ad2	4099	FUN_4c76_153a	?	0.51	
+189f	01b3	FUN_4c76_153a	?	0.44	
+2604	0bed	FUN_4c76_153a	?	0.44	
+18de	1117	FUN_4c76_153a	?	0.42	
+3fb2	3865	FUN_4c76_153a	?	0.39	
+5140	1c02	FUN_4c76_1cda	?	1.00	
+5140	1c4c	FUN_4c76_1d24	?	1.00	
+5140	1c5a	FUN_4c76_1d32	?	1.00	
 5140	0ff4	__FF_MSGBANNER	?	1.00	MATCH
-4be9	01ac	__FF_MSGBANNER	?	0.71	MATCH
-50b5	0692	__FF_MSGBANNER	?	0.69	MATCH
-50b5	02c6	__FF_MSGBANNER	?	0.60	MATCH
-18de	2d43	__FF_MSGBANNER	?	0.59	MATCH
-1125	037b	__FF_MSGBANNER	?	0.59	MATCH
-18de	33d3	__FF_MSGBANNER	?	0.52	MATCH
-3ad2	06ec	__FF_MSGBANNER	?	0.51	MATCH
-1125	006a	__FF_MSGBANNER	?	0.50	MATCH
-2081	1230	__FF_MSGBANNER	?	0.45	MATCH
-206a	0108	__FF_MSGBANNER	?	0.38	MATCH
+4be9	01ac	__FF_MSGBANNER	?	0.71	CAND
+50b5	0692	__FF_MSGBANNER	?	0.69	CAND
+50b5	02c6	__FF_MSGBANNER	?	0.60	CAND
+18de	2d43	__FF_MSGBANNER	?	0.59	CAND
+1125	037b	__FF_MSGBANNER	?	0.59	CAND
+18de	33d3	__FF_MSGBANNER	?	0.52	CAND
+3ad2	06ec	__FF_MSGBANNER	?	0.51	CAND
+1125	006a	__FF_MSGBANNER	?	0.50	CAND
+2081	1230	__FF_MSGBANNER	?	0.45	CAND
+206a	0108	__FF_MSGBANNER	?	0.38	CAND
 5140	1040	__NMSG_TEXT	?	1.00	MATCH
 5140	106b	__NMSG_WRITE	?	1.00	MATCH
 5140	0e90	__aFNaldiv	?	1.00	MATCH
-5140	0eb0	__aFNaldiv	?	1.00	MATCH
-50b5	025e	__aFNaldiv	?	0.79	MATCH
-50b5	0278	__aFNaldiv	?	0.79	MATCH
-50b5	0622	__aFNaldiv	?	0.76	MATCH
-50b5	0244	__aFNaldiv	?	0.76	MATCH
-50b5	0668	__aFNaldiv	?	0.75	MATCH
-2fc6	06f4	__aFNaldiv	?	0.72	MATCH
-18de	00e5	__aFNaldiv	?	0.71	MATCH
-2a48	113b	__aFNaldiv	?	0.71	MATCH
-2cac	05da	__aFNaldiv	?	0.69	MATCH
-14c7	039e	__aFNaldiv	?	0.69	MATCH
-1125	03a4	__aFNaldiv	?	0.67	MATCH
-1125	0683	__aFNaldiv	?	0.67	MATCH
-1342	127b	__aFNaldiv	?	0.67	MATCH
-220f	0750	__aFNaldiv	?	0.67	MATCH
-2604	0db6	__aFNaldiv	?	0.67	MATCH
-31ce	8146	__aFNaldiv	?	0.65	MATCH
-2fc6	06ce	__aFNaldiv	?	0.64	MATCH
-2a48	13a9	__aFNaldiv	?	0.63	MATCH
-170c	0002	__aFNaldiv	?	0.63	MATCH
-50b5	017e	__aFNaldiv	?	0.62	MATCH
-4e88	1153	__aFNaldiv	?	0.61	MATCH
-31ce	77bc	__aFNaldiv	?	0.61	MATCH
-31ce	77e1	__aFNaldiv	?	0.61	MATCH
-4c08	0628	__aFNaldiv	?	0.60	MATCH
-4fa0	036c	__aFNaldiv	?	0.60	MATCH
-2fc6	0720	__aFNaldiv	?	0.59	MATCH
-2fc6	0649	__aFNaldiv	?	0.58	MATCH
-2cac	05fa	__aFNaldiv	?	0.57	MATCH
-2604	0eba	__aFNaldiv	?	0.56	MATCH
-2a48	1330	__aFNaldiv	?	0.56	MATCH
-220f	286b	__aFNaldiv	?	0.56	MATCH
-172e	04c5	__aFNaldiv	?	0.55	MATCH
-2a48	12c1	__aFNaldiv	?	0.53	MATCH
-18de	2cf5	__aFNaldiv	?	0.51	MATCH
-4746	06f4	__aFNaldiv	?	0.51	MATCH
-4e65	01a4	__aFNaldiv	?	0.51	MATCH
-2528	029b	__aFNaldiv	?	0.50	MATCH
-2a48	0f7c	__aFNaldiv	?	0.50	MATCH
-28d5	04f9	__aFNaldiv	?	0.49	MATCH
-2604	0ee8	__aFNaldiv	?	0.47	MATCH
-2a48	01a7	__aFNaldiv	?	0.46	MATCH
-47ba	0002	__aFNaldiv	?	0.39	MATCH
+5140	0eb0	__aFNaldiv	?	1.00	CAND
+50b5	025e	__aFNaldiv	?	0.79	CAND
+50b5	0278	__aFNaldiv	?	0.79	CAND
+50b5	0622	__aFNaldiv	?	0.76	CAND
+50b5	0244	__aFNaldiv	?	0.76	CAND
+50b5	0668	__aFNaldiv	?	0.75	CAND
+2fc6	06f4	__aFNaldiv	?	0.72	CAND
+18de	00e5	__aFNaldiv	?	0.71	CAND
+2a48	113b	__aFNaldiv	?	0.71	CAND
+2cac	05da	__aFNaldiv	?	0.69	CAND
+14c7	039e	__aFNaldiv	?	0.69	CAND
+1125	03a4	__aFNaldiv	?	0.67	CAND
+1125	0683	__aFNaldiv	?	0.67	CAND
+1342	127b	__aFNaldiv	?	0.67	CAND
+220f	0750	__aFNaldiv	?	0.67	CAND
+2604	0db6	__aFNaldiv	?	0.67	CAND
+31ce	8146	__aFNaldiv	?	0.65	CAND
+2fc6	06ce	__aFNaldiv	?	0.64	CAND
+2a48	13a9	__aFNaldiv	?	0.63	CAND
+170c	0002	__aFNaldiv	?	0.63	CAND
+50b5	017e	__aFNaldiv	?	0.62	CAND
+4e88	1153	__aFNaldiv	?	0.61	CAND
+31ce	77bc	__aFNaldiv	?	0.61	CAND
+31ce	77e1	__aFNaldiv	?	0.61	CAND
+4c08	0628	__aFNaldiv	?	0.60	CAND
+4fa0	036c	__aFNaldiv	?	0.60	CAND
+2fc6	0720	__aFNaldiv	?	0.59	CAND
+2fc6	0649	__aFNaldiv	?	0.58	CAND
+2cac	05fa	__aFNaldiv	?	0.57	CAND
+2604	0eba	__aFNaldiv	?	0.56	CAND
+2a48	1330	__aFNaldiv	?	0.56	CAND
+220f	286b	__aFNaldiv	?	0.56	CAND
+172e	04c5	__aFNaldiv	?	0.55	CAND
+2a48	12c1	__aFNaldiv	?	0.53	CAND
+18de	2cf5	__aFNaldiv	?	0.51	CAND
+4746	06f4	__aFNaldiv	?	0.51	CAND
+4e65	01a4	__aFNaldiv	?	0.51	CAND
+2528	029b	__aFNaldiv	?	0.50	CAND
+2a48	0f7c	__aFNaldiv	?	0.50	CAND
+28d5	04f9	__aFNaldiv	?	0.49	CAND
+2604	0ee8	__aFNaldiv	?	0.47	CAND
+2a48	01a7	__aFNaldiv	?	0.46	CAND
+47ba	0002	__aFNaldiv	?	0.39	CAND
 5140	0ed0	__aFNalshl	?	1.00	MATCH
-5140	0eee	__aFNalshl	?	1.00	MATCH
-3fb2	4dac	__aFNalshl	?	0.79	MATCH
-50b5	05c4	__aFNalshl	?	0.71	MATCH
-50b5	06ba	__aFNalshl	?	0.71	MATCH
-2520	004f	__aFNalshl	?	0.69	MATCH
-2b89	0017	__aFNalshl	?	0.67	MATCH
-4e65	0220	__aFNalshl	?	0.64	MATCH
-2b89	0720	__aFNalshl	?	0.61	MATCH
-2f37	0848	__aFNalshl	?	0.61	MATCH
-4b61	0491	__aFNalshl	?	0.59	MATCH
-2604	0d76	__aFNalshl	?	0.59	MATCH
-189f	016a	__aFNalshl	?	0.58	MATCH
-1d04	000e	__aFNalshl	?	0.55	MATCH
-4cb5	02eb	__aFNalshl	?	0.55	MATCH
-18de	1cc1	__aFNalshl	?	0.54	MATCH
-4e88	0f1a	__aFNalshl	?	0.50	MATCH
-1125	0805	__aFNalshl	?	0.41	MATCH
-1125	083e	__aFNalshl	?	0.41	MATCH
+5140	0eee	__aFNalshl	?	1.00	CAND
+3fb2	4dac	__aFNalshl	?	0.79	CAND
+50b5	05c4	__aFNalshl	?	0.71	CAND
+50b5	06ba	__aFNalshl	?	0.71	CAND
+2520	004f	__aFNalshl	?	0.69	CAND
+2b89	0017	__aFNalshl	?	0.67	CAND
+4e65	0220	__aFNalshl	?	0.64	CAND
+2b89	0720	__aFNalshl	?	0.61	CAND
+2f37	0848	__aFNalshl	?	0.61	CAND
+4b61	0491	__aFNalshl	?	0.59	CAND
+2604	0d76	__aFNalshl	?	0.59	CAND
+189f	016a	__aFNalshl	?	0.58	CAND
+1d04	000e	__aFNalshl	?	0.55	CAND
+4cb5	02eb	__aFNalshl	?	0.55	CAND
+18de	1cc1	__aFNalshl	?	0.54	CAND
+4e88	0f1a	__aFNalshl	?	0.50	CAND
+1125	0805	__aFNalshl	?	0.41	CAND
+1125	083e	__aFNalshl	?	0.41	CAND
 5140	0dac	__aFldiv	?	1.00	MATCH
-5140	0f0c	__aFldiv	?	0.77	MATCH
+5140	0f0c	__aFldiv	?	0.77	CAND
 5140	0e78	__aFlshl	?	1.00	MATCH
 5140	0e84	__aFlshr	?	1.00	MATCH
-5140	0f6c	__aFlshr	?	0.83	MATCH
+5140	0f6c	__aFlshr	?	0.83	CAND
 5140	0e46	__aFulmul	?	1.00	MATCH
 5140	00f1	__amsg_exit	?	0.93	DIFF
 2a48	003a	__amsg_exit	?	0.67	DIFF
@@ -225,366 +225,366 @@ gold_seg	gold_off	name	source_module	lcs	mzdiff
 4cb5	0006	__amsg_exit	?	0.47	DIFF
 2f37	08c2	__amsg_exit	?	0.41	DIFF
 5140	001e	__astart	?	1.00	MATCH
-3fb2	3b72	__astart	?	0.35	MATCH
-2528	056b	__astart	?	0.33	MATCH
+3fb2	3b72	__astart	?	0.35	CAND
+2528	056b	__astart	?	0.33	CAND
 5140	2041	__cXENIXtoDOSmode	?	1.00	MATCH
 5140	1e72	__chkstk	?	1.00	MATCH
 5140	0116	__cinit	?	1.00	MATCH
 5140	025e	__ctermsub	?	1.00	MATCH
 5140	0d2c	__dos_close	?	1.00	MATCH
-5140	1e64	__dos_close	?	1.00	MATCH
-5140	0d7c	__dos_close	?	0.80	MATCH
-15ce	0773	__dos_close	?	0.75	MATCH
-5140	0cf0	__dos_close	?	0.71	MATCH
+5140	1e64	__dos_close	?	1.00	CAND
+5140	0d7c	__dos_close	?	0.80	CAND
+15ce	0773	__dos_close	?	0.75	CAND
+5140	0cf0	__dos_close	?	0.71	CAND
 5140	10a2	__dosret0	?	1.00	MATCH
 5140	10b7	__dosretax	?	1.00	MATCH
 5140	10aa	__dosreturn	?	1.00	MATCH
-1dc3	2a62	__dosreturn	?	0.71	MATCH
-18de	33f1	__dosreturn	?	0.67	MATCH
-2fc6	00ef	__dosreturn	?	0.59	MATCH
+1dc3	2a62	__dosreturn	?	0.71	CAND
+18de	33f1	__dosreturn	?	0.67	CAND
+2fc6	00ef	__dosreturn	?	0.59	CAND
 5140	05c2	__filbuf	?	1.00	MATCH
-3ad2	0c3b	__filbuf	?	0.43	MATCH
-4cb5	0031	__filbuf	?	0.42	MATCH
-3ad2	2b31	__filbuf	?	0.39	MATCH
+3ad2	0c3b	__filbuf	?	0.43	CAND
+4cb5	0031	__filbuf	?	0.42	CAND
+3ad2	2b31	__filbuf	?	0.39	CAND
 5140	2215	__findlast	?	1.00	MATCH
 5140	10f8	__flsbuf	?	1.00	MATCH
-4e88	0e34	__flsbuf	?	0.45	MATCH
-3fb2	3a61	__flsbuf	?	0.42	MATCH
-50b5	074a	__flsbuf	?	0.42	MATCH
-3fb2	4a51	__flsbuf	?	0.41	MATCH
-48b6	12fe	__flsbuf	?	0.39	MATCH
-3fb2	0004	__flsbuf	?	0.37	MATCH
-1c38	0650	__flsbuf	?	0.35	MATCH
-46ad	07d6	__flsbuf	?	0.35	MATCH
-3ad2	185b	__flsbuf	?	0.35	MATCH
-15ce	10a8	__flsbuf	?	0.33	MATCH
-48b6	00a7	__flsbuf	?	0.33	MATCH
-3fb2	6a38	__flsbuf	?	0.33	MATCH
-1504	02a3	__flsbuf	?	0.33	MATCH
-50b5	030a	__flsbuf	?	0.32	MATCH
-48b6	0a28	__flsbuf	?	0.32	MATCH
-3ad2	2131	__flsbuf	?	0.31	MATCH
-1125	0579	__flsbuf	?	0.30	MATCH
-18de	0d6d	__flsbuf	?	0.30	MATCH
-31ce	5d73	__flsbuf	?	0.30	MATCH
-3fb2	1c47	__flsbuf	?	0.29	MATCH
-5140	0c2d	__fptrap	?	1.00	-
-5140	0c3c	__fptrap	?	1.00	-
-5140	1016	__fptrap	?	1.00	-
+4e88	0e34	__flsbuf	?	0.45	CAND
+3fb2	3a61	__flsbuf	?	0.42	CAND
+50b5	074a	__flsbuf	?	0.42	CAND
+3fb2	4a51	__flsbuf	?	0.41	CAND
+48b6	12fe	__flsbuf	?	0.39	CAND
+3fb2	0004	__flsbuf	?	0.37	CAND
+1c38	0650	__flsbuf	?	0.35	CAND
+46ad	07d6	__flsbuf	?	0.35	CAND
+3ad2	185b	__flsbuf	?	0.35	CAND
+15ce	10a8	__flsbuf	?	0.33	CAND
+48b6	00a7	__flsbuf	?	0.33	CAND
+3fb2	6a38	__flsbuf	?	0.33	CAND
+1504	02a3	__flsbuf	?	0.33	CAND
+50b5	030a	__flsbuf	?	0.32	CAND
+48b6	0a28	__flsbuf	?	0.32	CAND
+3ad2	2131	__flsbuf	?	0.31	CAND
+1125	0579	__flsbuf	?	0.30	CAND
+18de	0d6d	__flsbuf	?	0.30	CAND
+31ce	5d73	__flsbuf	?	0.30	CAND
+3fb2	1c47	__flsbuf	?	0.29	CAND
+5140	0c2d	__fptrap	?	1.00	
+5140	0c3c	__fptrap	?	1.00	
+5140	1016	__fptrap	?	1.00	
 5140	11dc	__freebuf	?	1.00	MATCH
 5140	0358	__fsopen	?	1.00	MATCH
-50aa	0023	__fsopen	?	0.74	MATCH
-3fb2	4d73	__fsopen	?	0.68	MATCH
-50b5	00a2	__fsopen	?	0.67	MATCH
-50b5	0290	__fsopen	?	0.65	MATCH
-4fa0	1007	__fsopen	?	0.58	MATCH
-50b5	0074	__fsopen	?	0.56	MATCH
-1d04	0b91	__fsopen	?	0.56	MATCH
-28d5	035e	__fsopen	?	0.54	MATCH
-1dc3	2a2e	__fsopen	?	0.52	MATCH
-47ba	01ea	__fsopen	?	0.49	MATCH
-3fb2	04c8	__fsopen	?	0.48	MATCH
-18de	0e0d	__fsopen	?	0.48	MATCH
-2081	1838	__fsopen	?	0.45	MATCH
-4fa0	0543	__fsopen	?	0.43	MATCH
-2a48	121e	__fsopen	?	0.43	MATCH
-2a48	025f	__fsopen	?	0.41	MATCH
-1017	03d7	__fsopen	?	0.40	MATCH
-18c9	0116	__fsopen	?	0.38	MATCH
+50aa	0023	__fsopen	?	0.74	CAND
+3fb2	4d73	__fsopen	?	0.68	CAND
+50b5	00a2	__fsopen	?	0.67	CAND
+50b5	0290	__fsopen	?	0.65	CAND
+4fa0	1007	__fsopen	?	0.58	CAND
+50b5	0074	__fsopen	?	0.56	CAND
+1d04	0b91	__fsopen	?	0.56	CAND
+28d5	035e	__fsopen	?	0.54	CAND
+1dc3	2a2e	__fsopen	?	0.52	CAND
+47ba	01ea	__fsopen	?	0.49	CAND
+3fb2	04c8	__fsopen	?	0.48	CAND
+18de	0e0d	__fsopen	?	0.48	CAND
+2081	1838	__fsopen	?	0.45	CAND
+4fa0	0543	__fsopen	?	0.43	CAND
+2a48	121e	__fsopen	?	0.43	CAND
+2a48	025f	__fsopen	?	0.41	CAND
+1017	03d7	__fsopen	?	0.40	CAND
+18c9	0116	__fsopen	?	0.38	CAND
 5140	0fae	__fstrcat	?	1.00	MATCH
 5140	0f78	__fstrcpy	?	1.00	MATCH
 5140	13a7	__ftbuf	?	1.00	MATCH
-189f	021b	__ftbuf	?	0.54	MATCH
-3fb2	68f1	__ftbuf	?	0.52	MATCH
-4d7e	0309	__ftbuf	?	0.51	MATCH
-31ce	8ee2	__ftbuf	?	0.40	MATCH
-4b61	00bd	__ftbuf	?	0.30	MATCH
+189f	021b	__ftbuf	?	0.54	CAND
+3fb2	68f1	__ftbuf	?	0.52	CAND
+4d7e	0309	__ftbuf	?	0.51	CAND
+31ce	8ee2	__ftbuf	?	0.40	CAND
+4b61	00bd	__ftbuf	?	0.30	CAND
 5140	1208	__getbuf	?	1.00	MATCH
-50b5	06ec	__getbuf	?	0.58	MATCH
-3ad2	4dc7	__getbuf	?	0.57	MATCH
-1058	0008	__getbuf	?	0.51	MATCH
-1058	004b	__getbuf	?	0.49	MATCH
-15ce	1241	__getbuf	?	0.35	MATCH
+50b5	06ec	__getbuf	?	0.58	CAND
+3ad2	4dc7	__getbuf	?	0.57	CAND
+1058	0008	__getbuf	?	0.51	CAND
+1058	004b	__getbuf	?	0.49	CAND
+15ce	1241	__getbuf	?	0.35	CAND
 5140	1996	__getstream	?	1.00	MATCH
-1dc3	2724	__getstream	?	0.65	MATCH
-4cb5	02a2	__getstream	?	0.57	MATCH
-4b61	0790	__getstream	?	0.54	MATCH
-172e	06a4	__getstream	?	0.46	MATCH
-1c38	01eb	__getstream	?	0.44	MATCH
-4be9	0132	__getstream	?	0.40	MATCH
+1dc3	2724	__getstream	?	0.65	CAND
+4cb5	02a2	__getstream	?	0.57	CAND
+4b61	0790	__getstream	?	0.54	CAND
+172e	06a4	__getstream	?	0.46	CAND
+1c38	01eb	__getstream	?	0.44	CAND
+4be9	0132	__getstream	?	0.40	CAND
 5140	2138	__growseg	?	1.00	MATCH
 5140	21c4	__incseg	?	1.00	MATCH
-5140	10c4	__maperror	?	1.00	-
-15ce	0d7a	__maperror	?	0.67	-
+5140	10c4	__maperror	?	1.00	MATCH
+15ce	0d7a	__maperror	?	0.67	CAND
 5140	2072	__nfree	?	1.00	MATCH
 5140	2093	__nmalloc	?	1.00	MATCH
 5140	101c	__nullcheck	?	1.00	MATCH
 5140	124c	__openfile	?	1.00	MATCH
-18de	2ad4	__openfile	?	0.41	MATCH
-5140	1c8e	__openfile	?	0.39	MATCH
-3ad2	0728	__openfile	?	0.35	MATCH
-18de	0cba	__openfile	?	0.34	MATCH
-206a	0000	__openfile	?	0.33	MATCH
-2a48	1014	__openfile	?	0.32	MATCH
-2081	008c	__openfile	?	0.24	MATCH
-3fb2	02d5	__openfile	?	0.22	MATCH
-5140	0756	__output	?	0.55	-
+18de	2ad4	__openfile	?	0.41	CAND
+5140	1c8e	__openfile	?	0.39	CAND
+3ad2	0728	__openfile	?	0.35	CAND
+18de	0cba	__openfile	?	0.34	CAND
+206a	0000	__openfile	?	0.33	CAND
+2a48	1014	__openfile	?	0.32	CAND
+2081	008c	__openfile	?	0.24	CAND
+3fb2	02d5	__openfile	?	0.22	CAND
+5140	0756	__output	?	0.55	
 5140	20bc	__searchseg	?	1.00	MATCH
 5140	1334	__stbuf	?	1.00	MATCH
-4cb5	00f2	__stbuf	?	0.43	MATCH
-4cb5	018b	__stbuf	?	0.42	MATCH
-1dc3	222d	__stbuf	?	0.37	MATCH
-18de	0b63	__stbuf	?	0.24	MATCH
+4cb5	00f2	__stbuf	?	0.43	CAND
+4cb5	018b	__stbuf	?	0.42	CAND
+1dc3	222d	__stbuf	?	0.37	CAND
+18de	0b63	__stbuf	?	0.24	CAND
 5140	19ca	_close	?	1.00	MATCH
-5140	0d64	_close	?	0.78	MATCH
-5140	0d41	_close	?	0.55	MATCH
+5140	0d64	_close	?	0.78	CAND
+5140	0d41	_close	?	0.55	CAND
 5140	01db	_exit	?	1.00	MATCH
-47ba	040f	_exit	?	0.48	MATCH
-1504	07b1	_exit	?	0.46	MATCH
+47ba	040f	_exit	?	0.48	CAND
+1504	07b1	_exit	?	0.46	CAND
 5140	029e	_fclose	?	1.00	MATCH
-5140	0782	_fclose	?	0.56	MATCH
-3ad2	1ca3	_fclose	?	0.48	MATCH
-4a6f	00e5	_fclose	?	0.47	MATCH
-1125	049a	_fclose	?	0.45	MATCH
-3ad2	2c29	_fclose	?	0.44	MATCH
-2a48	0e87	_fclose	?	0.44	MATCH
-31ce	0a13	_fclose	?	0.44	MATCH
-18de	1694	_fclose	?	0.43	MATCH
-31ce	6843	_fclose	?	0.43	MATCH
-28d5	02e0	_fclose	?	0.42	MATCH
-3ad2	2e14	_fclose	?	0.42	MATCH
-2a48	0308	_fclose	?	0.41	MATCH
-18de	2bc9	_fclose	?	0.40	MATCH
-14c7	0205	_fclose	?	0.40	MATCH
-3fb2	1a23	_fclose	?	0.40	MATCH
-1125	00b2	_fclose	?	0.40	MATCH
-3fb2	1b14	_fclose	?	0.40	MATCH
-18de	1b85	_fclose	?	0.39	MATCH
-172e	0008	_fclose	?	0.39	MATCH
-31ce	55a8	_fclose	?	0.38	MATCH
-4746	058f	_fclose	?	0.38	MATCH
-50b5	01c6	_fclose	?	0.36	MATCH
-18de	30d8	_fclose	?	0.35	MATCH
-2fc6	04a8	_fclose	?	0.33	MATCH
-2b89	01c9	_fclose	?	0.31	MATCH
-4cb5	06d9	_fclose	?	0.30	MATCH
-3ad2	2884	_fclose	?	0.29	MATCH
-3ad2	4bb5	_fclose	?	0.26	MATCH
-3ad2	4184	_fclose	?	0.25	MATCH
-220f	1069	_fclose	?	0.25	MATCH
+5140	0782	_fclose	?	0.56	CAND
+3ad2	1ca3	_fclose	?	0.48	CAND
+4a6f	00e5	_fclose	?	0.47	CAND
+1125	049a	_fclose	?	0.45	CAND
+3ad2	2c29	_fclose	?	0.44	CAND
+2a48	0e87	_fclose	?	0.44	CAND
+31ce	0a13	_fclose	?	0.44	CAND
+18de	1694	_fclose	?	0.43	CAND
+31ce	6843	_fclose	?	0.43	CAND
+28d5	02e0	_fclose	?	0.42	CAND
+3ad2	2e14	_fclose	?	0.42	CAND
+2a48	0308	_fclose	?	0.41	CAND
+18de	2bc9	_fclose	?	0.40	CAND
+14c7	0205	_fclose	?	0.40	CAND
+3fb2	1a23	_fclose	?	0.40	CAND
+1125	00b2	_fclose	?	0.40	CAND
+3fb2	1b14	_fclose	?	0.40	CAND
+18de	1b85	_fclose	?	0.39	CAND
+172e	0008	_fclose	?	0.39	CAND
+31ce	55a8	_fclose	?	0.38	CAND
+4746	058f	_fclose	?	0.38	CAND
+50b5	01c6	_fclose	?	0.36	CAND
+18de	30d8	_fclose	?	0.35	CAND
+2fc6	04a8	_fclose	?	0.33	CAND
+2b89	01c9	_fclose	?	0.31	CAND
+4cb5	06d9	_fclose	?	0.30	CAND
+3ad2	2884	_fclose	?	0.29	CAND
+3ad2	4bb5	_fclose	?	0.26	CAND
+3ad2	4184	_fclose	?	0.25	CAND
+220f	1069	_fclose	?	0.25	CAND
 5140	13e6	_fflush	?	1.00	MATCH
-3ad2	4104	_fflush	?	0.53	MATCH
-5140	08de	_fflush	?	0.51	MATCH
-3fb2	024c	_fflush	?	0.44	MATCH
-1c38	0c44	_fflush	?	0.44	MATCH
-28a7	0218	_fflush	?	0.42	MATCH
-3fb2	3252	_fflush	?	0.41	MATCH
-46ad	0006	_fflush	?	0.39	MATCH
-4a61	00e8	_fflush	?	0.37	MATCH
-18de	06f0	_fflush	?	0.37	MATCH
-2081	000c	_fflush	?	0.37	MATCH
-18de	31b2	_fflush	?	0.34	MATCH
-18de	27ab	_fflush	?	0.33	MATCH
+3ad2	4104	_fflush	?	0.53	CAND
+5140	08de	_fflush	?	0.51	CAND
+3fb2	024c	_fflush	?	0.44	CAND
+1c38	0c44	_fflush	?	0.44	CAND
+28a7	0218	_fflush	?	0.42	CAND
+3fb2	3252	_fflush	?	0.41	CAND
+46ad	0006	_fflush	?	0.39	CAND
+4a61	00e8	_fflush	?	0.37	CAND
+18de	06f0	_fflush	?	0.37	CAND
+2081	000c	_fflush	?	0.37	CAND
+18de	31b2	_fflush	?	0.34	CAND
+18de	27ab	_fflush	?	0.33	CAND
 5140	09b8	_filelength	?	1.00	MATCH
-50b5	00c8	_filelength	?	0.55	MATCH
-50b5	0122	_filelength	?	0.55	MATCH
-2528	0148	_filelength	?	0.53	MATCH
-4fa0	0e0b	_filelength	?	0.53	MATCH
-50b5	0470	_filelength	?	0.52	MATCH
-3fb2	2ad1	_filelength	?	0.52	MATCH
-2604	0f3d	_filelength	?	0.52	MATCH
-50b5	04f6	_filelength	?	0.51	MATCH
-3fb2	2df2	_filelength	?	0.48	MATCH
-172e	05d3	_filelength	?	0.48	MATCH
-3fb2	0e52	_filelength	?	0.48	MATCH
-3ad2	2fb4	_filelength	?	0.48	MATCH
-2b89	009e	_filelength	?	0.47	MATCH
-4a6f	0238	_filelength	?	0.47	MATCH
-18de	2829	_filelength	?	0.47	MATCH
-1125	02e1	_filelength	?	0.45	MATCH
-18de	2d58	_filelength	?	0.44	MATCH
-2b89	0047	_filelength	?	0.43	MATCH
-4e88	0d81	_filelength	?	0.43	MATCH
-18c9	0000	_filelength	?	0.42	MATCH
-1d04	0044	_filelength	?	0.40	MATCH
-48b6	031f	_filelength	?	0.39	MATCH
-31ce	7ff4	_filelength	?	0.38	MATCH
-3ad2	326a	_filelength	?	0.38	MATCH
-3ad2	34cc	_filelength	?	0.38	MATCH
-3ad2	4cb3	_filelength	?	0.38	MATCH
-3ad2	4d3d	_filelength	?	0.38	MATCH
-1504	06a1	_filelength	?	0.36	MATCH
-1504	0720	_filelength	?	0.36	MATCH
-4fa0	0587	_filelength	?	0.35	MATCH
-3fb2	6323	_filelength	?	0.35	MATCH
-1d04	015e	_filelength	?	0.33	MATCH
-18de	2a18	_filelength	?	0.33	MATCH
-18de	2384	_filelength	?	0.30	MATCH
-3ad2	3184	_filelength	?	0.28	MATCH
-220f	100b	_filelength	?	0.26	MATCH
-4cb5	0448	_filelength	?	0.25	MATCH
-172e	0572	_filelength	?	0.22	MATCH
+50b5	00c8	_filelength	?	0.55	CAND
+50b5	0122	_filelength	?	0.55	CAND
+2528	0148	_filelength	?	0.53	CAND
+4fa0	0e0b	_filelength	?	0.53	CAND
+50b5	0470	_filelength	?	0.52	CAND
+3fb2	2ad1	_filelength	?	0.52	CAND
+2604	0f3d	_filelength	?	0.52	CAND
+50b5	04f6	_filelength	?	0.51	CAND
+3fb2	2df2	_filelength	?	0.48	CAND
+172e	05d3	_filelength	?	0.48	CAND
+3fb2	0e52	_filelength	?	0.48	CAND
+3ad2	2fb4	_filelength	?	0.48	CAND
+2b89	009e	_filelength	?	0.47	CAND
+4a6f	0238	_filelength	?	0.47	CAND
+18de	2829	_filelength	?	0.47	CAND
+1125	02e1	_filelength	?	0.45	CAND
+18de	2d58	_filelength	?	0.44	CAND
+2b89	0047	_filelength	?	0.43	CAND
+4e88	0d81	_filelength	?	0.43	CAND
+18c9	0000	_filelength	?	0.42	CAND
+1d04	0044	_filelength	?	0.40	CAND
+48b6	031f	_filelength	?	0.39	CAND
+31ce	7ff4	_filelength	?	0.38	CAND
+3ad2	326a	_filelength	?	0.38	CAND
+3ad2	34cc	_filelength	?	0.38	CAND
+3ad2	4cb3	_filelength	?	0.38	CAND
+3ad2	4d3d	_filelength	?	0.38	CAND
+1504	06a1	_filelength	?	0.36	CAND
+1504	0720	_filelength	?	0.36	CAND
+4fa0	0587	_filelength	?	0.35	CAND
+3fb2	6323	_filelength	?	0.35	CAND
+1d04	015e	_filelength	?	0.33	CAND
+18de	2a18	_filelength	?	0.33	CAND
+18de	2384	_filelength	?	0.30	CAND
+3ad2	3184	_filelength	?	0.28	CAND
+220f	100b	_filelength	?	0.26	CAND
+4cb5	0448	_filelength	?	0.25	CAND
+172e	0572	_filelength	?	0.22	CAND
 5140	0384	_fopen	?	1.00	MATCH
-50b5	04e4	_fopen	?	0.84	MATCH
-14c7	00ed	_fopen	?	0.80	MATCH
-3ad2	0718	_fopen	?	0.80	MATCH
-18de	0161	_fopen	?	0.78	MATCH
-4a6f	00a2	_fopen	?	0.78	MATCH
-50b5	02ac	_fopen	?	0.75	MATCH
-4be9	011d	_fopen	?	0.73	MATCH
-3ad2	1836	_fopen	?	0.71	MATCH
-3ad2	1843	_fopen	?	0.71	MATCH
-4b61	00ab	_fopen	?	0.71	MATCH
-28a7	029c	_fopen	?	0.70	MATCH
-4e65	01f2	_fopen	?	0.70	MATCH
-4e65	0209	_fopen	?	0.70	MATCH
-4e88	0d6e	_fopen	?	0.70	MATCH
-4fa0	03f5	_fopen	?	0.67	MATCH
-15ce	0d81	_fopen	?	0.64	MATCH
-31ce	73f8	_fopen	?	0.58	MATCH
-3fb2	35fb	_fopen	?	0.58	MATCH
-189f	019b	_fopen	?	0.52	MATCH
-2a48	0b44	_fopen	?	0.52	MATCH
-4a6f	00b5	_fopen	?	0.52	MATCH
-2a48	00e6	_fopen	?	0.50	MATCH
-2a48	004b	_fopen	?	0.48	MATCH
+50b5	04e4	_fopen	?	0.84	CAND
+14c7	00ed	_fopen	?	0.80	CAND
+3ad2	0718	_fopen	?	0.80	CAND
+18de	0161	_fopen	?	0.78	CAND
+4a6f	00a2	_fopen	?	0.78	CAND
+50b5	02ac	_fopen	?	0.75	CAND
+4be9	011d	_fopen	?	0.73	CAND
+3ad2	1836	_fopen	?	0.71	CAND
+3ad2	1843	_fopen	?	0.71	CAND
+4b61	00ab	_fopen	?	0.71	CAND
+28a7	029c	_fopen	?	0.70	CAND
+4e65	01f2	_fopen	?	0.70	CAND
+4e65	0209	_fopen	?	0.70	CAND
+4e88	0d6e	_fopen	?	0.70	CAND
+4fa0	03f5	_fopen	?	0.67	CAND
+15ce	0d81	_fopen	?	0.64	CAND
+31ce	73f8	_fopen	?	0.58	CAND
+3fb2	35fb	_fopen	?	0.58	CAND
+189f	019b	_fopen	?	0.52	CAND
+2a48	0b44	_fopen	?	0.52	CAND
+4a6f	00b5	_fopen	?	0.52	CAND
+2a48	00e6	_fopen	?	0.50	CAND
+2a48	004b	_fopen	?	0.48	CAND
 5140	039a	_fread	?	1.00	MATCH
-5140	047e	_fread	?	0.86	MATCH
-3ad2	2eab	_fread	?	0.43	MATCH
-3ad2	3075	_fread	?	0.43	MATCH
-31ce	56bc	_fread	?	0.35	MATCH
-3fb2	5ae7	_fread	?	0.33	MATCH
-2cac	0459	_fread	?	0.33	MATCH
-48b6	1121	_fread	?	0.28	MATCH
-18de	01fc	_fread	?	0.25	MATCH
-2a48	0473	_fread	?	0.20	MATCH
+5140	047e	_fread	?	0.86	CAND
+3ad2	2eab	_fread	?	0.43	CAND
+3ad2	3075	_fread	?	0.43	CAND
+31ce	56bc	_fread	?	0.35	CAND
+3fb2	5ae7	_fread	?	0.33	CAND
+2cac	0459	_fread	?	0.33	CAND
+48b6	1121	_fread	?	0.28	CAND
+18de	01fc	_fread	?	0.25	CAND
+2a48	0473	_fread	?	0.20	CAND
 5140	0b3a	_inp	?	1.00	MATCH
-2520	0070	_inp	?	0.80	MATCH
-5140	0a3e	_int86x	?	1.00	DIFF
-5140	085e	_int86x	?	0.90	DIFF
-1c38	05aa	_int86x	?	0.55	DIFF
-3fb2	2627	_int86x	?	0.54	DIFF
-15ce	0c60	_int86x	?	0.53	DIFF
-46ad	071c	_int86x	?	0.53	DIFF
-4e88	1066	_int86x	?	0.46	DIFF
-1d04	00d2	_int86x	?	0.45	DIFF
-31ce	741c	_int86x	?	0.45	DIFF
-3060	164e	_int86x	?	0.42	DIFF
-1058	0aac	_int86x	?	0.38	DIFF
-31ce	74d6	_int86x	?	0.37	DIFF
-3fb2	2fa9	_int86x	?	0.36	DIFF
-3fb2	241b	_int86x	?	0.36	DIFF
-3fb2	2521	_int86x	?	0.36	DIFF
-1dc3	2107	_int86x	?	0.33	DIFF
+2520	0070	_inp	?	0.80	CAND
+5140	0a3e	_int86x	?	1.00	MATCH
+5140	085e	_int86x	?	0.90	CAND
+1c38	05aa	_int86x	?	0.55	CAND
+3fb2	2627	_int86x	?	0.54	CAND
+15ce	0c60	_int86x	?	0.53	CAND
+46ad	071c	_int86x	?	0.53	CAND
+4e88	1066	_int86x	?	0.46	CAND
+1d04	00d2	_int86x	?	0.45	CAND
+31ce	741c	_int86x	?	0.45	CAND
+3060	164e	_int86x	?	0.42	CAND
+1058	0aac	_int86x	?	0.38	CAND
+31ce	74d6	_int86x	?	0.37	CAND
+3fb2	2fa9	_int86x	?	0.36	CAND
+3fb2	241b	_int86x	?	0.36	CAND
+3fb2	2521	_int86x	?	0.36	CAND
+1dc3	2107	_int86x	?	0.33	CAND
 5140	073a	_itoa	?	1.00	MATCH
-5140	0c56	_labs	?	1.00	DIFF
-3ad2	4c9d	_labs	?	0.91	DIFF
+5140	0c56	_labs	?	1.00	MATCH
+3ad2	4c9d	_labs	?	0.91	CAND
 5140	19ea	_lseek	?	1.00	MATCH
-1058	056d	_lseek	?	0.44	MATCH
-15ce	0341	_malloc	?	1.00	-
-15ce	0348	_malloc	?	1.00	-
-15ce	034f	_malloc	?	1.00	-
-15ce	0356	_malloc	?	1.00	-
-15ce	035d	_malloc	?	1.00	-
-15ce	0364	_malloc	?	1.00	-
-15ce	0372	_malloc	?	1.00	-
-15ce	038e	_malloc	?	1.00	-
-15ce	0395	_malloc	?	1.00	-
-15ce	03b8	_malloc	?	1.00	-
-15ce	03bf	_malloc	?	1.00	-
-15ce	03c6	_malloc	?	1.00	-
-15ce	03cd	_malloc	?	1.00	-
-15ce	03d4	_malloc	?	1.00	-
-15ce	03e2	_malloc	?	1.00	-
-15ce	03e9	_malloc	?	1.00	-
-15ce	03f0	_malloc	?	1.00	-
-15ce	0405	_malloc	?	1.00	-
-15ce	040c	_malloc	?	1.00	-
-15ce	0428	_malloc	?	1.00	-
-15ce	042f	_malloc	?	1.00	-
-15ce	0436	_malloc	?	1.00	-
-15ce	0444	_malloc	?	1.00	-
-15ce	044b	_malloc	?	1.00	-
-15ce	0452	_malloc	?	1.00	-
-15ce	0459	_malloc	?	1.00	-
-15ce	0460	_malloc	?	1.00	-
-15ce	0467	_malloc	?	1.00	-
-15ce	0491	_malloc	?	1.00	-
-15ce	0498	_malloc	?	1.00	-
-15ce	05fd	_malloc	?	1.00	-
-15ce	0604	_malloc	?	1.00	-
-15ce	060b	_malloc	?	1.00	-
-15ce	0620	_malloc	?	1.00	-
-5140	2066	_malloc	?	1.00	-
-5140	206c	_malloc	?	1.00	-
+1058	056d	_lseek	?	0.44	CAND
+15ce	0341	_malloc	?	1.00	
+15ce	0348	_malloc	?	1.00	
+15ce	034f	_malloc	?	1.00	
+15ce	0356	_malloc	?	1.00	
+15ce	035d	_malloc	?	1.00	
+15ce	0364	_malloc	?	1.00	
+15ce	0372	_malloc	?	1.00	
+15ce	038e	_malloc	?	1.00	
+15ce	0395	_malloc	?	1.00	
+15ce	03b8	_malloc	?	1.00	
+15ce	03bf	_malloc	?	1.00	
+15ce	03c6	_malloc	?	1.00	
+15ce	03cd	_malloc	?	1.00	
+15ce	03d4	_malloc	?	1.00	
+15ce	03e2	_malloc	?	1.00	
+15ce	03e9	_malloc	?	1.00	
+15ce	03f0	_malloc	?	1.00	
+15ce	0405	_malloc	?	1.00	
+15ce	040c	_malloc	?	1.00	
+15ce	0428	_malloc	?	1.00	
+15ce	042f	_malloc	?	1.00	
+15ce	0436	_malloc	?	1.00	
+15ce	0444	_malloc	?	1.00	
+15ce	044b	_malloc	?	1.00	
+15ce	0452	_malloc	?	1.00	
+15ce	0459	_malloc	?	1.00	
+15ce	0460	_malloc	?	1.00	
+15ce	0467	_malloc	?	1.00	
+15ce	0491	_malloc	?	1.00	
+15ce	0498	_malloc	?	1.00	
+15ce	05fd	_malloc	?	1.00	
+15ce	0604	_malloc	?	1.00	
+15ce	060b	_malloc	?	1.00	
+15ce	0620	_malloc	?	1.00	
+5140	2066	_malloc	?	1.00	
+5140	206c	_malloc	?	1.00	
 5140	0be8	_memcpy	?	1.00	MATCH
 5140	1a64	_read	?	1.00	MATCH
 5140	1e96	_sopen	?	1.00	MATCH
-31ce	8181	_sopen	?	0.22	MATCH
+31ce	8181	_sopen	?	0.22	CAND
 5140	095e	_sprintf	?	1.00	MATCH
-5140	0584	_sprintf	?	0.80	MATCH
-50b5	055a	_sprintf	?	0.62	MATCH
-4a9a	09d9	_sprintf	?	0.51	MATCH
-18de	24b8	_sprintf	?	0.51	MATCH
-18de	2436	_sprintf	?	0.45	MATCH
-1d04	08c2	_sprintf	?	0.40	MATCH
-2b89	0758	_sprintf	?	0.35	MATCH
+5140	0584	_sprintf	?	0.80	CAND
+50b5	055a	_sprintf	?	0.62	CAND
+4a9a	09d9	_sprintf	?	0.51	CAND
+18de	24b8	_sprintf	?	0.51	CAND
+18de	2436	_sprintf	?	0.45	CAND
+1d04	08c2	_sprintf	?	0.40	CAND
+2b89	0758	_sprintf	?	0.35	CAND
 5140	0c6c	_srand	?	1.00	MATCH
-18de	251a	_srand	?	0.80	MATCH
-206a	00de	_srand	?	0.80	MATCH
-189f	0000	_srand	?	0.75	MATCH
-31ce	8ece	_srand	?	0.75	MATCH
-4be9	016f	_srand	?	0.71	MATCH
-3fb2	1652	_srand	?	0.67	MATCH
-4cb5	0312	_srand	?	0.63	MATCH
-4d41	03ad	_srand	?	0.63	MATCH
+18de	251a	_srand	?	0.80	CAND
+206a	00de	_srand	?	0.80	CAND
+189f	0000	_srand	?	0.75	CAND
+31ce	8ece	_srand	?	0.75	CAND
+4be9	016f	_srand	?	0.71	CAND
+3fb2	1652	_srand	?	0.67	CAND
+4cb5	0312	_srand	?	0.63	CAND
+4d41	03ad	_srand	?	0.63	CAND
 5140	2052	_stackavail	?	1.00	MATCH
 5140	0658	_strcat	?	1.00	MATCH
 5140	06ca	_strcmp	?	1.00	MATCH
-5140	06f6	_strcmp	?	0.72	MATCH
-2d53	0006	_strcmp	?	0.61	MATCH
-5140	0ca6	_strcmp	?	0.51	MATCH
+5140	06f6	_strcmp	?	0.72	CAND
+2d53	0006	_strcmp	?	0.61	CAND
+5140	0ca6	_strcmp	?	0.51	CAND
 5140	0698	_strcpy	?	1.00	MATCH
-4a61	00b6	_strcpy	?	0.58	MATCH
+4a61	00b6	_strcpy	?	0.58	CAND
 5140	076c	_toupper	?	1.00	MATCH
-2081	18cf	_toupper	?	0.63	MATCH
-1dc3	2756	_toupper	?	0.43	MATCH
-5140	0ad4	_vsprintf	?	0.72	-
-4c08	07cb	_vsprintf	?	0.58	-
-4d7e	078e	_vsprintf	?	0.58	-
-4fa0	0b15	_vsprintf	?	0.58	-
-18de	1c72	_vsprintf	?	0.56	-
-2f37	0872	_vsprintf	?	0.52	-
-48b6	1796	_vsprintf	?	0.52	-
-4b61	0004	_vsprintf	?	0.52	-
-3fb2	4853	_vsprintf	?	0.52	-
-3fb2	47fd	_vsprintf	?	0.51	-
-4cb5	057c	_vsprintf	?	0.48	-
-4d7e	0708	_vsprintf	?	0.48	-
-4fa0	0a79	_vsprintf	?	0.46	-
-2604	0b63	_vsprintf	?	0.45	-
-4cb5	05c2	_vsprintf	?	0.45	-
-48b6	1a39	_vsprintf	?	0.45	-
-2fc6	004a	_vsprintf	?	0.44	-
-48b6	000c	_vsprintf	?	0.43	-
-5140	14be	_vsprintf	?	0.41	-
-31ce	2608	_vsprintf	?	0.41	-
-3fb2	0467	_vsprintf	?	0.37	-
+2081	18cf	_toupper	?	0.63	CAND
+1dc3	2756	_toupper	?	0.43	CAND
+5140	0ad4	_vsprintf	?	0.72	
+4c08	07cb	_vsprintf	?	0.58	
+4d7e	078e	_vsprintf	?	0.58	
+4fa0	0b15	_vsprintf	?	0.58	
+18de	1c72	_vsprintf	?	0.56	
+2f37	0872	_vsprintf	?	0.52	
+48b6	1796	_vsprintf	?	0.52	
+4b61	0004	_vsprintf	?	0.52	
+3fb2	4853	_vsprintf	?	0.52	
+3fb2	47fd	_vsprintf	?	0.51	
+4cb5	057c	_vsprintf	?	0.48	
+4d7e	0708	_vsprintf	?	0.48	
+4fa0	0a79	_vsprintf	?	0.46	
+2604	0b63	_vsprintf	?	0.45	
+4cb5	05c2	_vsprintf	?	0.45	
+48b6	1a39	_vsprintf	?	0.45	
+2fc6	004a	_vsprintf	?	0.44	
+48b6	000c	_vsprintf	?	0.43	
+5140	14be	_vsprintf	?	0.41	
+31ce	2608	_vsprintf	?	0.41	
+3fb2	0467	_vsprintf	?	0.37	
 5140	1b4e	_write	?	1.00	MATCH
-2591	0033	_SetWorkPage	DDD	1.00	DIFF
-15ce	0d3d	_SetWorkPage	DDD	0.90	DIFF
-50b5	0604	_SetWorkPage	DDD	0.90	DIFF
-15ce	0d54	_SetWorkPage	DDD	0.86	DIFF
-2d3b	0053	_SetWorkPage	DDD	0.82	DIFF
-170c	0210	_SetWorkPage	DDD	0.80	DIFF
-18de	0be0	_SetWorkPage	DDD	0.78	DIFF
-15ce	013e	_SetWorkPage	DDD	0.67	DIFF
-1c2f	006e	_SetWorkPage	DDD	0.62	DIFF
-3ad2	40e4	_SetWorkPage	DDD	0.48	DIFF
+2591	0033	_SetWorkPage	DDD	1.00	MATCH
+15ce	0d3d	_SetWorkPage	DDD	0.90	CAND
+50b5	0604	_SetWorkPage	DDD	0.90	CAND
+15ce	0d54	_SetWorkPage	DDD	0.86	CAND
+2d3b	0053	_SetWorkPage	DDD	0.82	CAND
+170c	0210	_SetWorkPage	DDD	0.80	CAND
+18de	0be0	_SetWorkPage	DDD	0.78	CAND
+15ce	013e	_SetWorkPage	DDD	0.67	CAND
+1c2f	006e	_SetWorkPage	DDD	0.62	CAND
+3ad2	40e4	_SetWorkPage	DDD	0.48	CAND
 2591	0052	_VGADrawDot	DDD	1.00	MATCH
-18de	308e	_VGADrawDot	DDD	0.55	MATCH
-1dc3	0eee	_VGADrawDot	DDD	0.48	MATCH
-4be9	004d	_VGADrawDot	DDD	0.41	MATCH
+18de	308e	_VGADrawDot	DDD	0.55	CAND
+1dc3	0eee	_VGADrawDot	DDD	0.48	CAND
+4be9	004d	_VGADrawDot	DDD	0.41	CAND
 2591	01f3	_VertFline	DDD	0.97	MATCH
 25e4	00cc	_EMSalloc	EMS	0.97	DIFF
 5140	0d08	_EMSalloc	EMS	0.56	DIFF
@@ -612,11 +612,11 @@ gold_seg	gold_off	name	source_module	lcs	mzdiff
 25e4	009e	_EMSpages	EMS	0.97	DIFF
 4be9	0091	_EMSpages	EMS	0.37	DIFF
 25e4	0004	_EMSprsnt	EMS	1.00	MATCH
-1328	000c	_EMSprsnt	EMS	0.65	MATCH
-5140	0b48	_EMSprsnt	EMS	0.59	MATCH
-25e4	0204	_EMSread	EMS	1.00	-
-2528	0696	_EMSread	EMS	0.89	-
-4b61	04d1	_EMSread	EMS	0.67	-
+1328	000c	_EMSprsnt	EMS	0.65	CAND
+5140	0b48	_EMSprsnt	EMS	0.59	CAND
+25e4	0204	_EMSread	EMS	1.00	
+2528	0696	_EMSread	EMS	0.89	
+4b61	04d1	_EMSread	EMS	0.67	
 25e4	0142	_EMSver	EMS	0.97	DIFF
 48b6	007a	_EMSver	EMS	0.48	DIFF
 5140	0836	_EMSver	EMS	0.48	DIFF
@@ -635,31 +635,31 @@ gold_seg	gold_off	name	source_module	lcs	mzdiff
 1c38	057d	_FillScreen	EMSLOAD	0.56	DIFF
 172e	0154	_FillScreen	EMSLOAD	0.55	DIFF
 11ac	0008	_FlagRotate3D	EMSLOAD	0.95	DIFF
-11ac	0c4d	_LongDiv	EMSLOAD	0.80	-
+11ac	0c4d	_LongDiv	EMSLOAD	0.80	
 11ac	1444	_MakeBspDrawList	EMSLOAD	1.00	MATCH
-4be9	0104	_MakeBspDrawList	EMSLOAD	0.64	MATCH
-1125	0181	_MakeBspDrawList	EMSLOAD	0.53	MATCH
-3fb2	35d6	_MakeBspDrawList	EMSLOAD	0.53	MATCH
-31ce	09dc	_MakeBspDrawList	EMSLOAD	0.45	MATCH
-11ac	0c36	_MulDiv32	EMSLOAD	0.80	-
-1dc3	08a5	_MulDiv32	EMSLOAD	0.75	-
-2b89	0008	_MulDiv32	EMSLOAD	0.75	-
-2b89	02c5	_MulDiv32	EMSLOAD	0.75	-
-4be9	0198	_MulDiv32	EMSLOAD	0.62	-
-172e	06f3	_MulDiv32	EMSLOAD	0.53	-
+4be9	0104	_MakeBspDrawList	EMSLOAD	0.64	CAND
+1125	0181	_MakeBspDrawList	EMSLOAD	0.53	CAND
+3fb2	35d6	_MakeBspDrawList	EMSLOAD	0.53	CAND
+31ce	09dc	_MakeBspDrawList	EMSLOAD	0.45	CAND
+11ac	0c36	_MulDiv32	EMSLOAD	0.80	
+1dc3	08a5	_MulDiv32	EMSLOAD	0.75	
+2b89	0008	_MulDiv32	EMSLOAD	0.75	
+2b89	02c5	_MulDiv32	EMSLOAD	0.75	
+4be9	0198	_MulDiv32	EMSLOAD	0.62	
+172e	06f3	_MulDiv32	EMSLOAD	0.53	
 11ac	1550	_MyWaterline	EMSLOAD	0.99	DIFF
 11ac	16a2	_MyWaterline2	EMSLOAD	0.99	DIFF
 3050	0012	_MyWaterline2	EMSLOAD	0.41	DIFF
 3fb2	2b6e	_MyWaterline2	EMSLOAD	0.17	DIFF
 11ac	110e	_NCloudFillLine2	EMSLOAD	1.00	MATCH
-2520	000e	_NCloudFillLine2	EMSLOAD	0.64	MATCH
-28a7	02ae	_NCloudFillLine2	EMSLOAD	0.56	MATCH
-4be9	0000	_NCloudFillLine2	EMSLOAD	0.52	MATCH
-2e8c	0284	_NCloudFillLine2	EMSLOAD	0.48	MATCH
-15ce	11c0	_NCloudFillLine2	EMSLOAD	0.43	MATCH
-4d7e	0834	_NCloudFillLine2	EMSLOAD	0.34	MATCH
+2520	000e	_NCloudFillLine2	EMSLOAD	0.64	CAND
+28a7	02ae	_NCloudFillLine2	EMSLOAD	0.56	CAND
+4be9	0000	_NCloudFillLine2	EMSLOAD	0.52	CAND
+2e8c	0284	_NCloudFillLine2	EMSLOAD	0.48	CAND
+15ce	11c0	_NCloudFillLine2	EMSLOAD	0.43	CAND
+4d7e	0834	_NCloudFillLine2	EMSLOAD	0.34	CAND
 11ac	0fa5	_NCloudLine2	EMSLOAD	1.00	MATCH
-1342	04a7	_NCloudLine2	EMSLOAD	0.39	MATCH
+1342	04a7	_NCloudLine2	EMSLOAD	0.39	CAND
 11ac	1035	_NCloudLine3	EMSLOAD	1.00	MATCH
 11ac	1280	_NDDot	EMSLOAD	0.96	DIFF
 31ce	7245	_NDDot	EMSLOAD	0.47	DIFF
@@ -686,9 +686,9 @@ gold_seg	gold_off	name	source_module	lcs	mzdiff
 15ce	0ede	_NPFLine	EMSLOAD	0.18	DIFF
 1dc3	1394	_NPFLine	EMSLOAD	0.15	DIFF
 1342	0718	_NPFLine	EMSLOAD	0.15	DIFF
-11ac	0df4	_NScaleLine	EMSLOAD	0.71	-
-170c	0126	_NScaleLine	EMSLOAD	0.56	-
-11ac	0ead	_NScaleLine2	EMSLOAD	0.81	-
+11ac	0df4	_NScaleLine	EMSLOAD	0.71	
+170c	0126	_NScaleLine	EMSLOAD	0.56	
+11ac	0ead	_NScaleLine2	EMSLOAD	0.81	
 11ac	0c62	_NSetViewMat	EMSLOAD	1.00	DIFF
 11ac	10e4	_NXSADDLine	EMSLOAD	0.92	DIFF
 11ac	10a9	_NXSLine	EMSLOAD	0.94	DIFF
@@ -697,29 +697,29 @@ gold_seg	gold_off	name	source_module	lcs	mzdiff
 11ac	0d7e	_fmemcpy	EMSLOAD	0.95	DIFF
 11ac	0d29	_fmemfill	EMSLOAD	0.94	DIFF
 2a3c	0074	_TacTransScaleLine	HORZASM	1.00	MATCH
-2a3c	0002	_TacTransScaleLine	HORZASM	0.78	MATCH
+2a3c	0002	_TacTransScaleLine	HORZASM	0.78	CAND
 2c92	014d	_JoyConvert	HSD	1.00	DIFF
 2c92	00e1	_JoyRead	HSD	1.00	DIFF
-2c92	00b7	_ReadJoy2	HSD	1.00	DIFF
-2c92	007a	_ReadJoy2	HSD	0.92	DIFF
-14c7	0381	_ReadJoy2	HSD	0.55	DIFF
-220f	2a2c	_ReadJoy2	HSD	0.48	DIFF
+2c92	00b7	_ReadJoy2	HSD	1.00	MATCH
+2c92	007a	_ReadJoy2	HSD	0.92	CAND
+14c7	0381	_ReadJoy2	HSD	0.55	CAND
+220f	2a2c	_ReadJoy2	HSD	0.48	CAND
 2e8c	0118	_ACosB	MAP	1.00	DIFF
 2e8c	015c	_ARCSIN	MAP	1.00	MATCH
 2e8c	005f	_ARCTAN	MAP	1.00	MATCH
 2e8c	00d7	_ASinB	MAP	1.00	DIFF
 2e8c	03b0	_COPY3X3	MAP	1.00	MATCH
-5140	0b1c	_COPY3X3	MAP	0.97	MATCH
-15ce	078c	_COPY3X3	MAP	0.75	MATCH
-15ce	0742	_COPY3X3	MAP	0.73	MATCH
-5140	0712	_COPY3X3	MAP	0.70	MATCH
-2c92	0008	_COPY3X3	MAP	0.67	MATCH
-18de	3404	_COPY3X3	MAP	0.57	MATCH
-2c92	003c	_COPY3X3	MAP	0.56	MATCH
-1058	0a6b	_COPY3X3	MAP	0.53	MATCH
+5140	0b1c	_COPY3X3	MAP	0.97	CAND
+15ce	078c	_COPY3X3	MAP	0.75	CAND
+15ce	0742	_COPY3X3	MAP	0.73	CAND
+5140	0712	_COPY3X3	MAP	0.70	CAND
+2c92	0008	_COPY3X3	MAP	0.67	CAND
+18de	3404	_COPY3X3	MAP	0.57	CAND
+2c92	003c	_COPY3X3	MAP	0.56	CAND
+1058	0a6b	_COPY3X3	MAP	0.53	CAND
 2e8c	002f	_CosB	MAP	1.00	MATCH
 2e8c	018c	_Dist2D	MAP	1.00	MATCH
-28a7	01bd	_Dist2D	MAP	0.45	MATCH
+28a7	01bd	_Dist2D	MAP	0.45	CAND
 2e8c	058e	_GetHPR	MAP	0.96	DIFF
 31ce	2858	_GetHPR	MAP	0.50	DIFF
 31ce	0adb	_GetHPR	MAP	0.47	DIFF
@@ -757,12 +757,12 @@ gold_seg	gold_off	name	source_module	lcs	mzdiff
 2604	0dda	_GetHPR	MAP	0.26	DIFF
 1dc3	0763	_GetHPR	MAP	0.26	DIFF
 2e8c	0676	_LDiv	MAP	1.00	MATCH
-2e8c	06b8	_LDivI	MAP	1.00	DIFF
-15ce	0e74	_LDivI	MAP	0.86	DIFF
-50b5	0658	_LDivI	MAP	0.80	DIFF
-1dc3	2288	_LDivI	MAP	0.77	DIFF
+2e8c	06b8	_LDivI	MAP	1.00	MATCH
+15ce	0e74	_LDivI	MAP	0.86	CAND
+50b5	0658	_LDivI	MAP	0.80	CAND
+1dc3	2288	_LDivI	MAP	0.77	CAND
 2e8c	06ad	_LMul	MAP	1.00	MATCH
-5140	0c49	_LMul	MAP	0.83	MATCH
+5140	0c49	_LMul	MAP	0.83	CAND
 2e8c	0668	_MDiv	MAP	1.00	MATCH
 2e8c	06c6	_MakeMatRPH	MAP	0.97	DIFF
 3ad2	486a	_MakeMatRPH	MAP	0.44	DIFF
@@ -773,68 +773,68 @@ gold_seg	gold_off	name	source_module	lcs	mzdiff
 2e8c	062d	_MulDiv	MAP	1.00	MATCH
 2e8c	03ca	_Mult1X3	MAP	0.96	DIFF
 2e8c	02c4	_Mult3X3	MAP	1.00	MATCH
-2e8c	0320	_Mult3X3	MAP	1.00	MATCH
-170c	01c9	_Mult3X3	MAP	0.64	MATCH
-18de	34a7	_Mult3X3	MAP	0.61	MATCH
-28d5	03e8	_Mult3X3	MAP	0.57	MATCH
-2e8c	01de	_Mult3X3	MAP	0.57	MATCH
-28d5	0397	_Mult3X3	MAP	0.50	MATCH
+2e8c	0320	_Mult3X3	MAP	1.00	CAND
+170c	01c9	_Mult3X3	MAP	0.64	CAND
+18de	34a7	_Mult3X3	MAP	0.61	CAND
+28d5	03e8	_Mult3X3	MAP	0.57	CAND
+2e8c	01de	_Mult3X3	MAP	0.57	CAND
+28d5	0397	_Mult3X3	MAP	0.50	CAND
 2e8c	0217	_Rotate	MAP	1.00	MATCH
-1058	0b9a	_Rotate	MAP	0.60	MATCH
-1c2f	000a	_Rotate	MAP	0.57	MATCH
-1058	0b45	_Rotate	MAP	0.55	MATCH
-184e	0133	_Rotate	MAP	0.54	MATCH
-3fb2	2d90	_Rotate	MAP	0.51	MATCH
-15ce	07ad	_Rotate	MAP	0.39	MATCH
+1058	0b9a	_Rotate	MAP	0.60	CAND
+1c2f	000a	_Rotate	MAP	0.57	CAND
+1058	0b45	_Rotate	MAP	0.55	CAND
+184e	0133	_Rotate	MAP	0.54	CAND
+3fb2	2d90	_Rotate	MAP	0.51	CAND
+15ce	07ad	_Rotate	MAP	0.39	CAND
 2e8c	0002	_SinB	MAP	1.00	MATCH
 2e8c	07f2	_SumOfSquares	MAP	1.00	MATCH
 2e8c	037e	_Trans3X3	MAP	1.00	MATCH
-15ce	0bdc	_Trans3X3	MAP	0.70	MATCH
+15ce	0bdc	_Trans3X3	MAP	0.70	CAND
 2f18	00e1	_BuildMask	MCGA	1.00	DIFF
 18de	26a8	_BuildMask	MCGA	0.33	DIFF
 2f18	0175	_FlirCopy	MCGA	1.00	MATCH
-2f18	0010	_FlirCopy	MCGA	0.73	MATCH
-1058	04af	_FlirCopy	MCGA	0.37	MATCH
+2f18	0010	_FlirCopy	MCGA	0.73	CAND
+1058	04af	_FlirCopy	MCGA	0.37	CAND
 1328	0125	_EMMMapMultiPage	PASM	1.00	MATCH
-18de	1b41	_EMMMapMultiPage	PASM	0.58	MATCH
-18de	006c	_EMMMapMultiPage	PASM	0.53	MATCH
-18de	3450	_EMMMapMultiPage	PASM	0.50	MATCH
-172e	0d90	_EMMMapMultiPage	PASM	0.48	MATCH
-4cb5	022f	_EMMMapMultiPage	PASM	0.47	MATCH
-5140	0b72	_EMMMapMultiPage	PASM	0.47	MATCH
-18de	2337	_EMMMapMultiPage	PASM	0.44	MATCH
-3060	000a	_EMMMapMultiPage	PASM	0.44	MATCH
-50b5	087c	_EMMMapMultiPage	PASM	0.44	MATCH
-4b61	07f6	_EMMMapMultiPage	PASM	0.39	MATCH
-172e	070a	_EMMMapMultiPage	PASM	0.38	MATCH
-48b6	1731	_EMMMapMultiPage	PASM	0.38	MATCH
-31ce	1ed7	_EMMMapMultiPage	PASM	0.37	MATCH
-1125	0266	_EMMMapMultiPage	PASM	0.35	MATCH
-15ce	0648	_EMMMapMultiPage	PASM	0.34	MATCH
+18de	1b41	_EMMMapMultiPage	PASM	0.58	CAND
+18de	006c	_EMMMapMultiPage	PASM	0.53	CAND
+18de	3450	_EMMMapMultiPage	PASM	0.50	CAND
+172e	0d90	_EMMMapMultiPage	PASM	0.48	CAND
+4cb5	022f	_EMMMapMultiPage	PASM	0.47	CAND
+5140	0b72	_EMMMapMultiPage	PASM	0.47	CAND
+18de	2337	_EMMMapMultiPage	PASM	0.44	CAND
+3060	000a	_EMMMapMultiPage	PASM	0.44	CAND
+50b5	087c	_EMMMapMultiPage	PASM	0.44	CAND
+4b61	07f6	_EMMMapMultiPage	PASM	0.39	CAND
+172e	070a	_EMMMapMultiPage	PASM	0.38	CAND
+48b6	1731	_EMMMapMultiPage	PASM	0.38	CAND
+31ce	1ed7	_EMMMapMultiPage	PASM	0.37	CAND
+1125	0266	_EMMMapMultiPage	PASM	0.35	CAND
+15ce	0648	_EMMMapMultiPage	PASM	0.34	CAND
 1328	00dc	_EMMMapPage	PASM	1.00	DIFF
 48b6	16e8	_EMMMapPage	PASM	0.53	DIFF
 3fb2	60cd	_EMMMapPage	PASM	0.39	DIFF
 28d5	0134	_EMMMapPage	PASM	0.39	DIFF
 2cac	0006	_EMMMapPage	PASM	0.36	DIFF
-1328	006e	_EMSReleasePages	PASM	1.00	DIFF
-1328	00b8	_EMSReleasePages	PASM	1.00	DIFF
-1328	0091	_EMSReleasePages	PASM	0.97	DIFF
-1328	0040	_EMSReleasePages	PASM	0.76	DIFF
-1328	0057	_EMSReleasePages	PASM	0.76	DIFF
-4be9	0153	_EMSReleasePages	PASM	0.41	DIFF
-4e5c	0071	F_SinDP	TID	1.00	-
-4e5c	0075	F_SinDP	TID	1.00	-
-1dc3	1189	F_SinDP	TID	0.80	-
-220f	2a50	F_SinDP	TID	0.80	-
-2f37	08f4	F_SinDP	TID	0.80	-
-18de	2828	F_SinDP	TID	0.67	-
-220f	2f6e	F_SinDP	TID	0.67	-
-220f	2f6f	F_SinDP	TID	0.67	-
-28d5	053f	F_SinDP	TID	0.67	-
-28d5	0540	F_SinDP	TID	0.67	-
-2a48	0970	F_SinDP	TID	0.67	-
-4a6f	01ca	F_SinDP	TID	0.67	-
+1328	006e	_EMSReleasePages	PASM	1.00	CAND
+1328	00b8	_EMSReleasePages	PASM	1.00	MATCH
+1328	0091	_EMSReleasePages	PASM	0.97	CAND
+1328	0040	_EMSReleasePages	PASM	0.76	CAND
+1328	0057	_EMSReleasePages	PASM	0.76	CAND
+4be9	0153	_EMSReleasePages	PASM	0.41	CAND
+4e5c	0071	F_SinDP	TID	1.00	MATCH
+4e5c	0075	F_SinDP	TID	1.00	CAND
+1dc3	1189	F_SinDP	TID	0.80	CAND
+220f	2a50	F_SinDP	TID	0.80	CAND
+2f37	08f4	F_SinDP	TID	0.80	CAND
+18de	2828	F_SinDP	TID	0.67	CAND
+220f	2f6e	F_SinDP	TID	0.67	CAND
+220f	2f6f	F_SinDP	TID	0.67	CAND
+28d5	053f	F_SinDP	TID	0.67	CAND
+28d5	0540	F_SinDP	TID	0.67	CAND
+2a48	0970	F_SinDP	TID	0.67	CAND
+4a6f	01ca	F_SinDP	TID	0.67	CAND
 4e5c	0059	_Icos	TID	1.00	MATCH
-4e5c	0065	_Icos	TID	1.00	MATCH
-304f	0008	_Icos	TID	0.73	MATCH
+4e5c	0065	_Icos	TID	1.00	CAND
+304f	0008	_Icos	TID	0.73	CAND
 4e5c	0002	_TrgMul	TID	1.00	MATCH

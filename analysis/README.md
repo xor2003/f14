@@ -41,10 +41,49 @@ NOTE: needs the mzretools patch seeding target segments from --tmap
 `matches_my.txt` — gold funcs matched against the LOCAL build's symbols
 (F14.MAP publics, i.e. the .C functions): 715 matched, 188 at LCS>=0.9.
 `gold_mybuild_named.map` + `my_named.map` pair routines by name;
-`mzdiff_mybuild_loose.txt`: **85 MATCH / 43 DIFF** verified by
-`mzdiff --loose` — these .C source functions compile to the same code as
-the retail binary modulo relocation/literal fields. `gold_to_source.tsv`
+`mzdiff_mybuild_loose.txt` + `verify_sweep.txt`: **96 MATCH** unique names
+verified by `mzdiff --loose --nocall` — these .C/.ASM source functions
+compile to the same code as the retail binary modulo relocation/literal
+fields. The remaining ~37 unresolved names are nearly all `.ASM` module
+functions (PASM/EMS/3D/JOYSTX/MATH/MCGAMASK/EMM) — real source drift
+(e.g. `EMSfree` near-call -> far-call to EMSinit), NOT UASM-vs-MASM
+encoding (pristine EMS.ASM assembled with the bundled MASM 6.14 under
+Wine produces byte-identical code to the UASM build). `gold_to_source.tsv`
 is the consolidated gold_addr -> name -> source_module -> score table.
 
 DIFF includes Ghidra boundary artifacts (function split differently at
 entry), so DIFF means "unverified", not proven different.
+
+### Compiler codegen notes (dev vs gold vs rebuild)
+
+Opcode-density scan of the load images and prologue inspection
+(`_mono_scroll` at dev image 0x28):
+
+- **Gold retail** — 2602 `push imm16` (0x68), `enter`/`leave` prologues:
+  286 codegen (`/G2`) + optimize — same ISA family as the makefile's
+  `/Osegcl /G2`. This is why the local `/Osegcl /G2` build verifies
+  85+ functions byte-modulo-reloc identical to gold.
+- **Dev snapshot (src/F14.EXE)** — only ~326 `push imm16`; `_mono_scroll`
+  uses `push bp; mov bp,sp; sub sp,0xa`, locals kept in memory,
+  `mov ax,imm; push ax` argument pushes: a **debug-style build**
+  (8086/186 codegen + no register promotion), consistent with the
+  embedded `/Zi` CodeView info. It is NOT a codegen oracle for retail;
+  its function names/module layout are still valid for gold matching.
+- Local `c6/` CL.EXE is **MSC 6.00 Alpha** (Feb 15 1990): under `/Od`
+  it emits `81 ec` word-imm frames + unconditional `push si/di`,
+  whereas the dev binary shows `83 ec` byte-imm + si/di saved only
+  when used — most likely retail MSC 6.00 `/Od`-family codegen.
+  Closest local reproduction of dev's prologue shape:
+  `/FPa /G0 /AM /Os /Gs` (gets `83 ec` + selective si/di, though the
+  optimizer still elides the dead local stores dev keeps).
+
+### Multi-candidate verification (verify_gold.py)
+
+The top-1 fuzzy pairing sometimes picks the wrong gold function
+(e.g. `_EMSfree` paired to mid-function junk). `tools/verify_gold.py`
+scores every gold function against a named local routine (mnemonic
+Jaccard + size window), builds a single-routine map per candidate, and
+runs `mzdiff --loose --nocall` until one verifies. Corrected verdicts
+for the original 43 DIFFs: `_EMSReleasePages`->0328:00b8, `_LDivI`,
+`_ReadJoy2`, `_SetWorkPage`, `_int86x`, `_labs` all MATCH at other gold
+addresses; remaining NOCANDs are genuine drift or boundary splits.

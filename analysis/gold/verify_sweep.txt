@@ -1,0 +1,647 @@
+__fimemset             NOCAND
+_mset_pos              NOCAND
+_Npoly3D               NOCAND
+_Nline3D               NOCAND
+_NDot3D                NOCAND
+_MapEMSObjectTexture   NOCAND
+_SetMatsPtrsOrder      NOCAND
+_Reject                NOCAND
+_DrawASurf             NOCAND
+_DrawSurfs             NOCAND
+_DrawN3dObject         NOCAND
+_NDraw3DObject         NOCAND
+_DrawSuper3DObject     NOCAND
+_LoadEMSObject         NOCAND
+_fstrcmp               NOCAND
+_GetEmsMem             NOCAND
+_ResizeEmsMem          NOCAND
+_MapEmsFile            NOCAND
+_MapInBank             NOCAND
+_FileInEms             NOCAND
+_ReadEMSPCXSize        NOCAND
+_LoadEmsFile           NOCAND
+_ReadPCX               NOCAND
+_ReadPCXSize           NOCAND
+_GetPallet             NOCAND
+_SetPallet             NOCAND
+_FlagRotate3D          NOCAND
+_Perspect3D            NOCAND
+_ZClip                 NOCAND
+_NPFLine               NOCAND
+_NPFFill               NOCAND
+_MulDiv32              NOCAND
+_LongDiv               NOCAND
+_NSetViewMat           NOCAND
+_fmemfill              NOCAND
+_FillScreen            NOCAND
+_fmemcpy               NOCAND
+_DotProduct            NOCAND
+_NScaleLine            NOCAND
+_NScaleLine2           NOCAND
+_NCloudLine2           MATCH @01ac:0fa5
+_NCloudLine3           NOCAND
+_NXSLine               NOCAND
+_NXSADDLine            NOCAND
+_NCloudFillLine2       NOCAND
+_NDLine                NOCAND
+_NDDot                 NOCAND
+_CheckPointRot         NOCAND
+_MakeBspDrawList       NOCAND
+_BuildPolyList         NOCAND
+_MyWaterline           NOCAND
+_MyWaterline2          NOCAND
+_EMSReleasePages       MATCH @0328:00b8
+_EMMMapPage            NOCAND
+_EMMMapMultiPage       NOCAND
+_MakeMidGridPt         NOCAND
+_MakePTS               NOCAND
+_MakeBoxes             NOCAND
+_MakeBoxVis            NOCAND
+_DoBox                 NOCAND
+_GetQHeight            NOCAND
+_IsLand                NOCAND
+_DrawLandObjects       NOCAND
+_DrawNLand             NOCAND
+_LoadObjFile           NOCAND
+_LoadBigEMSFile        NOCAND
+_MapIn3dObjects        NOCAND
+_LoadEMSPicFile        NOCAND
+_MapInEMSSprite        NOCAND
+_FreeEMS               NOCAND
+_Error                 NOCAND
+_PlaneSeek             NOCAND
+_RadarAdd              NOCAND
+_MissileAdd            NOCAND
+_GetPicType            NOCAND
+_GetPlanePtr           NOCAND
+_GetMissilePtr         NOCAND
+_GetRadarPtr           NOCAND
+_MakeRotationMatrix    MATCH @05ce:0008
+MakeRotationMatrix     MATCH @05ce:0022
+_End3D                 NOCAND
+_SetDrawWindow         NOCAND
+_SetViewRot            NOCAND
+_SetViewPos            NOCAND
+_Boats3D               NOCAND
+_Shift3X3              NOCAND
+_DrawRegBoat           NOCAND
+_Planes3D              NOCAND
+_DrawShadow            NOCAND
+_DrawChute             NOCAND
+_DrawDecoy             NOCAND
+_DrawMissile           NOCAND
+_Init3DMissiles        NOCAND
+_AnimIsRunning         NOCAND
+_CoolF14MissileAnims   NOCAND
+_DrawCoolF14           NOCAND
+_InitOurCoolPlane      NOCAND
+_DrawTexPlane          NOCAND
+_CheckAAAHit           NOCAND
+_AA_MODE               NOCAND
+_aa_cnt_weapons        NOCAND
+_BearingToText         NOCAND
+_NSpeech               NOCAND
+_GetWeaponCount        NOCAND
+_AWG9_EL               NOCAND
+_UpdateTWSSelected     NOCAND
+_AWG9_IFF              NOCAND
+_AWG9_CHANGE_MODE      NOCAND
+_ClearTargetFile       NOCAND
+_CHANGE_AZIMUTH        NOCAND
+_LockDistanceCheck     NOCAND
+_UpdateTargetClosure   NOCAND
+_LDist3D               NOCAND
+_SearchForTargets      NOCAND
+_ResetTargetTrack      NOCAND
+_SetupNewTarget        NOCAND
+_orient_to_player      NOCAND
+_InBeam                NOCAND
+_UpdateConsoleXY       NOCAND
+_AddTargetFile         NOCAND
+_DelTargetFile         NOCAND
+_RioLockCheck          NOCAND
+_SpecialModeAcq        NOCAND
+_StandardSpecialModeAcq NOCAND
+_aa_acquire            NOCAND
+_DesignateTIDTarg      NOCAND
+_SelectDesig           NOCAND
+_InAcqList             NOCAND
+_AddAcqList            NOCAND
+_AWG9_project          NOCAND
+_InFiringList          NOCAND
+_AddFiringList         NOCAND
+_CheckDataLink         NOCAND
+_rotate_pt             NOCAND
+_MousePOS              NOCAND
+_UpdateBoatHeadPitchRoll NOCAND
+_UpdateBoatSpeedAndPosition NOCAND
+_IsBoat                NOCAND
+_UpdateOurCarrier      NOCAND
+_UpdateAIsOnCarrier    NOCAND
+_CheckBoatGunFiring    NOCAND
+_FormationSpeedAdjustBoat NOCAND
+_FormationBoat         NOCAND
+_AvoidLand             NOCAND
+_dotracers             NOCAND
+_TrackBullets          NOCAND
+_DrawBullets           NOCAND
+_BulletDist            NOCAND
+_CheckBulletBetter     NOCAND
+_IsDeckPlane           NOCAND
+_InitCarrierObjects    NOCAND
+_InitPlaneOnCarrier    NOCAND
+_GetCatHeading         NOCAND
+_Carrier3D             NOCAND
+_DrawCarrier           NOCAND
+_InBox                 NOCAND
+_InBoxLng              NOCAND
+_OnCarrier             NOCAND
+_GlideScopeCheck       NOCAND
+_ils                   NOCAND
+_vdiils                NOCAND
+_OnTheDeck             NOCAND
+_SetPosOnCat           NOCAND
+_DoPlayerOnTheCat      NOCAND
+_DoPlayerOnTheHook     NOCAND
+_SlopeCheck            NOCAND
+_SetGear               NOCAND
+_SetDLC                NOCAND
+_SetHook               NOCAND
+_EasyLanding           NOCAND
+_DoLSO                 NOCAND
+_MoveAIToCat           NOCAND
+_TurnTo                NOCAND
+_PreparePlane          NOCAND
+_ReadyLaunch           NOCAND
+_PlaneLaunched         NOCAND
+_CheckMouseInput       NOCAND
+_CursorInCrt           NOCAND
+_Cmds                  NOCAND
+_ConfigCrts            NOCAND
+_DrawRadarStatus       NOCAND
+_GDisplay              NOCAND
+_DrawRadarAlt          NOCAND
+_DrawAirSpeedGauge     NOCAND
+_DrawIndexer           NOCAND
+_TIDShowRange          NOCAND
+_DrawRadarRange        NOCAND
+_DrawVVGauge           NOCAND
+_DrawAltGauge          NOCAND
+_DrawStores            NOCAND
+_DrawSweepDisplay      NOCAND
+_DrawEngineStat        NOCAND
+_DoCRT                 NOCAND
+_ResetCockpitLights    NOCAND
+_ShowFuel              NOCAND
+_DDDWeaponRanges       NOCAND
+_DopplerCheck          NOCAND
+_DDDTargetDraw         NOCAND
+_DDD_horizon_line      NOCAND
+_SetWorkPage           MATCH @1591:0033
+_VGADrawDot            MATCH @1591:0052
+_VertFline             MATCH @1591:01f3
+_EMSprsnt              MATCH @15e4:0004
+_EMSinit               NOCAND
+_EMSpages              NOCAND
+_EMSalloc              NOCAND
+_EMSmap                NOCAND
+_EMSfree               NOCAND
+_EMSver                NOCAND
+_EMSsave               NOCAND
+_EMSrest               NOCAND
+_EMShands              NOCAND
+_EMShsize              NOCAND
+_FLIGHT                NOCAND
+_TAStoIAS              NOCAND
+_TblTRPL               NOCAND
+_PlaneDrag             NOCAND
+_PlaneWeight           NOCAND
+_InitScottFlight       NOCAND
+_Density               NOCAND
+_EngineBreathe         NOCAND
+_Get1GTrim             NOCAND
+_TrimIt                NOCAND
+_ScottFlight           NOCAND
+_Splatted              NOCAND
+_UpdatePalBuf          NOCAND
+_FireColors            NOCAND
+_ChangeHUDColor        NOCAND
+_ChangeHUDFilter       NOCAND
+_InitSpecialPal        NOCAND
+_MatrixMul             NOCAND
+_Decompose             NOCAND
+_abs                   NOCAND
+_IntDiv                NOCAND
+_Iasin                 NOCAND
+_Iacos                 NOCAND
+_Sqrt                  NOCAND
+_main                  NOCAND
+_MainGameLoop          NOCAND
+_NHorz                 NOCAND
+_EndStack3D            NOCAND
+_Stack3DObject         NOCAND
+_DrawAAA               NOCAND
+_TacTransScaleLine     NOCAND
+_pitch_ladder          NOCAND
+_horiz_line            NOCAND
+_HUDPitchLine          NOCAND
+_pitch_line            NOCAND
+_dashline              NOCAND
+_get_count             NOCAND
+_diamondbox            NOCAND
+_draw_shoot_cue        NOCAND
+_fourpoints            NOCAND
+_circlepoints          NOCAND
+_drawcircle            NOCAND
+_pitchbar              NOCAND
+_pitchnum              NOCAND
+_scaler                NOCAND
+_pitchbar2             NOCAND
+_pitchnum2             NOCAND
+_headingscale          NOCAND
+_HsdCrt                NOCAND
+_ReadJoy2              MATCH @1c92:00b7
+_JoyRead               NOCAND
+_JoyConvert            NOCAND
+_SetJoysticks          NOCAND
+_NShowJoy              NOCAND
+_NWaitShowJoy          NOCAND
+_GetJoyConfig          NOCAND
+_SaveJoyConfig         NOCAND
+_AddGroundTarget       NOCAND
+_Y2map                 NOCAND
+_mplot                 NOCAND
+_MapLoc                NOCAND
+_Project2D             NOCAND
+_DeProject2D           NOCAND
+_Rotate2D              NOCAND
+_SinB                  MATCH @1e8c:0002
+_CosB                  MATCH @1e8c:002f
+_ARCTAN                MATCH @1e8c:005f
+_ASinB                 NOCAND
+_ACosB                 NOCAND
+_ARCSIN                MATCH @1e8c:015c
+_Dist2D                MATCH @1e8c:018c
+_Rotate                MATCH @1e8c:0217
+_Mult3X3               MATCH @1e8c:02c4
+_Trans3X3              MATCH @1e8c:037e
+_COPY3X3               NOCAND
+_Mult1X3               NOCAND
+_MakematHPR            NOCAND
+_GetHPR                NOCAND
+_MulDiv                MATCH @1e8c:062d
+_MDiv                  MATCH @1e8c:0668
+_LDiv                  MATCH @1e8c:0676
+_LMul                  MATCH @1e8c:06ad
+_LDivI                 MATCH @1e8c:06b8
+_MakeMatRPH            NOCAND
+_SumOfSquares          MATCH @1e8c:07f2
+_BuildMask             NOCAND
+_FlirCopy              NOCAND
+_MouseSETUP            NOCAND
+_pstrlen               NOCAND
+_MikesJoyStickRecal    NOCAND
+_Message               NOCAND
+_MsgBox                NOCAND
+_MyMessages            NOCAND
+_MyMessage             NOCAND
+_MBox                  NOCAND
+_MsgPrnt               NOCAND
+_InSideMSGBox          NOCAND
+_OutSideMSGBox         NOCAND
+_OutSideHeading        NOCAND
+_GetAltPitch           NOCAND
+_GetDestinationXYZ     NOCAND
+_TakingOff             NOCAND
+_AvoidMountains        NOCAND
+_UpdateHeadPitchRoll   NOCAND
+_UpdateSpeedAndPosition NOCAND
+_Landing               NOCAND
+_ReturnToBase          NOCAND
+_search                NOCAND
+_CheckTailAspect       NOCAND
+_ActivatePlane         NOCAND
+_GetTargADP            NOCAND
+_CheckGunFiring        NOCAND
+_CoreCheckGunFiring    NOCAND
+_GetEnemyTarget        NOCAND
+_IsCAPFlier            NOCAND
+_KeepBehavior          NOCAND
+_ChooseBehavior        NOCAND
+_StraightAttack        NOCAND
+_Ladder                NOCAND
+_Box                   NOCAND
+_Champagne             NOCAND
+_Wall                  NOCAND
+_FreeFighter           NOCAND
+_Wall2                 NOCAND
+_Ladder2               NOCAND
+_LadderCircle          NOCAND
+_CheckDetection        NOCAND
+_ShowAIStatus          NOCAND
+_ShowMenuStuff         NOCAND
+_ProcessAICommunications NOCAND
+_ProcessAICommMenu     NOCAND
+_DoVSeperation         NOCAND
+_LowBombTarget         NOCAND
+_AIGetBombDist         NOCAND
+_AIBombTarget          NOCAND
+_BOMB_TrackingAI       NOCAND
+_DESIGNATED_TrackingAI NOCAND
+_DropAIBomb            NOCAND
+_TurnAIPlaneBy         NOCAND
+_InitAddedWingmen      NOCAND
+_CheckAIBombs          NOCAND
+_CheckAIMissiles       NOCAND
+_NearWingTarget        NOCAND
+_AIRadarForwardCheck   NOCAND
+_AIRadarRearCheck      NOCAND
+_AICoreRadarCheck      NOCAND
+_GiveSanitizeMessage   NOCAND
+_AISanitizeGroupCheck  NOCAND
+_AISanitizeCheck       NOCAND
+_FlySanitize           NOCAND
+_AIFoxCall             NOCAND
+_GetWingName           NOCAND
+_ChangeGroupBehavior   NOCAND
+_AddSomePlanes2        NOCAND
+_UpdateHelicopterHPR_SandP NOCAND
+_UpdateI               NOCAND
+_ImNotaFighter         NOCAND
+_UpdateWing            NOCAND
+_GetSquadLeader        NOCAND
+_GetBehaviorLeader     NOCAND
+_GetLeaderCore         NOCAND
+_CloseInFight          NOCAND
+_CheckWingmanSix       NOCAND
+_CheckAITarget         NOCAND
+_FormationSpeedAdjustUS NOCAND
+_Jink                  NOCAND
+_Formation             NOCAND
+_FormationUS           NOCAND
+_CheckRadarSet         NOCAND
+_Jink2                 NOCAND
+_PostHole              NOCAND
+_BaseBracket           NOCAND
+_DoAICounters          NOCAND
+_EvadeMissile          NOCAND
+_DamageAI              NOCAND
+_GetSortInfo           NOCAND
+_GiveSortInfo          NOCAND
+_SetUpCAP1             NOCAND
+_SetUpOval1            NOCAND
+_SetUpCAP2             NOCAND
+_SetUpOval2            NOCAND
+_CAPTurn1              NOCAND
+_OvalTurn1             NOCAND
+_CAPTurn2              NOCAND
+_OvalTurn2             NOCAND
+_CAPLeg1               NOCAND
+_CAPAI                 NOCAND
+_FlyTo                 NOCAND
+_TranslateBehavior     NOCAND
+_FlyWayPoint           NOCAND
+_ShowJettison          NOCAND
+_SlewOurWingmen        NOCAND
+_AIGoHome              NOCAND
+_AIGoHome2             NOCAND
+_CheckAISix            NOCAND
+_GorillaBomb           NOCAND
+_Langle                NOCAND
+_LGetTargADP           NOCAND
+_LFlyTo                NOCAND
+_LDist2D               NOCAND
+_absL                  NOCAND
+_sinXL                 NOCAND
+_cosXL                 NOCAND
+_FirstTargInGroup      NOCAND
+_CheckIfCanIntercept   NOCAND
+_GetCloseAirBase       NOCAND
+_UpdateInterceptGroup  NOCAND
+_VectorIntercept       NOCAND
+_GetInterceptPlane     NOCAND
+_LocationPicture       NOCAND
+_CheckE2C              NOCAND
+_TrooperDrop           NOCAND
+_LaunchCruise          NOCAND
+_FlyCruise             NOCAND
+_GetLastPosition       NOCAND
+_FollowPlayer          NOCAND
+_GetWhoCover           NOCAND
+_GorillaCover          NOCAND
+_RearCover             NOCAND
+_SARCAP1               NOCAND
+_SARCAP2               NOCAND
+_SARCAP3               NOCAND
+_SARCAP0               NOCAND
+_GetWayPointChanges    NOCAND
+_DoNextWayPt           NOCAND
+_GetWayXYZ             NOCAND
+_GetPlanePointXYZ      NOCAND
+_ReturnBaseInfo        NOCAND
+_GetPlayerHelp         NOCAND
+_ProcessOtherComm      NOCAND
+_DoCAPReplace          NOCAND
+_GetSAR                NOCAND
+_GetSARCover           NOCAND
+_RestoreCover          NOCAND
+_IsBombing             NOCAND
+_FriendStatus          NOCAND
+_FriendMatch           NOCAND
+_FriendMatchType       NOCAND
+_UpdateOurWPS          NOCAND
+_CloseEnoughFor        NOCAND
+_FormOnWP              NOCAND
+_GetPlaneOrgNum        NOCAND
+_CheckForMobileR5      NOCAND
+_MovePlane             NOCAND
+_CruiseDistruct        NOCAND
+_CheckPlaneBlast       NOCAND
+_SetUpLaunch           NOCAND
+_GetNextLaunch         NOCAND
+_DoAltHover            NOCAND
+_GetRadarGTNum         NOCAND
+_GetGTRadarNum         NOCAND
+_IndirectWPCorrection  NOCAND
+_LetWingmenContinue    NOCAND
+_ShowOurWPS            NOCAND
+_GetDAltSpeed          NOCAND
+_CheckTurnStuff        NOCAND
+_AICarrierLand         NOCAND
+_MoveAIToElevator      NOCAND
+_DoLandWait            NOCAND
+_CheckPlaneLand        NOCAND
+_LetNextPlaneLand      NOCAND
+_GetPlaneLanding       NOCAND
+_GetWhichElevator      NOCAND
+_CheckIsWayTarget      NOCAND
+_DoGroupAction         NOCAND
+_DoOClockCall          NOCAND
+_Immelmann             NOCAND
+_SplitS                NOCAND
+_ReArmWingman          NOCAND
+_detect                NOCAND
+_Rsignal               NOCAND
+_gotcha                NOCAND
+_RsignalOne            NOCAND
+_HeadProject           NOCAND
+_WpsStar               NOCAND
+_DrawRioWayPoints      NOCAND
+_GetToken              NOCAND
+_TextInTheBox          NOCAND
+_DrawRioMapInfo        NOCAND
+_RioMap                NOCAND
+_RioTop                NOCAND
+_Air2GroundHoming      NOCAND
+_AirKill               NOCAND
+_DamageMe              NOCAND
+_DamageIt              NOCAND
+_firemissile           NOCAND
+_firemissile2          NOCAND
+_FindEmptyMissileSlot  NOCAND
+_FindEmptyMissileSlot2 NOCAND
+_FindEmptyMissileSlotP NOCAND
+_restore_video_state   NOCAND
+_OtherJetSound         NOCAND
+_Sound                 NOCAND
+_InitSpeech            NOCAND
+_Speech                NOCAND
+_ScaleRotate           NOCAND
+_TransRectCopy         NOCAND
+_DrawXploSprite        NOCAND
+_StartASmoke           NOCAND
+_DrawASmoke            NOCAND
+_ShowSmokesNoChange    NOCAND
+_HandleSmoke           NOCAND
+_EndGame               NOCAND
+_LogIt                 NOCAND
+_rng                   NOCAND
+_rng2                  NOCAND
+_xydist                NOCAND
+_uangle                NOCAND
+_sinX                  NOCAND
+_cosX                  NOCAND
+_wrd                   NOCAND
+_sgn                   NOCAND
+_rnd2                  NOCAND
+_WaitTicks             NOCAND
+_TacBox                NOCAND
+_Tacxy                 NOCAND
+_TacScaleRotate256     NOCAND
+_TacMap                NOCAND
+_RadarThreats          NOCAND
+_PlaneThreats          NOCAND
+_MissileThreats        NOCAND
+_SortThreats           NOCAND
+_TEWS_RANGE            NOCAND
+_TEWS_SPOTTED          NOCAND
+_TEWS_GFX              NOCAND
+_show_missiles         NOCAND
+_show_radar            NOCAND
+_show_plane            NOCAND
+_GunCameraZoom         NOCAND
+_TrackDisplayPosition  NOCAND
+_TIDAttkInfo           NOCAND
+_TIDDisplayHorz        NOCAND
+_TIDxy                 NOCAND
+_TrgMul                MATCH @3e5c:0002
+_Icos                  MATCH @3e5c:0059
+_Isin                  MATCH @3e5c:0065
+F_SinDP                MATCH @3e5c:0071
+F_CosDP                MATCH @3e5c:0075
+_project               NOCAND
+_lproject              NOCAND
+_row3                  NOCAND
+_DistTo                NOCAND
+_DistToPlane           NOCAND
+_DistOf                NOCAND
+_SetupView             NOCAND
+_NewTacView            NOCAND
+_NewLockView           NOCAND
+_WithinVisualRange     NOCAND
+_DoPadLockView         NOCAND
+_FloatingHUD           NOCAND
+_VDITacxy              NOCAND
+_farfread              NOCAND
+_ChangeColor           NOCAND
+_ClipSprite            NOCAND
+_DrawDot               NOCAND
+_DrawLine              NOCAND
+_DrawPoly              NOCAND
+_LibCanDo              NOCAND
+_MouseSHOW             NOCAND
+_RpPrint               NOCAND
+_SndSounds             NOCAND
+__astart               MATCH @4140:001e
+__amsg_exit            NOCAND
+__cinit                MATCH @4140:0116
+_exit                  MATCH @4140:01db
+__ctermsub             MATCH @4140:025e
+__chkstk               MATCH @4140:1e72
+_fclose                MATCH @4140:029e
+__fsopen               MATCH @4140:0358
+_fopen                 MATCH @4140:0384
+_fread                 MATCH @4140:039a
+__filbuf               MATCH @4140:05c2
+_strcat                MATCH @4140:0658
+_strcpy                MATCH @4140:0698
+_strcmp                MATCH @4140:06ca
+_itoa                  MATCH @4140:073a
+_toupper               NOCAND
+_sprintf               MATCH @4140:095e
+_vsprintf              NOCAND
+_filelength            MATCH @4140:09b8
+_int86x                MATCH @4140:0a3e
+_inp                   MATCH @4140:0b3a
+_memcpy                MATCH @4140:0be8
+_labs                  MATCH @4140:0c56
+_srand                 MATCH @4140:0c6c
+__dos_close            MATCH @4140:0d2c
+__aFldiv               MATCH @4140:0dac
+__aFulmul              MATCH @4140:0e46
+__aFlshl               MATCH @4140:0e78
+__aFlshr               MATCH @4140:0e84
+__aFNaldiv             MATCH @4140:0e90
+__aFNaulmul            MATCH @4140:0eb0
+__aFNalshl             MATCH @4140:0ed0
+__fstrcpy              MATCH @4140:0f78
+__fstrcat              MATCH @4140:0fae
+__FF_MSGBANNER         MATCH @4140:0ff4
+__fptrap               NOCAND
+__nullcheck            NOCAND
+__setargv              NOCAND
+__setenvp              NOCAND
+__NMSG_TEXT            MATCH @4140:1040
+__NMSG_WRITE           MATCH @4140:106b
+__dosret0              MATCH @4140:10a2
+__dosreturn            MATCH @4140:10aa
+__dosretax             MATCH @4140:10b7
+__maperror             MATCH @4140:10c4
+__flsbuf               MATCH @4140:10f8
+__freebuf              MATCH @4140:11dc
+__getbuf               MATCH @4140:1208
+__openfile             MATCH @4140:124c
+__stbuf                MATCH @4140:1334
+__ftbuf                MATCH @4140:13a7
+_fflush                MATCH @4140:13e6
+__output               NOCAND
+__getstream            MATCH @4140:1996
+_close                 MATCH @4140:19ca
+_lseek                 MATCH @4140:19ea
+_read                  MATCH @4140:1a64
+_write                 MATCH @4140:1b4e
+_unlink                NOCAND
+__myalloc              NOCAND
+_sopen                 MATCH @4140:1e96
+__cXENIXtoDOSmode      MATCH @4140:2041
+_stackavail            MATCH @4140:2052
+_malloc                NOCAND
+_free                  NOCAND
+__nfree                MATCH @4140:2072
+__nmalloc              NOCAND
+__growseg              MATCH @4140:2138
+__incseg               MATCH @4140:21c4
+__findlast             NOCAND
+__searchseg            MATCH @4140:20bc
+
+verified: 85/645
