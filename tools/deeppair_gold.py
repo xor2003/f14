@@ -10,6 +10,8 @@
 #
 # usage: deeppair_gold.py classified.tsv gold_named.map ranges_gold_full.txt \
 #          my_linkmap.map F14GOLD.EXE MY.EXE [names...] > deeppair.tsv
+#          (optional env DEEPPAIR_MEMMAP=memmap_gold.txt caps extents at
+#           segment ends — recommended, else last-in-seg extents run away)
 #
 # With no names argument, all names appearing in classified.tsv are swept.
 # Output: name <TAB> best_nseq <TAB> @seg:off <TAB> gold_insns <TAB> my_insns
@@ -76,8 +78,19 @@ def load_gold(mapfile):
     return g
 
 
-def rebuild_ranges(rangefile):
-    """gold extents: start -> next function start in segment (LINK-map style)."""
+def load_segends(memmapfile):
+    """Ghidra memmap: NAME seg:off seg:end size=N -> {ghidra_para: end_off}."""
+    ends = {}
+    for l in open(memmapfile):
+        m = re.match(r'(\S+)\s+([0-9a-f]+):[0-9a-f]+\s+([0-9a-f]+):([0-9a-f]+)', l)
+        if m:
+            ends[int(m.group(2), 16)] = int(m.group(4), 16)
+    return ends
+
+
+def rebuild_ranges(rangefile, segends=None):
+    """gold extents: start -> next function start in segment (LINK-map style).
+    Last-in-segment functions cap at the memmap segment end when given."""
     starts = {}
     for l in open(rangefile):
         p = l.split()
@@ -90,9 +103,13 @@ def rebuild_ranges(rangefile):
     out = {}
     for s, es in starts.items():
         es.sort()
+        segcap = s * 16 + segends[s] + 1 if segends and s in segends else None
         for i, (o, st, en) in enumerate(es):
             nxt = es[i + 1][1] if i + 1 < len(es) else st + 0x10000
-            out[(s, o)] = (st, max(en, nxt))
+            hi = max(en, nxt)
+            if segcap is not None:
+                hi = min(hi, segcap)
+            out[(s, o)] = (st, hi)
     return out
 
 
@@ -126,7 +143,10 @@ def main():
     img = load_image(gold_exe)
     myimg = load_image(my_exe)
     gfuncs = load_gold(gmap)
-    grebuilt = rebuild_ranges(granges)
+    import os
+    segends = (load_segends(os.environ['DEEPPAIR_MEMMAP'])
+               if os.environ.get('DEEPPAIR_MEMMAP') else None)
+    grebuilt = rebuild_ranges(granges, segends)
     myfuncs, myseg = load_mymap(mmap)
 
     print('disassembling gold...', file=sys.stderr)

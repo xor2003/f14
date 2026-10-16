@@ -145,23 +145,31 @@ as real startup-CRT drift.
 (not just the Jaccard top-8) by difflib mnemonic-sequence ratio, using
 LINK-map-style rebuilt gold extents (start -> next function start, from
 sorted `ranges_gold_full.txt` keys — Ghidra R-blocks truncate large
-functions at `call far`, e.g. `__output` was a 44-insn stub).
+functions at `call far`, e.g. `__output` was a 44-insn stub). There is
+no LINK .MAP for the retail binary, so last-in-segment extents are
+capped at `memmap_gold.txt` segment ends (`DEEPPAIR_MEMMAP`) — else
+they run away to +64KB (`__searchseg` scored 0.00 over a phantom 33K-insn
+window; capped, `_HsdCrt` jumped 0.04 -> 0.85).
 
 Result on the 117 low-nseq suspects (classified.tsv `deepnseq`/`deepaddr`):
 
-- **28 recovered to nseq>=0.80** — pairing artifacts, not drift:
+- **32 recovered to nseq>=0.80** — pairing artifacts, not drift:
   `__output` 1.00 @4140:14be (mzdiff-**MATCH**, verified — 86th
   verification), `_pitchbar2`/`_diamondbox`/`_MBox`/`_TacBox`/
   `_AISanitizeGroupCheck`/`_FlyCruise` 0.97, `_MsgBox` 0.96,
-  `_horiz_line`/`_TIDDisplayHorz` shared seg, `_DrawAltGauge` 0.98, ...
-- **26 stay <0.50** — the hardened drift list: `_HsdCrt` 0.04,
-  `_DrawRioMapInfo`/`_RioMap` 0.05/0.08, `__setargv` 0.05, `_DoLSO` 0.07,
-  `_Ladder` 0.08, `_LocationPicture` 0.11, `_Splatted` 0.12,
-  `_LaunchCruise`/`_GorillaBomb` 0.13, `_SetupView` 0.17, `__setenvp` 0.45
-  — concentrated in RIOMAP/HSD displays, AI/PLANES, LSO/carrier, and the
+  `_DrawAltGauge` 0.98, `_draw_shoot_cue` 0.94, `_OutSideHeading` 0.90,
+  `_HsdCrt` 0.85, ...
+- **49 at 0.60-0.80, 13 at 0.50-0.60** — gray zone (likely drifted
+  but ambiguous under codegen noise).
+- **23 stay <0.50** — the hardened drift list: `_DrawRioMapInfo`/
+  `_RioMap` 0.05/0.08 (same claimed twin — RIOMAP likely rewritten),
+  `__setargv` 0.05, `_DoLSO` 0.07, `_ProcessAICommMenu` 0.07,
+  `_Ladder`/`_LocationPicture`/`_FormationSpeedAdjustUS`/`_GorillaBomb`/
+  `_LaunchCruise` <0.15, `_SetupView` 0.17, `__setenvp` 0.45 —
+  concentrated in RIOMAP/HSD displays, AI/PLANES, LSO/carrier, and the
   `_TEXT` startup CRT (`__setargv`/`__setenvp`/`__myalloc` genuinely
   differ from dev's link).
-- mzdiff re-verified all 28 recoveries: only `__output` (nseq=1.00)
+- mzdiff re-verified all >=0.80 recoveries: only `__output` (nseq=1.00)
   MATCHes — the rest remain codegen-DIFF as expected (mnemonic stream
   conserved, operand selection differs).
 - Confirmed mechanism: dev `PASM.ASM`/`MONOPRIN.ASM` are `.386` code
