@@ -1,0 +1,1066 @@
+11ac:0c62 n=  80 -> _NSetViewMat                        dev@01cb:0b0a jac=1.00 lcs=1.00
+11ac:0fa5 n=  68 -> _NCloudLine2                        dev@01cb:0e19 jac=1.00 lcs=1.00
+11ac:1035 n=  56 -> _NCloudLine3                        dev@01cb:0ea9 jac=1.00 lcs=1.00
+11ac:110e n=  27 -> _NCloudFillLine2                    dev@01cb:0f80 jac=1.00 lcs=1.00
+11ac:13ca n=  60 -> FUN_11cb_1220                       dev@01cb:1220 jac=1.00 lcs=1.00
+11ac:1444 n=  16 -> _MakeBspDrawList                    dev@01cb:129a jac=1.00 lcs=1.00
+1328:006e n=  18 -> _EMSReleasePages                    dev@032b:0093 jac=1.00 lcs=1.00
+1328:00b8 n=  18 -> _EMSReleasePages                    dev@032b:0093 jac=1.00 lcs=1.00
+1328:00dc n=  30 -> _EMMMapPage                         dev@032b:00b7 jac=1.00 lcs=1.00
+1328:0125 n=  38 -> _EMMMapMultiPage                    dev@032b:00ff jac=1.00 lcs=1.00
+15ce:0008 n=  13 -> _MakeRotationMatrix                 dev@05c4:0006 jac=1.00 lcs=1.00
+15ce:0022 n= 104 -> MakeRotationMatrix                  dev@05c4:0020 jac=1.00 lcs=1.00
+15ce:0341 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0348 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:034f n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0356 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:035d n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0364 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0372 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:038e n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0395 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:03b8 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:03bf n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:03c6 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:03cd n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:03d4 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:03e2 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:03e9 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:03f0 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0405 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:040c n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0428 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:042f n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0436 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0444 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:044b n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0452 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0459 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0460 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0467 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0491 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0498 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:05fd n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0604 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:060b n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+15ce:0620 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+2591:0033 n=  10 -> _SetWorkPage                        dev@1475:0033 jac=1.00 lcs=1.00
+2591:0052 n=  24 -> _VGADrawDot                         dev@1475:0052 jac=1.00 lcs=1.00
+25e4:0004 n=  17 -> _EMSprsnt                           dev@14c8:0000 jac=1.00 lcs=1.00
+25e4:0204 n=   4 -> _EMSread                            dev@14c8:01e9 jac=1.00 lcs=1.00
+2a3c:0074 n=  44 -> _TacTransScaleLine                  dev@19ec:0072 jac=1.00 lcs=1.00
+2c92:00b7 n=  19 -> _ReadJoy2                           dev@1c3a:00ae jac=1.00 lcs=1.00
+2c92:00e1 n=  49 -> _JoyRead                            dev@1c3a:00d8 jac=1.00 lcs=1.00
+2c92:014d n=  34 -> _JoyConvert                         dev@1c3a:0143 jac=1.00 lcs=1.00
+2e8c:0002 n=  21 -> _SinB                               dev@1e04:0006 jac=1.00 lcs=1.00
+2e8c:002f n=  22 -> _CosB                               dev@1e04:0033 jac=1.00 lcs=1.00
+2e8c:005f n=  56 -> _ARCTAN                             dev@1e04:0063 jac=1.00 lcs=1.00
+2e8c:00d7 n=  30 -> _ASinB                              dev@1e04:00db jac=1.00 lcs=1.00
+2e8c:0118 n=  31 -> _ACosB                              dev@1e04:011c jac=1.00 lcs=1.00
+2e8c:015c n=  23 -> _ARCSIN                             dev@1e04:0160 jac=1.00 lcs=1.00
+2e8c:018c n=  42 -> _Dist2D                             dev@1e04:0190 jac=1.00 lcs=1.00
+2e8c:0217 n=  49 -> _Rotate                             dev@1e04:0219 jac=1.00 lcs=1.00
+2e8c:02c4 n=  17 -> _Mult3X3                            dev@1e04:0286 jac=1.00 lcs=1.00
+2e8c:02e8 n=  21 -> FUN_2e04_02aa                       dev@1e04:02aa jac=1.00 lcs=1.00
+2e8c:0320 n=  17 -> _Mult3X3                            dev@1e04:0286 jac=1.00 lcs=1.00
+2e8c:037e n=  28 -> _Trans3X3                           dev@1e04:02e2 jac=1.00 lcs=1.00
+2e8c:03b0 n=  16 -> _COPY3X3                            dev@1e04:0314 jac=1.00 lcs=1.00
+2e8c:062d n=  30 -> _MulDiv                             dev@1e04:0585 jac=1.00 lcs=1.00
+2e8c:0668 n=   7 -> _MDiv                               dev@1e04:05c0 jac=1.00 lcs=1.00
+2e8c:0676 n=  29 -> _LDiv                               dev@1e04:05ce jac=1.00 lcs=1.00
+2e8c:06ad n=   6 -> _LMul                               dev@1e04:0605 jac=1.00 lcs=1.00
+2e8c:06b8 n=   7 -> _LDivI                              dev@1e04:0610 jac=1.00 lcs=1.00
+2e8c:07f2 n=  20 -> _SumOfSquares                       dev@1e04:0744 jac=1.00 lcs=1.00
+2f18:00e1 n=  71 -> _BuildMask                          dev@1e85:00b2 jac=1.00 lcs=1.00
+2f18:0175 n=  54 -> _FlirCopy                           dev@1e85:0146 jac=1.00 lcs=1.00
+4e5c:0002 n=   9 -> _TrgMul                             dev@3a21:000e jac=1.00 lcs=1.00
+4e5c:0059 n=   5 -> _Icos                               dev@3a21:0065 jac=1.00 lcs=1.00
+4e5c:0065 n=   5 -> _Icos                               dev@3a21:0065 jac=1.00 lcs=1.00
+4e5c:0071 n=   2 -> F_SinDP                             dev@3a21:007d jac=1.00 lcs=1.00
+4e5c:0075 n=   2 -> F_SinDP                             dev@3a21:007d jac=1.00 lcs=1.00
+4e5c:0079 n=   1 -> FUN_4a21_0085                       dev@3a21:0085 jac=1.00 lcs=1.00
+4e5c:007d n=  14 -> FUN_4a21_0089                       dev@3a21:0089 jac=1.00 lcs=1.00
+5140:001e n=  81 -> __astart                            dev@3c76:0010 jac=1.00 lcs=1.00
+5140:0116 n=  82 -> __cinit                             dev@3c76:0108 jac=1.00 lcs=1.00
+5140:01db n=  43 -> _exit                               dev@3c76:01cd jac=1.00 lcs=1.00
+5140:025e n=  18 -> __ctermsub                          dev@3c76:0250 jac=1.00 lcs=1.00
+5140:028b n=   9 -> FUN_4c76_027d                       dev@3c76:027d jac=1.00 lcs=1.00
+5140:029e n=  71 -> _fclose                             dev@3c76:02b4 jac=1.00 lcs=1.00
+5140:0358 n=  19 -> __fsopen                            dev@3c76:036e jac=1.00 lcs=1.00
+5140:0384 n=  10 -> _fopen                              dev@3c76:039a jac=1.00 lcs=1.00
+5140:039a n= 111 -> _fread                              dev@3c76:03b0 jac=1.00 lcs=1.00
+5140:05c2 n=  65 -> __filbuf                            dev@3c76:05d8 jac=1.00 lcs=1.00
+5140:0658 n=  30 -> _strcat                             dev@3c76:066e jac=1.00 lcs=1.00
+5140:0698 n=  26 -> _strcpy                             dev@3c76:06ae jac=1.00 lcs=1.00
+5140:06ca n=  21 -> _strcmp                             dev@3c76:06e0 jac=1.00 lcs=1.00
+5140:073a n=  13 -> _itoa                               dev@3c76:0750 jac=1.00 lcs=1.00
+5140:076c n=  10 -> _toupper                            dev@3c76:0782 jac=1.00 lcs=1.00
+5140:095e n=  36 -> _sprintf                            dev@3c76:0866 jac=1.00 lcs=1.00
+5140:09b8 n=  57 -> _filelength                         dev@3c76:0916 jac=1.00 lcs=1.00
+5140:0a3e n=  65 -> _int86x                             dev@3c76:099c jac=1.00 lcs=1.00
+5140:0b3a n=   8 -> _inp                                dev@3c76:0a50 jac=1.00 lcs=1.00
+5140:0be8 n=  23 -> _memcpy                             dev@3c76:0a7c jac=1.00 lcs=1.00
+5140:0c2d n=   2 -> __fptrap                            dev@3c76:0ede jac=1.00 lcs=1.00
+5140:0c3c n=   2 -> __fptrap                            dev@3c76:0ede jac=1.00 lcs=1.00
+5140:0c56 n=  11 -> _labs                               dev@3c76:0aea jac=1.00 lcs=1.00
+5140:0c6c n=   7 -> _srand                              dev@3c76:0b00 jac=1.00 lcs=1.00
+5140:0d2c n=   6 -> __dos_close                         dev@3c76:0bc0 jac=1.00 lcs=1.00
+5140:0dac n=  73 -> __aFldiv                            dev@3c76:0c16 jac=1.00 lcs=1.00
+5140:0e46 n=  23 -> __aFulmul                           dev@3c76:0cb0 jac=1.00 lcs=1.00
+5140:0e78 n=   6 -> __aFlshl                            dev@3c76:0ce2 jac=1.00 lcs=1.00
+5140:0e84 n=   6 -> __aFlshr                            dev@3c76:0cee jac=1.00 lcs=1.00
+5140:0e90 n=  15 -> __aFNaldiv                          dev@3c76:0cfa jac=1.00 lcs=1.00
+5140:0eb0 n=  15 -> __aFNaldiv                          dev@3c76:0cfa jac=1.00 lcs=1.00
+5140:0ed0 n=  14 -> __aFNalshl                          dev@3c76:0d3a jac=1.00 lcs=1.00
+5140:0eee n=  14 -> __aFNalshl                          dev@3c76:0d3a jac=1.00 lcs=1.00
+5140:0f78 n=  29 -> __fstrcpy                           dev@3c76:0e40 jac=1.00 lcs=1.00
+5140:0fae n=  34 -> __fstrcat                           dev@3c76:0e76 jac=1.00 lcs=1.00
+5140:0ff4 n=  16 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=1.00 lcs=1.00
+5140:1016 n=   2 -> __fptrap                            dev@3c76:0ede jac=1.00 lcs=1.00
+5140:101c n=  19 -> __nullcheck                         dev@3c76:0ee4 jac=1.00 lcs=1.00
+5140:1040 n=  26 -> __NMSG_TEXT                         dev@3c76:1118 jac=1.00 lcs=1.00
+5140:106b n=  25 -> __NMSG_WRITE                        dev@3c76:1143 jac=1.00 lcs=1.00
+5140:10a2 n=   5 -> __dosret0                           dev@3c76:117a jac=1.00 lcs=1.00
+5140:10aa n=   8 -> __dosreturn                         dev@3c76:1182 jac=1.00 lcs=1.00
+5140:10b7 n=   7 -> __dosretax                          dev@3c76:118f jac=1.00 lcs=1.00
+5140:10c4 n=   3 -> __maperror                          dev@3c76:119c jac=1.00 lcs=1.00
+5140:10ca n=  21 -> FUN_4c76_11a2                       dev@3c76:11a2 jac=1.00 lcs=1.00
+5140:10f8 n= 103 -> __flsbuf                            dev@3c76:11d0 jac=1.00 lcs=1.00
+5140:11dc n=  20 -> __freebuf                           dev@3c76:12b4 jac=1.00 lcs=1.00
+5140:1208 n=  25 -> __getbuf                            dev@3c76:12e0 jac=1.00 lcs=1.00
+5140:124c n=  90 -> __openfile                          dev@3c76:1324 jac=1.00 lcs=1.00
+5140:1334 n=  47 -> __stbuf                             dev@3c76:140c jac=1.00 lcs=1.00
+5140:13a7 n=  29 -> __ftbuf                             dev@3c76:147f jac=1.00 lcs=1.00
+5140:13e6 n=  49 -> _fflush                             dev@3c76:14be jac=1.00 lcs=1.00
+5140:1462 n=  32 -> FUN_4c76_153a                       dev@3c76:153a jac=1.00 lcs=1.00
+5140:1996 n=  21 -> __getstream                         dev@3c76:1a6e jac=1.00 lcs=1.00
+5140:19ca n=  13 -> _close                              dev@3c76:1aa2 jac=1.00 lcs=1.00
+5140:19ea n=  46 -> _lseek                              dev@3c76:1ac2 jac=1.00 lcs=1.00
+5140:1a64 n=  94 -> _read                               dev@3c76:1b3c jac=1.00 lcs=1.00
+5140:1b4e n=  78 -> _write                              dev@3c76:1c26 jac=1.00 lcs=1.00
+5140:1c02 n=  38 -> FUN_4c76_1cda                       dev@3c76:1cda jac=1.00 lcs=1.00
+5140:1c4c n=   6 -> FUN_4c76_1d24                       dev@3c76:1d24 jac=1.00 lcs=1.00
+5140:1c5a n=  23 -> FUN_4c76_1d32                       dev@3c76:1d32 jac=1.00 lcs=1.00
+5140:1e64 n=   6 -> __dos_close                         dev@3c76:0bc0 jac=1.00 lcs=1.00
+5140:1e72 n=  19 -> __chkstk                            dev@3c76:0290 jac=1.00 lcs=1.00
+5140:1e96 n= 163 -> _sopen                              dev@3c76:1f70 jac=1.00 lcs=1.00
+5140:2041 n=   8 -> __cXENIXtoDOSmode                   dev@3c76:211b jac=1.00 lcs=1.00
+5140:2052 n=  12 -> _stackavail                         dev@3c76:212c jac=1.00 lcs=1.00
+5140:2066 n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+5140:206c n=   1 -> _malloc                             dev@3c76:2140 jac=1.00 lcs=1.00
+5140:2072 n=  17 -> __nfree                             dev@3c76:214c jac=1.00 lcs=1.00
+5140:2093 n=  21 -> __nmalloc                           dev@3c76:216d jac=1.00 lcs=1.00
+5140:20bc n=  63 -> __searchseg                         dev@3c76:2294 jac=1.00 lcs=1.00
+5140:2138 n=  68 -> __growseg                           dev@3c76:2196 jac=1.00 lcs=1.00
+5140:21c4 n=  39 -> __incseg                            dev@3c76:2222 jac=1.00 lcs=1.00
+5140:2215 n=  17 -> __findlast                          dev@3c76:2273 jac=1.00 lcs=1.00
+11ac:01d6 n= 249 -> _NPFLine                            dev@01cb:01ba jac=0.99 lcs=0.99
+11ac:1550 n= 142 -> _MyWaterline                        dev@01cb:1398 jac=0.98 lcs=0.99
+11ac:16a2 n= 129 -> _MyWaterline2                       dev@01cb:14e7 jac=0.98 lcs=0.99
+11ac:113a n=  96 -> _NDLine                             dev@01cb:0fac jac=0.97 lcs=0.98
+11ac:12dc n=  91 -> _CheckPointRot                      dev@01cb:1136 jac=0.96 lcs=0.98
+25e4:009e n=  19 -> _EMSpages                           dev@14c8:0095 jac=0.95 lcs=0.97
+2e8c:0460 n= 111 -> _MakematHPR                         dev@1e04:03c3 jac=0.95 lcs=0.97
+2e8c:06c6 n= 110 -> _MakeMatRPH                         dev@1e04:061e jac=0.95 lcs=0.97
+1328:0091 n=  19 -> _EMSReleasePages                    dev@032b:0093 jac=0.95 lcs=0.97
+25e4:01d8 n=  18 -> _EMShsize                           dev@14c8:01bf jac=0.95 lcs=0.97
+11ac:1463 n= 103 -> _BuildPolyList                      dev@01cb:12b9 jac=0.94 lcs=0.97
+25e4:00cc n=  17 -> _EMSalloc                           dev@14c8:00c1 jac=0.94 lcs=0.97
+25e4:01af n=  17 -> _EMShands                           dev@14c8:0198 jac=0.94 lcs=0.97
+2591:01f3 n=  33 -> _VertFline                          dev@1475:01f0 jac=0.94 lcs=0.97
+11ac:0101 n=  65 -> _ZClip                              dev@01cb:00ed jac=0.94 lcs=0.97
+25e4:0028 n=  16 -> _EMSinit                            dev@14c8:0024 jac=0.94 lcs=0.97
+25e4:00f6 n=  16 -> _EMSmap                             dev@14c8:00e9 jac=0.94 lcs=0.97
+25e4:0142 n=  16 -> _EMSver                             dev@14c8:0131 jac=0.94 lcs=0.97
+5140:0b1c n=  17 -> _COPY3X3                            dev@1e04:0314 jac=0.94 lcs=0.97
+25e4:011f n=  14 -> _EMSfree                            dev@14c8:0110 jac=0.93 lcs=0.97
+25e4:0169 n=  14 -> _EMSfree                            dev@14c8:0110 jac=0.93 lcs=0.97
+25e4:018c n=  14 -> _EMSfree                            dev@14c8:0110 jac=0.93 lcs=0.97
+2e8c:03ca n=  42 -> _Mult1X3                            dev@1e04:032e jac=0.93 lcs=0.96
+11ac:006f n=  40 -> _Perspect3D                         dev@01cb:0066 jac=0.93 lcs=0.96
+2e8c:058e n=  63 -> _GetHPR                             dev@1e04:04eb jac=0.93 lcs=0.96
+15ce:015d n=  12 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.92 lcs=0.96
+11ac:1280 n=  33 -> _NDDot                              dev@01cb:10e3 jac=0.91 lcs=0.96
+11ac:0008 n=  31 -> _FlagRotate3D                       dev@01cb:000a jac=0.91 lcs=0.95
+1000:00d0 n=  61 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.94 lcs=0.95
+11ac:0d7e n=  27 -> _fmemcpy                            dev@01cb:0c1f jac=0.90 lcs=0.95
+11ac:10a9 n=  24 -> _NXSLine                            dev@01cb:0f1d jac=0.88 lcs=0.94
+11ac:0d29 n=  23 -> _fmemfill                           dev@01cb:0bd0 jac=0.88 lcs=0.94
+5140:00f1 n=  15 -> __amsg_exit                         dev@3c76:00e3 jac=0.88 lcs=0.93
+11ac:0554 n= 511 -> _NPFFill                            dev@01cb:050e jac=0.88 lcs=0.93
+15ce:1222 n=  15 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.87 lcs=0.93
+11ac:10e4 n=  18 -> _NXSADDLine                         dev@01cb:0f57 jac=0.85 lcs=0.92
+2c92:007a n=  18 -> _ReadJoy2                           dev@1c3a:00ae jac=0.85 lcs=0.92
+11ac:0db3 n=  17 -> _DotProduct                         dev@01cb:0c4f jac=0.84 lcs=0.91
+3ad2:4c9d n=  11 -> _labs                               dev@3c76:0aea jac=0.83 lcs=0.91
+15ce:0d3d n=  10 -> _SetWorkPage                        dev@1475:0033 jac=0.82 lcs=0.90
+50b5:0604 n=  10 -> _SetWorkPage                        dev@1475:0033 jac=0.82 lcs=0.90
+5140:085e n=  53 -> _int86x                             dev@3c76:099c jac=0.82 lcs=0.90
+11ac:0d5f n=  14 -> _FillScreen                         dev@01cb:0c01 jac=0.81 lcs=0.90
+2528:0696 n=   5 -> _EMSread                            dev@14c8:01e9 jac=0.80 lcs=0.89
+2e8c:0344 n=  22 -> FUN_2e04_02aa                       dev@1e04:02aa jac=0.79 lcs=0.88
+3fb2:51b1 n= 589 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.92 lcs=0.88
+5140:047e n= 131 -> _fread                              dev@3c76:03b0 jac=0.82 lcs=0.86
+15ce:0d54 n=  11 -> _SetWorkPage                        dev@1475:0033 jac=0.75 lcs=0.86
+15ce:0e74 n=   7 -> _LDivI                              dev@1e04:0610 jac=0.75 lcs=0.86
+15ce:1208 n=  13 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.86 lcs=0.85
+50b5:04e4 n=   9 -> _fopen                              dev@3c76:039a jac=0.73 lcs=0.84
+5140:0c49 n=   6 -> _LMul                               dev@1e04:0605 jac=0.71 lcs=0.83
+5140:0f6c n=   6 -> __aFlshr                            dev@3c76:0cee jac=0.71 lcs=0.83
+2d3b:0053 n=  12 -> _SetWorkPage                        dev@1475:0033 jac=0.69 lcs=0.82
+11ac:0ead n=  52 -> _NScaleLine2                        dev@01cb:0d10 jac=0.73 lcs=0.81
+11ac:0c36 n=   7 -> _MulDiv32                           dev@01cb:0ae0 jac=0.67 lcs=0.80
+11ac:0c4d n=   7 -> _LongDiv                            dev@01cb:0af6 jac=0.67 lcs=0.80
+14c7:00ed n=  10 -> _fopen                              dev@3c76:039a jac=0.67 lcs=0.80
+170c:0210 n=  10 -> _SetWorkPage                        dev@1475:0033 jac=0.67 lcs=0.80
+18de:251a n=   8 -> _srand                              dev@3c76:0b00 jac=0.67 lcs=0.80
+1dc3:1189 n=   3 -> F_SinDP                             dev@3a21:007d jac=0.67 lcs=0.80
+206a:00de n=   8 -> _srand                              dev@3c76:0b00 jac=0.67 lcs=0.80
+220f:2a50 n=   3 -> F_SinDP                             dev@3a21:007d jac=0.67 lcs=0.80
+2520:0070 n=   7 -> _inp                                dev@3c76:0a50 jac=0.88 lcs=0.80
+2f37:08f4 n=   3 -> F_SinDP                             dev@3a21:007d jac=0.67 lcs=0.80
+3ad2:0718 n=  10 -> _fopen                              dev@3c76:039a jac=0.67 lcs=0.80
+50b5:0658 n=   8 -> _LDivI                              dev@1e04:0610 jac=0.67 lcs=0.80
+5140:0584 n=  29 -> _sprintf                            dev@3c76:0866 jac=0.67 lcs=0.80
+5140:0d7c n=   4 -> __dos_close                         dev@3c76:0bc0 jac=0.67 lcs=0.80
+3fb2:4dac n=  14 -> __aFNalshl                          dev@3c76:0d3a jac=0.75 lcs=0.79
+50b5:025e n=  13 -> __aFNaldiv                          dev@3c76:0cfa jac=0.65 lcs=0.79
+50b5:0278 n=  13 -> __aFNaldiv                          dev@3c76:0cfa jac=0.65 lcs=0.79
+2a3c:0002 n=  58 -> _TacTransScaleLine                  dev@19ec:0072 jac=0.73 lcs=0.78
+5140:0d64 n=  10 -> _close                              dev@3c76:1aa2 jac=0.64 lcs=0.78
+18de:0161 n=   8 -> _fopen                              dev@3c76:039a jac=0.64 lcs=0.78
+18de:0be0 n=   8 -> _SetWorkPage                        dev@1475:0033 jac=0.64 lcs=0.78
+4a6f:00a2 n=   8 -> _fopen                              dev@3c76:039a jac=0.64 lcs=0.78
+5140:0f0c n=  46 -> __aFldiv                            dev@3c76:0c16 jac=0.63 lcs=0.77
+1dc3:2288 n=   6 -> _LDivI                              dev@1e04:0610 jac=0.62 lcs=0.77
+50b5:0622 n=  19 -> __aFNaldiv                          dev@3c76:0cfa jac=0.62 lcs=0.76
+1328:0040 n=  11 -> _EMSReleasePages                    dev@032b:0093 jac=0.61 lcs=0.76
+1328:0057 n=  11 -> _EMSReleasePages                    dev@032b:0093 jac=0.61 lcs=0.76
+50b5:0244 n=  14 -> __aFNaldiv                          dev@3c76:0cfa jac=0.71 lcs=0.76
+15ce:0773 n=  10 -> __dos_close                         dev@3c76:0bc0 jac=0.60 lcs=0.75
+15ce:078c n=  16 -> _COPY3X3                            dev@1e04:0314 jac=0.60 lcs=0.75
+189f:0000 n=   9 -> _srand                              dev@3c76:0b00 jac=0.60 lcs=0.75
+1dc3:08a5 n=   8 -> _MulDiv32                           dev@01cb:0ae0 jac=0.60 lcs=0.75
+2b89:0008 n=   8 -> _MulDiv32                           dev@01cb:0ae0 jac=0.78 lcs=0.75
+2b89:02c5 n=   8 -> _MulDiv32                           dev@01cb:0ae0 jac=0.78 lcs=0.75
+31ce:8ece n=   9 -> _srand                              dev@3c76:0b00 jac=0.60 lcs=0.75
+50b5:02ac n=  14 -> _fopen                              dev@3c76:039a jac=0.71 lcs=0.75
+50b5:0668 n=  17 -> __aFNaldiv                          dev@3c76:0cfa jac=0.68 lcs=0.75
+50aa:0023 n=  19 -> __fsopen                            dev@3c76:036e jac=0.58 lcs=0.74
+15ce:0742 n=  25 -> _COPY3X3                            dev@1e04:0314 jac=0.58 lcs=0.73
+2f18:0010 n=  80 -> _FlirCopy                           dev@1e85:0146 jac=0.63 lcs=0.73
+304f:0008 n=   6 -> _Icos                               dev@3a21:0065 jac=0.83 lcs=0.73
+4be9:011d n=  12 -> _fopen                              dev@3c76:039a jac=0.69 lcs=0.73
+5140:06f6 n=  15 -> _strcmp                             dev@3c76:06e0 jac=0.57 lcs=0.72
+2fc6:06f4 n=  10 -> __aFNaldiv                          dev@3c76:0cfa jac=0.67 lcs=0.72
+5140:0ad4 n=  33 -> _vsprintf                           dev@3c76:08c0 jac=0.56 lcs=0.72
+18de:00e5 n=  13 -> __aFNaldiv                          dev@3c76:0cfa jac=0.56 lcs=0.71
+1dc3:2a62 n=   6 -> __dosreturn                         dev@3c76:1182 jac=0.56 lcs=0.71
+2a48:113b n=  13 -> __aFNaldiv                          dev@3c76:0cfa jac=0.65 lcs=0.71
+4be9:01ac n=  15 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=0.55 lcs=0.71
+11ac:0df4 n=  74 -> _NScaleLine                         dev@01cb:0c8f jac=0.58 lcs=0.71
+3ad2:1836 n=   7 -> _fopen                              dev@3c76:039a jac=0.55 lcs=0.71
+3ad2:1843 n=   7 -> _fopen                              dev@3c76:039a jac=0.55 lcs=0.71
+4b61:00ab n=   7 -> _fopen                              dev@3c76:039a jac=0.55 lcs=0.71
+4be9:016f n=  10 -> _srand                              dev@3c76:0b00 jac=0.70 lcs=0.71
+50b5:05c4 n=  20 -> __aFNalshl                          dev@3c76:0d3a jac=0.62 lcs=0.71
+50b5:06ba n=  20 -> __aFNalshl                          dev@3c76:0d3a jac=0.62 lcs=0.71
+5140:0cf0 n=  11 -> __dos_close                         dev@3c76:0bc0 jac=0.55 lcs=0.71
+15ce:0bdc n=  26 -> _Trans3X3                           dev@1e04:02e2 jac=0.54 lcs=0.70
+28a7:029c n=  10 -> _fopen                              dev@3c76:039a jac=0.67 lcs=0.70
+4e65:01f2 n=  10 -> _fopen                              dev@3c76:039a jac=0.54 lcs=0.70
+4e65:0209 n=  10 -> _fopen                              dev@3c76:039a jac=0.54 lcs=0.70
+4e88:0d6e n=  10 -> _fopen                              dev@3c76:039a jac=0.67 lcs=0.70
+5140:0712 n=  24 -> _COPY3X3                            dev@1e04:0314 jac=0.67 lcs=0.70
+2cac:05da n=  11 -> __aFNaldiv                          dev@3c76:0cfa jac=0.53 lcs=0.69
+2520:004f n=  15 -> __aFNalshl                          dev@3c76:0d3a jac=0.71 lcs=0.69
+5140:0810 n=  14 -> _EMSfree                            dev@14c8:0110 jac=0.81 lcs=0.69
+14c7:039e n=  17 -> __aFNaldiv                          dev@3c76:0cfa jac=0.68 lcs=0.69
+50b5:0692 n=  16 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=0.68 lcs=0.69
+3fb2:4d73 n=  25 -> __fsopen                            dev@3c76:036e jac=0.63 lcs=0.68
+1125:03a4 n=  27 -> __aFNaldiv                          dev@3c76:0cfa jac=0.56 lcs=0.67
+1125:0683 n=  12 -> __aFNaldiv                          dev@3c76:0cfa jac=0.59 lcs=0.67
+1342:127b n=  27 -> __aFNaldiv                          dev@3c76:0cfa jac=0.56 lcs=0.67
+15ce:013e n=  11 -> _SetWorkPage                        dev@1475:0033 jac=0.50 lcs=0.67
+15ce:0c21 n=  26 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.50 lcs=0.67
+15ce:0d7a n=   3 -> __maperror                          dev@3c76:119c jac=0.50 lcs=0.67
+18de:2828 n=   1 -> F_SinDP                             dev@3a21:007d jac=0.50 lcs=0.67
+18de:33f1 n=   7 -> __dosreturn                         dev@3c76:1182 jac=0.67 lcs=0.67
+220f:0750 n=  18 -> __aFNaldiv                          dev@3c76:0cfa jac=0.57 lcs=0.67
+220f:2f6e n=   1 -> F_SinDP                             dev@3a21:007d jac=0.50 lcs=0.67
+220f:2f6f n=   1 -> F_SinDP                             dev@3a21:007d jac=0.50 lcs=0.67
+2604:0db6 n=  15 -> __aFNaldiv                          dev@3c76:0cfa jac=0.50 lcs=0.67
+28d5:053f n=   1 -> F_SinDP                             dev@3a21:007d jac=0.50 lcs=0.67
+28d5:0540 n=   1 -> F_SinDP                             dev@3a21:007d jac=0.50 lcs=0.67
+2a48:003a n=   9 -> __amsg_exit                         dev@3c76:00e3 jac=0.50 lcs=0.67
+2a48:0970 n=   1 -> F_SinDP                             dev@3a21:007d jac=0.50 lcs=0.67
+2b89:0017 n=  22 -> __aFNalshl                          dev@3c76:0d3a jac=0.57 lcs=0.67
+2c92:0008 n=  23 -> _COPY3X3                            dev@1e04:0314 jac=0.56 lcs=0.67
+3fb2:1652 n=   8 -> _srand                              dev@3c76:0b00 jac=0.50 lcs=0.67
+4a6f:01ca n=   4 -> F_SinDP                             dev@3a21:007d jac=0.50 lcs=0.67
+4b61:04d1 n=   2 -> _EMSread                            dev@14c8:01e9 jac=0.50 lcs=0.67
+4fa0:03f5 n=   5 -> _fopen                              dev@3c76:039a jac=0.50 lcs=0.67
+50b5:00a2 n=  17 -> __fsopen                            dev@3c76:036e jac=0.57 lcs=0.67
+1328:000c n=  29 -> _EMSprsnt                           dev@14c8:0000 jac=0.48 lcs=0.65
+31ce:8146 n=  25 -> __aFNaldiv                          dev@3c76:0cfa jac=0.48 lcs=0.65
+15ce:0e42 n=  21 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.55 lcs=0.65
+1dc3:2724 n=  13 -> __getstream                         dev@3c76:1a6e jac=0.48 lcs=0.65
+50b5:0290 n=  15 -> __fsopen                            dev@3c76:036e jac=0.70 lcs=0.65
+2520:000e n=  29 -> _NCloudFillLine2                    dev@01cb:0f80 jac=0.56 lcs=0.64
+2fc6:06ce n=  13 -> __aFNaldiv                          dev@3c76:0cfa jac=0.65 lcs=0.64
+4be9:0104 n=  12 -> _MakeBspDrawList                    dev@01cb:129a jac=0.56 lcs=0.64
+4e65:0220 n=  14 -> __aFNalshl                          dev@3c76:0d3a jac=0.65 lcs=0.64
+1125:009a n=  12 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.56 lcs=0.64
+15ce:0d81 n=  15 -> _fopen                              dev@3c76:039a jac=0.47 lcs=0.64
+170c:01c9 n=  33 -> _Mult3X3                            dev@1e04:0286 jac=0.47 lcs=0.64
+50aa:000e n=   9 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.57 lcs=0.64
+2a48:13a9 n=  26 -> __aFNaldiv                          dev@3c76:0cfa jac=0.58 lcs=0.63
+2081:18cf n=   9 -> _toupper                            dev@3c76:0782 jac=0.46 lcs=0.63
+220f:28b9 n=  23 -> _FillScreen                         dev@01cb:0c01 jac=0.52 lcs=0.63
+4cb5:0312 n=  12 -> _srand                              dev@3c76:0b00 jac=0.46 lcs=0.63
+4d41:03ad n=  12 -> _srand                              dev@3c76:0b00 jac=0.46 lcs=0.63
+170c:0002 n=  20 -> __aFNaldiv                          dev@3c76:0cfa jac=0.52 lcs=0.63
+18de:230b n=  20 -> _FillScreen                         dev@01cb:0c01 jac=0.59 lcs=0.63
+4be9:0198 n=   8 -> _MulDiv32                           dev@01cb:0ae0 jac=0.60 lcs=0.62
+50b5:055a n=  41 -> _sprintf                            dev@3c76:0866 jac=0.75 lcs=0.62
+50b5:017e n=  30 -> __aFNaldiv                          dev@3c76:0cfa jac=0.45 lcs=0.62
+48b6:18a6 n=  14 -> __amsg_exit                         dev@3c76:00e3 jac=0.53 lcs=0.62
+1c2f:006e n=  16 -> _SetWorkPage                        dev@1475:0033 jac=0.53 lcs=0.62
+18de:34a7 n=  19 -> _Mult3X3                            dev@1e04:0286 jac=0.57 lcs=0.61
+2b89:0720 n=  22 -> __aFNalshl                          dev@3c76:0d3a jac=0.50 lcs=0.61
+4be9:01cc n=  23 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.50 lcs=0.61
+4e88:1153 n=  21 -> __aFNaldiv                          dev@3c76:0cfa jac=0.64 lcs=0.61
+28d5:00eb n=  10 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.53 lcs=0.61
+31ce:76b5 n=  93 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.72 lcs=0.61
+2d53:0006 n=  12 -> _strcmp                             dev@3c76:06e0 jac=0.50 lcs=0.61
+2f37:0848 n=  19 -> __aFNalshl                          dev@3c76:0d3a jac=0.57 lcs=0.61
+31ce:77bc n=  18 -> __aFNaldiv                          dev@3c76:0cfa jac=0.50 lcs=0.61
+31ce:77e1 n=  18 -> __aFNaldiv                          dev@3c76:0cfa jac=0.50 lcs=0.61
+5140:0d83 n=  16 -> _EMSmap                             dev@14c8:00e9 jac=0.74 lcs=0.61
+50b5:02c6 n=  27 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=0.48 lcs=0.60
+4c08:0628 n=  15 -> __aFNaldiv                          dev@3c76:0cfa jac=0.67 lcs=0.60
+4fa0:036c n=  15 -> __aFNaldiv                          dev@3c76:0cfa jac=0.58 lcs=0.60
+1058:0b9a n=  35 -> _Rotate                             dev@1e04:0219 jac=0.50 lcs=0.60
+1125:0008 n=  18 -> _EMShsize                           dev@14c8:01bf jac=0.54 lcs=0.59
+3fb2:3a1a n=  32 -> FUN_4c76_153a                       dev@3c76:153a jac=0.60 lcs=0.59
+18de:2d43 n=  11 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=0.50 lcs=0.59
+4b61:0491 n=  13 -> __aFNalshl                          dev@3c76:0d3a jac=0.50 lcs=0.59
+1125:037b n=  18 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=0.62 lcs=0.59
+2fc6:00ef n=   9 -> __dosreturn                         dev@3c76:1182 jac=0.55 lcs=0.59
+2fc6:0720 n=  19 -> __aFNaldiv                          dev@3c76:0cfa jac=0.48 lcs=0.59
+5140:0bca n=  17 -> _EMSmap                             dev@14c8:00e9 jac=0.55 lcs=0.59
+2604:0d76 n=  27 -> __aFNalshl                          dev@3c76:0d3a jac=0.46 lcs=0.59
+5140:0b48 n=  24 -> _EMSprsnt                           dev@14c8:0000 jac=0.58 lcs=0.59
+189f:016a n=  10 -> __aFNalshl                          dev@3c76:0d3a jac=0.60 lcs=0.58
+31ce:73f8 n=  14 -> _fopen                              dev@3c76:039a jac=0.50 lcs=0.58
+3fb2:35fb n=  14 -> _fopen                              dev@3c76:039a jac=0.60 lcs=0.58
+50b5:06ec n=  23 -> __getbuf                            dev@3c76:12e0 jac=0.60 lcs=0.58
+31ce:7eac n= 125 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.64 lcs=0.58
+2fc6:0649 n=  23 -> __aFNaldiv                          dev@3c76:0cfa jac=0.46 lcs=0.58
+4cb5:0338 n=  23 -> _FillScreen                         dev@01cb:0c01 jac=0.52 lcs=0.58
+4a61:00b6 n=  19 -> _strcpy                             dev@3c76:06ae jac=0.45 lcs=0.58
+4fa0:1007 n=  26 -> __fsopen                            dev@3c76:036e jac=0.61 lcs=0.58
+18de:1b41 n=  28 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.57 lcs=0.58
+4c08:07cb n=  32 -> _vsprintf                           dev@3c76:08c0 jac=0.53 lcs=0.58
+4d7e:078e n=  32 -> _vsprintf                           dev@3c76:08c0 jac=0.53 lcs=0.58
+4fa0:0b15 n=  32 -> _vsprintf                           dev@3c76:08c0 jac=0.53 lcs=0.58
+18de:3404 n=  19 -> _COPY3X3                            dev@1e04:0314 jac=0.52 lcs=0.57
+28d5:03e8 n=  18 -> _Mult3X3                            dev@1e04:0286 jac=0.52 lcs=0.57
+2cac:05fa n=  20 -> __aFNaldiv                          dev@3c76:0cfa jac=0.52 lcs=0.57
+4a6f:01a8 n=  13 -> _EMSfree                            dev@14c8:0110 jac=0.47 lcs=0.57
+4cb5:02a2 n=  28 -> __getstream                         dev@3c76:1a6e jac=0.53 lcs=0.57
+3ad2:4dc7 n=  28 -> __getbuf                            dev@3c76:12e0 jac=0.51 lcs=0.57
+1c2f:000a n=  43 -> _Rotate                             dev@1e04:0219 jac=0.53 lcs=0.57
+2e8c:01de n=  29 -> _Mult3X3                            dev@1e04:0286 jac=0.53 lcs=0.57
+5140:0782 n=  60 -> _fclose                             dev@3c76:02b4 jac=0.70 lcs=0.56
+170c:0126 n=  58 -> _NScaleLine                         dev@01cb:0c8f jac=0.54 lcs=0.56
+50b5:0074 n=  20 -> __fsopen                            dev@3c76:036e jac=0.70 lcs=0.56
+18de:1c72 n=  30 -> _vsprintf                           dev@3c76:08c0 jac=0.68 lcs=0.56
+2604:0eba n=  17 -> __aFNaldiv                          dev@3c76:0cfa jac=0.45 lcs=0.56
+2a48:1330 n=  17 -> __aFNaldiv                          dev@3c76:0cfa jac=0.60 lcs=0.56
+1d04:0b91 n=  38 -> __fsopen                            dev@3c76:036e jac=0.50 lcs=0.56
+31ce:548e n= 102 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.63 lcs=0.56
+2c92:003c n=  27 -> _COPY3X3                            dev@1e04:0314 jac=0.54 lcs=0.56
+28a7:02ae n=  34 -> _NCloudFillLine2                    dev@01cb:0f80 jac=0.53 lcs=0.56
+18de:1b0e n=  23 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.50 lcs=0.56
+1c38:057d n=  21 -> _FillScreen                         dev@01cb:0c01 jac=0.50 lcs=0.56
+1dc3:2293 n=  21 -> _EMSfree                            dev@14c8:0110 jac=0.64 lcs=0.56
+220f:286b n=  21 -> __aFNaldiv                          dev@3c76:0cfa jac=0.50 lcs=0.56
+5140:0d08 n=  18 -> _EMSalloc                           dev@14c8:00c1 jac=0.57 lcs=0.56
+1c38:05aa n=  54 -> _int86x                             dev@3c76:099c jac=0.63 lcs=0.55
+172e:0154 n=  14 -> _FillScreen                         dev@01cb:0c01 jac=0.45 lcs=0.55
+5140:0d41 n=  16 -> _close                              dev@3c76:1aa2 jac=0.61 lcs=0.55
+1058:0b45 n=  31 -> _Rotate                             dev@1e04:0219 jac=0.45 lcs=0.55
+18de:2881 n=  23 -> _EMSmap                             dev@14c8:00e9 jac=0.43 lcs=0.55
+18de:2df8 n=  23 -> _EMSmap                             dev@14c8:00e9 jac=0.43 lcs=0.55
+50b5:00c8 n=  38 -> _filelength                         dev@3c76:0916 jac=0.61 lcs=0.55
+50b5:0122 n=  38 -> _filelength                         dev@3c76:0916 jac=0.61 lcs=0.55
+14c7:0381 n=  14 -> _ReadJoy2                           dev@1c3a:00ae jac=0.43 lcs=0.55
+172e:04c5 n=  29 -> __aFNaldiv                          dev@3c76:0cfa jac=0.52 lcs=0.55
+18de:308e n=  20 -> _VGADrawDot                         dev@1475:0052 jac=0.47 lcs=0.55
+1d04:000e n=  19 -> __aFNalshl                          dev@3c76:0d3a jac=0.57 lcs=0.55
+4cb5:02eb n=  19 -> __aFNalshl                          dev@3c76:0d3a jac=0.50 lcs=0.55
+5140:0756 n=   6 -> __output                            dev@3c76:1596 jac=0.57 lcs=0.55
+3fb2:2627 n=  60 -> _int86x                             dev@3c76:099c jac=0.60 lcs=0.54
+189f:021b n=  30 -> __ftbuf                             dev@3c76:147f jac=0.51 lcs=0.54
+18de:1cc1 n=  23 -> __aFNalshl                          dev@3c76:0d3a jac=0.54 lcs=0.54
+28d5:035e n=  18 -> __fsopen                            dev@3c76:036e jac=0.48 lcs=0.54
+4b61:0790 n=  31 -> __getstream                         dev@3c76:1a6e jac=0.44 lcs=0.54
+184e:0133 n=  33 -> _Rotate                             dev@1e04:0219 jac=0.44 lcs=0.54
+1058:0a6b n=  29 -> _COPY3X3                            dev@1e04:0314 jac=0.50 lcs=0.53
+2528:0148 n=  63 -> _filelength                         dev@3c76:0916 jac=0.54 lcs=0.53
+2a48:12c1 n=  15 -> __aFNaldiv                          dev@3c76:0cfa jac=0.58 lcs=0.53
+48b6:16e8 n=  30 -> _EMMMapPage                         dev@032b:00b7 jac=0.46 lcs=0.53
+3ad2:4104 n=  49 -> _fflush                             dev@3c76:14be jac=0.58 lcs=0.53
+15ce:0c60 n=  56 -> _int86x                             dev@3c76:099c jac=0.53 lcs=0.53
+18de:006c n=  34 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.60 lcs=0.53
+4fa0:0220 n= 104 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.43 lcs=0.53
+4fa0:0e0b n=  53 -> _filelength                         dev@3c76:0916 jac=0.57 lcs=0.53
+1125:0181 n=  22 -> _MakeBspDrawList                    dev@01cb:129a jac=0.58 lcs=0.53
+172e:06f3 n=  11 -> _MulDiv32                           dev@01cb:0ae0 jac=0.46 lcs=0.53
+3fb2:35d6 n=  22 -> _MakeBspDrawList                    dev@01cb:129a jac=0.58 lcs=0.53
+46ad:071c n=  68 -> _int86x                             dev@3c76:099c jac=0.58 lcs=0.53
+4be9:0000 n=  34 -> _NCloudFillLine2                    dev@01cb:0f80 jac=0.61 lcs=0.52
+50b5:0470 n=  46 -> _filelength                         dev@3c76:0916 jac=0.54 lcs=0.52
+1dc3:2a2e n=  23 -> __fsopen                            dev@3c76:036e jac=0.68 lcs=0.52
+3fb2:2ad1 n=  54 -> _filelength                         dev@3c76:0916 jac=0.50 lcs=0.52
+3ad2:4322 n= 147 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.60 lcs=0.52
+189f:019b n=  13 -> _fopen                              dev@3c76:039a jac=0.53 lcs=0.52
+2a48:0b44 n=  13 -> _fopen                              dev@3c76:039a jac=0.44 lcs=0.52
+2f37:0872 n=  35 -> _vsprintf                           dev@3c76:08c0 jac=0.57 lcs=0.52
+172e:00d1 n=  49 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.46 lcs=0.52
+189f:0016 n=  12 -> _EMSfree                            dev@14c8:0110 jac=0.59 lcs=0.52
+18de:33d3 n=  11 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=0.59 lcs=0.52
+48b6:1796 n=  47 -> _vsprintf                           dev@3c76:08c0 jac=0.65 lcs=0.52
+5140:0c7e n=  14 -> _MakeRotationMatrix                 dev@05c4:0006 jac=0.59 lcs=0.52
+4b61:0004 n=  24 -> _vsprintf                           dev@3c76:08c0 jac=0.53 lcs=0.52
+4a6f:00b5 n=  21 -> _fopen                              dev@3c76:039a jac=0.48 lcs=0.52
+2604:0f3d n=  71 -> _filelength                         dev@3c76:0916 jac=0.64 lcs=0.52
+3fb2:4853 n=  32 -> _vsprintf                           dev@3c76:08c0 jac=0.50 lcs=0.52
+3fb2:68f1 n=  37 -> __ftbuf                             dev@3c76:147f jac=0.50 lcs=0.52
+3ad2:06ec n=  19 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=0.52 lcs=0.51
+5140:0ca6 n=  14 -> _strcmp                             dev@3c76:06e0 jac=0.52 lcs=0.51
+18de:277e n=  22 -> _EMSmap                             dev@14c8:00e9 jac=0.50 lcs=0.51
+18de:2cf5 n=  32 -> __aFNaldiv                          dev@3c76:0cfa jac=0.47 lcs=0.51
+4746:06f4 n=  32 -> __aFNaldiv                          dev@3c76:0cfa jac=0.47 lcs=0.51
+4e65:01a4 n=  32 -> __aFNaldiv                          dev@3c76:0cfa jac=0.47 lcs=0.51
+4a9a:04a6 n=  39 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.44 lcs=0.51
+50b5:04f6 n=  45 -> _filelength                         dev@3c76:0916 jac=0.57 lcs=0.51
+1058:0008 n=  30 -> __getbuf                            dev@3c76:12e0 jac=0.57 lcs=0.51
+4d7e:0309 n=  34 -> __ftbuf                             dev@3c76:147f jac=0.57 lcs=0.51
+3ad2:4099 n=  35 -> FUN_4c76_153a                       dev@3c76:153a jac=0.63 lcs=0.51
+3fb2:47fd n=  33 -> _vsprintf                           dev@3c76:08c0 jac=0.49 lcs=0.51
+4a9a:09d9 n=  39 -> _sprintf                            dev@3c76:0866 jac=0.63 lcs=0.51
+18de:24b8 n=  43 -> _sprintf                            dev@3c76:0866 jac=0.61 lcs=0.51
+3fb2:2d90 n=  38 -> _Rotate                             dev@1e04:0219 jac=0.55 lcs=0.51
+5140:08de n=  46 -> _fflush                             dev@3c76:14be jac=0.56 lcs=0.51
+1125:006a n=  16 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=0.52 lcs=0.50
+18de:306c n=  13 -> __amsg_exit                         dev@3c76:00e3 jac=0.56 lcs=0.50
+18de:3450 n=  42 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.45 lcs=0.50
+2081:18a0 n=  18 -> _EMShands                           dev@14c8:0198 jac=0.57 lcs=0.50
+2528:029b n=  21 -> __aFNaldiv                          dev@3c76:0cfa jac=0.50 lcs=0.50
+28d5:0397 n=  31 -> _Mult3X3                            dev@1e04:0286 jac=0.50 lcs=0.50
+2a48:00e6 n=  18 -> _fopen                              dev@3c76:039a jac=0.47 lcs=0.50
+2a48:0f7c n=  25 -> __aFNaldiv                          dev@3c76:0cfa jac=0.60 lcs=0.50
+4e88:0f1a n=  22 -> __aFNalshl                          dev@3c76:0d3a jac=0.44 lcs=0.50
+31ce:2858 n=  77 -> _GetHPR                             dev@1e04:04eb jac=0.63 lcs=0.50
+172e:016f n=  34 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.48 lcs=0.49
+47ba:01ea n=  38 -> __fsopen                            dev@3c76:036e jac=0.46 lcs=0.49
+1058:004b n=  28 -> __getbuf                            dev@3c76:12e0 jac=0.56 lcs=0.49
+28d5:04f9 n=  30 -> __aFNaldiv                          dev@3c76:0cfa jac=0.50 lcs=0.49
+220f:2a2c n=  14 -> _ReadJoy2                           dev@1c3a:00ae jac=0.50 lcs=0.48
+48b6:007a n=  16 -> _EMSver                             dev@14c8:0131 jac=0.57 lcs=0.48
+5140:0836 n=  16 -> _EMSver                             dev@14c8:0131 jac=0.83 lcs=0.48
+3fb2:2df2 n=  71 -> _filelength                         dev@3c76:0916 jac=0.54 lcs=0.48
+4cb5:057c n=  28 -> _vsprintf                           dev@3c76:08c0 jac=0.44 lcs=0.48
+2528:04c8 n=  61 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.50 lcs=0.48
+2e8c:0284 n=  31 -> _NCloudFillLine2                    dev@01cb:0f80 jac=0.61 lcs=0.48
+3fb2:04c8 n=  10 -> __fsopen                            dev@3c76:036e jac=0.53 lcs=0.48
+3ad2:1ca3 n=  70 -> _fclose                             dev@3c76:02b4 jac=0.55 lcs=0.48
+172e:05d3 n=  80 -> _filelength                         dev@3c76:0916 jac=0.49 lcs=0.48
+3fb2:0e52 n=  47 -> _filelength                         dev@3c76:0916 jac=0.51 lcs=0.48
+4a6f:01d6 n=  10 -> _EMSfree                            dev@14c8:0110 jac=0.56 lcs=0.48
+3ad2:2a11 n= 111 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.56 lcs=0.48
+18de:0e0d n=  27 -> __fsopen                            dev@3c76:036e jac=0.59 lcs=0.48
+47ba:040f n=  45 -> _exit                               dev@3c76:01cd jac=0.54 lcs=0.48
+172e:0d90 n=  25 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.47 lcs=0.48
+1dc3:0eee n=  18 -> _VGADrawDot                         dev@1475:0052 jac=0.50 lcs=0.48
+2a48:004b n=  11 -> _fopen                              dev@3c76:039a jac=0.50 lcs=0.48
+3ad2:40e4 n=  11 -> _SetWorkPage                        dev@1475:0033 jac=0.50 lcs=0.48
+4d7e:0708 n=  50 -> _vsprintf                           dev@3c76:08c0 jac=0.56 lcs=0.48
+3ad2:2fb4 n=  65 -> _filelength                         dev@3c76:0916 jac=0.63 lcs=0.48
+2b89:009e n=  53 -> _filelength                         dev@3c76:0916 jac=0.55 lcs=0.47
+4a6f:0238 n=  49 -> _filelength                         dev@3c76:0916 jac=0.49 lcs=0.47
+18de:2829 n=  45 -> _filelength                         dev@3c76:0916 jac=0.55 lcs=0.47
+4cb5:0006 n=  19 -> __amsg_exit                         dev@3c76:00e3 jac=0.42 lcs=0.47
+31ce:5b70 n=  85 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.58 lcs=0.47
+31ce:0adb n=  60 -> _GetHPR                             dev@1e04:04eb jac=0.58 lcs=0.47
+4a6f:00e5 n=  70 -> _fclose                             dev@3c76:02b4 jac=0.53 lcs=0.47
+4cb5:022f n=  39 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.57 lcs=0.47
+189f:0281 n=  13 -> _EMSver                             dev@14c8:0131 jac=0.43 lcs=0.47
+31ce:7245 n=  39 -> _NDDot                              dev@01cb:10e3 jac=0.55 lcs=0.47
+2604:0ee8 n=  28 -> __aFNaldiv                          dev@3c76:0cfa jac=0.48 lcs=0.47
+4cb5:078a n=  25 -> _EMSalloc                           dev@14c8:00c1 jac=0.43 lcs=0.47
+5140:0b72 n=  48 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.48 lcs=0.47
+2a48:01a7 n=  24 -> __aFNaldiv                          dev@3c76:0cfa jac=0.44 lcs=0.46
+4fa0:0a79 n=  53 -> _vsprintf                           dev@3c76:08c0 jac=0.50 lcs=0.46
+4e88:1066 n=  83 -> _int86x                             dev@3c76:099c jac=0.53 lcs=0.46
+1504:07b1 n=  40 -> _exit                               dev@3c76:01cd jac=0.60 lcs=0.46
+1d04:07e3 n=  81 -> _GetHPR                             dev@1e04:04eb jac=0.55 lcs=0.46
+172e:06a4 n=  36 -> __getstream                         dev@3c76:1a6e jac=0.46 lcs=0.46
+2081:1838 n=  25 -> __fsopen                            dev@3c76:036e jac=0.47 lcs=0.45
+2604:0b63 n=  32 -> _vsprintf                           dev@3c76:08c0 jac=0.53 lcs=0.45
+1d04:00d2 n=  54 -> _int86x                             dev@3c76:099c jac=0.61 lcs=0.45
+28a7:01bd n=  42 -> _Dist2D                             dev@1e04:0190 jac=0.50 lcs=0.45
+31ce:741c n=  59 -> _int86x                             dev@3c76:099c jac=0.49 lcs=0.45
+220f:1e35 n=  74 -> _GetHPR                             dev@1e04:04eb jac=0.51 lcs=0.45
+1125:02e1 n=  54 -> _filelength                         dev@3c76:0916 jac=0.50 lcs=0.45
+2081:1230 n=  24 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=0.54 lcs=0.45
+31ce:09dc n=  24 -> _MakeBspDrawList                    dev@01cb:129a jac=0.48 lcs=0.45
+18de:2436 n=  53 -> _sprintf                            dev@3c76:0866 jac=0.51 lcs=0.45
+172e:0515 n=  39 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.46 lcs=0.45
+4c08:0a53 n=  57 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.61 lcs=0.45
+4cb5:05c2 n=  42 -> _vsprintf                           dev@3c76:08c0 jac=0.65 lcs=0.45
+1125:049a n=  90 -> _fclose                             dev@3c76:02b4 jac=0.58 lcs=0.45
+48b6:1a39 n=  51 -> _vsprintf                           dev@3c76:08c0 jac=0.44 lcs=0.45
+4e88:0e34 n=  85 -> __flsbuf                            dev@3c76:11d0 jac=0.46 lcs=0.45
+3060:158d n=  59 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.51 lcs=0.45
+189f:01b3 n=  31 -> FUN_4c76_153a                       dev@3c76:153a jac=0.47 lcs=0.44
+18de:2337 n=  34 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.53 lcs=0.44
+18de:2d58 n=  69 -> _filelength                         dev@3c76:0916 jac=0.57 lcs=0.44
+2fc6:004a n=  38 -> _vsprintf                           dev@3c76:08c0 jac=0.50 lcs=0.44
+3060:000a n=  34 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.53 lcs=0.44
+3fb2:024c n=  55 -> _fflush                             dev@3c76:14be jac=0.58 lcs=0.44
+1c38:01eb n=  29 -> __getstream                         dev@3c76:1a6e jac=0.52 lcs=0.44
+3ad2:2c29 n=  79 -> _fclose                             dev@3c76:02b4 jac=0.60 lcs=0.44
+3ad2:486a n= 121 -> _MakeMatRPH                         dev@1e04:061e jac=0.45 lcs=0.44
+1c38:0c44 n=  47 -> _fflush                             dev@3c76:14be jac=0.45 lcs=0.44
+2604:0bed n=  32 -> FUN_4c76_153a                       dev@3c76:153a jac=0.49 lcs=0.44
+50b5:087c n=  26 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.56 lcs=0.44
+2a48:0e87 n=  94 -> _fclose                             dev@3c76:02b4 jac=0.46 lcs=0.44
+4cb5:04d9 n=  65 -> _GetHPR                             dev@1e04:04eb jac=0.48 lcs=0.44
+1058:056d n=  55 -> _lseek                              dev@3c76:1ac2 jac=0.42 lcs=0.44
+31ce:0a13 n=  76 -> _fclose                             dev@3c76:02b4 jac=0.69 lcs=0.44
+1dc3:2756 n=  13 -> _toupper                            dev@3c76:0782 jac=0.44 lcs=0.43
+4fa0:0543 n=  27 -> __fsopen                            dev@3c76:036e jac=0.53 lcs=0.43
+3ad2:2eab n= 101 -> _fread                              dev@3c76:03b0 jac=0.53 lcs=0.43
+50b5:0000 n=  47 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.56 lcs=0.43
+15ce:11c0 n=  33 -> _NCloudFillLine2                    dev@01cb:0f80 jac=0.62 lcs=0.43
+2b89:0047 n=  40 -> _filelength                         dev@3c76:0916 jac=0.43 lcs=0.43
+48b6:000c n=  40 -> _vsprintf                           dev@3c76:08c0 jac=0.61 lcs=0.43
+2a48:121e n=  32 -> __fsopen                            dev@3c76:036e jac=0.46 lcs=0.43
+18de:1694 n=  96 -> _fclose                             dev@3c76:02b4 jac=0.52 lcs=0.43
+1125:03fa n=  48 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.55 lcs=0.43
+3ad2:3075 n= 103 -> _fread                              dev@3c76:03b0 jac=0.53 lcs=0.43
+31ce:6843 n=  64 -> _fclose                             dev@3c76:02b4 jac=0.59 lcs=0.43
+220f:16e7 n=  58 -> _GetHPR                             dev@1e04:04eb jac=0.54 lcs=0.43
+3ad2:0c3b n=  75 -> __filbuf                            dev@3c76:05d8 jac=0.54 lcs=0.43
+2a48:0878 n=  89 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.56 lcs=0.43
+4fa0:0981 n=  89 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.56 lcs=0.43
+4cb5:00f2 n=  56 -> __stbuf                             dev@3c76:140c jac=0.61 lcs=0.43
+3060:0dbe n=  80 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.52 lcs=0.43
+1342:12c4 n=  96 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.52 lcs=0.43
+4e88:0d81 n=  70 -> _filelength                         dev@3c76:0916 jac=0.48 lcs=0.43
+28d5:02e0 n=  42 -> _fclose                             dev@3c76:02b4 jac=0.49 lcs=0.42
+3060:164e n=  48 -> _int86x                             dev@3c76:099c jac=0.57 lcs=0.42
+18de:1117 n=  34 -> FUN_4c76_153a                       dev@3c76:153a jac=0.57 lcs=0.42
+2f37:07cf n=  40 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.43 lcs=0.42
+3fb2:0100 n=  16 -> _EMSver                             dev@14c8:0131 jac=0.43 lcs=0.42
+28a7:0218 n=  55 -> _fflush                             dev@3c76:14be jac=0.58 lcs=0.42
+18de:016e n=  21 -> _EMSver                             dev@14c8:0131 jac=0.46 lcs=0.42
+4cb5:0031 n=  68 -> __filbuf                            dev@3c76:05d8 jac=0.55 lcs=0.42
+4e88:0f4e n= 112 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.45 lcs=0.42
+3ad2:2e14 n=  48 -> _fclose                             dev@3c76:02b4 jac=0.51 lcs=0.42
+48b6:0229 n=  83 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.63 lcs=0.42
+18de:0eb9 n=  94 -> _GetHPR                             dev@1e04:04eb jac=0.54 lcs=0.42
+18c9:0000 n=  72 -> _filelength                         dev@3c76:0916 jac=0.63 lcs=0.42
+4cb5:018b n=  63 -> __stbuf                             dev@3c76:140c jac=0.59 lcs=0.42
+3fb2:3a61 n= 108 -> __flsbuf                            dev@3c76:11d0 jac=0.60 lcs=0.42
+50b5:074a n= 132 -> __flsbuf                            dev@3c76:11d0 jac=0.52 lcs=0.42
+220f:118f n=  57 -> _GetHPR                             dev@1e04:04eb jac=0.47 lcs=0.42
+1c38:07bf n= 162 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.45 lcs=0.42
+3fb2:4a51 n= 114 -> __flsbuf                            dev@3c76:11d0 jac=0.53 lcs=0.41
+47ba:02ef n= 101 -> _GetHPR                             dev@1e04:04eb jac=0.52 lcs=0.41
+3ad2:0a05 n= 197 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.47 lcs=0.41
+3050:0012 n=  93 -> _MyWaterline2                       dev@01cb:14e7 jac=0.48 lcs=0.41
+14c7:0263 n=  63 -> _GetHPR                             dev@1e04:04eb jac=0.54 lcs=0.41
+1125:0805 n=  20 -> __aFNalshl                          dev@3c76:0d3a jac=0.55 lcs=0.41
+1125:083e n=  20 -> __aFNalshl                          dev@3c76:0d3a jac=0.55 lcs=0.41
+2f37:08c2 n=  19 -> __amsg_exit                         dev@3c76:00e3 jac=0.55 lcs=0.41
+4be9:0153 n=  16 -> _EMSReleasePages                    dev@032b:0093 jac=0.48 lcs=0.41
+4fa0:0432 n=  77 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.55 lcs=0.41
+5140:14be n=  44 -> _vsprintf                           dev@3c76:08c0 jac=0.50 lcs=0.41
+2a48:0308 n=  95 -> _fclose                             dev@3c76:02b4 jac=0.58 lcs=0.41
+3fb2:3252 n=  78 -> _fflush                             dev@3c76:14be jac=0.53 lcs=0.41
+4be9:004d n=  20 -> _VGADrawDot                         dev@1475:0052 jac=0.47 lcs=0.41
+18de:2ad4 n=  91 -> __openfile                          dev@3c76:1324 jac=0.48 lcs=0.41
+31ce:75c7 n=  88 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.52 lcs=0.41
+220f:1229 n=  35 -> _EMShsize                           dev@14c8:01bf jac=0.42 lcs=0.41
+2a48:025f n=  35 -> __fsopen                            dev@3c76:036e jac=0.54 lcs=0.41
+184e:000c n=  99 -> _GetHPR                             dev@1e04:04eb jac=0.48 lcs=0.41
+220f:08e1 n= 104 -> _GetHPR                             dev@1e04:04eb jac=0.46 lcs=0.41
+3060:0b0c n= 148 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.50 lcs=0.41
+31ce:2608 n=  40 -> _vsprintf                           dev@3c76:08c0 jac=0.51 lcs=0.41
+18de:2bc9 n= 117 -> _fclose                             dev@3c76:02b4 jac=0.44 lcs=0.40
+1d04:0044 n=  47 -> _filelength                         dev@3c76:0916 jac=0.60 lcs=0.40
+14c7:0205 n=  38 -> _fclose                             dev@3c76:02b4 jac=0.47 lcs=0.40
+4c08:06bf n=  61 -> _GetHPR                             dev@1e04:04eb jac=0.54 lcs=0.40
+4cb5:0625 n=  71 -> _GetHPR                             dev@1e04:04eb jac=0.60 lcs=0.40
+3fb2:1a23 n=  83 -> _fclose                             dev@3c76:02b4 jac=0.50 lcs=0.40
+4cb5:0373 n=  91 -> _GetHPR                             dev@1e04:04eb jac=0.53 lcs=0.40
+1058:0bf4 n=  81 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.64 lcs=0.40
+3fb2:63b2 n= 106 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.57 lcs=0.40
+3fb2:38b5 n= 131 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.55 lcs=0.40
+1017:03d7 n=  26 -> __fsopen                            dev@3c76:036e jac=0.55 lcs=0.40
+31ce:8ee2 n=  41 -> __ftbuf                             dev@3c76:147f jac=0.43 lcs=0.40
+3fb2:2e9a n=  92 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.58 lcs=0.40
+4be9:0132 n=  14 -> __getstream                         dev@3c76:1a6e jac=0.46 lcs=0.40
+1342:05dc n= 113 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.48 lcs=0.40
+1125:01b0 n=  69 -> _NDLine                             dev@01cb:0fac jac=0.55 lcs=0.40
+1125:00b2 n=  80 -> _fclose                             dev@3c76:02b4 jac=0.45 lcs=0.40
+1d04:08c2 n=  55 -> _sprintf                            dev@3c76:0866 jac=0.52 lcs=0.40
+3fb2:1b14 n= 111 -> _fclose                             dev@3c76:02b4 jac=0.49 lcs=0.40
+3ad2:2b31 n=  77 -> __filbuf                            dev@3c76:05d8 jac=0.51 lcs=0.39
+3fb2:3865 n=  39 -> FUN_4c76_153a                       dev@3c76:153a jac=0.51 lcs=0.39
+18de:1b85 n=  87 -> _fclose                             dev@3c76:02b4 jac=0.46 lcs=0.39
+3fb2:679e n= 111 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.57 lcs=0.39
+1dc3:1b31 n=  80 -> _GetHPR                             dev@1e04:04eb jac=0.59 lcs=0.39
+47ba:0067 n= 122 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.62 lcs=0.39
+4b61:07f6 n=  44 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.49 lcs=0.39
+5140:1c8e n= 141 -> __openfile                          dev@3c76:1324 jac=0.55 lcs=0.39
+1342:04a7 n= 112 -> _NCloudLine2                        dev@01cb:0e19 jac=0.49 lcs=0.39
+3fb2:60cd n=  42 -> _EMMMapPage                         dev@032b:00b7 jac=0.47 lcs=0.39
+46ad:0006 n=  59 -> _fflush                             dev@3c76:14be jac=0.54 lcs=0.39
+47ba:0002 n=  21 -> __aFNaldiv                          dev@3c76:0cfa jac=0.50 lcs=0.39
+48b6:12fe n= 119 -> __flsbuf                            dev@3c76:11d0 jac=0.50 lcs=0.39
+28d5:0134 n=  32 -> _EMMMapPage                         dev@032b:00b7 jac=0.55 lcs=0.39
+3ad2:4274 n=  65 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.59 lcs=0.39
+172e:0008 n=  79 -> _fclose                             dev@3c76:02b4 jac=0.53 lcs=0.39
+1342:113b n= 132 -> _MakematHPR                         dev@1e04:03c3 jac=0.41 lcs=0.39
+15ce:07ad n=  60 -> _Rotate                             dev@1e04:0219 jac=0.43 lcs=0.39
+48b6:031f n=  78 -> _filelength                         dev@3c76:0916 jac=0.57 lcs=0.39
+2b89:0640 n=  88 -> _GetHPR                             dev@1e04:04eb jac=0.56 lcs=0.38
+1058:0aac n=  60 -> _int86x                             dev@3c76:099c jac=0.67 lcs=0.38
+31ce:55a8 n= 101 -> _fclose                             dev@3c76:02b4 jac=0.56 lcs=0.38
+18c9:0116 n=  28 -> __fsopen                            dev@3c76:036e jac=0.52 lcs=0.38
+206a:0108 n=  31 -> __FF_MSGBANNER                      dev@3c76:0ebc jac=0.47 lcs=0.38
+3fb2:0ed3 n=  73 -> _GetHPR                             dev@1e04:04eb jac=0.55 lcs=0.38
+31ce:7ff4 n=  79 -> _filelength                         dev@3c76:0916 jac=0.53 lcs=0.38
+172e:070a n=  46 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.42 lcs=0.38
+4746:058f n= 134 -> _fclose                             dev@3c76:02b4 jac=0.42 lcs=0.38
+3ad2:326a n= 106 -> _filelength                         dev@3c76:0916 jac=0.46 lcs=0.38
+48b6:1731 n=  41 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.52 lcs=0.38
+3ad2:34cc n=  59 -> _filelength                         dev@3c76:0916 jac=0.57 lcs=0.38
+14c7:0008 n=  85 -> _GetHPR                             dev@1e04:04eb jac=0.59 lcs=0.38
+3ad2:4cb3 n=  54 -> _filelength                         dev@3c76:0916 jac=0.56 lcs=0.38
+3ad2:4d3d n=  54 -> _filelength                         dev@3c76:0916 jac=0.56 lcs=0.38
+31ce:68f8 n= 109 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.49 lcs=0.38
+1dc3:1046 n=  65 -> _GetHPR                             dev@1e04:04eb jac=0.53 lcs=0.38
+3fb2:0004 n=  90 -> __flsbuf                            dev@3c76:11d0 jac=0.53 lcs=0.37
+3ad2:22b3 n= 155 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.47 lcs=0.37
+2528:0201 n=  36 -> _NDDot                              dev@01cb:10e3 jac=0.46 lcs=0.37
+1058:04af n=  70 -> _FlirCopy                           dev@1e85:0146 jac=0.49 lcs=0.37
+31ce:74d6 n=  86 -> _int86x                             dev@3c76:099c jac=0.53 lcs=0.37
+1dc3:222d n=  34 -> __stbuf                             dev@3c76:140c jac=0.47 lcs=0.37
+4a61:00e8 n=  59 -> _fflush                             dev@3c76:14be jac=0.57 lcs=0.37
+4be9:0091 n=  34 -> _EMSpages                           dev@14c8:0095 jac=0.42 lcs=0.37
+31ce:2926 n= 146 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.51 lcs=0.37
+31ce:1ed7 n=  38 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.65 lcs=0.37
+18de:06f0 n=  38 -> _fflush                             dev@3c76:14be jac=0.45 lcs=0.37
+2081:000c n=  49 -> _fflush                             dev@3c76:14be jac=0.56 lcs=0.37
+220f:1d70 n=  63 -> _GetHPR                             dev@1e04:04eb jac=0.49 lcs=0.37
+3fb2:0467 n=  37 -> _vsprintf                           dev@3c76:08c0 jac=0.54 lcs=0.37
+220f:1f13 n= 102 -> _GetHPR                             dev@1e04:04eb jac=0.47 lcs=0.36
+3fb2:2fa9 n= 105 -> _int86x                             dev@3c76:099c jac=0.57 lcs=0.36
+1504:06a1 n=  53 -> _filelength                         dev@3c76:0916 jac=0.51 lcs=0.36
+1504:0720 n=  53 -> _filelength                         dev@3c76:0916 jac=0.51 lcs=0.36
+220f:22b5 n=  42 -> _GetHPR                             dev@1e04:04eb jac=0.47 lcs=0.36
+3fb2:241b n=  78 -> _int86x                             dev@3c76:099c jac=0.52 lcs=0.36
+3fb2:2521 n=  78 -> _int86x                             dev@3c76:099c jac=0.52 lcs=0.36
+3fb2:6953 n=  86 -> _GetHPR                             dev@1e04:04eb jac=0.52 lcs=0.36
+15ce:0174 n= 172 -> _MakeMatRPH                         dev@1e04:061e jac=0.48 lcs=0.36
+2cac:0006 n=  31 -> _EMMMapPage                         dev@032b:00b7 jac=0.53 lcs=0.36
+50b5:01c6 n=  52 -> _fclose                             dev@3c76:02b4 jac=0.62 lcs=0.36
+3fb2:5f44 n= 137 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.53 lcs=0.36
+3fb2:344a n= 110 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.60 lcs=0.36
+18de:30d8 n=  93 -> _fclose                             dev@3c76:02b4 jac=0.50 lcs=0.35
+2b89:0758 n=  32 -> _sprintf                            dev@3c76:0866 jac=0.58 lcs=0.35
+31ce:4f55 n= 465 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.72 lcs=0.35
+3ad2:0728 n=  86 -> __openfile                          dev@3c76:1324 jac=0.43 lcs=0.35
+4fa0:0587 n=  34 -> _filelength                         dev@3c76:0916 jac=0.44 lcs=0.35
+170c:002e n=  74 -> _NDLine                             dev@01cb:0fac jac=0.53 lcs=0.35
+1c38:0650 n= 125 -> __flsbuf                            dev@3c76:11d0 jac=0.50 lcs=0.35
+31ce:56bc n= 180 -> _fread                              dev@3c76:03b0 jac=0.44 lcs=0.35
+1125:0266 n=  42 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.45 lcs=0.35
+46ad:07d6 n= 166 -> __flsbuf                            dev@3c76:11d0 jac=0.42 lcs=0.35
+1c38:0a9e n= 114 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.55 lcs=0.35
+3ad2:185b n= 104 -> __flsbuf                            dev@3c76:11d0 jac=0.47 lcs=0.35
+15ce:1241 n=  27 -> __getbuf                            dev@3c76:12e0 jac=0.58 lcs=0.35
+3fb2:6323 n=  53 -> _filelength                         dev@3c76:0916 jac=0.47 lcs=0.35
+3fb2:3b72 n=  58 -> __astart                            dev@3c76:0010 jac=0.58 lcs=0.35
+3fb2:28ea n= 175 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.51 lcs=0.34
+3fb2:4dcd n=  54 -> _GetHPR                             dev@1e04:04eb jac=0.45 lcs=0.34
+2604:0c69 n= 101 -> _GetHPR                             dev@1e04:04eb jac=0.51 lcs=0.34
+4d7e:0834 n=  43 -> _NCloudFillLine2                    dev@01cb:0f80 jac=0.46 lcs=0.34
+3fb2:411e n= 101 -> _MakematHPR                         dev@1e04:03c3 jac=0.44 lcs=0.34
+18de:0cba n=  64 -> __openfile                          dev@3c76:1324 jac=0.54 lcs=0.34
+1c38:0004 n= 169 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.48 lcs=0.34
+15ce:0648 n=  63 -> _EMMMapMultiPage                    dev@032b:00ff jac=0.46 lcs=0.34
+18de:31b2 n=  58 -> _fflush                             dev@3c76:14be jac=0.70 lcs=0.34
+2b89:0128 n=  63 -> _GetHPR                             dev@1e04:04eb jac=0.54 lcs=0.34
+3ad2:338e n= 111 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.51 lcs=0.33
+15ce:10a8 n= 125 -> __flsbuf                            dev@3c76:11d0 jac=0.44 lcs=0.33
+1d04:015e n=  63 -> _filelength                         dev@3c76:0916 jac=0.58 lcs=0.33
+3fb2:3330 n= 100 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.64 lcs=0.33
+3fb2:5ae7 n= 129 -> _fread                              dev@3c76:03b0 jac=0.46 lcs=0.33
+31ce:1c90 n= 179 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.47 lcs=0.33
+48b6:00a7 n= 132 -> __flsbuf                            dev@3c76:11d0 jac=0.51 lcs=0.33
+2528:056b n= 112 -> __astart                            dev@3c76:0010 jac=0.45 lcs=0.33
+2fc6:04a8 n=  92 -> _fclose                             dev@3c76:02b4 jac=0.55 lcs=0.33
+4e88:000e n=  83 -> _GetHPR                             dev@1e04:04eb jac=0.45 lcs=0.33
+18de:27ab n=  54 -> _fflush                             dev@3c76:14be jac=0.58 lcs=0.33
+3fb2:6a38 n=  97 -> __flsbuf                            dev@3c76:11d0 jac=0.48 lcs=0.33
+48b6:0b6e n= 294 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.49 lcs=0.33
+18de:26a8 n=  87 -> _BuildMask                          dev@1e85:00b2 jac=0.56 lcs=0.33
+4b61:0504 n= 213 -> _NPFLine                            dev@01cb:01ba jac=0.52 lcs=0.33
+2604:284f n= 158 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.50 lcs=0.33
+206a:0000 n=  87 -> __openfile                          dev@3c76:1324 jac=0.47 lcs=0.33
+14c7:00fe n= 103 -> _GetHPR                             dev@1e04:04eb jac=0.58 lcs=0.33
+2604:000a n=  97 -> _GetHPR                             dev@1e04:04eb jac=0.57 lcs=0.33
+2cac:0459 n= 140 -> _fread                              dev@3c76:03b0 jac=0.60 lcs=0.33
+1504:02a3 n= 130 -> __flsbuf                            dev@3c76:11d0 jac=0.47 lcs=0.33
+1dc3:2107 n= 113 -> _int86x                             dev@3c76:099c jac=0.50 lcs=0.33
+18de:2a18 n=  72 -> _filelength                         dev@3c76:0916 jac=0.65 lcs=0.33
+31ce:4d58 n= 185 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.44 lcs=0.33
+18de:18f8 n= 198 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.47 lcs=0.32
+1c38:09a7 n=  88 -> _NDLine                             dev@01cb:0fac jac=0.58 lcs=0.32
+2a48:1014 n=  89 -> __openfile                          dev@3c76:1324 jac=0.50 lcs=0.32
+50b5:030a n= 144 -> __flsbuf                            dev@3c76:11d0 jac=0.44 lcs=0.32
+48b6:0a28 n= 114 -> __flsbuf                            dev@3c76:11d0 jac=0.48 lcs=0.32
+31ce:2acd n= 181 -> _NPFLine                            dev@01cb:01ba jac=0.47 lcs=0.32
+4cb5:07e1 n=  95 -> _GetHPR                             dev@1e04:04eb jac=0.52 lcs=0.32
+3fb2:4668 n= 153 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.48 lcs=0.32
+3fb2:22f6 n=  86 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.57 lcs=0.32
+18de:0fb0 n= 131 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.50 lcs=0.31
+1dc3:169d n= 125 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.42 lcs=0.31
+2b89:01c9 n= 102 -> _fclose                             dev@3c76:02b4 jac=0.52 lcs=0.31
+3ad2:2131 n= 141 -> __flsbuf                            dev@3c76:11d0 jac=0.50 lcs=0.31
+47ba:0249 n=  61 -> _GetHPR                             dev@1e04:04eb jac=0.57 lcs=0.31
+18de:21ec n= 113 -> _GetHPR                             dev@1e04:04eb jac=0.46 lcs=0.31
+4b61:00bd n=  37 -> __ftbuf                             dev@3c76:147f jac=0.57 lcs=0.30
+4cb5:06d9 n=  68 -> _fclose                             dev@3c76:02b4 jac=0.51 lcs=0.30
+1125:0579 n= 109 -> __flsbuf                            dev@3c76:11d0 jac=0.53 lcs=0.30
+18de:2384 n=  69 -> _filelength                         dev@3c76:0916 jac=0.59 lcs=0.30
+3fb2:0fa7 n= 584 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.74 lcs=0.30
+18de:0d6d n=  70 -> __flsbuf                            dev@3c76:11d0 jac=0.50 lcs=0.30
+1dc3:22c1 n= 156 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.52 lcs=0.30
+3fb2:6bb5 n= 368 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.59 lcs=0.30
+2929:0e7a n=  97 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.55 lcs=0.30
+31ce:5d73 n= 140 -> __flsbuf                            dev@3c76:11d0 jac=0.46 lcs=0.30
+1dc3:08bc n= 282 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.46 lcs=0.29
+18de:1790 n= 134 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.52 lcs=0.29
+3ad2:2884 n= 127 -> _fclose                             dev@3c76:02b4 jac=0.47 lcs=0.29
+3fb2:1c47 n= 171 -> __flsbuf                            dev@3c76:11d0 jac=0.50 lcs=0.29
+3ad2:0004 n= 364 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.50 lcs=0.29
+3fb2:6147 n= 167 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.55 lcs=0.29
+3ad2:3184 n=  63 -> _filelength                         dev@3c76:0916 jac=0.58 lcs=0.28
+3ad2:1fcc n= 126 -> _BuildPolyList                      dev@01cb:12b9 jac=0.47 lcs=0.28
+48b6:1121 n= 195 -> _fread                              dev@3c76:03b0 jac=0.44 lcs=0.28
+31ce:1f35 n= 540 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.63 lcs=0.28
+3fb2:446d n= 171 -> _NPFLine                            dev@01cb:01ba jac=0.48 lcs=0.28
+47ba:046a n=  89 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.67 lcs=0.28
+4b61:0296 n= 134 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.56 lcs=0.28
+3fb2:3cd8 n= 394 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.49 lcs=0.27
+18de:2e9e n= 184 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.47 lcs=0.27
+3ad2:49ac n= 192 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.46 lcs=0.27
+172e:0dd7 n= 352 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.54 lcs=0.27
+2929:0fb5 n= 135 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.52 lcs=0.27
+18de:1cff n= 567 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.48 lcs=0.26
+2604:0dda n=  91 -> _GetHPR                             dev@1e04:04eb jac=0.56 lcs=0.26
+31ce:266e n= 138 -> _NPFLine                            dev@01cb:01ba jac=0.44 lcs=0.26
+220f:100b n=  35 -> _filelength                         dev@3c76:0916 jac=0.48 lcs=0.26
+31ce:1580 n= 578 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.74 lcs=0.26
+3ad2:4bb5 n=  98 -> _fclose                             dev@3c76:02b4 jac=0.48 lcs=0.26
+3fb2:4260 n= 174 -> _NPFLine                            dev@01cb:01ba jac=0.46 lcs=0.26
+1dc3:0763 n= 110 -> _GetHPR                             dev@1e04:04eb jac=0.55 lcs=0.26
+3ad2:37a6 n= 520 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.66 lcs=0.26
+31ce:82fd n= 287 -> _NPFLine                            dev@01cb:01ba jac=0.47 lcs=0.26
+4e88:01a7 n=1015 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.49 lcs=0.26
+4cb5:0448 n=  45 -> _filelength                         dev@3c76:0916 jac=0.52 lcs=0.25
+3ad2:4184 n=  86 -> _fclose                             dev@3c76:02b4 jac=0.64 lcs=0.25
+18de:01fc n= 174 -> _fread                              dev@3c76:03b0 jac=0.50 lcs=0.25
+1504:040a n= 165 -> _BuildPolyList                      dev@01cb:12b9 jac=0.44 lcs=0.25
+31ce:86b4 n= 690 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.61 lcs=0.25
+220f:1069 n=  98 -> _fclose                             dev@3c76:02b4 jac=0.51 lcs=0.25
+3fb2:58d1 n= 193 -> _NPFLine                            dev@01cb:01ba jac=0.48 lcs=0.25
+46ad:04cb n= 213 -> _NPFLine                            dev@01cb:01ba jac=0.50 lcs=0.25
+4a9a:0722 n= 221 -> _NPFLine                            dev@01cb:01ba jac=0.45 lcs=0.24
+18de:0b63 n=  44 -> __stbuf                             dev@3c76:140c jac=0.49 lcs=0.24
+3ad2:1236 n= 290 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.50 lcs=0.24
+2081:008c n= 126 -> __openfile                          dev@3c76:1324 jac=0.55 lcs=0.24
+1058:008a n= 348 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.50 lcs=0.24
+47ba:055f n= 281 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.47 lcs=0.24
+48b6:05da n= 421 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.59 lcs=0.24
+172e:01ce n= 280 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.47 lcs=0.23
+4a9a:0128 n= 212 -> _NPFLine                            dev@01cb:01ba jac=0.49 lcs=0.23
+172e:0572 n=  41 -> _filelength                         dev@3c76:0916 jac=0.53 lcs=0.22
+4c08:0823 n= 214 -> _NPFLine                            dev@01cb:01ba jac=0.49 lcs=0.22
+3fb2:02d5 n= 125 -> __openfile                          dev@3c76:1324 jac=0.52 lcs=0.22
+31ce:8181 n= 119 -> _sopen                              dev@3c76:1f70 jac=0.54 lcs=0.22
+46ad:00a7 n= 360 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.56 lcs=0.21
+15ce:1332 n=  71 -> FUN_11cb_1220                       dev@01cb:1220 jac=0.58 lcs=0.21
+47ba:096f n= 564 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.50 lcs=0.21
+2929:0054 n= 999 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.46 lcs=0.21
+18de:252b n= 158 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.48 lcs=0.21
+172e:077f n= 309 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.48 lcs=0.21
+31ce:3e77 n= 469 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.60 lcs=0.20
+1017:0077 n= 231 -> _NPFLine                            dev@01cb:01ba jac=0.50 lcs=0.20
+31ce:6a3c n= 309 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.49 lcs=0.20
+31ce:0006 n= 772 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.59 lcs=0.20
+4a9a:0358 n= 125 -> _NDLine                             dev@01cb:0fac jac=0.48 lcs=0.20
+2a48:0473 n= 134 -> _fread                              dev@3c76:03b0 jac=0.46 lcs=0.20
+31ce:3736 n= 572 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.64 lcs=0.19
+4746:0008 n= 399 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.46 lcs=0.19
+1d04:01ee n= 566 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.50 lcs=0.19
+2604:010e n= 909 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.54 lcs=0.18
+15ce:0ede n= 266 -> _NPFLine                            dev@01cb:01ba jac=0.51 lcs=0.18
+1504:0833 n= 336 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.50 lcs=0.18
+4d7e:0892 n= 676 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.60 lcs=0.18
+14c7:0311 n=  44 -> FUN_1021_00c5                       dev@0021:00c5 jac=0.56 lcs=0.17
+3fb2:2b6e n= 185 -> _MyWaterline2                       dev@01cb:14e7 jac=0.49 lcs=0.17
+1342:13ae n= 443 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.62 lcs=0.17
+1dc3:1394 n= 258 -> _NPFLine                            dev@01cb:01ba jac=0.48 lcs=0.15
+1342:0718 n= 228 -> _NPFLine                            dev@01cb:01ba jac=0.49 lcs=0.15
+4e65:000c n= 149 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.47 lcs=0.15
+3fb2:4e4b n= 305 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.47 lcs=0.14
+3fb2:09f2 n= 406 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.50 lcs=0.14
+31ce:0b7e n= 387 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.59 lcs=0.14
+1342:09c6 n= 710 -> FUN_3d0b_48bc                       dev@2d0b:48bc jac=0.48 lcs=0.09
+1125:069e n= 139 -> FUN_2fbc_784c                       dev@1fbc:784c jac=0.56 lcs=0.08
+1000:00ca n=   6 -> (none)
+1125:002d n=  26 -> (none)
+1125:03d8 n=  14 -> (none)
+1125:0466 n=  14 -> (none)
+1342:0000 n= 375 -> (none)
+1342:0410 n=  55 -> (none)
+1504:0000 n= 220 -> (none)
+1504:0278 n=  16 -> (none)
+1504:05e6 n=  41 -> (none)
+1504:0645 n=  38 -> (none)
+1504:079f n=   6 -> (none)
+15ce:0304 n=  16 -> (none)
+15ce:0369 n=   4 -> (none)
+15ce:03a8 n=   5 -> (none)
+15ce:0411 n=   3 -> (none)
+15ce:0418 n=   7 -> (none)
+15ce:06f0 n=  36 -> (none)
+15ce:0860 n=  22 -> (none)
+15ce:0896 n=  34 -> (none)
+15ce:0a0e n= 149 -> (none)
+15ce:0b9a n=  15 -> (none)
+15ce:0bbb n=  14 -> (none)
+15ce:0ce4 n=  27 -> (none)
+15ce:0d2d n=   7 -> (none)
+15ce:0db1 n=   7 -> (none)
+15ce:128a n=  18 -> (none)
+15ce:12c0 n=  42 -> (none)
+172e:0aca n= 209 -> (none)
+1868:0006 n= 209 -> (none)
+1868:0235 n= 114 -> (none)
+189f:002f n=   6 -> (none)
+189f:0041 n=  14 -> (none)
+189f:0188 n=  11 -> (none)
+189f:026e n=  11 -> (none)
+18c9:00bd n=  38 -> (none)
+18de:0006 n=  41 -> (none)
+18de:00c6 n=  15 -> (none)
+18de:00fe n=  31 -> (none)
+18de:01a6 n=  31 -> (none)
+18de:03ad n= 291 -> (none)
+18de:074d n= 388 -> (none)
+18de:0c01 n=  37 -> (none)
+18de:0c6a n=  35 -> (none)
+18de:0e53 n=  23 -> (none)
+18de:0e89 n=  22 -> (none)
+18de:0f1a n=   6 -> (none)
+18de:0f2b n=   6 -> (none)
+18de:116f n=  12 -> (none)
+18de:1188 n= 201 -> (none)
+18de:13c9 n= 138 -> (none)
+18de:1522 n= 140 -> (none)
+18de:28aa n= 145 -> (none)
+18de:2e21 n=  47 -> (none)
+18de:325a n= 139 -> (none)
+18de:3431 n=  12 -> (none)
+18de:34cb n=  37 -> (none)
+1c38:0244 n= 266 -> (none)
+1d04:0944 n= 226 -> (none)
+1dc3:0002 n= 397 -> (none)
+1dc3:0c03 n= 266 -> (none)
+1dc3:0f14 n=  32 -> (none)
+1dc3:10f9 n=  42 -> (none)
+1dc3:118e n= 147 -> (none)
+1dc3:184d n= 254 -> (none)
+1dc3:1c10 n= 195 -> (none)
+1dc3:1e3a n= 227 -> (none)
+1dc3:277c n= 297 -> (none)
+206a:00ef n=  12 -> (none)
+206a:0167 n=   6 -> (none)
+2081:01f0 n= 340 -> (none)
+2081:05c6 n=  74 -> (none)
+2081:0693 n=  40 -> (none)
+2081:0711 n=1003 -> (none)
+2081:1274 n= 338 -> (none)
+2081:1640 n=  31 -> (none)
+2081:16a2 n=  30 -> (none)
+2081:16fe n=  28 -> (none)
+2081:1750 n=  35 -> (none)
+2081:17b6 n=  41 -> (none)
+2081:187c n=  11 -> (none)
+220f:0006 n= 102 -> (none)
+220f:0116 n= 100 -> (none)
+220f:022f n=  18 -> (none)
+220f:0283 n=  17 -> (none)
+220f:02d0 n= 285 -> (none)
+220f:0603 n=   8 -> (none)
+220f:0615 n= 137 -> (none)
+220f:0782 n= 153 -> (none)
+220f:09e7 n=  67 -> (none)
+220f:0aa6 n= 163 -> (none)
+220f:0c5f n= 347 -> (none)
+220f:1323 n=  74 -> (none)
+220f:13d1 n= 165 -> (none)
+220f:158a n= 141 -> (none)
+220f:179e n= 124 -> (none)
+220f:197c n= 271 -> (none)
+220f:2068 n= 210 -> (none)
+220f:2385 n= 128 -> (none)
+220f:24f2 n= 272 -> (none)
+220f:299c n=  17 -> (none)
+220f:29d3 n=  17 -> (none)
+220f:2a55 n= 239 -> (none)
+220f:2c73 n= 448 -> (none)
+220f:2d25 n= 200 -> (none)
+220f:2f70 n=  72 -> (none)
+2591:001f n=   9 -> (none)
+2604:0bb2 n=  28 -> (none)
+2604:0c2c n=  25 -> (none)
+2604:1009 n=2150 -> (none)
+28a7:000c n=  14 -> (none)
+28a7:0032 n= 146 -> (none)
+28a7:019e n=  17 -> (none)
+28d5:000e n=  69 -> (none)
+28d5:0105 n=  14 -> (none)
+28d5:01a5 n=  51 -> (none)
+28d5:0212 n=  76 -> (none)
+28d5:0411 n=  64 -> (none)
+2929:0002 n=  29 -> (none)
+2929:0bd9 n= 240 -> (none)
+2a48:000c n=  10 -> (none)
+2a48:0025 n=  12 -> (none)
+2a48:011a n=  36 -> (none)
+2a48:03f7 n=  29 -> (none)
+2a48:0971 n=  35 -> (none)
+2a48:09d1 n=  92 -> (none)
+2a48:0acc n=  28 -> (none)
+2a48:0b67 n= 135 -> (none)
+2a48:0d22 n= 124 -> (none)
+2a48:11d0 n=  17 -> (none)
+2b89:02d4 n= 218 -> (none)
+2c92:00a2 n=   7 -> (none)
+2cac:0064 n=   5 -> (none)
+2cac:0077 n= 146 -> (none)
+2cac:01d4 n= 112 -> (none)
+2cac:0628 n= 146 -> (none)
+2cac:07d3 n= 112 -> (none)
+2d3b:0008 n=  26 -> (none)
+2d56:0000 n=1282 -> (none)
+2d56:1094 n= 261 -> (none)
+2f0d:0006 n= 101 -> (none)
+2f37:0004 n= 579 -> (none)
+2f37:057a n= 213 -> (none)
+2fc6:0009 n=  29 -> (none)
+2fc6:0107 n= 232 -> (none)
+2fc6:070d n=   1 -> (none)
+2fc6:0711 n=   7 -> (none)
+3050:000e n=   1 -> (none)
+3060:005e n= 853 -> (none)
+3060:0cb8 n=  70 -> (none)
+3060:1505 n=  41 -> (none)
+31ce:1052 n= 246 -> (none)
+31ce:133c n= 191 -> (none)
+31ce:2cc5 n= 333 -> (none)
+31ce:3090 n=  60 -> (none)
+31ce:312d n=   2 -> (none)
+31ce:3130 n= 259 -> (none)
+31ce:345b n= 204 -> (none)
+31ce:5925 n= 199 -> (none)
+31ce:5c50 n=   2 -> (none)
+31ce:5c53 n= 113 -> (none)
+31ce:5edc n=  34 -> (none)
+31ce:5f1d n= 217 -> (none)
+31ce:6333 n= 287 -> (none)
+31ce:679c n=  60 -> (none)
+31ce:6df5 n=   3 -> (none)
+31ce:6f8e n= 238 -> (none)
+31ce:7805 n= 268 -> (none)
+31ce:7ae4 n= 251 -> (none)
+31ce:7d84 n=  10 -> (none)
+31ce:80e6 n=  43 -> (none)
+31ce:8f44 n=  17 -> (none)
+31ce:8f69 n=  77 -> (none)
+3ad2:04fe n= 147 -> (none)
+3ad2:081d n= 142 -> (none)
+3ad2:0d08 n= 216 -> (none)
+3ad2:0f87 n= 213 -> (none)
+3ad2:15b2 n= 211 -> (none)
+3ad2:1994 n= 259 -> (none)
+3ad2:1d6a n= 203 -> (none)
+3ad2:26d5 n= 174 -> (none)
+3ad2:3562 n= 117 -> (none)
+3ad2:3df1 n= 245 -> (none)
+3ad2:47d0 n=  71 -> (none)
+3fb2:0511 n= 225 -> (none)
+3fb2:055b n=   7 -> (none)
+3fb2:1759 n= 251 -> (none)
+3fb2:1de6 n= 209 -> (none)
+3fb2:26c4 n= 200 -> (none)
+3fb2:3575 n=  24 -> (none)
+3fb2:35b5 n=  14 -> (none)
+3fb2:3614 n= 213 -> (none)
+3fb2:3c2a n=  57 -> (none)
+3fb2:48a6 n= 138 -> (none)
+3fb2:4ba8 n= 181 -> (none)
+3fb2:5c5a n= 241 -> (none)
+3fb2:64e2 n= 189 -> (none)
+3fb2:66fb n=  53 -> (none)
+3fb2:6b2b n=  30 -> (none)
+3fb2:6b6d n=  23 -> (none)
+47ba:0905 n=  35 -> (none)
+47ba:0f9d n=  19 -> (none)
+48b6:03ec n= 171 -> (none)
+48b6:05a2 n=  19 -> (none)
+48b6:0ebc n= 215 -> (none)
+48b6:123b n=  85 -> (none)
+48b6:143f n= 211 -> (none)
+48b6:16bf n=  21 -> (none)
+48b6:18c9 n= 137 -> (none)
+4a61:000c n=  61 -> (none)
+4a6f:01f1 n=  27 -> (none)
+4a9a:0008 n= 109 -> (none)
+4a9a:0507 n= 258 -> (none)
+4a9a:0a32 n= 235 -> (none)
+4b61:0052 n=  26 -> (none)
+4b61:011e n= 125 -> (none)
+4b61:0411 n=  27 -> (none)
+4b61:0456 n=  20 -> (none)
+4b61:04c2 n=   4 -> (none)
+4b61:04d7 n=  22 -> (none)
+4be9:0073 n=  16 -> (none)
+4be9:00e5 n=  13 -> (none)
+4d7e:0362 n= 326 -> (none)
+4e88:010e n=  61 -> (none)
+4e88:0d33 n=  19 -> (none)
+4fa0:04f1 n=  29 -> (none)
+5140:0cc9 n=  16 -> (none)
+5140:1e04 n=  52 -> (none)

@@ -9,7 +9,7 @@
 # only (embedded data excluded). Similarity = mnemonic-multiset Jaccard,
 # confirmed by difflib LCS ratio on the mnemonic stream.
 #
-# usage: matchgold.py GOLD.EXE gold_ranges.txt DEV.EXE dev_ranges.txt cvpubs.txt
+# usage: matchgold.py GOLD.EXE gold_ranges.txt DEV.EXE dev_ranges.txt cvpubs.txt [out.txt]
 
 import re
 import subprocess
@@ -132,7 +132,7 @@ def main():
         results.append((g, bl, jaccard(g['h'], bl['h']) if bl else 0.0, bs))
 
     n_named = n_exact = 0
-    out = open('/tmp/f14gold/matches.txt', 'w')
+    out = open(sys.argv[6] if len(sys.argv) > 6 else '/tmp/f14gold/matches.txt', 'w')
     for g, d, j, r in sorted(results, key=lambda t: -t[3]):
         gs, go = g['key']
         line = f'{gs:04x}:{go:04x} n={len(g["mns"]):4} '
