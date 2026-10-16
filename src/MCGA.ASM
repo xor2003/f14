@@ -144,7 +144,7 @@ Grey1:	mov	dx,03DAh
 MCGAcolors	ENDP
 
 
-IFDEF	ON/OFF
+IF	0
 
 CRToff:	push	ax		; code from COMPAQ VGA BIOS
 	push	dx
