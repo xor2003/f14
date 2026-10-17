@@ -2259,29 +2259,31 @@ void ChooseBehavior() {
 		if(!(bv[i].behaveflag & DAMAGERADAR))
 			bv[i].behaveflag |= RADARON;
 		if(CheckAIBombs(i) != -1) {
-			if(bandit == -1) {
-    			dxl = Px- ps[i].x;
-    			dyl = Py- ps[i].y;
-    			tdistl = xydist(dxl,dyl);
-			}
-			else {
-				tdistl = xydist(ps[bandit].x- ps[i].x, ps[bandit].y- ps[i].y);
-			}
-			if(tdistl < 450) { /*  10 nm  */
-				ShowJettison(i);
-				if((CheckAIMissiles(i) != -1) || (ptype->gun == FRONT_REAR_GUNS) || (ptype->gun == FRONT_GUNS)) {
-					bv[i].Behavior = StraightAttack;
-					bv[i].behaveflag &= ~ENEMYNOFIRE;
+			if(bv[i].Behavior != FlyWPFollowPlayer) {
+				if(bandit == -1) {
+    				dxl = Px- ps[i].x;
+    				dyl = Py- ps[i].y;
+    				tdistl = xydist(dxl,dyl);
 				}
 				else {
-					ps[i].status |= BACKTOBASE;
-					bv[i].Behavior = AIGoHome;
+					tdistl = xydist(ps[bandit].x- ps[i].x, ps[bandit].y- ps[i].y);
+				}
+				if(tdistl < 450) { /*  10 nm  */
+					ShowJettison(i);
+					if((CheckAIMissiles(i) != -1) || (ptype->gun == FRONT_REAR_GUNS) || (ptype->gun == FRONT_GUNS)) {
+						bv[i].Behavior = StraightAttack;
+						bv[i].behaveflag &= ~ENEMYNOFIRE;
+					}
+					else {
+						ps[i].status |= BACKTOBASE;
+						bv[i].Behavior = AIGoHome;
 #ifdef SHOWHOME
-					TXT("Jettison Bombs, Going Home ");
-					TXN(i);
-					Message(Txt,DEBUG_MSG);
+						TXT("Jettison Bombs, Going Home ");
+						TXN(i);
+						Message(Txt,DEBUG_MSG);
 #endif
-					GetAIBase(i);
+						GetAIBase(i);
+					}
 				}
 			}
 		}
@@ -2294,6 +2296,7 @@ void ChooseBehavior() {
 		else {
 			psi->status |= BACKTOBASE;
 			bv[i].Behavior = AIGoHome;
+			bv[i].groundt = aipaths[bv[i].path].wp0 + aipaths[bv[i].path].numWPs;
 		}
 		bv[i].varcnt = 0;
 		if(!(bv[i].behaveflag & ENEMYNOFIRE)) {
@@ -2443,7 +2446,9 @@ void ChooseBehavior() {
 	else {
 		if(bv[i].varcnt == 0)
 		{
-			bv[i].varcnt = Gtime + 120 + (40 * bv[i].winglevel);  /*  base was 50  */
+			bv[i].varcnt = Gtime + ((bv[i].winglevel + 3) * 40);  /*  base was 50  */
+			if(bv[i].winglevel == 5)
+				bv[i].varcnt += 200;
 		}
 		CloseInFight(tanglel, wingnum, leadernum);
 	}

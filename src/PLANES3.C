@@ -48,6 +48,7 @@ extern  long    LMul   ();
 extern  COORD   Px,Py;
 extern  long    PxLng, PyLng;
 extern  int     OurHead,OurRoll, OurPitch;
+extern	UWORD	OurAlt;
 extern   UWORD       AirSpeed;
 extern  SWORD	Knots;
 extern  UWORD   Alt;
@@ -1232,12 +1233,13 @@ void FlyWPFollowPlayer()
 
 	FlyWayPoint();
 	tdistnm = Dist2D((ps[planecnt].x - Px), (ps[planecnt].y - Py));
-	tdistnm = (tdistnm * 2)/90;
-	if((tdistnm < 3) && (abs(OurHead - ps[planecnt].head) < 0x2000)) {
+	if((tdistnm < 20) && (abs(OurAlt - ps[planecnt].alt) < 25)
+			&& (abs(OurHead - ps[planecnt].head) < 0x800)) {
 		tempplane = GetPlanePtr(ps[planecnt].type);
-		FTXT (tempplane->name);
+		TXT("(RIO) ");
+		FTXA (tempplane->name);
 		TXA (" Forming On Wing");
-		Message(Txt,GAME_MSG);
+		Message(Txt,RIO_MSG);
 		bv[planecnt].Behavior = FollowPlayer;
 		bv[planecnt].varcnt = Gtime + 300;
 		bv[planecnt].horizontalsep = BOMBERPARADEDIST;
