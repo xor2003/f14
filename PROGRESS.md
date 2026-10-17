@@ -364,3 +364,21 @@ Retail algorithm (replaces ours entirely):
 - `_pitchbar2` remaining: gold draws bracket with 9 Rotate2D/2 prints vs our
   13/4 - different structure, needs visual decode
 - `_CheckTurnStuff` 38 edits: si/di regalloc + probably real diffs deeper
+
+## Session — CheckPlaneBlast byte-exact + anchor hygiene
+- `_CheckPlaneBlast` **BYTE-EXACT** (394=394). Retail extras recovered:
+  * `missiletype==0x39` → "TORPEDO" arm (SLG codes 49/50, beyond our enum — raw ints)
+  * boat side (cnt>NPLANES) has 3-way msg select incl. torpedo
+  * `LogIt` is varargs-ish: `..., 0L, logtype)` tails; per-arm `if(doKill)` dup with shared LogIt tails
+  * strings in DGROUP: "Damaged By "/"TORPEDO"/"BOMB"/" Hit By "/"Hit by "
+- `_AddSomePlanes2`: 7 artifact edits (regalloc: cnt spilled to [bp-0xc] vs ax; jg/jl forms)
+- `_BaseBracket`: 4 edits — relangle arms semantically equal, MSC6 commutes `a-b+c` → global-first
+- Anchor fixes: matches.txt `_GorillaBomb` -> 3ad2:44b2 (mch had wrong 3ad2:1236)
+- `_TIDAttkInfo` pairing `4d7e:0362` is BOGUS (4d7e = CRT segment: _vsprintf/__ftbuf live there). Needs real anchor — TID fns live in CODE_30-ish region (matches3 uses seg+0x1000 encodings vs gold.map paras)
+- IMPORTANT: matches.txt `mch` anchors OVERRIDE classified.tsv cls anchors in verify_build.py (processed last). Stale auto-pairings can flip MATCH->DIFF between runs.
+- ps[] base in gold = 0x7e64 (field 0x7e74 = head, +0x10); bv[] base 0x69c0 stride 0x30;
+  [0x61aa] = `i` (file-static plane idx), [0x906c] = planecnt, [0x247a] = OurHead, [0x61a4]=psi ptr
+- BIG REMAINING: _pitchbar2 (218 vs 355 — helper-based draw loop differs structurally),
+  _TIDAttkInfo (needs anchor), retail-only fns 2fb2:6bb5 (group-attack helper, writes
+  behavecnt=Gtime, callees GetPlaneOrgNum/GetSquadLeader/GetWayPointChanges/DoGroupAction/
+  CheckPlaneBlast/GetWayXYZ/DoNextWayPt) and 2fb2:58d1 (formation separation helper)
