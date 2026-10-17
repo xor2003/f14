@@ -583,7 +583,7 @@ DrawRadarStatus()
 	int offset=0;
 
 	SetFont(Rp2,F_3x5B);
-	Rp2->APen=34;
+	Rp2->APen=View?202:54;
 
 	switch(AWG9_MODE) {
 		// PD Search
