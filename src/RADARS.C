@@ -28,7 +28,7 @@ extern  int     detected;
 extern  COORD   xlast[],ylast[];
 extern  int     zlast[];
 extern  int     pulse,pulsee;
-extern  int     Rtime;
+extern  UWORD   Rtime;
 extern  int     JAMMER[];
 extern  int     FTicks;
 
@@ -199,7 +199,7 @@ detect(int i)
 
         ss[k].x       = x;
         ss[k].y       = y;
-        ss[k].alt     = 25;
+        ss[k].alt     = (GetQHeight(x,y)>>2)+25;
         ss[k].speed   = 1;
         ss[k].head    = angl;
         ss[k].pitch   = 0x4000;
