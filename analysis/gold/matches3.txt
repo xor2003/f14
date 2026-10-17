@@ -128,6 +128,8 @@
 220f:0615 n=  1 -> _DoCockpitDisplays
 2604:0f3d n=  1 -> _DoFuel
 3fb2:63b2 n=  1 -> _DoGroupAction
+3fb2:2089 n=  1 -> _RearCover
+3fb2:1de6 n=  1 -> _GorillaCover
 3fb2:6953 n=  1 -> _LoadWayPointPic
 3fb2:6a38 n=  1 -> _UpdateMissionData
 189f:0000 n=  1 -> _DoHover

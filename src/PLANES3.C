@@ -1380,18 +1380,37 @@ void GorillaCover()
 	int ourleadalt, tempalt;
 	int dpwhead;
 	int covernum;
+	int cnt, maxvsep;
 
 	i = planecnt;
 
+	maxvsep = 0;
+
 	prewing = GetSquadLeader(planecnt);
 
-	if(bv[planecnt].target == -1) {
+	if((bv[planecnt].target == -1) || (ps[bv[planecnt].target].status & CRASH) || !(ps[bv[planecnt].target].status & ALIVE) || !(ps[bv[planecnt].target].status & ACTIVE)) {
 		bv[planecnt].target = GetWhoCover(planecnt);
 		if(bv[planecnt].target == -999) {
 			bv[planecnt].Behavior = AIGoHome;
     		ps[planecnt].status |= BACKTOBASE;
 			bv[planecnt].target = -1;
 			ChangeGroupBehavior(planecnt, 0);
+		}
+		else if(bv[planecnt].target == -1) {
+			bv[planecnt].behaveflag |= 0x200;
+			bv[planecnt].Behavior = Formation;
+			bv[planecnt].horizontalsep = 0x35;
+			bv[planecnt].behaveflag &= ~0x4000;
+			UpdateInterceptGroup(planecnt, 1);
+			for(cnt = 0; cnt < NPLANES; cnt ++) {
+				if((ps[cnt].status & ALIVE) && (ps[cnt].status & ACTIVE) && (bv[cnt].Behavior == FollowPlayer)) {
+					if(bv[cnt].verticlesep >= maxvsep)
+						maxvsep = bv[cnt].verticlesep + 0x7d;
+				}
+			}
+			bv[planecnt].Behavior = FollowPlayer;
+			bv[planecnt].verticlesep = maxvsep;
+			return;
 		}
 		if(prewing == planecnt)
 			bv[bv[planecnt].target].target = planecnt;
@@ -1500,7 +1519,7 @@ void RearCover()
 
 	i = planecnt;
 
-	if(bv[planecnt].target == -1) {
+	if((bv[planecnt].target == -1) || (ps[bv[planecnt].target].status & CRASH) || !(ps[bv[planecnt].target].status & ALIVE) || !(ps[bv[planecnt].target].status & ACTIVE)) {
 		GetWhoCover(planecnt);
 		if(bv[planecnt].target == -999) {
 			bv[planecnt].Behavior = AIGoHome;
