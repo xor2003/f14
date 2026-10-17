@@ -2570,7 +2570,7 @@ int BuildFiringList()
 	// Get Phoenix cnt
 	cnt = GetWeaponCount(W_AIM_54);
 
-	for (i=0,j=0; i<FIRINGORDERCNT,j<cnt; i++,j++) {
+	for (i=0,j=0; j<cnt; i++,j++) {
 		DESIG_TARG[j].target = FIRINGORDERLIST[i]->i;
 		DESIG_TARG[j].status = 1;
 	}

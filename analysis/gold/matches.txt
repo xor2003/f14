@@ -956,7 +956,7 @@
 3060:0dbe n=  80 -> _SpecialModeAcq                     dev@0901:2d3c jac=0.65 lcs=0.37
 4cb5:0031 n=  68 -> _NewLockView                        dev@47e3:0c80 jac=0.66 lcs=0.37
 3fb2:1c47 n= 171 -> _GetInterceptPlane                  dev@36f4:0a58 jac=0.54 lcs=0.37
-2fc6:04a8 n=  92 -> _BuildFiringList                    dev@0901:3856 jac=0.62 lcs=0.37
+18de:2d58 n=  69 -> _BuildFiringList                    dev@0901:3856 jac=1.00 lcs=1.00
 48b6:1a39 n=  51 -> _InitSpeech                         dev@4312:010e jac=0.59 lcs=0.37
 2929:0bd9 n= 240 -> _DrawWayPoint                       dev@13ba:1906 jac=0.62 lcs=0.37
 31ce:5d73 n= 122 -> _ShowAIStatus
