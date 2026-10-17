@@ -454,7 +454,7 @@ int GetLeaderCore(int planenum, int nobehave)
 	int iamdone;
 	int otherplane;
 
-	if(planenum == -1)
+	if(planenum == -1 || planenum == MAXPLANE)
 		return(-1);
 
 	prewing = planenum;
