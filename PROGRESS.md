@@ -154,3 +154,47 @@ Sweep: 501 → **507 MATCH / 720** pairings (matches3.txt anchors).
   `_AddSomePlanes2`@21ce:82fd (double Conv), `_BaseBracket`@2ad2:1d6a
   (Conv vs InvAlt branches under >10 gates), `_SetUpOval1`@2ad2:2a11,
   `_StraightAttack`@21ce:3e77, FUN_2ad2_37a6 (unpaired, 2 callers).
+
+## Session: waypoint-opcode + cover-port batch
+
+Sweep: 507 → **520 MATCH / 746** pairings (new anchors added).
+
+### Byte-exact (edits=0)
+- `_DoOClockCall` @3fb2:64e2 — added `bv[GetSquadLeader(cnt)].Behavior !=
+  FollowPlayer` gate inside the status test.
+- `_RearCover` @3fb2:2089 — status-gated repick
+  `target==-1 || CRASH || !ALIVE || !ACTIVE`; GetWhoCover return discarded
+  (retail reads bv[].target after call).
+- `_GorillaCover` @3fb2:1de6 — same repick gate plus retail's second-if:
+  `target==-1` arm sets `behaveflag|=0x200`, `Behavior=Formation`,
+  `horizontalsep=0x35`, `behaveflag&=~0x4000`, UpdateInterceptGroup, scans
+  FollowPlayer planes for max verticlesep (+0x7d), sets
+  `Behavior=FollowPlayer`, verticlesep=max, returns.
+
+### Ported, residual = regalloc/data-placement artifacts
+- `_GetWayPointChanges` @3fb2:26c4 — raw opcode switch order, near
+  `struct _action_ *actptr`, byte-flag writes via char *wflag, new opcodes
+  SA_DOACTION(0x23)/SA_GOALTICK(0x25)/SA_ATTACKGROUP(0x26) in SETUP.H,
+  10th arg `wplevel`; call is `DoGroupAction(wplevel, 8, actionval)`.
+- `_DoGroupAction` @3fb2:63b2 — added DOWPDAMAGE mcnt[0..2]=0,
+  DOWPHOVER `Behavior=UpdateOurWPS, varcnt=waypt+Gtime+2`,
+  actionflag==8 LoadWayPointPic, and UpdateMissionData(0,
+  ptype->PlaneEnumId).
+- `_LoadWayPointPic` @3fb2:6953 (new) — resource-archive pic loader:
+  fseek/fread index record at WpFile, name[cnt]=0, wpPicCnt++ '%'-patch
+  with right-aligned spaces, ReadEMSPCX(name,0).
+- `_UpdateMissionData` @3fb2:6a38 (new) — MDStat0..2 gates, MDTable
+  {count,slot[10]}x5 scan decrementing on enumid match, completion pics
+  + ProcessOtherComm tail call (0x668d target still unidentified).
+- New globals in PLANES3.C: `FILE *WpFile`, `wpPicCnt[128]`,
+  `MDStat0/1/2`, `MDTable[220]`.
+
+### Still open
+- `_ProcessOtherComm` @2fb2:6bb5 — gold 362 insns vs ours 72: major port.
+- `_Ready5` @2fb2:6b2b — actually a {count,slot[10]} group-lookup
+  (FUN_6b2b != Ready5); real callers at file 0x23191/0x233c5.
+- `_AIBombTarget` @21ce:6a3c — tail uses computed bombalt bands
+  (farcall>>2 vs zval) — needs decode+rewrite of pdest tail.
+- `_TakingOff` — 3 residual insns (dead store + lea reg choices).
+- `_AirKill` @2fb2:0100 — 124 edits, behavior-ptr compares missing.
+- `_ChangeGroupBehavior` @21ce:8181 — 37 edits.
