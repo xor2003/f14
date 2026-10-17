@@ -970,6 +970,7 @@ DoFuel()
       T= TblTRPL(TBL,T,10000);  // 2 engines !!!
 
       T= MDiv(fueltime,T,3600);
+      if (THRUST<100) T= MDiv(T,THRUST,100);
       if (T<1) T=1;
 
       if ((Fuel>=1500)&&((Fuel-T)<1500))

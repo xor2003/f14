@@ -871,7 +871,7 @@
 172e:06a4 n=  36 -> _CHANGE_NUM_BARS                    dev@0901:12ea jac=0.60 lcs=0.47
 2081:16a2 n=  30 -> _BackSeatCoolyCmds                  dev@11df:1b98 jac=0.68 lcs=0.47
 4cb5:00f2 n=  56 -> _NewLockView                        dev@47e3:0c80 jac=0.61 lcs=0.47
-4fa0:0543 n=  27 -> _DoFuel                             dev@1952:15e6 jac=0.68 lcs=0.47
+2604:0f3d n=  71 -> _DoFuel                             dev@1952:15e6 jac=1.00 lcs=1.00
 18de:01a6 n=  31 -> _IsBombing                          dev@36f4:3ba0 jac=0.47 lcs=0.46
 28d5:04f9 n=  30 -> _EngineBreathe                      dev@1952:13fa jac=0.51 lcs=0.46
 3fb2:09f2 n= 406 -> _LocationPicture                    dev@36f4:0c84 jac=0.59 lcs=0.46
