@@ -4025,6 +4025,7 @@ void CheckPlaneLand(int planenum)
 	int rearhead;
 	long dx, dy;
 	int angels;
+	int status;
 
 	landingstatus |= LANDREQUESTED;
 	if(landingstatus & (LANDCAT0USED | LANDCAT1USED))
@@ -4035,15 +4036,18 @@ void CheckPlaneLand(int planenum)
 			return;
 		startval = 500;
 	}
-	if((Night || (MissionWeather == 2)) && (startval == 500)) {
+	if((whichourcarr != -999) && (planenum < 0) && (bv[whichourcarr].verticlesep != 0) && (bv[whichourcarr].varcnt > Gtime))
+		startval = 500;
+	if((Night || (MissionWeather == 0)) && (startval == 500)) {
 		startval = 600;
 	}
 	for(cnt = 0; cnt < NPLANES; cnt ++) {
-        if ((ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE) && (!(ps[cnt].status & CRASH))) {
+		status = ps[cnt].status;
+        if ((status & ALIVE) && (status&ACTIVE) && (!(status & CRASH))) {
 			if((bv[cnt].Behavior == AICarrierLand) && (bv[cnt].threathead > (MAXPAT-1))) {
 				if(startval == 100)
 					startval = 400;
-				if(!(Night || (MissionWeather == 2))) {
+				if(!(Night || (MissionWeather == 0))) {
 					startval += 100;
 					if(startval == 800) {
 						altplus += 250;
