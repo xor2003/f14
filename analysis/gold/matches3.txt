@@ -92,7 +92,7 @@
 11ac:12dc n=  1 -> _CheckPointRot
 48b6:0b6e n=  1 -> _CheckProximityHit
 3ad2:185b n=  1 -> _CheckRadarSet
-3fb2:6147 n=  1 -> _CheckTurnStuff
+3fb2:4e4b n=  1 -> _CheckTurnStuff
 31ce:3736 n=  1 -> _ChooseBehavior
 18de:0be0 n=  1 -> _ClearTargetFile
 15ce:0d7a n=  1 -> _ClipSprite
@@ -718,3 +718,6 @@
 4be9:0132 n=  1 -> _wrd
 5140:1b4e n=  1 -> _write
 4be9:0091 n=  1 -> _xydist
+3ad2:0d08 n=  1 -> _FormationSpeedAdjustUS
+3fb2:4d73 n=  1 -> _InvAltSpeedConv
+31ce:8f44 n=  1 -> _IsVTOL

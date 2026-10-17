@@ -184,6 +184,8 @@ void IndirectWPCorrection(int planenum);
 void LetWingmenContinue(int planenum);
 int GetDAltSpeed(UWORD alt);
 int AltSpeedConv(int alt, int knots);
+int InvAltSpeedConv(int alt, int knots);
+int IsVTOL(int enumid);
 void CheckTurnStuff(int planenum);
 void AICarrierLand();
 void MoveAIToElevator(int planenum, int elevator);

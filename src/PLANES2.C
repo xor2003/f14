@@ -719,12 +719,8 @@ void FormationSpeedAdjustUS(int prespeed, int relangle, int tdist, int prewing)
 	}
 
 	if(prewing != -1) {
-		if(ps[i].type != ps[prewing].type) {
-			tempplane = ptype;
-			ptype = GetPlanePtr(ps[prewing].type);
-			prespeed -= GetDAltSpeed(ps[prewing].alt);
-			ptype = tempplane;
-			prespeed += GetDAltSpeed(ps[prewing].alt);
+		if((ps[prewing].type != ps[i].type) || (ps[prewing].alt != ps[i].alt)) {
+			prespeed = AltSpeedConv(ps[i].alt, InvAltSpeedConv(ps[prewing].alt, prespeed));
 		}
 	}
 

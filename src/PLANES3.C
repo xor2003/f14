@@ -3384,6 +3384,20 @@ void ShowOurWPS()
 
 extern	UWORD	OurAlt;
 int TAStoIAS(int TAS);
+int MulDiv(int val1, int val2, int val3);
+
+int InvAltSpeedConv(int alt, int knots)
+{
+	int save, result;
+
+	save = OurAlt;
+	OurAlt = alt << 2;
+	result = TAStoIAS(100);
+	OurAlt = save;
+	if(!result)
+		result = 1;
+	return(MulDiv(knots, 100, result));
+}
 
 int AltSpeedConv(int alt, int knots)
 {
@@ -3431,7 +3445,7 @@ void CheckTurnStuff(int planenum)
 	int GAngle[] = {0, 0, 0x2AA8, 0x3224, 0x35B1, 0x37C8, 0x3929, 0x3A25, 0x3AE1, 0x3B72, 0x3BE7};
 
 
-	i = planenum;
+	planenum = planenum;
 
 	if(ps[planenum].status & (CRASH|LANDING|LANDED))
 		return;
@@ -3458,63 +3472,61 @@ void CheckTurnStuff(int planenum)
 			maxspeed = maxspeed - 200;
 			if(maxspeed < 450)
 				maxspeed = 450;
+			maxspeed -= GetDAltSpeed(ps[planenum].alt);
 		}
 	}
 
 	if(planeG < 2) {
-		if(ps[planenum].speed < (MinSpdG[planeG] + wingkludge)) {
-			if(maxspeed > bv[planenum].basespeed) {
-				altspd = GetDAltSpeed(ps[planenum].alt);
-				tempspd = MinSpdG[planeG] + altspd + wingkludge;
+		tempspd = MinSpdG[planeG];
+		if(ps[planenum].speed < InvAltSpeedConv(ps[planenum].alt, tempspd + wingkludge)) {
+			if(bv[planenum].basespeed < maxspeed) {
+				altspd = InvAltSpeedConv(ps[planenum].alt, tempspd + wingkludge);
 				if(ps[planenum].pitch > 0) {
-		        	spd = (long)((long)tempspd*(0x8000-(ps[planenum].pitch/2))) >>15;
-        			tempspd += tempspd - (int)spd;
+		        	spd = (long)((long)altspd*(0x8000-(ps[planenum].pitch/2))) >>15;
+        			altspd += altspd - (int)spd;
 				}
-				tempspd += (abs( sinX(ps[planenum].roll,tempspd)) >>1);
-//				tempspd += (abs( sinX(ps[planenum].roll,tempspd)) >>2);
-				if(tempspd > bv[planenum].basespeed)
-					bv[planenum].basespeed = tempspd;
-				if(maxspeed >= bv[planenum].basespeed)
-					return;
+				altspd += (abs( sinX(ps[planenum].roll,altspd)) >>1);
+				if(bv[planenum].basespeed < altspd)
+					bv[planenum].basespeed = AltSpeedConv(ps[planenum].alt, altspd);
+				if(IsVTOL(ptype->PlaneEnumId)) {
+					if(bv[planenum].basespeed < 150)
+						bv[planenum].basespeed = 150;
+				}
 			}
-			bv[planenum].basespeed = ptype->speed;
-			if(pdest > -0x1000)
-				pdest = -0x1000;
+			if(bv[planenum].basespeed > maxspeed) {
+				bv[planenum].basespeed = maxspeed;
+				if(pdest > -0x1000)
+					pdest = -0x1000;
+			}
 		}
 		else {
-			if(bv[planenum].basespeed > maxspeed)
-				bv[planenum].basespeed = ptype->speed - wingkludge;
+			if(bv[planenum].basespeed > maxspeed - wingkludge)
+				bv[planenum].basespeed = maxspeed - wingkludge;
 		}
 		return;
 	}
 
-	if(ps[planenum].speed < MinSpdG[planeG]) {
-		if((maxspeed > bv[planenum].basespeed) && (ps[planenum].alt < 1250)) {
-			altspd = GetDAltSpeed(ps[planenum].alt);
-			tempspd = MinSpdG[planeG] + altspd;
+	tempspd = MinSpdG[planeG];
+	if(ps[planenum].speed < InvAltSpeedConv(ps[planenum].alt, tempspd)) {
+		if((bv[planenum].basespeed < maxspeed) && (ps[planenum].alt < 1250)) {
+			altspd = InvAltSpeedConv(ps[planenum].alt, tempspd);
 			if(ps[planenum].pitch > 0) {
-		        spd = (long)((long)tempspd*(0x8000-(ps[planenum].pitch/2))) >>15;
-        		tempspd += tempspd - (int)spd;
+		        spd = (long)((long)altspd*(0x8000-(ps[planenum].pitch/2))) >>15;
+        		altspd += altspd - (int)spd;
 			}
-			tempspd += (abs( sinX(ps[planenum].roll,tempspd)) >>1);
-//			tempspd += (abs( sinX(ps[planenum].roll,tempspd)) >>2);
-			if(tempspd > bv[planenum].basespeed)
-				bv[planenum].basespeed = tempspd;
-			if(maxspeed < bv[planenum].basespeed) {
-				bv[planenum].basespeed = ptype->speed;
-				if(pdest > -0x1000)
-					pdest = -0x1000;
-			}
-			else {
+			altspd += (abs( sinX(ps[planenum].roll,altspd)) >>1);
+			if(bv[planenum].basespeed < altspd)
+				bv[planenum].basespeed = AltSpeedConv(ps[planenum].alt, altspd);
+			if(bv[planenum].basespeed <= maxspeed)
 				return;
-			}
+			bv[planenum].basespeed = maxspeed;
 		}
-		else if(pdest > -0x1000)
+		if(pdest > -0x1000)
 			pdest = -0x1000;
 
 		tdroll = 0;
 		for(cnt = 0; cnt < 10; cnt ++) {
-			if(ps[planenum].speed >= MinSpdG[planeG])
+			if(ps[planenum].speed >= tempspd)
 				tdroll = cnt;
 		}
 		tdroll = GAngle[tdroll];

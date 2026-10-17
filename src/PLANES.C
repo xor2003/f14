@@ -1054,6 +1054,7 @@ UpdateSpeedAndPosition ()
 			abspeed = ptype->speed - 200;
 			if(abspeed < 450)
 				abspeed = 450;
+			abspeed -= GetDAltSpeed(ps[i].alt);
 			if(bv[i].basespeed > abspeed) {
 				if(bv[i].fueltank > 14000) {
 					bv[i].fueltank -= (100 * Fticks) /60;
@@ -1077,27 +1078,9 @@ UpdateSpeedAndPosition ()
 //		else
 //	        spd -= abs( sinXL(psi->roll,spd)) >>2;
 
-#if 0
-   	    if (REALFLIGHT) {
-//     	    a = rng(psi->alt, 5000>>2, 30000>>2) - 5000>>2;
-//           	spd -= LMul (a, spd) / (20*2500L);
-			spd2 = spd;
-           	spd -= ((long)a * spd) / (20*2500L);
-//			sprintf(Txt, "SPD %ld a %d spd2 %ld", spd2, a, spd);
-//			Message(Txt);
-       	}
-#else
-
-#if 0
-		if((ps[i].alt > 1250) && (!(ps[i].status & CRASH))) {
-			spd -= (long)GetDAltSpeed(ps[i].alt);
-		}
-#else
 		if(!(ps[i].status & CRASH)) {
-			spd -= (long)GetDAltSpeed(ps[i].alt);
+			spd = (long)InvAltSpeedConv(ps[i].alt, spd);
 		}
-#endif
-#endif
 
 /*		if(tempvar) {
 			sprintf(Txt, "P2 %d, bs %d s %ld, r %x, rd %ld, as %d", i, bv[i].basespeed, spd, ps[i].roll, rolleffect);
@@ -2132,6 +2115,15 @@ void GetEnemyTarget(int ainum)
 
 	if(founddist)
 		bv[ainum].target = targetnum;
+}
+
+int IsVTOL(int enumid)
+{
+	if((enumid >= 0xb0) && (enumid <= 0xb2))
+		return(1);
+	if((enumid >= 0x4a) && (enumid <= 0x4c))
+		return(1);
+	return(0);
 }
 
 int IsCAPFlier(int ainum)
@@ -5642,7 +5634,7 @@ void FlySanitize()
 	if((AltSpeedConv(ps[i].alt, Knots)) > 300)
 		bv[i].basespeed = (AltSpeedConv(ps[i].alt, Knots)) - 100;
 	else
-		bv[i].basespeed = 200 + GetDAltSpeed(ps[i].alt);
+		bv[i].basespeed = 200;
 
 	pdest = 0;
 	relangle = bv[i].finhead - ps[i].head;
