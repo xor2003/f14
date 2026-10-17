@@ -3867,12 +3867,17 @@ void ShowAIWeaponStatus(int ainum)
 	int cnt;
     struct sam  *S;
 	static struct PlaneData far *aiptype;
+	int flag;
 
+	flag = 0;
 	aiptype = GetPlanePtr(ps[ainum].type);
 
 	GetWingName(ainum, Str);
 	TXT(Str);
-	if(CheckAIMissiles(ainum) == -1) {
+	if(OurLoadOut == SL_GUNS) {
+		TXA("Guns Only!");
+	}
+	else if(CheckAIMissiles(ainum) == -1) {
 		TXA("Out of missiles!");
 	}
 	else {
@@ -3880,8 +3885,9 @@ void ShowAIWeaponStatus(int ainum)
 		for(cnt = 0; cnt < 3; cnt++) {
 			if(ps[ainum].mcnt[cnt] == 0)
 				continue;
-			if(cnt > 0)
+			if((cnt > 0) && flag)
 				TXA(", ");
+			flag = 1;
 			TXN(ps[ainum].mcnt[cnt]);
 			if(aiptype->misl[cnt] == ML_AIM7M)
 				TXA(" Sparrows");
