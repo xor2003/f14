@@ -4406,7 +4406,7 @@ void DoGroupAction(int planenum, int actionflag, int waypt)
 				}
 				if(actionflag == DOWPHOVER) {
 					bv[wingcnt].Behavior = UpdateOurWPS;
-					bv[wingcnt].varcnt = waypt + Gtime + 2;
+					bv[wingcnt].varcnt = Gtime + waypt + 2;
 				}
 				if(actionflag == 8) {
 					LoadWayPointPic(waypt);
