@@ -1344,9 +1344,11 @@ EasyLanding()
 	struct landpt *usedlpattern;
 	struct landpt *usedlpatstart;
 
+	if(ONTHECAT || ONTHEHOOK) return(0);
+	if(!(Status & TRAINING) && (ConfigData.CarrierLanding != 0)) return(0);
    if (landpt<0) return;   // dont fly again
 
-	if(!(Night || (MissionWeather == 2)))
+	if(!(Night || (MissionWeather == 0)))
 		usedlpattern = usedlpatstart = LandPat;
 	else {
 		usedlpattern = usedlpatstart = NiteLandPat;
@@ -1412,7 +1414,16 @@ EasyLanding()
    RUDDERVALS=0;
 	InitScottFlight();
 
-   if (--landpt<0) landpt=MAXPAT-1; // change to landpt--;
+	if(Night || (MissionWeather == 0) || (landpt < 3)) {
+		--landpt;
+		goto landdone;
+	}
+	if(landpt < 5)
+		landpt = 2;
+	else
+		landpt -= 4;
+landdone:
+   if (landpt<0) landpt=MAXPAT-1; // change to landpt--;
 
 
 }

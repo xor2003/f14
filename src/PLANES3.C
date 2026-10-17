@@ -3695,7 +3695,7 @@ void AICarrierLand()
 	struct landpt *usedlpattern;
 	struct landpt *usedlpatstart;
 
-	if(!(Night || (MissionWeather == 2)))
+	if(!(Night || (MissionWeather == 0)))
 		usedlpattern = usedlpatstart = LandPat;
 	else {
 		usedlpattern = usedlpatstart = NiteLandPat;
@@ -3766,7 +3766,7 @@ void AICarrierLand()
 			bv[planecnt].basespeed = usedlpatstart->KNTS;
 		}
 		else {
-			if((Night || (MissionWeather == 2)) && (landpnt > (MAXNITEPAT - 1)))
+			if((Night || (MissionWeather == 0)) && (landpnt > (MAXNITEPAT - 1)))
 				landpnt = bv[planecnt].threathead = (MAXNITEPAT - 1);
 			usedlpattern = usedlpatstart + landpnt;
 //			V[0]=LandPat[landpnt].X+(carrier.wires[2].cx/100L);
@@ -4097,7 +4097,7 @@ void CheckPlaneLand(int planenum)
 			}
 			else if(startval == 600) {
 				rearhead = bv[planecnt].threathead = rearhead;
-				if(!(Night || (MissionWeather == 2)))
+				if(!(Night || (MissionWeather == 0)))
 					TXA("BRAVO, Angels ");
 				else
 					TXA(", Angels ");
