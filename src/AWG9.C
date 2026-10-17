@@ -2158,11 +2158,8 @@ int aa_acquire(int flag)
 	}
 
 	if (RIO_ASSIST == RIO_ASSIST_STANDARD) {
-		if (!(ps[(ACQLIST[i]->i)].status & FRIENDLY)) {
-			Message("(RIO) Take the Shot! Take the Shot!");
-		}
-		else {
-			Message("(RIO) Hey watch it! That's a Friendly!");
+		if (ps[(ACQLIST[i]->i)].status & FRIENDLY) {
+			Message("(RIO) Hey watch it! That's a Friendly!", RIO_NOW_MSG);
 		}
 	}
 
