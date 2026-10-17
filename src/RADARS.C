@@ -50,8 +50,14 @@ doradar()
 	int i;
 	struct Radars *r;
 
-    if (LastSpike) LastSpike -= FTicks;
-    if (LastMud)   LastMud   -= FTicks;
+    if (LastSpike) {
+        if (LastSpike > FTicks) LastSpike -= FTicks;
+        else LastSpike = 0;
+    }
+    if (LastMud) {
+        if (LastMud > FTicks) LastMud -= FTicks;
+        else LastMud = 0;
+    }
 
 	// determine active radar
 
@@ -359,7 +365,7 @@ int RsignalOne (COORD x,COORD y,int z, int type,int *ang,int *dst,int isfriend,i
     int  dx,dy,dx1,dy1;
     int  signal, alt, DeadZone, cap;
 	int friendflag;
-	struct RadarData far *tempradar;
+	register struct RadarData far *tempradar;
 
 	if(targetnum < -1){
 		tempradar = GetRadarPtr(type);
@@ -395,12 +401,12 @@ int RsignalOne (COORD x,COORD y,int z, int type,int *ang,int *dst,int isfriend,i
     *dst = (int)((long)dist*32/825);   // convert to Km
     *ang = angle (dx,-dy);
 
-    signal = tempradar->range;
+    signal = (tempradar = GetRadarPtr(type))->range;
 
     // dead zone for ground-based radar only
 
     if (z==0 && tempradar->detectiontype == RADAR) {
-        alt = (CloseGuy?ps[targetnum].alt:Alt);
+        alt = (targetnum>=0?ps[targetnum].alt:Alt);
 
         // Dead Zone is approx:        Capped at:
         // Level 3 - 1013 ft per 10NM              10000 ft
@@ -409,8 +415,8 @@ int RsignalOne (COORD x,COORD y,int z, int type,int *ang,int *dst,int isfriend,i
         // Level 0 - 2026 ft per 10NM              16000 ft
 
         if (dist<475) dist = 475;                       // min dist 10 NM
-        DeadZone = ((long)dist<<HTOV)/(30+(Diff*10));
-        cap = 4000 - (Diff*500);
+        DeadZone = ((long)dist<<HTOV)/((Diff+3)*10);
+        cap = (8-Diff)*500;
         if (DeadZone > cap) DeadZone = cap;
         if (DeadZone > alt) signal = *dst;
     }

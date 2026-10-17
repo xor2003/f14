@@ -103,15 +103,15 @@ int DDDWeaponRanges()
 //***************************************************************************
 int DopplerCheck(TARGET *t)
 {
+	volatile long closure;
+
 	if (CheckMode(AWG9_MODE,AWG9_TWSA) || CheckMode(AWG9_MODE,AWG9_TWSM))
 		return 1;
 
-	if ((t->targetclosure > -50) && (t->targetclosure<50)) {
-		if (((t->h > 16016) && (t->h < 16926)) || ((t->h > -16926) && (t->h < -16016))) {
-			return 0;
-		}
-	}
-	return 1;
+	closure = t->targetclosure;
+	if ((t->targetclosure <= -80) || (t->targetclosure >= 80))
+		return 1;
+	return 0;
 }
 
 //************************************************************************

@@ -428,7 +428,6 @@ NewTacView(int NewView)
 
 	NewLockView(NewView);
     View=NewView;
-	return 1;
 }
 
 //***************************************************************************

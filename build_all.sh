@@ -24,6 +24,17 @@ mkdir -p "$OBJ" "$LOG" "$ASTAGE"
 
 CFLAGS="/FPa /G2 /Gs /AM /Osegcl /nologo /c /Zi /Zd"
 
+# per-module flag overrides (retail mixed optimization flags per module;
+# see ~/games/f19ru/F19/DECOMPILATION.md for the evidence basis)
+declare -A MODULE_FLAGS=(
+    [ddd]="/FPa /G2 /Gs /AM /Oaegcls /nologo /c /Zi /Zd"
+)
+
+flags_for() {
+    local b=$1
+    echo "${MODULE_FLAGS[$b]:-$CFLAGS}"
+}
+
 # object list from MAKEFILE OBJS — original link order (determines segment layout)
 OBJS="monoprin adicrt npolys n3d emsload pasm emm nqfly 3dexcept 3dloadt 3dloader 3dmatrix 3dobject 3dplanes 3dscene aaa aaahit armt awacs awg9 billasm boats bullets carr carrai cmds cockpit ctrlvect ddd egraph ems flight2 flir fltmath gmain nhorz horzasm hud2 hsd joystx njoycal keyjoy libglue loadmiss map math mcga mcgamask nmenus message options ovl planes planes2 planes3 radars rastport riohead riomap sams savemode sound sprites stealth support tac tews tgtflir tid trig track views vdi world _rp"
 
@@ -40,7 +51,7 @@ do_c() {
     "$KV" --mount=C:"$ROOT/c6/" --mount=D:"$SRC/" --mount=E:"$OBJ/" \
         --mount=F:"$HDR/" --env='PATH=C:\BIN;C:\BINB' \
         --env='INCLUDE=F:\;C:\INCLUDE' --env='LIB=C:\LIB' --env='TMP=E:\' --drive=E \
-        'C:\BIN\CL.EXE' $CFLAGS -IF:\\ "/FoE:\\$b.OBJ" "D:\\$(basename "$f")" \
+        'C:\BIN\CL.EXE' $(flags_for "$b") -IF:\\ "/FoE:\\$b.OBJ" "D:\\$(basename "$f")" \
         > "$LOG/$b.cl.log" 2>&1
 }
 
