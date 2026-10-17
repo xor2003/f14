@@ -484,7 +484,7 @@
 3fb2:4260 n=  1 -> _SetUpLaunch
 3ad2:2c29 n=  1 -> _SetUpOval1
 3ad2:2c29 n=  1 -> _SetUpOval2
-3fb2:58d1 n=  1 -> _SetUpWingman
+2ad2:0004 n=  1 -> _SetUpWingman
 170c:0210 n=  1 -> _SetViewPos
 170c:01c9 n=  1 -> _SetViewRot
 18de:1b85 n=  1 -> _SetupNewTarget

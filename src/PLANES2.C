@@ -111,20 +111,28 @@ extern confData ConfigData;
 
 void SetUpWingman(int leadnum, int b, int numadd, int planeid)
 {
-	int cnt;
-	int numflight = 1;
-	int lastleader;
-	int wingspace;
-	int whichbehave;
-	int radaron = 0;
-	int enemynofire = 0;
-	int lastsec;
-	int updatecnt = 0;
-	int imaboat = 0;
 	int startval;
+	int enemynofire;
+	int wingspace;
+	int lastleader;
+	int cnt;
+	int radaron;
+	int updatecnt;
+	int wingdist;
 	int endval;
-	int wingdist = 1;
+	int imaboat;
+	int heli;
+	int whichbehave;
+	int numflight;
+	int lastsec;
 
+	radaron = 0;
+	enemynofire = 0;
+	heli = 0;
+	updatecnt = 0;
+	imaboat = 0;
+	numflight = 1;
+	wingdist = 1;
 	lastleader = leadnum;
 	lastsec = leadnum;
 
@@ -132,6 +140,8 @@ void SetUpWingman(int leadnum, int b, int numadd, int planeid)
 		radaron = 1;
 	if(bv[leadnum].behaveflag & ENEMYNOFIRE)
 		enemynofire = 1;
+	if(bv[leadnum].behaveflag & ISHELICOPTER)
+		heli = 1;
 
 	if(leadnum == (NPLANES - 1))
 		updatecnt = 1;
@@ -139,12 +149,16 @@ void SetUpWingman(int leadnum, int b, int numadd, int planeid)
 	if(IsBoat(planeid)) {
 		imaboat = 1;
 		startval = LASTPLANE - numadd;
-		endval = MAXPLANE;
+		if(startval < NPLANES)
+			startval = NPLANES;
+		endval = LASTPLANE;
 		wingdist = 10;
 	}
 	else {
 		startval = leadnum + 1;
 		endval = (leadnum + 1 + numadd);
+		if(endval > LASTPLANE)
+			endval = LASTPLANE;
 	}
 
 	if(bv[leadnum].Behavior == StraightAttack) {
@@ -196,7 +210,11 @@ void SetUpWingman(int leadnum, int b, int numadd, int planeid)
 			ps[cnt].status &= ~CIVILIAN;
 
         ActivatePlane (cnt, b, planeid);
+		ps[cnt].mcnt[0] = ps[leadnum].mcnt[0];
+		ps[cnt].mcnt[1] = ps[leadnum].mcnt[1];
+		ps[cnt].mcnt[2] = ps[leadnum].mcnt[2];
 		bv[cnt].Behavior = bv[leadnum].Behavior;  /*  was Formation  */
+		bv[cnt].winglevel = bv[leadnum].winglevel;
 		if(radaron)
 			bv[cnt].behaveflag |= RADARON;
 		else
@@ -204,10 +222,13 @@ void SetUpWingman(int leadnum, int b, int numadd, int planeid)
 		if(enemynofire)
 			bv[cnt].behaveflag |= ENEMYNOFIRE;
 		else
-			bv[cnt].behaveflag &= ENEMYNOFIRE;
+			bv[cnt].behaveflag &= ~ENEMYNOFIRE;
 
-		if(bv[leadnum].behaveflag & ISHELICOPTER) {
+		if(heli) {
 			bv[cnt].behaveflag |= ISHELICOPTER;
+		}
+		else {
+			bv[cnt].behaveflag &= ~ISHELICOPTER;
 		}
 
 		if(ps[leadnum].mcnt[0] == 0)
@@ -243,7 +264,10 @@ void SetUpWingman(int leadnum, int b, int numadd, int planeid)
 		ps[cnt].head = ps[leadnum].head;
 		ps[cnt].speed = ps[leadnum].speed;
 		bv[cnt].basespeed = bv[leadnum].basespeed;
-		bv[cnt].behaveflag += numflight + 1;
+		if(whichbehave = (bv[leadnum].behaveflag & 0xf))
+			bv[cnt].behaveflag += numflight + whichbehave;
+		else
+			bv[cnt].behaveflag += numflight + 1;
 		bv[cnt].path = bv[leadnum].path;
 		bv[cnt].groundt = bv[leadnum].groundt;
 		bv[cnt].xloc = bv[leadnum].xloc;
