@@ -19,6 +19,7 @@ extern   struct OBJ3D far OBJECTS[96][16];
 extern   int   IdentInvMat[];
 extern   int   GroundObjectScale[200];
 extern   char  GroundObjectNames[32][20];
+extern   UWORD CLOUDHEIGHT;
 
 
 int   LandObjectBase=0;
@@ -699,10 +700,10 @@ GetQHeight(long X, long Z )
    FP_SEG(PTR)=MapInBank(HMAPBANK);
 
 
-   H1=(*(PTR+256*ZB+XB)&0xff);
-   H2=(*(PTR+256*ZB+XB+1)&0xff);
-   H3=(*(PTR+256*(ZB+1)+XB)&0xff);
-   H4=(*(PTR+256*(ZB+1)+XB+1)&0xff);
+   H1=(*(PTR+256*ZB+XB));
+   H2=(*(PTR+256*ZB+XB+1));
+   H3=(*(PTR+256*(ZB+1)+XB));
+   H4=(*(PTR+256*(ZB+1)+XB+1));
 
 	H1 <<=4;
 	H2 <<=4;
@@ -713,16 +714,20 @@ GetQHeight(long X, long Z )
 
    if (XOFF>ZOFF)
       {
-      L= -MulDiv32((long)(H1-H2),(long)(XOFF),4096L) -
-         MulDiv32((long)(H2-H4),(long)(ZOFF),4096L);
+      L= -(MulDiv32((long)(H1-H2),(long)(XOFF),4096L) +
+         MulDiv32((long)(H2-H4),(long)(ZOFF),4096L));
       }
    else
       {
-      L= -MulDiv32((long)(H3-H4),(long)(XOFF),4096L) -
-         MulDiv32((long)(H1-H3),(long)(ZOFF),4096L);
+      L= -(MulDiv32((long)(H3-H4),(long)(XOFF),4096L) +
+         MulDiv32((long)(H1-H3),(long)(ZOFF),4096L));
       }
 
-     return((int)(8*(H1+L)));
+     H1 = (H1 + (int)L)*8;
+     if(H1/2 <= (int)CLOUDHEIGHT)
+        return(H1);
+     else
+        return(CLOUDHEIGHT*2);
 }
 
 IsLand(long X, long Z )
