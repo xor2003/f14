@@ -3396,7 +3396,7 @@ void FlyWayPoint()
 			GetWayPointChanges((aipaths[temppath].wp0 + aipaths[temppath].numWPs - 1), &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 
 			if(speedval != -1) {
-				bv[i].basespeed = speedval;
+				bv[i].basespeed = AltSpeedConv(ps[i].alt, speedval);
 			}
 			if(headval != -1) {
 				relangle = headval - ps[i].head;
@@ -3414,11 +3414,9 @@ void FlyWayPoint()
 			if(altval > 5) {
 				if(ps[i].alt < altval) {
 					if(ps[i].alt < (altval - 3)) {
-//						pdest = 0x2000 - ps[i].pitch;
 						pdest = 0x2000;
 					}
 					else {
-//						pdest = 0x200 - ps[i].pitch;
 						pdest = 0x200;
 					}
 				}
@@ -3445,78 +3443,63 @@ void FlyWayPoint()
 		if(GetSquadLeader(i) != -1) {
 			ps[i].status |= BACKTOBASE;
 			bv[i].Behavior = AIGoHome;
-#ifdef SHOWHOME
-			TXT("No Waypoint , Going Home ");
-			TXN(i);
-			Message(Txt,DEBUG_MSG);
-#endif
 			GetAIBase(i);
 		}
 		else
 			bv[i].Behavior = Formation;
 		return;
 	}
-	else {
-		wayval = bv[i].groundt;
 
-		GetWayXYZ(wayval, &xval, &yval, &zval);
-		dx = (xval + 16) >> HTOV;
-		dy = (yval + 16) >> HTOV;
-		dx = dx - ps[i].x;
-		dy = dy - ps[i].y;
-	}
+	wayval = bv[i].groundt;
+
+	GetWayXYZ(wayval, &xval, &yval, &zval);
+	dx = (xval + 16) >> HTOV;
+	dy = (yval + 16) >> HTOV;
+	dx = dx - ps[i].x;
+	dy = dy - ps[i].y;
 
 	GetTargADP(i, dx, dy, &tdist, &tpitch, &tangle, &distnm, &enemyalt, 0);
 
 	relangle = tangle - ps[i].head;
 
-	if(tdist < 10) {
+	if(Gtime < 2)
+		tdist >>= 3;
+	if(planecnt >= NPLANES)
+		tdist >>= 3;
+
+	if(tdist < 25) {
 		temppath = (int)bv[i].path;
 		timeval = GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
-		if(wpflag & DOWPLAND) {
-			GetAIBase(planecnt);
-			bv[planecnt].Behavior = AIGoHome;
-			ps[planecnt].status |= BACKTOBASE;
-		}
-		if(wpflag & DOWPGOAL) {
-			LogIt (SLG_WAY_PT_GOAL, planecnt, ps[planecnt].xL, ps[planecnt].yL, ps[planecnt].alt, -(int)bv[planecnt].path, wayval, 0L, LOG_AIR);
-			DoGroupAction(planecnt, DOWPGOAL, wayval);
-		}
-		if(wpflag & DOWPHOVER) {
-			bv[planecnt].Behavior = DoAltHover;
-			bv[planecnt].varcnt = Gtime + timeval;
-			return;
+
+		if((wpflag & DOWPTROOPDROP) && (Gtime != 0)) {
+			TrooperDrop(planecnt);
+			DoGroupAction(planecnt, DOWPTROOPDROP, 0);
 		}
 
-		if((aipaths[temppath].wp0 + aipaths[temppath].numWPs) <= (wayval + 1)) {
-#ifdef GOHOMEATEND
-			if(GetSquadLeader(i) != -1) {
-#ifdef SHOWHOME
-				TXT("Last WP, Go Home ");
-				TXN(i);
-				TXA(" ");
-				TXN(aipaths[temppath].wp0);
-				TXA(" ");
-				TXN(aipaths[temppath].numWPs);
-				TXA(" ");
-				TXN(wayval);
-				Message(Txt,DEBUG_MSG);
-#endif
-				ps[i].status |= BACKTOBASE;
-				bv[i].Behavior = AIGoHome;
-				GetAIBase(i);
+		if(tdist < 10) {
+			if(wpflag & DOWPGOAL) {
+				LogIt (SLG_WAY_PT_GOAL, planecnt, ps[planecnt].xL, ps[planecnt].yL, ps[planecnt].alt, -(int)bv[planecnt].path, wayval, 0L, LOG_AIR);
+				UpdateMissionData(0, ptype->PlaneEnumId);
+				DoGroupAction(planecnt, DOWPGOAL, wayval);
 			}
-			else {
-				bv[i].Behavior = Formation;
+			if(wpflag & DOWPLAND) {
+				GetAIBase(planecnt);
+				bv[planecnt].Behavior = AIGoHome;
+				ps[planecnt].status |= BACKTOBASE;
 			}
-#else
-			bv[i].groundt = wayval + 1;
-			droll = -ps[i].roll;
-			pdest = 0;
-#endif
-			return;
-		}
-		else {
+			if(wpflag & DOWPHOVER) {
+				DoGroupAction(planecnt, DOWPHOVER, timeval);
+				bv[planecnt].Behavior = DoAltHover;
+				bv[planecnt].varcnt = Gtime + timeval;
+				return;
+			}
+
+			if((aipaths[temppath].wp0 + aipaths[temppath].numWPs) <= (wayval + 1)) {
+				bv[i].groundt = wayval + 1;
+				droll = -ps[i].roll;
+				pdest = 0;
+				return;
+			}
 
 			if(aiwaypoints[wayval].x == (long)-2)
 				wayval2 = bv[i].groundt + 2;
@@ -3524,8 +3507,6 @@ void FlyWayPoint()
 				wayval2 = bv[i].groundt + 1;
 
 			bv[i].groundt = wayval2;
-//			wayval2 = wayval + 1;
-//			bv[i].groundt = wayval + 1;
 			GetWayXYZ(wayval2, &xval2, &yval2, &zval2);
 			bv[i].xloc = xval2;
 			bv[i].yloc = yval2;
@@ -3538,27 +3519,28 @@ void FlyWayPoint()
 	else {
 		GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 		if(speedval != -1) {
-			bv[i].basespeed = speedval;
+			bv[i].basespeed = AltSpeedConv(ps[i].alt, speedval);
 		}
 		if((attack != -1) && (bv[i].behavecnt == 0)) {
-			LaunchCruise(planecnt);
+			if(attack == 0xc9)
+				InterceptControl(planecnt);
+			else
+				LaunchCruise(planecnt);
 		}
 		if(wpflag & DOWPDITCH) {
 			if((ps[i].alt < 125) || (abs(relangle) > 0x4000)) {
         		ps[i].status |= CRASH;
 			}
 			else {
-//				pdest = 0xD000 - ps[i].pitch;
 				pdest = 0xD000;
 				return;
 			}
 		}
 		if(wpflag & DOWPEXPLODE) {
-			LogIt (SLG_AIR_DESTROYED_MISSILE, i, ps[i].xL, ps[i].yL, ps[i].alt, -999, -999, 0L, LOG_AIR);
+			if(ps[i].status & CRASH) {
+				LogIt (SLG_AIR_DESTROYED_MISSILE, i, ps[i].xL, ps[i].yL, ps[i].alt, -999, -999, 0L, LOG_AIR);
+			}
 			AirKill(i);
-		}
-		if(wpflag & DOWPTROOPDROP) {
-			DoGroupAction(planecnt, DOWPTROOPDROP, 0);
 		}
 	}
 
@@ -3566,21 +3548,17 @@ void FlyWayPoint()
 
 	if(ps[i].alt < zval) {
 		if(ps[i].alt < (zval - 5)) {
-//			pdest = 0x2000 - ps[i].pitch;
 			pdest = 0x2000;
 		}
 		else {
-//			pdest = 0x200 - ps[i].pitch;
 			pdest = 0x200;
 		}
 	}
 	else if(ps[i].alt > (zval + 25)) {
 		if(ps[i].alt > (zval + 30)) {
-//			pdest = 0xD000 - ps[i].pitch;
 			pdest = 0xD000;
 		}
 		else {
-//			pdest = 0xFE00 - ps[i].pitch;
 			pdest = 0xFE00;
 		}
 	}
@@ -3591,41 +3569,6 @@ void FlyWayPoint()
 		bv[i].finhead = tangle;
 	else
 		bv[i].finhead = ps[i].head;
-
-#if 0
-//#ifdef ELFBMSG
-/*
-	if((ps[i].type == 38) && (wayval != bv[i].groundt)) {
-		TXT("New Way ");
-		TXN(bv[i].groundt);
-		Message(Txt,DEBUG_MSG);
-	}
-	if((ps[i].type == 38) && (tdist < 10)) {
-		TXT("Should New Way ");
-		TXN(bv[i].groundt);
-		TXA(" ");
-		TXN(wayval2);
-		TXA(" ");
-		Message(Txt,DEBUG_MSG);
-	}
-*/
-	if((tempvar) && (i> LASTPLANE)) {
-		TXT("FWP ");
-		TXN(i);
-		TXA(" d ");
-		TXN(tdist);
-		TXA(", wp ");
-		TXN(bv[i].groundt);
-//		TXN(wayval2);
-		TXA(", pd ");
-		TXN(pdest);
-		TXA(", alt ");
-		TXN(ps[i].alt);
-		TXA(", wa ");
-		TXN(zval);
-		Message(Txt,DEBUG_MSG);
-	}
-#endif
 }
 
 void ShowJettison(int planenum)
