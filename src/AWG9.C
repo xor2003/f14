@@ -413,7 +413,7 @@ int AWG9_IFF()
 		if (ps[SelectedTarg].status & FRIENDLY) {
  			IFF_timer = FrameRate * 2;
 			Sound (N_IFFWarning, 1,0);
-			if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+			if (AWG9_REALITY_LEVEL == AWG9_EASY)
 				Message("(RIO) Friendly Aircraft", RIO_NOW_MSG);
 			else
 				Message("(RIO) IFF Check Positive - Friendly Aircraft", RIO_NOW_MSG);
@@ -432,7 +432,7 @@ int AWG9_IFF()
 			}
 		}
 		if (!(ps[SelectedTarg].status & (FRIENDLY|NEUTRAL))) {
-			if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+			if (AWG9_REALITY_LEVEL == AWG9_EASY)
 				Message("(RIO) Enemy Aircraft", RIO_NOW_MSG);
 			else
 				Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
@@ -451,7 +451,7 @@ int AWG9_IFF()
 			}
 		}
 		if (ps[SelectedTarg].status & CIVILIAN) {
-			if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+			if (AWG9_REALITY_LEVEL == AWG9_EASY)
 				Message("(RIO) Civilian Aircraft", RIO_NOW_MSG);
 			else
 				Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
@@ -465,7 +465,7 @@ int AWG9_IFF()
 	if (ps[DESIGNATED].status & FRIENDLY) {
 		IFF_timer = FrameRate * 2;
 		Sound (N_IFFWarning, 1,0);
-		if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+		if (AWG9_REALITY_LEVEL == AWG9_EASY)
 			Message("(RIO) Friendly Aircraft", RIO_NOW_MSG);
 		else
 			Message("(RIO) IFF Check Positive - Friendly Aircraft", RIO_NOW_MSG);
@@ -490,7 +490,7 @@ int AWG9_IFF()
 	}
 	if (!(ps[DESIGNATED].status & (FRIENDLY|NEUTRAL))) {
 		BAD_GUY = FrameRate * 2;
-		if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+		if (AWG9_REALITY_LEVEL == AWG9_EASY)
 			Message("(RIO) Enemy Aircraft", RIO_NOW_MSG);
 		else
 			Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
@@ -513,7 +513,7 @@ int AWG9_IFF()
 		}
 	}
 	if (ps[DESIGNATED].status & CIVILIAN) {
-		if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+		if (AWG9_REALITY_LEVEL == AWG9_EASY)
 			Message("(RIO) Civilian Aircraft", RIO_NOW_MSG);
 		else
 			Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
@@ -1428,6 +1428,7 @@ int LockDistanceCheck(TARGET *t)
 {
 	long rng=0L;
 	struct PlaneData far *tempplane;
+	int radarsig;
 
 	tempplane = GetPlanePtr(ps[t->i].type);
 
@@ -1441,20 +1442,31 @@ int LockDistanceCheck(TARGET *t)
 		}
 	}
 
-	if (AWG9_REALITY_LEVEL!=AWG9_EASY) {
-		if (tempplane->radarsig==1) {
+	if (AWG9_REALITY_LEVEL==AWG9_MODERATE) {
+		rng = (t->conv) ? 4988L:159616L;	// 105 nmi
+		if ((long)t->d > rng) {
+			Message("(RIO) Target Out of Range",RIO_MSG);
+			return(0);
+		} else {
+			return(1);
+		}
+	}
+
+	if (AWG9_REALITY_LEVEL==AWG9_AUTHENTIC) {
+		radarsig = tempplane->radarsig;
+		if (radarsig==1) {
 			rng = (t->conv) ? 1900L:60800L;		// 40 nmi
 		}
-		if (tempplane->radarsig==2) {
+		if (radarsig==2) {
 			rng = (t->conv) ? 4513L:144416L;	// 95 nmi
 		}
-		if (tempplane->radarsig==3) {
+		if (radarsig==3) {
 			rng = (t->conv) ? 4988L:159616L;	// 105 nmi
 		}
-		if (tempplane->radarsig==4) {
+		if (radarsig==4) {
 			rng = (t->conv) ? 5938L:190016L;	// 125 nmi
 		}
-		if (tempplane->radarsig==5) {
+		if (radarsig==5) {
 			rng = (t->conv) ? 6888L:220416L;	// 145 nmi
 		}
 
