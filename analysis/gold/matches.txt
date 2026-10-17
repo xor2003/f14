@@ -959,7 +959,7 @@
 2fc6:04a8 n=  92 -> _BuildFiringList                    dev@0901:3856 jac=0.62 lcs=0.37
 48b6:1a39 n=  51 -> _InitSpeech                         dev@4312:010e jac=0.59 lcs=0.37
 2929:0bd9 n= 240 -> _DrawWayPoint                       dev@13ba:1906 jac=0.62 lcs=0.37
-47ba:0067 n= 122 -> _ShowAIStatus                       dev@25e2:6fe4 jac=0.74 lcs=0.37
+31ce:5d73 n= 122 -> _ShowAIStatus
 1dc3:222d n=  34 -> __stbuf                             dev@4a3f:13f2 jac=0.47 lcs=0.37
 220f:2a55 n= 239 -> _UpdateLights                       dev@13ba:417a jac=0.54 lcs=0.37
 46ad:07d6 n= 166 -> _GetSARCover                        dev@36f4:38a6 jac=0.66 lcs=0.37
@@ -978,7 +978,7 @@
 220f:1323 n=  74 -> _MBox                               dev@253f:0672 jac=0.45 lcs=0.36
 2a48:0e87 n=  94 -> _JetisonSwitch                      dev@13ba:4736 jac=0.54 lcs=0.36
 1c38:05aa n=  54 -> _DrawN3dObject                      dev@0088:0be6 jac=0.64 lcs=0.35
-3fb2:5ae7 n= 129 -> _ShowAIStatus                       dev@25e2:6fe4 jac=0.67 lcs=0.35
+31ce:5d73 n= 129 -> _ShowAIStatus
 220f:22b5 n=  42 -> _MBox                               dev@253f:0672 jac=0.56 lcs=0.35
 48b6:0a28 n= 114 -> _JetisonSwitch                      dev@13ba:4736 jac=0.79 lcs=0.35
 3fb2:1de6 n= 209 -> _SetUpCAP1                          dev@3091:3786 jac=0.69 lcs=0.35
@@ -1016,7 +1016,7 @@
 15ce:0ede n= 266 -> _CheckWingmanSix                    dev@3091:0cb8 jac=0.52 lcs=0.29
 4a9a:0128 n= 212 -> _LFlyTo                             dev@3091:60a0 jac=0.70 lcs=0.29
 3fb2:2b6e n= 185 -> _MyMessage                          dev@253f:04a0 jac=0.74 lcs=0.29
-31ce:6f8e n= 238 -> _DamageAI                           dev@3091:2e6e jac=0.64 lcs=0.29
+3ad2:22b3 n= 238 -> _DamageAI
 4c08:0823 n= 214 -> _SearchForTargets                   dev@0901:1fe0 jac=0.67 lcs=0.29
 172e:0515 n=  39 -> _DrawShadow                         dev@06ca:06b0 jac=0.67 lcs=0.29
 1dc3:1e3a n= 227 -> _CheckBulletBetter                  dev@0dc6:0b96 jac=0.67 lcs=0.28
@@ -1064,3 +1064,4 @@
 31ce:8f69 n=  77 -> (none)
 3fb2:055b n=   7 -> (none)
 48b6:123b n=  85 -> (none)
+3fb2:0467 n= 401 -> _VectorIntercept                      dev@0000:0000 jac=1.00 lcs=1.00
