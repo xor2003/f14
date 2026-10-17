@@ -324,3 +324,26 @@ Retail algorithm (replaces ours entirely):
   0x2fb2:0x4dac=speed helper; 0x2fb2:0x2d78=a Behavior ptr; 0x3b61:0x504=LogIt;
   0x342:0x113b=4-arg dist/wave-height helper; 0x1fc6:9=Message; 0x2ad2:0x6ec=
   GetSquadLeader.
+
+## Session N — SetUpWingman + anchor corrections (cont.)
+
+- `_SetUpWingman` ported to retail `2ad2:0004` (was mispaired to `2fb2:58d1`
+  which is an unported separation helper). Recovered: ISHELICOPTER head flag,
+  startval<NPLANES / endval>LASTPLANE clamps, unconditional mcnt[0..2] copy,
+  winglevel copy, behaveflag slot `+= numflight + (leaderflag&0xf ?: 1)`,
+  `numflight > numadd` loop exit, `&= ~ENEMYNOFIRE` bug fix. 4 artifact edits.
+- `_InterceptControl` @`2fb2:0004` confirmed (Gtime<7 + GetSquadLeader head).
+- `2ad2:0004` is SetUpWingman; `2fb2:0004` is InterceptControl (same offset,
+  different segments - keep distinct).
+- Retail `2fb2:6bb5` (FlyWayPoint attack==0xc9 branch): group-attack helper,
+  writes `behavecnt=Gtime` at 3 sites, calls GetPlaneOrgNum/GetSquadLeader/
+  GetWayPointChanges/DoGroupAction/CheckPlaneBlast/GetWayXYZ/DoNextWayPt.
+  NO our-source counterpart - unported function, InterceptControl used as
+  placeholder call.
+- Retail `2fb2:0fa7` = LaunchCruise (positional + NPLANES log-split head).
+- Remaining big ports: _pitchbar2 (gold has 9 Rotate2D/2 print vs our 13/4 -
+  different draw structure), _TIDAttkInfo @3d7e:0362, _AddSomePlanes2,
+  _DoGroupAction @2fb2:63b2, FUN_2fb2_6bb5 (needs new source fn).
+- Small-edit DIFFs surveyed (_AIGetBombDist, _AISanitizeCheck,
+  _AIRadarRearCheck, _AIBombTarget): all artifact-class (jump-form polarity,
+  global-offset, push-eq-zero, imul-via-global-i vs si).
