@@ -395,3 +395,44 @@ Retail algorithm (replaces ours entirely):
   gold recomputes in swapped di (enter 0x18) via si↔di swap after print1.
   No spelling variant (ox-t+c, flags /Osegl//Oaegcls) changes the CSE choice.
 - gold.map: fixed FUN_1b89_02d4 extent 04f9→063f (was truncated mid-function).
+
+## LoadScottMission retail-format decode (2026-04-??, uncommitted work-in-progress)
+- Verify status: **540/748** after anchor fixes (_LoadFiles@18d5:0212,
+  _NDraw3DObject@0058:0b45, _SetDLC@0dc3:2288, _show_range@3cb5:057c).
+- `_LoadScottMission` gold = `FUN_1d56_0000` (seg 1d56); FUN_1d56_1094 is
+  exactly 716B = our `_AddGroundTarget` -> seg identity proven.
+  Gold fn ~1298 insns vs ours ~992. Frame `enter 0x240` (ours 0x150).
+- Retail format diffs:
+  * mission header fread is **0x102 (258B)** at [bp-0x194]; ours 0x9e=158B.
+    Retail ints time@+116(+0x74), count fields cluster +114..+134,
+    long loc fields +138..(+157): objectLoc~+0x8a, mEscLoc~+0xb6,
+    mDieLoc~+0xba, mLiveLoc~+0xbe, pathLoc+0x92, wpLoc+0x96, actLoc+0x9a.
+    SETUP.H has expanded _missionHeader_ (desc[64]); MISSION.H still 158B.
+  * `_object_` is **0x64 (100B)** in retail vs ours 82B.
+  * TWO fopen("mission.f14","rb"): first -> GLOBAL FILE* [0xcba4] (MisFile,
+    used by reader at gold img 0x36473 fread 0x102 = mission-display),
+    NULL -> Message("No Mission Data",1)+ret 0; second -> local File.
+  * Init: LASTPLANE=70, warstatus=2, DOINVISIBLE=0, planelanding=-999,
+    7 zeroed globals (ours 6), + 10-iter loop word[0x6684+i]=1.
+  * bounds clamps numpaths>=40, numwps>=85, numactions>=130 (we have).
+  * sections: paths@0xb5e4 x8B, wpts@0xb132 x14B, actions@0x675c x4B,
+    wp-z repair loop (imul 0xe).
+  * THREE missing must-X loaders, same shape each:
+    fseek(loc); for(k<n): flag[g]=1; fread(rec,0x68,1); type=byte@rec+0x10
+    cbw -> typeArr[k*0x16]; for(i<10){id=word@rec+0x14+2i -> idArr[k*0xb+i];
+    if(id<0)break}.  live: flag 0xc560, arrs 0x651e/0x6520;
+    die: flag 0x6670, arrs 0x658c/0x658e; esc: flag 0xc566, arrs 0x65fa/0x65fc.
+    src decls for these arrays not yet identified.
+  * objects loop: byte global [0xaea2]=cnt; fread(obj,0x64); numjump local
+    [bp-0x224] skip; `obj.object==0x9f(SO_GT) || obj.type in
+    {0xc,0x13,0xf,0x10,0x11,0x12,0x14,0x15}` -> push cnt + copy obj to
+    stack (sub sp,0x64; rep movsw cx=0x32) + call AddGroundTarget —
+    arg order (obj,cnt) matches ours. Then `test byte obj[+0x50],0xf` =
+    our `(number&0xf)==0` continue. Rest of loop tail undecoded.
+- MAP.C cluster (_X2map/_Y2map/_mplot/_MapLoc): all callers #ifdef YEP'd
+  dead code; anchors bogus; retail inlines `cl=7-Mscale; sar ax,cl;
+  +41/+28` math. Defer (structural item, not a real port).
+- Anchors fixed: _LoadFiles, _NDraw3DObject, _SetDLC, _show_range,
+  _DrawDecoy->072e:0515, _Nline3D->1017:02f9 (gold.map entry added).
+- pitchnum2: remaining 4 edits proven regalloc-context artifact
+  (isolated probe reproduces gold ax-reuse; itoa/pitchbar2 tail kills it).
