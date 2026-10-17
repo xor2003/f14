@@ -3655,15 +3655,22 @@ void ShowJettison(int planenum)
 		bv[planenum].Behavior = StraightAttack;
 		bv[planenum].behaveflag &= ~ENEMYNOFIRE;
 		GetEnemyTarget(planenum);
+		if(ps[planenum].status & FRIENDLY) {
+			TXT("(");
+			FTXA(ptargettype->name);
+			TXA(") I AM UNDER ATTACK.  BREAKING TO ENGAGE ENEMY.");
+			Message(Txt,7);
+		}
 	}
 	else {
+		if(ps[planenum].status & FRIENDLY) {
+			TXT("(");
+			FTXA(ptargettype->name);
+			TXA(") THINGS ARE GETTING TOO HOT FOR ME!  RETURNING TO BASE!");
+			Message(Txt,7);
+		}
 		ps[planenum].status |= BACKTOBASE;
 		bv[planenum].Behavior = AIGoHome;
-#ifdef SHOWHOME
-		TXT("Jettison No Missile, Going Home ");
-		TXN(planenum);
-		Message(Txt,DEBUG_MSG);
-#endif
 		GetAIBase(planenum);
 	}
 
