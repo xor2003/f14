@@ -291,9 +291,12 @@ DrawChute(int NUM, int X, int Y, int Z, int SHFT)
 {
     MakeMatHPR(0, 0, 0, O);
     InvertMatrix();
-	if (SHFT)
+	if (SHFT) {
 		Shift3X3(O,SHFT);
-	NDraw3DObject(N3DZ_CHUTE, X/2, Y/2, Z/2, O, AnimVals);
+		Scale3d=SHFT;
+	}
+	NDraw3DObject(NUM, X/2, Y/2, Z/2, O, AnimVals);
+	Scale3d=1;
 }
 
 //***************************************************************************
@@ -301,9 +304,12 @@ DrawDecoy(int NUM, int X, int Y, int Z, int SHFT)
 {
     MakeMatHPR(0, 0, 0, O);
     InvertMatrix();
-	if (SHFT)
+	if (SHFT) {
 		Shift3X3(O,SHFT);
-	NDraw3DObject(NUM, X/2, Y/2, Z/2, O, AnimVals);
+		Scale3d=SHFT;
+	}
+	NDraw3DObject(N3DZ_CHUTE, X/3, Y/3, Z/3, O, AnimVals);
+	Scale3d=1;
 }
 
 
@@ -318,8 +324,10 @@ DrawMissile(int NUM, int X, int Y, int Z, int ID, int SHFT)
 
     ssi = ss+ID;
 
-	if (SHFT)
+	if (SHFT) {
 		Shift3X3(O,SHFT);
+		Scale3d=SHFT;
+	}
 
     if (ssi->srctype==1 && ssi->source==MAXPLANE) {
 		switch(ssi->weapon) {
@@ -352,6 +360,7 @@ DrawMissile(int NUM, int X, int Y, int Z, int ID, int SHFT)
 			break;
 		}
 	}
+	Scale3d=1;
 }
 
 
@@ -705,10 +714,10 @@ UpdateOurPlaneAnims ()
       AnimVals[24]=0;
    if (AnimVals[25]<0)
       AnimVals[25]=0;
-   if(((beforeval == 0) && (AnimVals[25] > 0)) || ((beforeval == (70*DEG)) && (AnimVals[25] < (70*DEG))))
-		Sound(N_GearOpenSeq, 1,0);
-   if(((beforeval > 0) && (AnimVals[25] <= 0)) || ((beforeval < (70*DEG)) && (AnimVals[25] >= (70*DEG))))
-		Sound(N_GearCloseSeq, 1,0);
+   if((((beforeval == 0) && (AnimVals[25] > 0)) || ((beforeval == (70*DEG)) && (AnimVals[25] < (70*DEG)))) && (Gtime > 4))
+		Sound(N_GearOpenSeq, 2,0);
+   if((((beforeval > 0) && (AnimVals[25] <= 0)) || ((beforeval < (70*DEG)) && (AnimVals[25] >= (70*DEG)))) && (Gtime > 4))
+		Sound(N_GearCloseSeq, 2,0);
 
    if (AnimVals[24]>=(70*DEG))
       {
