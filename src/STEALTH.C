@@ -67,6 +67,9 @@ extern  int		LLowFuelWarn;
 extern  int		RLowFuelWarn;
 extern  int		BingoFuelWarn;
 extern  int     orgPlayernum;
+extern  int     ourplanetype;
+extern  int     whichourcarr;
+extern  int     ourcarrierdead;
 extern confData ConfigData;
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
 
@@ -388,16 +391,20 @@ LogIt (what, who, which)
 LogIt (int event, int donetonum, long x, long y, UWORD z, int missileOwner, int missileType, long misc, int src)
 {
 	int damagelevel = 0;
+	int gindex = -999;
 	struct PlaneData far *ptemp;
 	int missileOrgOwner;
+	int cnt;
 
     if (nextlog>=NLOG-1) DumpLogFile ();
 
-	if((missileOwner == -1) || (missileOwner == MAXPLANE))
+	if(event == SLG_AIR_LAND)
+		missileOrgOwner = -missileOwner;
+	else if((missileOwner == -1) || (missileOwner == MAXPLANE))
 		missileOrgOwner = orgPlayernum;
 	else if((missileOwner >= 0) && (missileOwner < MAXPLANE))
 		missileOrgOwner = bv[missileOwner].orgnum;
-	else if((missileOwner < 0) && (missileOwner != -999))
+	else if((missileOwner < 0) && (missileOwner != -999) && (missileOwner != -998))
 		missileOrgOwner = -missileOwner;
 	else
 		missileOrgOwner = missileOwner;
@@ -407,6 +414,8 @@ LogIt (int event, int donetonum, long x, long y, UWORD z, int missileOwner, int 
 	    	gamelog[nextlog].objectNum  = (int)bv[donetonum].orgnum;
 			ptemp = GetPlanePtr(ps[donetonum].type);
     		gamelog[nextlog].objectType  = ptemp->PlaneEnumId;
+			if(bv[donetonum].leader == -1)
+				gamelog[nextlog].objectType  = ourplanetype;
     		gamelog[nextlog].speed = ps[donetonum].speed;
     		gamelog[nextlog].side = GetSide(donetonum);
 
@@ -417,15 +426,19 @@ LogIt (int event, int donetonum, long x, long y, UWORD z, int missileOwner, int 
 				gamelog[nextlog].damageLevel = bv[donetonum].verticlesep;
 				if(gamelog[nextlog].damageLevel > 6)
 					gamelog[nextlog].damageLevel = 6;
+				if((donetonum == whichourcarr) && ourcarrierdead)
+					gamelog[nextlog].damageLevel = 7;
 			}
 			else {
+				int dl;
+				dl = damagelevel;
 				if(bv[donetonum].behaveflag & DAMAGERADAR)
-					damagelevel += 2;
+					dl = 2;
 				if(bv[donetonum].behaveflag & DAMAGEENGINE)
-					damagelevel += 2;
+					dl += 2;
 				if(bv[donetonum].behaveflag & DAMAGECONTROLSURFACE)
-					damagelevel += 2;
-				gamelog[nextlog].damageLevel = damagelevel;
+					dl += 2;
+				gamelog[nextlog].damageLevel = dl;
 			}
 		}
 		else if(donetonum == -1) {
@@ -439,14 +452,28 @@ LogIt (int event, int donetonum, long x, long y, UWORD z, int missileOwner, int 
 	else {
 		if(donetonum >= 0) {
     		gamelog[nextlog].objectNum  = donetonum;
+			for(cnt = 0; cnt < NGTARGETS; cnt++) {
+				if(gt[cnt].orgnum == donetonum) {
+					gindex = cnt;
+					break;
+				}
+			}
 		}
 		else {
     		gamelog[nextlog].objectNum  = -999;
 		}
 	   	gamelog[nextlog].objectType  = -999;
    		gamelog[nextlog].speed = 0;
-    	gamelog[nextlog].side = SS_ENEMY;
-//    	gamelog[nextlog].side = GetSide(donetonum);
+		if(gindex < 0)
+    		gamelog[nextlog].side = SS_ENEMY;
+		else {
+			if(gt[gindex].gflags & FRIENDLY)
+				gamelog[nextlog].side = SS_FRIENDLY;
+			else if(gt[gindex].gflags & NEUTRAL)
+				gamelog[nextlog].side = SS_NEUTRAL;
+			else
+    			gamelog[nextlog].side = SS_ENEMY;
+		}
 
 	}
     gamelog[nextlog].x     = x;
