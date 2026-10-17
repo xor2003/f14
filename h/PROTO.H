@@ -197,6 +197,8 @@ void GetPlaneLanding();
 int GetWhichElevator(int try0, int try1, int try2, int try3, int yesinvis);
 int CheckIsWayTarget(int bogeyi);
 void DoGroupAction(int planenum, int actionflag, int waypt);
+void LoadWayPointPic(int actionval);
+void UpdateMissionData(int typeid, int match);
 void DoOClockCall();
 void Immelmann();
 void SplitS();

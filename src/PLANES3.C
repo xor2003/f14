@@ -1754,11 +1754,11 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 	int numactions;
 	int startaction;
 	int whataction;
-	int temphead;
-	UWORD temphead2;
 	UWORD actionval;
 	int numwp;
 	int returnval = -999;
+	char *wflag;
+	struct _action_ *actptr;
 
 	*behavenum = -1;
 	*formnum = -1;
@@ -1782,9 +1782,10 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 	if(numactions == 0)
 		return(returnval);
 
-	for(cnt = startaction; cnt < (startaction + numactions); cnt ++) {
-		whataction = aiactions[cnt].action;
-		actionval = aiactions[cnt].value;
+	wflag = (char *)wpflag;
+	for(cnt = startaction, actptr = &aiactions[cnt]; cnt < (startaction + numactions); cnt ++, actptr ++) {
+		whataction = actptr->action;
+		actionval = actptr->value;
 
 		if(whataction == SA_SPEED) {
 			if(actionval != 0)
@@ -1792,22 +1793,6 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 		}
 		else if(whataction == SA_ELEVATION) {
 			*elevation = actionval>>2;
-		}
-		else if(whataction == SA_HEADING) {
-			temphead = actionval;
-			while(temphead >= 360)
-				temphead -= 360;
-			while(temphead < 0)
-				temphead += 360;
-
-			temphead2 = 0;
-			while(temphead >= 45) {
-				temphead -= 45;
-				temphead2 += 0x2000;
-			}
-			temphead2 += temphead * 182;
-
-			*heading = temphead2;
 		}
 		else if(whataction == SA_HEADING) {
 			*heading = actionval;
@@ -1818,23 +1803,26 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 		else if(whataction == SA_ATTACK) {
 			*attack = 1;
 		}
+		else if(whataction == SA_ATTACKGROUP) {
+			*attack = 0xc9;
+		}
 		else if(whataction == SA_DAMAGE) {
-			*wpflag |= DOWPDAMAGE;
+			wflag[0] |= 0x20;
 		}
 		else if(whataction == SA_DITCH) {
-			*wpflag |= DOWPDITCH;
+			wflag[0] |= 0x10;
 		}
 		else if(whataction == SA_EXPLODE) {
-			*wpflag |= DOWPEXPLODE;
+			wflag[0] |= 0x40;
 		}
 		else if(whataction == SA_DEFENSIVEBFM) {
-			*wpflag |= DOWPDBFM;
+			wflag[1] |= 0x10;
 		}
 		else if(whataction == SA_OFFENSIVEBFM) {
-			*wpflag |= DOWPOBFM;
+			wflag[1] |= 0x20;
 		}
 		else if(whataction == SA_NEUTRALBFM) {
-			*wpflag |= DOWPNBFM;
+			wflag[1] |= 0x40;
 		}
 		else if(whataction == SA_HARDDECK) {
 			if(!KnockItOffStatus)
@@ -1844,19 +1832,17 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 			warstatus = 0;
 		}
 		else if(whataction == SA_HAWKEYE) {
-			*wpflag |= DOWPHAWKEYE;
+			wflag[0] |= 0x80;
 			OurPath = actionval;
 		}
 		else if(whataction == SA_FORM_ON) {
-			*wpflag |= DOWPFORMON;
+			wflag[1] |= 0x1;
 		}
 		else if(whataction == SA_TROOPERDROP) {
-			if(Gtime != 0)
-				TrooperDrop(planecnt);
-			*wpflag |= DOWPTROOPDROP;
+			wflag[1] |= 0x2;
 		}
 		else if(whataction == SA_LAND) {
-			*wpflag |= DOWPLAND;
+			wflag[1] |= 0x4;
 		}
 		else if(whataction == SA_FORMTRAIN) {
 			DOINVISIBLE = 1;
@@ -1864,11 +1850,21 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 		else if(whataction == SA_IMMORTAL) {
 			ENEMYNODIE = 1;
 		}
+		else if(whataction == SA_GOALTICK) {
+			tempgotcha = 1;
+		}
 		else if(whataction == SA_TRAINING) {
 			Status |= TRAINING;
 		}
 		else if(whataction == SA_GOAL) {
-			*wpflag |= DOWPGOAL;
+			wflag[1] |= 0x80;
+		}
+		else if(whataction == SA_DOACTION) {
+			if(wplevel != -1) {
+				LoadWayPointPic(actionval);
+				DoGroupAction(wplevel, 8, actionval);
+				wflag[0] |= 0x8;
+			}
 		}
 		else if(whataction == SA_FORMATION) {
 			*formnum = actionval;
@@ -1877,7 +1873,7 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 			}
 		}
 		else if(whataction == SA_HOVER) {
-			*wpflag |= DOWPHOVER;
+			wflag[1] |= 0x8;
 			returnval = actionval;
 		}
 		else {
@@ -4167,10 +4163,118 @@ int CheckIsWayTarget(int bogeyi)
 	return(is_target);
 }
 
+extern int ReadEMSPCX(char *name, int SETPAL);
+extern char *strchr(char *s, int c);
+
+FILE *WpFile;
+int wpPicCnt[128];
+int MDStat0, MDStat1, MDStat2;
+int MDTable[220];
+
+void LoadWayPointPic(int actionval)
+{
+	char rec[0x102];
+	char name[0x50];
+	char numbuf[0xc];
+	int num;
+	int cnt;
+	char *found;
+	char *cp;
+
+	cp = numbuf;
+	fseek(WpFile, 0L, SEEK_SET);
+	fread(rec, 0x102, 1, WpFile);
+	cnt = ((int *)rec)[0x61 + actionval];
+	if(cnt > 0x4e)
+		cnt = 0x4e;
+	fseek(WpFile, *(long *)(rec + 0xd6 + actionval * 4), SEEK_SET);
+	fread(name, cnt, 1, WpFile);
+	name[cnt] = 0;
+	num = wpPicCnt[actionval]++;
+	found = strchr(name, '%');
+	if(found) {
+		itoa(num, numbuf, 10);
+		if(num < 10)
+			*found++ = ' ';
+		if(num < 100)
+			*found++ = ' ';
+		while(*cp)
+			*found++ = *cp++;
+	}
+	ReadEMSPCX(name, 0);
+}
+
+void UpdateMissionData(int typeid, int match)
+{
+	int i, k;
+	int cnt1, cnt2;
+	int *rec;
+	int *p;
+
+	cnt1 = 0;
+	cnt2 = 0;
+	switch(typeid) {
+	case 0:
+		if(MDStat0 != 1)
+			return;
+		break;
+	case 1:
+		if(MDStat1 != 1)
+			return;
+		break;
+	case 2:
+		if(MDStat2 != 1)
+			goto out;
+		break;
+	}
+	rec = &MDTable[typeid * 55];
+	for(i = 0; i < 5; i++, rec += 11) {
+		if(rec[0] > 0) {
+			cnt1++;
+			cnt2++;
+			p = rec + 1;
+			for(k = 0; k < 10; k++, p++) {
+				if(*p == match) {
+					if(--rec[0] == 0)
+						cnt1--;
+				}
+			}
+		}
+	}
+	if(cnt1 == 0) {
+		if(cnt2 != 0)
+			goto show;
+		goto out;
+	}
+	if(cnt2 == cnt1)
+		goto out;
+	if(typeid != 2)
+		goto out;
+show:
+	switch(typeid) {
+	case 0:
+		ReadEMSPCX("wpend0.pcx", 7);
+		MDStat0 = 2;
+		break;
+	case 1:
+		ReadEMSPCX("wpend1.pcx", 7);
+		MDStat1 = 2;
+		break;
+	case 2:
+		ReadEMSPCX("wpend2.pcx", 7);
+		MDStat2 = 2;
+		break;
+	}
+	ProcessOtherComm();
+out:
+	return;
+}
+
 void DoGroupAction(int planenum, int actionflag, int waypt)
 {
 	int wingcnt;
 	int tprewing;
+	struct PlaneData far *ptype;
 
 	if(bv[planenum].Behavior == FlyWayPoint)
 		return;
@@ -4185,7 +4289,19 @@ void DoGroupAction(int planenum, int actionflag, int waypt)
 						TrooperDrop(wingcnt);
 				}
 				if(actionflag == DOWPGOAL) {
-					LogIt (SLG_WAY_PT_GOAL, wingcnt, ps[wingcnt].xL, ps[wingcnt].yL, ps[wingcnt].alt, -(int)bv[planenum].path, waypt, 0L, LOG_AIR);
+					LogIt (SLG_WAY_PT_GOAL, wingcnt, ps[wingcnt].xL, ps[wingcnt].yL, ps[wingcnt].alt, -bv[planenum].path, waypt, 0L, LOG_AIR);
+					ptype = GetPlanePtr(ps[planenum].type);
+					UpdateMissionData(0, ptype->PlaneEnumId);
+				}
+				if(actionflag == DOWPDAMAGE) {
+					ps[wingcnt].mcnt[0] = ps[wingcnt].mcnt[1] = ps[wingcnt].mcnt[2] = 0;
+				}
+				if(actionflag == DOWPHOVER) {
+					bv[wingcnt].Behavior = UpdateOurWPS;
+					bv[wingcnt].varcnt = waypt + Gtime + 2;
+				}
+				if(actionflag == 8) {
+					LoadWayPointPic(waypt);
 				}
 			}
 			wingcnt = bv[wingcnt].wingman;
