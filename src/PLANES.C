@@ -75,7 +75,7 @@ extern int msgtime;
 
 int     olddog;
 
-static struct Planes *psi;  // pointer into "ps" structure array for this plane
+struct Planes *psi;  // pointer into "ps" structure array for this plane
 
 static    int   i;          // index of this plane in "ps" array
 
