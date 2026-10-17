@@ -152,7 +152,7 @@ pitchnum2(int w,int pitch,int dist,int off,int ox,int oy) {
       Rotate2D(0,dist,OurRoll,&x,&y);
 	  x=scaler(x);
 	  y=scaley(scaler(y));
-      draw_circle(RpCRT,ox+x,oy+y,3,WHITE,0);
+      draw_circle(RpCRT,x+ox,y+oy,3,WHITE,0);
       return(1);
    } else
 	if (x>85) x=95-(x%85);
@@ -161,7 +161,7 @@ pitchnum2(int w,int pitch,int dist,int off,int ox,int oy) {
 }
 
 
-static char *degrees(int deg)
+char *degrees(int deg)
 {
    static char s[3];
 

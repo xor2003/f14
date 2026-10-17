@@ -3377,7 +3377,7 @@ void IndirectWPCorrection(int planenum)
 
 	otherplane = bv[planenum].wingman;
 	if(otherplane != -999) {
-		if((ps[otherplane].status & ACTIVE) && (ps[otherplane].status & ALIVE)) {
+		if((ps[otherplane].status & ACTIVE) && (ps[otherplane].status & ALIVE) && (!(ps[otherplane].status & CRASH))) {
 			newy = (long)bv[otherplane].orgnum;
 			done = 1;
 		}
@@ -3385,7 +3385,7 @@ void IndirectWPCorrection(int planenum)
 
 	otherplane = bv[planenum].nextsec;
 	if((otherplane != -999) && (!done)) {
-		if((ps[otherplane].status & ACTIVE) && (ps[otherplane].status & ALIVE)) {
+		if((ps[otherplane].status & ACTIVE) && (ps[otherplane].status & ALIVE) && (!(ps[otherplane].status & CRASH))) {
 			newy = (long)bv[otherplane].orgnum;
 			done = 1;
 		}

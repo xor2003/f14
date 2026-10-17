@@ -445,7 +445,7 @@ static
 show_range ()
 {
 static RANGES[] = { 80, 40, 20, 10 };
-char   s[4];
+char   s[10];
 int    l;
 
    RpCRT->FontNr = F_3x4;
@@ -453,7 +453,7 @@ int    l;
 
    l = pstrlen(RpCRT,itoa(RANGES[Tscale],s,10));
 
-   RpPrint (RpCRT,65-l,3,s);
+   RpPrint (RpCRT,75-l,2,s);
 
 }
 

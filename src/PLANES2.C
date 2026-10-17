@@ -188,7 +188,7 @@ void SetUpWingman(int leadnum, int b, int numadd, int planeid)
     wingspace = (Direction==1 ? wingdist:-wingdist);
 	for(cnt = startval; cnt<endval; cnt++) {
         PlanesLaunched++;
-		if((cnt >= NPLANES) && (updatecnt))
+		if((NPLANES <= cnt) && (updatecnt))
 			NPLANES = cnt + 1;
 
 		if(imaboat && (LASTPLANE > cnt))

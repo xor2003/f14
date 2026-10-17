@@ -1246,20 +1246,22 @@ LocalCmds()
 //***************************************************************************
 ProcessCoolyCmds()
 {
-	if (View==STEADY || View==MAGICCAM1
-         || View==MAGICCAM2 || View==TOWERVIEW
-         || View==POVVIEW ) {
-    	UpdateSteadyAngles();
+	if (!ejected) {
+		if (View==STEADY || View==MAGICCAM1
+			|| View==MAGICCAM2 || View==TOWERVIEW
+			|| View==POVVIEW || View==(17+VFULL+VOFFSET)) {
+			UpdateSteadyAngles();
 
-    } else if (View==PILOT) {
-    	UpdatePadlockAngles();
+		} else if (View==PILOT) {
+			UpdatePadlockAngles();
 
-    } else if (BackSeat) {
-        BackSeatCoolyCmds();
+		} else if (BackSeat) {
+			BackSeatCoolyCmds();
 
-    } else {
-        FrontSeatCoolyCmds();
-    }
+		} else {
+			FrontSeatCoolyCmds();
+		}
+	}
 
     KEYPRINT = 0;
 }
