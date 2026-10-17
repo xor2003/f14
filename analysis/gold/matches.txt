@@ -958,7 +958,7 @@
 3fb2:1c47 n= 171 -> _GetInterceptPlane                  dev@36f4:0a58 jac=0.54 lcs=0.37
 18de:2d58 n=  69 -> _BuildFiringList                    dev@0901:3856 jac=1.00 lcs=1.00
 48b6:1a39 n=  51 -> _InitSpeech                         dev@4312:010e jac=0.59 lcs=0.37
-2929:0bd9 n= 240 -> _DrawWayPoint                       dev@13ba:1906 jac=0.62 lcs=0.37
+220f:1323 n=  74 -> _DrawWayPoint                       dev@13ba:1906 jac=1.00 lcs=1.00
 31ce:5d73 n= 122 -> _ShowAIStatus
 1dc3:222d n=  34 -> __stbuf                             dev@4a3f:13f2 jac=0.47 lcs=0.37
 220f:2a55 n= 239 -> _UpdateLights                       dev@13ba:417a jac=0.54 lcs=0.37

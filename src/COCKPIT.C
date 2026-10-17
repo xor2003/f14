@@ -1001,22 +1001,21 @@ int DrawWayPoint()
 	int mseg;
 
 	if ((mseg=MapInEMSSprite(MISCSPRTSEG,0))) {
-		ScaleRotate(mseg,(85+17),(89+13),34,26,Rp2,(215+17),(39+13),0x0100,0,0,0);
 		switch(NextWayPoint) {
 			case 0:
-				ScaleRotate(mseg,(61+8),(90+8),16,16,Rp2,(225+8),(48+8),0x0100,0,0,0);
+				TransRectCopy(mseg,68,136,20,18,Rp2,221,46,0,0);
 			break;
 			case 1:
-				ScaleRotate(mseg,(10+8),(90+8),16,16,Rp2,(223+8),(48+8),0x0100,0,0,0);
+				TransRectCopy(mseg,1,136,20,18,Rp2,222,46,0,0);
 			break;
 			case 2:
-				ScaleRotate(mseg,(30+6),(90+8),12,16,Rp2,(225+6),(48+8),0x0100,0,0,0);
+				TransRectCopy(mseg,23,136,20,18,Rp2,221,46,0,0);
 			break;
 			case 3:
-				ScaleRotate(mseg,(46+5),(90+8),10,16,Rp2,(227+5),(48+8),0x0100,0,0,0);
+				TransRectCopy(mseg,45,136,21,18,Rp2,221,46,0,0);
 			break;
 		}
-		RectCopy(Rp2,215,39,34,26,Rp1,215,39);
+		RectCopy(Rp2,222,46,20,18,Rp1,222,46);
 	}
 }
 //***************************************************************************
