@@ -268,3 +268,59 @@ Next big ports (largest residual insn counts): `_TakingOff` @21ce:0b7e
 bclass==0x28 split, GetWayPointChanges+LogIt tail), `_FlyWayPoint`
 @2ad2:37a6 (520 vs 464), `_SetUpWingman` @2fb2:58d1 (gold init tables),
 `_pitchbar2` @1b89:02d4, `_TIDAttkInfo` @3d7e:0362.
+
+### TakingOff decode notes (gold 21ce:0b7e-1051, NOT yet ported)
+Retail algorithm (replaces ours entirely):
+- `if(Gtime < 5) return`
+- Catapult-release: `if(ps[i].base<0 && bv[i].threathead<0 && bv[i].groundt!=-1
+  && aiwaypoints[groundt].x <= -1L)` -> `bv[i].basespeed=0; ps[i].alt=0;
+  if(bv[i].threathead > -5) PlaneLaunched? ...` then at 0xe62 path:
+  `if(0<=threathead<4){ PlaneLaunched(threathead,i); GetNextLaunch(i); }`
+- `if(bv[i].Behavior == 2fb2:2d78) { basespeed=0; ps[i].alt=0; return; }`
+- bclass==0x28 (ptype->+0xa? actually cmp [es:bx+0x26],0x28 -> ptype field 0x26
+  = bclass): `if(bv[i].varcnt > Gtime)` -> zero [0x61a4]+0x1a(speed), +0x14(roll),
+  [0xd656], [0x66a6](droll?), bv basespeed; return.
+  else `if(bv[planecnt].basespeed < 0x64)` -> `bv[i].varcnt=0;
+  if(basespeed<=0x1e){ save bv+0x14 in si/di; call far bv[i].Behavior();
+  restore } bv[planecnt].basespeed+=3; ps[planecnt].alt+=3; ...`
+  else `bv[planecnt].basespeed = ptype->speed(-0x14?? +0xa) - (x>>2)`;
+  GetWayPointChanges(groundt,&x9, -1); if(bp-8 != -1)
+  bv[i].basespeed = call 0x2fb2:0x4dac(ps[i].x?, bp-8);
+  ps[i].status &= ~0x80; LogIt(0x20, i, xL,yL,alt, -999,-999, 0,0,0);
+  tail: [0xd656] = ps[?].speed<0xc8 ? 0x2000 : 0.
+- else (bclass!=0x28): `call 0x2fb2:0x2d90(*ps[0x61a4]?, &4 outs)` -> ret in
+  [bp-0x20]; if nonzero: `si = GetSquadLeader(i)`; if si>=0 squad walk:
+  di=0; for(bx=si; bx>=0; bx=bv[bx].wingman) { if(bx==i){if(!di)di=1;}
+  else if(ps[bx].status & (TAKEOFF|ACTIVE|ALIVE) && !di) di=-1; }
+  [bp-6]=di. if(di == -1) { ps[our].? =0; [0x66a6]=0; [0xd656]=0; return }
+  else main launch physics.
+- Launch physics (0xe17+): `if(bv[i].varcnt > Gtime) jmp 0xc3e(shared)`;
+  `if(bv[i].varcnt != 0){ bv[i].basespeed=0xa; varcnt=0; ps[our].speed=0xa;
+  if(ps[i].base<0 && 0<=threathead<4){ PlaneLaunched(threathead,i);
+  GetNextLaunch(i); } }`
+  `[0x66a6]=0; si=bv[i].threathead; if(bv[i].basespeed <= 0x1e){
+  di=bv[i].basespeed; call far bv[i].Behavior(); bv[i].basespeed=di;
+  ps[our].?+0x14=0; [0x66a6]=0; } bv[i].threathead=si;
+  if(ps[our].speed < 0xb2){ ps[our].pitch?=0; roll?=0; [0x66a6]=0 }
+  else if(ps[our].pitch < 0x400){ ps[our].pitch += 0x10000/[0x503a](Fticks?);
+  if(ps[our].roll < 0x1000) [0x66a6](droll)=0x200; }
+  [0xd656] = ps[our].pitch;
+  if(ptype->speed > ps[our].speed && ps[our].speed < 0xdc){
+    if(bp-0x20==0) speed += 0x140000/[0x503a] (>=1);
+    else speed += (speed<0x96 ? 0x4b : 7); bv[i].basespeed += same }
+  else { ax = (call 0x342:0x113b(ps[our].+8..+0xe fields))>>2 + 0x50;
+    if(ax < ps[our].alt){ bv[planecnt].basespeed = ptype->speed - (x>>2);
+    GetWayPointChanges(groundt,&9outs,-1); if(bp-8!=-1)
+    bv[i].basespeed = 0x2fb2:0x4dac(ps[i].x?, bp-8);
+    ps[i].status &= ~0x80;
+    LogIt(0x20, i, xL, yL, alt, -999, -999, 0, 0, 0); return } }
+  tail: if(bv[i].basespeed > ptype->speed) bv[i].basespeed = ptype->speed.
+- Globals: [0x61a4] = &ps[planecnt] (our-plane ptr; +0x1a speed, +0x12 pitch,
+  +0x14 roll, +0x6 alt, +8/+0xc xL/yL); [0x906c]=planecnt; [0x619a]=i;
+  [0x669a]=Gtime; [0x66a6]=droll; [0xd656]=thrust-readout?; [0x503a]=Fticks;
+  [0xc56e]=NPLANES; [0x7e4c]=ptype far ptr (+0xa = speed/maneuver);
+  callees: 0x106a:0x108=PlaneLaunched(cat,plane); 0x2fb2:0x446d=GetNextLaunch;
+  0x2fb2:0x26c4=GetWayPointChanges(9 outs); 0x2fb2:0x2d90=5-out resolver;
+  0x2fb2:0x4dac=speed helper; 0x2fb2:0x2d78=a Behavior ptr; 0x3b61:0x504=LogIt;
+  0x342:0x113b=4-arg dist/wave-height helper; 0x1fc6:9=Message; 0x2ad2:0x6ec=
+  GetSquadLeader.
