@@ -413,6 +413,10 @@ int AWG9_IFF()
 		if (ps[SelectedTarg].status & FRIENDLY) {
  			IFF_timer = FrameRate * 2;
 			Sound (N_IFFWarning, 1,0);
+			if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+				Message("(RIO) Friendly Aircraft", RIO_NOW_MSG);
+			else
+				Message("(RIO) IFF Check Positive - Friendly Aircraft", RIO_NOW_MSG);
 
 			for (i=0; i < *TARGFILECNT; i++) {
 				if (TARGFILE[i].i == SelectedTarg) {
@@ -426,7 +430,12 @@ int AWG9_IFF()
 					break;
 				}
 			}
-		} else {
+		}
+		if (!(ps[SelectedTarg].status & (FRIENDLY|NEUTRAL))) {
+			if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+				Message("(RIO) Enemy Aircraft", RIO_NOW_MSG);
+			else
+				Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
 			BAD_GUY = FrameRate * 2;
 			for (i=0; i < *TARGFILECNT; i++) {
 				if (TARGFILE[i].i == SelectedTarg) {
@@ -441,6 +450,12 @@ int AWG9_IFF()
 				}
 			}
 		}
+		if (ps[SelectedTarg].status & CIVILIAN) {
+			if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+				Message("(RIO) Civilian Aircraft", RIO_NOW_MSG);
+			else
+				Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
+		}
 		return 0;
 	}
 
@@ -450,6 +465,10 @@ int AWG9_IFF()
 	if (ps[DESIGNATED].status & FRIENDLY) {
 		IFF_timer = FrameRate * 2;
 		Sound (N_IFFWarning, 1,0);
+		if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+			Message("(RIO) Friendly Aircraft", RIO_NOW_MSG);
+		else
+			Message("(RIO) IFF Check Positive - Friendly Aircraft", RIO_NOW_MSG);
 		if ((AWG9_MODE==AWG9_STANDARD_TRACK) || (AWG9_MODE == AWG9_PDSTT)) {
 			DESIG_TARGF.id = 1;
 			if (PREV_DESIG_TARGF.i == DESIG_TARGF.i)
@@ -457,36 +476,47 @@ int AWG9_IFF()
 
 		}
 		for (i=0; i < *TARGFILECNT; i++) {
-			if (TARGFILE[i].i == DESIGNATED) {
+			if (DESIGNATED == TARGFILE[i].i) {
 				TARGFILE[i].id = 1;
 				break;
 			}
 		}
 		for (i=0; i < *AGEDTARGFILECNT; i++) {
-			if (AGEDTARGFILE[i].i == DESIGNATED) {
+			if (DESIGNATED == AGEDTARGFILE[i].i) {
 				AGEDTARGFILE[i].id = 1;
 				break;
 			}
 		}
-	} else {
+	}
+	if (!(ps[DESIGNATED].status & (FRIENDLY|NEUTRAL))) {
 		BAD_GUY = FrameRate * 2;
+		if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+			Message("(RIO) Enemy Aircraft", RIO_NOW_MSG);
+		else
+			Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
 		if ((AWG9_MODE==AWG9_STANDARD_TRACK) || (AWG9_MODE == AWG9_PDSTT)) {
 			DESIG_TARGF.id = 2;
 			if (PREV_DESIG_TARGF.i == DESIG_TARGF.i)
 				PREV_DESIG_TARGF.id = 2;
 		}
 		for (i=0; i < *TARGFILECNT; i++) {
-			if (TARGFILE[i].i == DESIGNATED) {
+			if (DESIGNATED == TARGFILE[i].i) {
 				TARGFILE[i].id = 2;
 				break;
 			}
 		}
 		for (i=0; i < *AGEDTARGFILECNT; i++) {
-			if (AGEDTARGFILE[i].i == DESIGNATED) {
+			if (DESIGNATED == AGEDTARGFILE[i].i) {
 				AGEDTARGFILE[i].id = 2;
 				break;
 			}
 		}
+	}
+	if (ps[DESIGNATED].status & CIVILIAN) {
+		if (RIO_ASSIST == RIO_ASSIST_STANDARD)
+			Message("(RIO) Civilian Aircraft", RIO_NOW_MSG);
+		else
+			Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
 	}
 }
 
@@ -1671,7 +1701,7 @@ int ResetTargetTrack()
 	int i;
 
 	for (i=0; i < *TARGFILECNT; i++) {
-		if (TARGFILE[i].i == DESIGNATED) {
+		if (DESIGNATED == TARGFILE[i].i) {
 			DelTargetFile(i);
 			break;
 		}
