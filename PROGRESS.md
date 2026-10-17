@@ -45,13 +45,31 @@ Reference oracle: `/home/xor/games/f14gold/Fleetgold/F14GOLD/F14.EXE` (retail).
 
 ## Current counts (verify_build, extents from gold.map)
 
-- 475/748 mzdiff MATCH; `tools/realdiff.py` (normalized-disasm compare
-  stripping data-relocs + far-call targets) isolates **267 routines with
+- 483/748 mzdiff MATCH; `tools/realdiff.py` (normalized-disasm compare
+  stripping data-relocs + far-call targets) isolates **259 routines with
   real instruction-level drift**. Heaviest: PLANES3 (31), PLANES (28),
   PLANES2 (24), AWG9 (19), COCKPIT (14), CARR (13), $3DPLANES (11).
 - `/Ot` vs `/Os` tested on PLANES3 — no change. The diffs are register
   allocation + branch-polarity + operand-order spread across bodies:
   genuine SOURCE drift (snapshot predates retail), not flag selection.
+- `tools/repair.py` re-pairs each DIFF against every gold anchor in
+  matches.txt and reports best normalized distance — use it FIRST to
+  discard mispairings (e.g. `_NDraw3DObject`,`_SetDLC`,`_InAcqList`,
+  `_MissilesInAir`,`_Messages` were all wrong anchors that MATCH/differ
+  under their true pairs).
+- Session wins this round: `_DopplerCheck` (volatile long local + /Oa,
+  ddd /Oaegcls via MODULE_FLAGS), `_NewTacView` (no return), `_doradar`
+  (saturating timers), `_RsignalOne` (2nd GetRadarPtr call, reg far ptr,
+  targetnum>=0 alt, (Diff+3)*10 / (8-Diff)*500), `_docannon`,
+  `_firecannon` (Rtime UWORD), `_CheckBoatGunFiring` (Rtime&7 + UWORD),
+  `_AIRadarRearCheck` (unsigned param, ?150:0, 0x2000 — si/ax residual).
+- Rtime is UWORD (STEALTH.C def); all `extern int Rtime` in CMDS, COCKPIT,
+  FLIGHT2, HSD, HUD2, MAP, PLANES2, PLANES3, PLANES, SAMS, TGTFLIR were
+  drift -> now UWORD everywhere.
+- Remaining artifact-class residuals (semantics verified, encoding
+  differs): InitEmsFiles `neg si` vs ax-temp (compiler build quirk),
+  detect es:si/es:di + one operand-order cmp, LaunchAircraft `xchg`
+  fetch-and-clear idiom vs `=0` store, AIRadarRearCheck si vs ax select.
 - Some sweep DIFFs are mispairings (e.g. `_Messages`->FUN_05ce_0db1,
   `_InitGraphicPages`->FUN_40b5_0470); verify pairing before editing.
 
