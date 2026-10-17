@@ -5510,11 +5510,12 @@ void GetWingName(int ainum, char *Str)
 void ChangeGroupBehavior(int ainum, int matchenemyfire)
 {
 	int prewing;
-	int wingcnt;
+	int combatspread = 0;
+	int ishelo = 0;
 	int radaron = 0;
 	int enemynofire = 0;
-	int combatspread = 0;
 	int pitchup = 0;
+	int wingcnt;
 
 	prewing = GetSquadLeader(ainum);
 	if(bv[ainum].behaveflag & RADARON)
@@ -5523,34 +5524,44 @@ void ChangeGroupBehavior(int ainum, int matchenemyfire)
 		enemynofire = 1;
 	if(bv[ainum].behaveflag & COMBAT_SPREAD)
 		combatspread = 1;
+	if(bv[ainum].behaveflag & ISHELICOPTER)
+		ishelo = 1;
 	if(ps[ainum].status & PITCHUP)
 		pitchup = 1;
 
 	wingcnt = prewing;
 	while (prewing >= 0) {
 		while (wingcnt >= 0) {
-			if((!matchenemyfire) || ((bv[wingcnt].behaveflag & ENEMYNOFIRE) == (bv[ainum].behaveflag & ENEMYNOFIRE))) {
-				bv[wingcnt].Behavior = bv[ainum].Behavior;
+			if(!(ps[wingcnt].status & BACKTOBASE)) {
+				if((!matchenemyfire) || ((bv[wingcnt].behaveflag & ENEMYNOFIRE) == (bv[ainum].behaveflag & ENEMYNOFIRE))) {
+					bv[wingcnt].Behavior = bv[ainum].Behavior;
+					if(!(ps[wingcnt].status & TAKEOFF))
+						bv[wingcnt].varcnt = 0;
 
-				if(radaron)
-					bv[wingcnt].behaveflag |= RADARON;
-				else
-					bv[wingcnt].behaveflag &= ~RADARON;
-				if(enemynofire)
-					bv[wingcnt].behaveflag |= ENEMYNOFIRE;
-				else
-					bv[wingcnt].behaveflag &= ~ENEMYNOFIRE;
-				if(combatspread)
-					bv[wingcnt].behaveflag |= COMBAT_SPREAD;
-				else
-					bv[wingcnt].behaveflag &= ~COMBAT_SPREAD;
+					if(radaron)
+						bv[wingcnt].behaveflag |= RADARON;
+					else
+						bv[wingcnt].behaveflag &= ~RADARON;
+					if(enemynofire)
+						bv[wingcnt].behaveflag |= ENEMYNOFIRE;
+					else
+						bv[wingcnt].behaveflag &= ~ENEMYNOFIRE;
+					if(combatspread)
+						bv[wingcnt].behaveflag |= COMBAT_SPREAD;
+					else
+						bv[wingcnt].behaveflag &= ~COMBAT_SPREAD;
+					if(ishelo)
+						bv[wingcnt].behaveflag |= ISHELICOPTER;
+					else
+						bv[wingcnt].behaveflag &= ~ISHELICOPTER;
 
-				if(pitchup)
-					ps[wingcnt].status |= PITCHUP;
+					if(pitchup)
+						ps[wingcnt].status |= PITCHUP;
 
-				bv[wingcnt].horizontalsep = bv[ainum].horizontalsep;
-				if(!(ps[wingcnt].status & TAKEOFF))
-					bv[wingcnt].groundt = bv[ainum].groundt;
+					bv[wingcnt].horizontalsep = bv[ainum].horizontalsep;
+					if(!(ps[wingcnt].status & TAKEOFF))
+						bv[wingcnt].groundt = bv[ainum].groundt;
+				}
 			}
 
 			wingcnt = bv[wingcnt].wingman;

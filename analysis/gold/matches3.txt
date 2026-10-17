@@ -29,7 +29,7 @@
 18de:06f0 n=  1 -> _AWG9_INIT
 18de:0c6a n=  1 -> _AWG9_LOCK
 31ce:266e n=  1 -> _ActivatePlane
-31ce:8181 n=  1 -> _AddAcqList
+18de:28aa n=  1 -> _AddAcqList
 18de:2e21 n=  1 -> _AddFiringList
 2d56:1094 n=  1 -> _AddGroundTarget
 31ce:82fd n=  1 -> _AddSomePlanes2
@@ -65,7 +65,7 @@
 2cac:05fa n=  1 -> _CenterPrint
 31ce:4d58 n=  1 -> _Champagne
 15ce:0d7a n=  1 -> _ChangeColor
-31ce:74d6 n=  1 -> _ChangeGroupBehavior
+31ce:8181 n=  1 -> _ChangeGroupBehavior
 31c4:000e n=  1 -> _ChangeHUDFilter
 18de:0cba n=  1 -> _ChangeModerateScan
 18de:0d6d n=  1 -> _ChangeSRCHMode
