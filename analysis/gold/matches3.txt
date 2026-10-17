@@ -12,7 +12,6 @@
 31ce:77bc n=  1 -> _AIRadarForwardCheck
 2604:0db6 n=  1 -> _AIRadarRearCheck
 31ce:7eac n=  1 -> _AISanitizeCheck
-3ad2:338e n=  1 -> _AISanitizeGroupCheck
 2e8c:015c n=  1 -> _ARCSIN
 2e8c:005f n=  1 -> _ARCTAN
 189f:002f n=  1 -> _ARMT_INIT
@@ -73,7 +72,7 @@
 31ce:74d6 n=  1 -> _CheckAIBombs
 31ce:75c7 n=  1 -> _CheckAIMissiles
 3ad2:4322 n=  1 -> _CheckAISix
-46ad:0006 n=  1 -> _CheckAITarget
+3ad2:0c3b n=  1 -> _CheckAITarget
 18de:0b63 n=  1 -> _CheckAZELChange
 1c38:07bf n=  1 -> _CheckBoatGunFiring
 1d04:0944 n=  1 -> _CheckBulletBetter

@@ -643,14 +643,22 @@ int CheckWingmanSix(int wingnum)
 void CheckAITarget(int ainum)
 {
 	int targetdead = 0;
-	int orgt, preorgt, prenewt;
+	int orgt, preorgt, prenewt, stat;
 
 	i = planecnt;
 
 	orgt = bv[ainum].target;
 
+	if(FriendMatch(orgt, ainum) && (orgt != ainum)) {
+		stat = ps[orgt].status;
+		if((stat & ALIVE) && (stat & ACTIVE)) {
+			targetdead = 0;
+		}
+	}
+
 	if(orgt != -1) {
-		if ((ps[orgt].status & (CRASH|CIVILIAN)) || (!(ps[orgt].status & ALIVE)) || (!(ps[orgt].status&ACTIVE))) {
+		stat = ps[orgt].status;
+		if ((stat & (CRASH|CIVILIAN)) || (!(stat & ALIVE)) || (!(stat&ACTIVE))) {
 			targetdead = 1;
 		}
 		if(orgt == ainum) {
