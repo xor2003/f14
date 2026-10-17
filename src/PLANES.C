@@ -4529,12 +4529,10 @@ void AIGetBombDist()
 
 	TurnAIPlaneBy(i, relangle);
 
-	if(ps[i].alt < 95) {
-//		pdest = 0x2000 - psi->pitch;
+	if(((int)LDist2D(xval, yval) >> 2) + 0x23a <= ps[i].alt) {
 		pdest = 0x2000;
 	}
-	else if(ps[i].alt > 125) {
-//		pdest = 0xD000 - psi->pitch;
+	else if(((int)LDist2D(xval, yval) >> 2) + 0x2bc >= ps[i].alt) {
 		pdest = 0xD000;
 	}
 	else
@@ -4565,6 +4563,7 @@ void AIBombTarget()
 	COORD tdist, distnm, distkm;
 	int wingman;
 	int bandit;
+	UWORD distval;
 	int bombalt;
 	int secplace;
 	long xval, yval;
@@ -4682,12 +4681,17 @@ void AIBombTarget()
 		DESIGNATED_TrackingAI(relangle);
 	}
 	bombalt = zval;
-	if(ps[i].alt < bombalt) {
-//		pdest = 0x2000 - psi->pitch;
+	distval = (int)LDist2D(xval, yval) >> 2;
+	if(ps[i].alt < distval + 0x2bc) {
+		if(ps[i].alt < distval + 0x23a)
+			pdest = 0x2000;
+		else
+			pdest = 0;
+	}
+	else if(ps[i].alt < bombalt) {
 		pdest = 0x2000;
 	}
-	else if(ps[i].alt > (bombalt + 10)) {
-//		pdest = 0xD000 - psi->pitch;
+	else if(ps[i].alt > bombalt + 10) {
 		pdest = 0xD000;
 	}
 	else
