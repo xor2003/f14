@@ -173,13 +173,14 @@ typedef struct _object_ {
         int             object ;        // index into object list
         int             type ;          // etc, etc
         int             stationNumber ; //
-        char            name[16] ;      //
+        char            name[32] ;      //
         char            callSign[16] ;  //
         int             squadMember ;   // index into squadron names
-        long            quality ;       // how good
+        int             flight ;        // retail field/pad at +0x38
+        long            quality ;       // how good (+0x3a)
                                         // separated into 4 bit fields
 
-        int             side ;          // who do they fly for
+        int             side ;          // who do they fly for (+0x3e)
         long            x ;
         long            y ;
         long            z ;
@@ -215,7 +216,7 @@ typedef struct _missionHeader_ {
 
 
         char            name[16] ;      // name of input file (description ??)
-        char            description[64];// short description of mission
+        char            description[98];// short description of mission
         int             world ;
         int             time ;          // in minutes since midnight
         int             weather ;
@@ -250,14 +251,16 @@ typedef struct _missionHeader_ {
         int             goalLen ;
 
 
-        int             numMustLive ;   // # must Live Objects
-        int             numMustDie ;
         int             numMustEscort ; //
+        int             numMustDie ;
+        int             numMustLive ;   // # must Live Objects
 
 
-        long            mLiveObjectsLoc ; // must live object locs
-        long            mDieObjectsLoc ;
         long            mEscObjectsLoc ;
+        long            mDieObjectsLoc ;
+        long            mLiveObjectsLoc ; // must live object locs
+
+        char            extra[66];      // pad to retail 0x102-byte header
 
 
         } _MissionHeader ;

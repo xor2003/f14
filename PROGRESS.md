@@ -436,3 +436,43 @@ Retail algorithm (replaces ours entirely):
   _DrawDecoy->072e:0515, _Nline3D->1017:02f9 (gold.map entry added).
 - pitchnum2: remaining 4 edits proven regalloc-context artifact
   (isolated probe reproduces gold ax-reuse; itoa/pitchbar2 tail kills it).
+
+## LoadScottMission PORTED (decode -> source-complete)
+
+- `_missionHeader_` rewritten to retail 258B layout (SETUP.H): field order
+  world@+0x72, time@+0x74, weather@+0x76, ceiling@+0x78, loadout@+0x7a,
+  minTimeAloft@+0x7c, counts +0x7e-0x88, objectLoc+0x8a, gtLoc+0x8e,
+  mLiveLoc+0xba, mDieLoc+0xbe, mEscLoc..., pathLoc+0x92...
+- `_object_` now retail 100B: name[32]@+6, callSign[16]@+0x26,
+  squadMember+0x36, flight pad+0x38, quality(long)@+0x3a, side@+0x3e,
+  x@+0x40, number@+0x50, path@+0x56, size 0x64 (sub sp,0x64/cx=0x32 verified)
+- MustX[3][5] {int type; int ids[10]} retail globals at 0x651e/0x658c/0x65fa
+  (22B/row); 0x68-byte mrec records fread per entry; flag globals
+  DoMustLive/Die/Esc zeroed separately AFTER fseek (sub ax,ax not ret-val),
+  =1 inside each loop; inner id copy loop `while(id>=0)` (jnl, sentinel<0)
+- GetEscortNum(objid) added to PLANES3.C (gold 2fb2:6b2b): scans MustX[2][i]
+  type>0 rows, ids[0..9] match -> row index else -1; MustX extern'd
+- escnt[5] per-escort-group counts (local), escnt[g]++ on ST_PLAYER
+- carrier remap = switch(ConfigData.Carrier){default:0x76 NIMITZA;1:0x77
+  KHAWKA;2:0x78 FORSTALA} on objects==NIMITZA/KHAWKA/FORSTALA -> dec-chain
+- wingman switch(OurLoadOut) jump-table 6 cases -> bigplaneid (byte-exact)
+- ST_WINGMAN sets ourplanetype=one_object.object (global 0xc972)
+- else-branch guards are `Message(...);continue` (cross-jump shared call
+  tail at gold 0x962 confirmed reproduced)
+- altval/speedval default conditions use `launch <= 0` not `!launch`
+  (jg/jng = signed), altval<25 -> 2500, speedval<=0&&(launch<=0||altval>50)
+  -> 300
+- `lastalt = aiwaypoints[cnt].z = altval` chained store (jmp merges into
+  lastalt=ax inside the other arm)
+- object loop: lastadded(UBYTE)=cnt at top; fread(obj,0x64); numjump>0
+  ->numjump--,continue
+- tail: GetPlanePtr(ps[x].type)->bclass==CARRIER_OBJCLASS(0x3c)/0x46 checks
+  (not IsBoat) in the whichourcarr/othercarr blocks; UpdateOurCarrier pushed
+  whichourcarr / otherplane2; order verticlesep-- ;fclose;MissileAdd;Speech
+- _AddGroundTarget: 258/258 insns normalized-equal (MATCH modulo epilogue)
+- LOADMISS.C emits `enter 0x242` vs gold 0x240 (+2 = one extra int local)
+
+REMAINING DIFFS ARE PLACEMENT/ARTIFACT CLASS: zfix-loop arm hoisting
+(gold emits the two small arms between `jmp test` and inc, ours inline),
+cmp operand-order polarity (jnl/jng), BSS absolute offsets (MustX at
+0x651e vs ours 0x95d8 etc.), `mov si,bx` regalloc, jump-table data bytes.

@@ -48,8 +48,17 @@ UBYTE lastadded;
 int orgPlayernum;
 
 extern int OurLoadOut;
+extern int ourplanetype;
+extern confData ConfigData;
 int MissionWeather;
 int CloudCeiling;
+
+FILE *MisFile;
+int  DoMustLive, DoMustDie, DoMustEsc;
+struct _mrec_ { int type; int ids[10]; } MustX[3][5];
+int  MustGroups[10];
+int  MinTimeSet;
+int  MissionStat;
 
 extern char OurWingName[];
 extern int whichourcarr;     // holds value for which boat our carrier
@@ -79,6 +88,7 @@ int World;
 void AddGroundTarget(struct _object_ one_object, int cnt);
 extern struct RadarData far *GetRadarPtr(int RadarNo);
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
+extern int GetEscortNum(int objid);
 
 int LoadScottMission()
 {
@@ -106,7 +116,7 @@ int LoadScottMission()
 	int numjump = 0;
 	int otherplane;
 	int firstwp;
-	int lastalt = 1;
+	int lastalt = 0;
 	int wpflag;
 	int planeslot;
 	int otherplane2;
@@ -114,25 +124,40 @@ int LoadScottMission()
 	int tpath;
 	struct PlaneData far *tempplane;
 	int setediff = 0;
+	int escgrp = -1;
+	int othercarr = -999;
+	int k, j;
+	int lastwp;
+	int escnt[5];
+	struct { char pad0[16]; char mtype; char pad1[3]; int ids[10]; char tail[64]; } mrec;
 
 	whichourcarr = -999;     // holds value for which boat our carrier
 	PlayerCat = -999;
+
+    if ((MisFile = fopen ("mission.f14", "rb")) == NULL) {
+		Message("No Mission Data",SYSTEM_MSG);
+        return 0;
+    }
 
     if ((File = fopen ("mission.f14", "rb")) == NULL) {
 		Message("No Mission Data",SYSTEM_MSG);
         return 0;
     }
 
-	NPLANES = 0;
 	LASTPLANE = MAXPLANE;
-	NGTARGETS = 0;
 	warstatus = 2;
 	DOINVISIBLE = 0;
-	ENEMYNODIE = 0;
-	KnockItOffStatus = 0;
 	planelanding = -999;
+	NPLANES = 0;
+	ENEMYNODIE = 0;
+	NGTARGETS = 0;
+	KnockItOffStatus = 0;
 	lastCounter = 0;
 	lastOClock = 0;
+	MissionStat = 0;
+
+	for(cnt = 0; cnt < 10; cnt ++)
+		MustGroups[cnt] = 1;
 
     fread (&start_data, sizeof (struct _missionHeader_), 1, File);
 	TimeOfDay = start_data.time;
@@ -144,24 +169,31 @@ int LoadScottMission()
 	CloudCeiling = start_data.ceiling;
 	World = start_data.world;
 	minTimeAloft = start_data.minTimeAloft;
+	if(minTimeAloft)
+		MinTimeSet = 1;
+	else
+		MinTimeSet = 0;
 
-	numpaths = start_data.numPaths;
 	numwaypoints = start_data.numWPs;
 	numactions = start_data.numActions;
+	numpaths = start_data.numPaths;
 
 	if(numpaths >= NUM_AI_PATHS) {
 		sprintf(Txt,"More paths %d than allocated space: %d",numpaths,NUM_AI_PATHS);
 		Message(Txt,SYSTEM_MSG);
+		numpaths = NUM_AI_PATHS;
 	}
 
 	if(numwaypoints >= NUM_AI_WAYPTS) {
 		sprintf(Txt,"More waypoints %d than allocated space: %d",numwaypoints,NUM_AI_WAYPTS);
 		Message(Txt,SYSTEM_MSG);
+		numwaypoints = NUM_AI_WAYPTS;
 	}
 
 	if(numactions >= NUM_AI_ACTIONS) {
 		sprintf(Txt,"More actions %d than allocated space: %d",numactions,NUM_AI_ACTIONS);
 		Message(Txt,SYSTEM_MSG);
+		numactions = NUM_AI_ACTIONS;
 	}
 
 #ifdef YEP
@@ -182,17 +214,65 @@ int LoadScottMission()
     fseek  (File, start_data.actionLoc, SEEK_SET) ;
     fread (&aiactions, sizeof (struct _action_), numactions, File);
 
-	for(cnt = 0; cnt < numwaypoints; cnt ++) {
-		if(aiwaypoints[cnt].z <= 0) {
-			GetWayPointChanges(cnt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
-			if(altval != -1) {
-				aiwaypoints[cnt].z = altval;
-				lastalt = altval;
-			}
-			else {
-				aiwaypoints[cnt].z = lastalt;
-			}
+	cnt = 0;
+	goto zfixtest;
+
+zfixlastalt:
+	aiwaypoints[cnt].z = lastalt;
+	goto zfixinc;
+
+zfixhavealt:
+	lastalt = aiwaypoints[cnt].z;
+
+zfixinc:
+	cnt ++;
+zfixtest:
+	if(cnt >= numwaypoints) goto zfixdone;
+	if(aiwaypoints[cnt].z != 0) goto zfixhavealt;
+	GetWayPointChanges(cnt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
+	if(altval == -1) goto zfixlastalt;
+	lastalt = aiwaypoints[cnt].z = altval;
+	goto zfixinc;
+
+zfixdone:
+
+	for(cnt = 0; cnt < 3; cnt ++) {
+		for(cnt2 = 0; cnt2 < 5; cnt2 ++) {
+			MustX[cnt][cnt2].type = -1;
+			for(k = 0; k < 10; k ++)
+				MustX[cnt][cnt2].ids[k] = -1;
 		}
+	}
+	for(cnt2 = 0; cnt2 < 5; cnt2 ++)
+		escnt[cnt2] = 0;
+
+	fseek (File, start_data.mLiveObjectsLoc, SEEK_SET) ;
+	DoMustEsc = DoMustDie = DoMustLive = 0;
+	for(cnt = 0; cnt < start_data.numMustLive; cnt ++) {
+		DoMustLive = 1;
+		fread (&mrec, 0x68, 1, File);
+		MustX[0][cnt].type = mrec.mtype;
+		for(k = 0; k < 10; k ++)
+			if((MustX[0][cnt].ids[k] = mrec.ids[k]) < 0)
+				break;
+	}
+	fseek  (File, start_data.mDieObjectsLoc, SEEK_SET) ;
+	for(cnt = 0; cnt < start_data.numMustDie; cnt ++) {
+		DoMustDie = 1;
+		fread (&mrec, 0x68, 1, File);
+		MustX[1][cnt].type = mrec.mtype;
+		for(k = 0; k < 10; k ++)
+			if((MustX[1][cnt].ids[k] = mrec.ids[k]) < 0)
+				break;
+	}
+	fseek  (File, start_data.mEscObjectsLoc, SEEK_SET) ;
+	for(cnt = 0; cnt < start_data.numMustEscort; cnt ++) {
+		DoMustEsc = 1;
+		fread (&mrec, 0x68, 1, File);
+		MustX[2][cnt].type = mrec.mtype;
+		for(k = 0; k < 10; k ++)
+			if((MustX[2][cnt].ids[k] = mrec.ids[k]) < 0)
+				break;
 	}
 
     fseek  (File, start_data.objectLoc, SEEK_SET) ;
@@ -248,13 +328,13 @@ int LoadScottMission()
 				altval = 0;
 			}
 		}
-		if((altval < 25) && (!launch))
+		if((altval < 25) && (launch <= 0))
 			altval = 2500;
 
 		if((speedval == -1) || (one_object.speed > 0)) {
 			speedval = one_object.speed;
 		}
-		if((speedval <= 0) && ((!launch) || (altval > 50))) {
+		if((speedval <= 0) && ((launch <= 0) || (altval > 50))) {
 			speedval = 300;
 		}
 		//***************************************************************
@@ -263,6 +343,7 @@ int LoadScottMission()
 		// MIKE FOR FURTHER INFO.
 		bigplaneid = one_object.object;
 		if(one_object.type == ST_WINGMAN) {
+			ourplanetype = one_object.object;
 			switch(OurLoadOut) {
 				case SL_FD_ALPHA:
 					bigplaneid = SO_F_14FDA;
@@ -281,6 +362,20 @@ int LoadScottMission()
 					break;
 				case SL_MC_CHARLIE:
 					bigplaneid = SO_F_14MCC;
+					break;
+			}
+		}
+		if((one_object.object == SO_NIMITZA) || (one_object.object == SO_KHAWKA) ||
+			(one_object.object == SO_FORSTALA)) {
+			switch(ConfigData.Carrier) {
+				default:
+					bigplaneid = SO_NIMITZA;
+					break;
+				case 1:
+					bigplaneid = SO_KHAWKA;
+					break;
+				case 2:
+					bigplaneid = SO_FORSTALA;
 					break;
 			}
 		}
@@ -321,6 +416,9 @@ int LoadScottMission()
 		}
 
 		if(one_object.type == ST_PLAYER) {
+			escgrp = GetEscortNum(one_object.object);
+			if(escgrp != -1)
+				escnt[escgrp] ++;
   			PxLng = xval;
 			if(PxLng > (long)-1)
 				PyLng = 0x100000 - yval;
@@ -362,6 +460,19 @@ int LoadScottMission()
 //			Message(Txt);
 		}
 		else {
+			lastwp = aipaths[path].numWPs + firstwp - 1;
+			if(path > NUM_AI_PATHS) {
+				Message("Plane with bad path",0);
+				continue;
+			}
+			if(lastwp > NUM_AI_WAYPTS) {
+				Message("Plane with bad waypoints",0);
+				continue;
+			}
+			if(aiwaypoints[lastwp].actionIndex + aiwaypoints[lastwp].numActions > NUM_AI_ACTIONS) {
+				Message("Plane with bad actions",0);
+				continue;
+			}
 			if(one_object.type == ST_WINGMAN) {
 				if(strcmp(one_object.callSign, "                ")) {
 					strcpy (OurWingName, "(");
@@ -382,14 +493,27 @@ int LoadScottMission()
 					setediff = 1;
 			}
 			planeslot = AddSomePlanes2 (cnt, planeid, behavenum, formnum, 1, numwingadd, whatside, objtype, xval, yval, altval, headval, path, speedval, howgood);
-			bv[planeslot].groundt = firstwp;
-			bv[planeslot].xloc = aiwaypoints[firstwp].x;
-    		bv[planeslot].yloc = aiwaypoints[firstwp].y;
-			if(planeslot > NPLANES) {
-				bv[planeslot].verticlesep = one_object.damageLevel;
+			if(planeslot > -1) {
+				escgrp = GetEscortNum(one_object.object);
+				if(escgrp != -1)
+					escnt[escgrp] += ((int)one_object.number & 0xF);
+				bv[planeslot].groundt = firstwp;
+				bv[planeslot].xloc = aiwaypoints[firstwp].x;
+    			bv[planeslot].yloc = aiwaypoints[firstwp].y;
+				if(planeslot > NPLANES) {
+					bv[planeslot].verticlesep = one_object.damageLevel;
+				}
+			}
+			else {
+				Message("To many objects",0);
 			}
 		}
     }
+
+	for(cnt = 0; cnt < 5; cnt ++) {
+		if(escnt[cnt] != 0)
+			MustX[2][cnt].type = escnt[cnt] - MustX[2][cnt].type + 1;
+	}
 
     fseek  (File, start_data.gtLoc, SEEK_SET) ;
 
@@ -420,12 +544,14 @@ int LoadScottMission()
 			if(nzval == 0) {
 				ps[cnt].xL = nxval;
 				ps[cnt].yL = nyval;
-				ps[cnt].alt = 66;
+				if(ps[cnt].alt == 0)
+					ps[cnt].alt = 66;
 			}
 			else {
 				ps[cnt].xL = nxval;
 				ps[cnt].yL = nyval - (cnt * CRUISEDIST);
-				ps[cnt].alt = nzval;
+				if(ps[cnt].alt == 0)
+					ps[cnt].alt = nzval;
 			}
 
 			if(bv[cnt].Behavior == Ready5) {
@@ -435,7 +561,8 @@ int LoadScottMission()
 			ps[cnt].y = ps[cnt].yL>>HTOV;
 			if((otherplane2 >= 0) && (otherplane2 < MAXPLANE)) {
 				if(IsBoat(ps[otherplane2].type)) {
-					ps[cnt].base = -(otherplane2 + 1);
+					if(FriendMatch(cnt, otherplane2))
+						ps[cnt].base = -(otherplane2 + 1);
 				}
 			}
 		}
@@ -458,13 +585,14 @@ int LoadScottMission()
 			OurHead = ps[otherplane2].head;
 			if(ps[otherplane2].alt > 66)
 				Alt = ps[otherplane2].alt + 66;  /*  Don't Want Planes on top of each other  */
-			if(IsBoat(ps[otherplane2].type)) {
+			tempplane = GetPlanePtr(ps[cnt2].type);
+			if(tempplane->bclass == CARRIER_OBJCLASS) {
 				whichourcarr = otherplane2;     // holds value for which boat our carrier
 				wps[0].xL = ps[otherplane2].xL;
 				wps[0].yL = ps[otherplane2].yL;
 				wps[0].x = ps[otherplane2].xL>>HTOV;
 				wps[0].y = ps[otherplane2].yL>>HTOV;
-				UpdateOurCarrier(otherplane2);
+				UpdateOurCarrier(whichourcarr);
 			}
 		}
 		OurAlt = Alt<<2;
@@ -478,7 +606,8 @@ int LoadScottMission()
 				otherplane2 = (int)aiwaypoints[firstwp].y;
 				otherplane2 = GetPlaneOrgNum(otherplane2);
 				if((otherplane2 >= 0) && (otherplane2 < MAXPLANE)) {
-					if(IsBoat(ps[otherplane2].type)) {
+					tempplane = GetPlanePtr(ps[otherplane2].type);
+					if(tempplane->bclass == CARRIER_OBJCLASS) {
 						whichourcarr = otherplane2;
 						wps[0].xL = ps[otherplane2].xL;
 						wps[0].yL = ps[otherplane2].yL;
@@ -498,9 +627,14 @@ int LoadScottMission()
 				if(tempplane->bclass == CARRIER_OBJCLASS) {
 					whichourcarr = cnt2;
 				}
+				if(tempplane->bclass == 0x46) {
+					othercarr = cnt2;
+				}
 			}
 		}
 	}
+	if((whichourcarr == -999) && (othercarr != -999))
+		whichourcarr = othercarr;
 
 	for(cnt2 = 0; cnt2 < MAXPLANE; cnt2 ++) {
 		tpath = (int)bv[cnt2].path;
@@ -511,7 +645,8 @@ int LoadScottMission()
 				otherplane2 = GetPlaneOrgNum(otherplane2);
 				if((otherplane2 >= 0) && (otherplane2 < MAXPLANE)) {
 					if(IsBoat(ps[otherplane2].type)) {
-						ps[cnt2].base = -(otherplane2 + 1);
+						if(FriendMatch(cnt2, otherplane2))
+							ps[cnt2].base = -(otherplane2 + 1);
 					}
 				}
 			}
@@ -528,12 +663,17 @@ int LoadScottMission()
 
 #endif
 
-	fclose(File);
+	if(whichourcarr != -999) {
+		if(bv[whichourcarr].verticlesep != 0)
+			bv[whichourcarr].verticlesep --;
+	}
 
 	MissileAdd(ML_FFBOMB);
 
 	if((Status&TRAINING) && ENEMYNODIE && KnockItOffStatus)
 		Speech(L_FIGHTS_ON);
+
+	fclose(File);
 
     return 1 ;
 }

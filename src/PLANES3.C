@@ -4628,3 +4628,21 @@ void ReArmWingman()
 	}
 }
 
+struct _mrec_ { int type; int ids[10]; };
+extern struct _mrec_ MustX[3][5];
+
+//***************************************************************************
+int GetEscortNum(int objid)
+{
+	int i,k;
+
+	for(i = 0; i < 5; i ++) {
+		if(MustX[2][i].type > 0) {
+			for(k = 0; k < 10; k ++) {
+				if(MustX[2][i].ids[k] == objid)
+					return(i);
+			}
+		}
+	}
+	return(-1);
+}

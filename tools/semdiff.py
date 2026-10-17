@@ -16,6 +16,8 @@ gold.update(loadmap('analysis/gold/gold.map'))
 mine=loadmap('build/f14_named.map')
 gex=open(GOLD,'rb').read(); mex=open(OURS,'rb').read()
 def dis(exe,load,p,a,b):
+    import struct
+    load=struct.unpack('<H',exe[8:10])[0]*16
     d=exe[load+p*16+a:load+p*16+b+1]
     t=tempfile.NamedTemporaryFile(delete=False);t.write(d);t.close()
     o=subprocess.run(['ndisasm','-b16','-o0x%x'%a,t.name],capture_output=True,text=True).stdout;os.unlink(t.name)

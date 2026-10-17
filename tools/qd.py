@@ -12,7 +12,10 @@ def loadmap(path):
     return funs
 gold=loadmap('analysis/gold/gold_named.map'); gold.update(loadmap('analysis/gold/gold.map'));mine=loadmap('build/f14_named.map')
 def dis(exe,load,p,a,b):
-    d=open(exe,'rb').read()[load+p*16+a:load+p*16+b+1]
+    import struct
+    raw=open(exe,'rb').read()
+    load=struct.unpack('<H',raw[8:10])[0]*16
+    d=raw[load+p*16+a:load+p*16+b+1]
     t=tempfile.NamedTemporaryFile(delete=False);t.write(d);t.close()
     o=subprocess.run(['ndisasm','-b16','-o0x%x'%a,t.name],capture_output=True,text=True).stdout;os.unlink(t.name)
     return [l.split(None,2)[2].strip() for l in o.splitlines() if len(l.split(None,2))>2]
