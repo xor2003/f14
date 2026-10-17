@@ -1994,42 +1994,64 @@ void GetWayXYZ(int waynum, long *xval, long *yval, UWORD *zval)
 
 void GetPlanePointXYZ(int planenum, long *xval, long *yval, UWORD *zval)
 {
-	int cnt;
+	int cnt = 0;
+	int cnt2;
+	int cnt3;
+	int waynum;
 	int otherplane;
-	long tx, ty;
-	UWORD tz;
 
 	otherplane = planenum;
-
-	cnt = GetPlaneOrgNum(planenum);
-
-	if(cnt == -1) {
-		*xval = PxLng;
-		*yval = 0x100000 - PyLng;
-		*zval = Alt;
-		return;
-	}
-	if(cnt == MAXPLANE) {
-		for(cnt = 0; cnt < NGTARGETS; cnt ++) {
-			if(gt[cnt].orgnum == planenum) {
-				*xval = gt[cnt].x;
-				*yval = gt[cnt].y;
-				*zval = 1;
-				return;
+	*xval = 0;
+	*yval = 0;
+	while(cnt == 0) {
+		cnt2 = GetPlaneOrgNum(otherplane);
+		if(cnt2 == -1) {
+			if(PxLng <= -1L) {
+				otherplane = (int)PyLng;
+				waynum = aipaths[OurPath].wp0;
+wp_accum:
+				if((int)aiwaypoints[waynum].x == -2 && (int)aiwaypoints[waynum].y == -1)
+					waynum ++;
+				*xval += aiwaypoints[waynum].x;
+				*yval += aiwaypoints[waynum].y;
+				continue;
 			}
+			*xval += PxLng;
+			*yval += 0x100000L - PyLng;
+			*zval += Alt;
+			return;
 		}
-		*xval = 200000;
-		*yval = 200000;
-		*zval = 66;
-		TXT("No find loc for ");
-		TXN(otherplane);
-		Message(Txt,DEBUG_MSG);
-		return;
+		if(cnt2 == MAXPLANE) {
+			for(cnt3 = 0; cnt3 < NGTARGETS; cnt3 ++) {
+				if(gt[cnt3].orgnum == otherplane) {
+					*xval += gt[cnt3].x;
+					*yval += gt[cnt3].y;
+					(*zval)++;
+					return;
+				}
+			}
+			*xval = 200000;
+			*yval = 200000;
+			*zval = 66;
+			TXT("No find loc for ");
+			TXN(otherplane);
+			TXA(" pn ");
+			TXN(planenum);
+			TXA(" pc ");
+			TXN(planecnt);
+			Message(Txt,DEBUG_MSG);
+			return;
+		}
+		if(ps[cnt2].xL <= (long)-1) {
+			otherplane = (int)ps[cnt2].yL;
+			waynum = bv[cnt2].target;
+			goto wp_accum;
+		}
+		*xval += ps[cnt2].xL;
+		*yval += ps[cnt2].yL;
+		*zval += ps[cnt2].alt;
+		cnt = 1;
 	}
-
-	*xval = tx = ps[cnt].xL;
-	*yval = ty = ps[cnt].yL;
-	*zval = tz = ps[cnt].alt;
 }
 
 void Ready5()

@@ -258,6 +258,7 @@
 47ba:040f n=  1 -> _GetToken
 3fb2:26c4 n=  1 -> _GetWayPointChanges
 3fb2:2ad1 n=  1 -> _GetWayXYZ
+3fb2:2b6e n=  1 -> _GetPlanePointXYZ
 4e88:0e34 n=  1 -> _GetWhoCover
 31ce:8146 n=  1 -> _GetWingName
 31ce:7ae4 n=  1 -> _GiveSanitizeMessage
