@@ -117,6 +117,7 @@ extern int TIDTargetCnt;
 extern TIDTarg TIDTargetList[];
 
 int DesigTargCnt=0;
+int NumInFlight=0;
 DTARGET DESIG_TARG[6];
 
 TARGET  DESIG_TARGF;
@@ -208,9 +209,17 @@ int InitTWSData()
 	int i;
 	int cnt=0;
 
-	DesigTargCnt=0;
 	SelectedTarg=-1;
+	DesigTargCnt=0;
+	NumInFlight=0;
 
+	for (cnt=0; cnt<6; cnt++) {
+		DESIG_TARG[cnt].status=0;
+		DESIG_TARG[cnt].target=-1;
+		DESIG_TARG[cnt].ssi_index=-1;
+		DESIG_TARG[cnt].src_station=-1;
+	}
+	cnt = 0;
 	for (i=0; i<F14_STATION_NUM; i++) {
 		if (F14_STATION[i] == W_AIM_54) {
 			DESIG_TARG[cnt].status=0;
@@ -2257,22 +2266,38 @@ int DesignateTIDTarg()
 	for (i = 0; i < TIDTargetCnt; i++) {
 			if ((TIDTargetList[i].x >= xmin) &&
 				(TIDTargetList[i].y >= ymin) &&
-				(TIDTargetList[i].x <= xmax) &&
+				(xmax >= TIDTargetList[i].x) &&
 				(TIDTargetList[i].y <= ymax)) {
   					new = TIDTargetList[i].i;
-  				break;
+					if(DesigTargCnt && AlreadyDesigTarg(new))
+						new = -1;
 			}
 	}
 
 	if (new==-1) return(0);
 
-	if (DesigTargCnt>(GetWeaponCount(W_AIM_54)-1))
+	if (DesigTargCnt>(GetWeaponCount(W_AIM_54)+NumInFlight-1))
 		return(0);
 
 	// Ok, now add the target to the firing list
 	DESIG_TARG[DesigTargCnt].status=1;  // Change to Designated
 	DESIG_TARG[DesigTargCnt].target=new;
 	DesigTargCnt++;
+}
+
+//***************************************************************************
+int AlreadyDesigTarg(int targnum)
+{
+	int i;
+	int found=0;
+
+	for (i = 0; i < DesigTargCnt; i++) {
+		if (DESIG_TARG[i].target == targnum)
+			found = 1;
+	}
+	if(found)
+		return(1);
+	return(0);
 }
 
 //***************************************************************************
