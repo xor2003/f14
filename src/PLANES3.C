@@ -1960,15 +1960,16 @@ void PromoteToLeader(int planenum)
 
 int DoNextWayPt(int planenum, int waypt)
 {
-	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
-	int aistation;
-	struct PlaneData far *tptype;
+	int treturnval = -999;
 	int returnval = 0;
-	int treturnval;
+	int tflag = 0;
+	int wpflag;
+	int behavenum, launch, formnum, attack, headval, altval, speedval;
 	int temppath;
-	int basetemp;
 
 	temppath = (int)bv[planenum].path;
+	if(!(ps[planenum].status & FRIENDLY))
+		treturnval = -998;
 	if((waypt < 0) || (temppath < 0))
 		return(0);
 
@@ -1979,41 +1980,46 @@ int DoNextWayPt(int planenum, int waypt)
 	}
 
 
-	GetWayPointChanges(waypt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
+	GetWayPointChanges(waypt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, planenum);
 
 	if(behavenum != -1)
 		returnval = TranslateBehavior(planenum, behavenum, formnum);
 
-	if(attack != -1) {
-		LaunchCruise(planenum);
-	}
 	if(wpflag & DOWPEXPLODE) {
-		LogIt (SLG_AIR_DESTROYED_MISSILE, i, ps[planenum].xL, ps[planenum].yL, ps[planenum].alt, -999, -999, 0L, LOG_AIR);
+		if(!(ps[planenum].status & CRASH)) {
+			if(planenum > NPLANES)
+				LogIt (SLG_BOAT_DESTROYED_MISSILE, planenum, ps[planenum].xL, ps[planenum].yL, ps[planenum].alt, treturnval, -999, 0L, LOG_AIR);
+			else
+				LogIt (SLG_AIR_DESTROYED_MISSILE, planenum, ps[planenum].xL, ps[planenum].yL, ps[planenum].alt, treturnval, -999, 0L, LOG_AIR);
+		}
 		AirKill(planenum);
-		returnval = 1;
-	}
-	if(wpflag & DOWPTROOPDROP) {
-		DoGroupAction(planenum, DOWPTROOPDROP, 0);
 		returnval = 1;
 	}
 	if(wpflag & DOWPHAWKEYE) {
 		Message("Recieved New Waypoints",RIO_MSG);
 	}
 	if(wpflag & DOWPDAMAGE) {
-		returnval = 1;
+		ps[planenum].mcnt[0] = ps[planenum].mcnt[1] = ps[planenum].mcnt[2] = 0;
+		if(Gtime != 0)
+			DoGroupAction(planenum, DOWPDAMAGE, 0);
 	}
 	if(wpflag & DOWPDITCH) {
 		returnval = 1;
 	}
-/*	if(wpflag & DOWPGOAL) {
-		LogIt (SLG_WAY_PT_GOAL, planenum, ps[planenum].xL, ps[planenum].yL, ps[planenum].alt, -(int)bv[planenum].path, waypt, 0L, LOG_AIR);
-		DoGroupAction(planenum, DOWPGOAL, waypt);
-	}  */
+	if(wpflag & 8) {
+		returnval = 1;
+	}
 	if((launch != -1) && (bv[planenum].Behavior != Ready5)) {
 		SetUpLaunch(planenum, waypt);
 	}
 	if(wpflag & DOWPFORMON) {
+		if(bv[planenum].wingman == -998) {
+			tflag = 1;
+			bv[planenum].wingman = 0;
+		}
 		treturnval = FormOnWP(planenum);
+		if(tflag != 0)
+			bv[planenum].wingman = -998;
 		if(treturnval != 0)
 			returnval = treturnval;
 	}
