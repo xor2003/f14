@@ -17,6 +17,7 @@
 #include "armt.h"
 #include "event.h"
 #include "proto.h"
+#include "planeai.h"
 #include "setup.h"
 
 #define S2L(a) ((long) a<<HTOV)
@@ -32,6 +33,7 @@ extern  RPS     *Rp3D;
 extern  int     OurHead,OurPitch;
 extern  UWORD   Alt;
 extern  UWORD   Rtime;
+extern  confData ConfigData;
 extern  char    Txt[50];
 extern  int     sx,sy,sz;
 extern  UWORD   KEYPRINT;
@@ -176,9 +178,9 @@ TrackBullets()
 
     tsize = TSpeed + Radii[Diff];   // 50 feet @ diff==3
 
-    for (i=0; i<NTRACE2; i++) {
+    for (i=0; NTRACE2>i; i++) {
         if (trs[i].x) {
-            if (i<FIRST_ENEMY_TRACE) {
+            if (FIRST_ENEMY_TRACE>i) {
                 for (j=0; j<NPLANES; j++) {
                     if ((ps[j].status&(ACTIVE+CRASH))==ACTIVE) {
                         n = BulletDist (ps[j].xL, ps[j].yL, ps[j].alt, trs+i);
@@ -186,8 +188,8 @@ TrackBullets()
                             ps[j].status |= PANIC;
 
 //                            if (n<(tsize>>2)) {
-                            if (n<tsize) {
-								if(CheckBulletBetter(ps[j].xL, ps[j].yL, ps[j].alt, trs+i, j)) {
+                            if (tsize>n) {
+								if(CheckBulletBetter(ps[j].xL, ps[j].yL, ps[j].alt, trs+i, j, i)) {
 									src = trs[i].firedby;
 									if((!(DOINVISIBLE||ENEMYNODIE)) && (bv[j].Behavior != EngageTrain)) {
 										if(Rtime & 0x1) {
@@ -196,7 +198,7 @@ TrackBullets()
 											if(crashstat != (ps[j].status & CRASH)) {
 												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
 	                    	                	TXA (" destroyed by ");
-    	                    	            	if (i>=NTRACE) TXA ("wingman ");
+    	                    	            	if (NTRACE<=i) TXA ("wingman ");
         	                    	        	TXA ("gunfire");
             	                    	    	Message (Txt,GAME_MSG);
                 	                    		trs[i].x = 0;
@@ -206,20 +208,22 @@ TrackBullets()
 											}
 										}
 										else {
-							        		AirKill (j);
-//											LogIt (SLG_AIR_BULLET_HIT, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
-											LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
-                    	                	TXA (" destroyed by ");
-                        	            	if (i>=NTRACE) TXA ("wingman ");
-                            	        	TXA ("gunfire");
-                                	    	Message (Txt,GAME_MSG);
-                                    		trs[i].x = 0;
+											if(!(ps[j].status & CRASH)) {
+							        			AirKill (j);
+												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
+                    	                		TXA (" destroyed by ");
+                        	            		if (NTRACE<=i) TXA ("wingman ");
+                            	        		TXA ("gunfire");
+                                	    		Message (Txt,GAME_MSG);
+                                    			trs[i].x = 0;
+											}
 										}
 									}
 									else {
 										LogIt (SLG_AIR_BULLET_HIT, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
 										StartASmoke( ps[j].xL, ps[j].alt,ps[j].yL, AIRXPLO, 10 );
-    									Sound(N_FarExplo,2,0);
+    									if(CloseEnoughFor(SNDSTUFF, ps[j].x, ps[j].y))
+											Sound(N_FarExplo,2,0);
 									}
 								}
                             }
@@ -231,7 +235,7 @@ TrackBullets()
                 n = BulletDist (PxLng, 0x100000-PyLng, Alt, trs+i);
 
                 if (n<(tsize * 2)) {
-					if(CheckBulletBetter(PxLng, 0x100000-PyLng, Alt, trs+i, -1)) {
+					if(CheckBulletBetter(PxLng, 0x100000-PyLng, Alt, trs+i, -1, i)) {
 	                    TXT ("Hit by gunfire");
     	                Message (Txt,GAME_MSG);
 						src = trs[i].firedby;
@@ -254,7 +258,7 @@ TrackBullets()
                             ps[j].status |= PANIC;
 
                             if ((n<tsize) && (trs[i].firedby != j)) {
-								if(CheckBulletBetter(ps[j].xL, ps[j].yL, ps[j].alt, trs+i, j)) {
+								if(CheckBulletBetter(ps[j].xL, ps[j].yL, ps[j].alt, trs+i, j, i)) {
 
 //									Message("Plane Hit By Bullets",DEBUG_MSG);
 									src = trs[i].firedby;
@@ -283,22 +287,24 @@ TrackBullets()
 											}
 										}
 										else {
-						        			AirKill (j);
-//											LogIt (SLG_AIR_BULLET_HIT, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
-											LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
-											if(GetSquadLeader(trs[i].firedby) == -1) {
-												TXT("(Wingman)Splash ");
-												planetemp = GetPlanePtr(ps[j].type);
-									    		FTXA (planetemp->name);
-												TXA ("!");
-												Message(Txt,WINGMAN_MSG);
+											if(!(ps[j].status & CRASH)) {
+												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
+												if(GetSquadLeader(trs[i].firedby) == -1) {
+													TXT("(Wingman)Splash ");
+													planetemp = GetPlanePtr(ps[j].type);
+									    			FTXA (planetemp->name);
+													TXA ("!");
+													Message(Txt,WINGMAN_MSG);
+												}
 											}
+						        			AirKill (j);
 										}
 									}
 									else {
 										LogIt (SLG_AIR_BULLET_HIT, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
 										StartASmoke( ps[j].xL, ps[j].alt,ps[j].yL, AIRXPLO, 10 );
-    									Sound(N_FarExplo, 2,0);
+    									if(CloseEnoughFor(SNDSTUFF, ps[j].x, ps[j].y))
+											Sound(N_FarExplo, 2,0);
 									}
                                 	trs[i].x = 0;
 								}
@@ -363,7 +369,7 @@ BulletDist(long x, long y, int z, struct Tracer *t)
 }
 
 //***************************************************************************
-int CheckBulletBetter(long x, long y, int z, struct Tracer *t, int targnum)
+int CheckBulletBetter(long x, long y, int z, struct Tracer *t, int targnum, int i)
 {
     long    dx, dy;
     int     dz;
@@ -417,19 +423,18 @@ int CheckBulletBetter(long x, long y, int z, struct Tracer *t, int targnum)
 			}
 		}
 	} else {
-		ptargettype = GetPlanePtr(ps[targnum].type);
 		if (targnum>=0) {
-			if(ptargettype->maneuver < 2) {
-				conewidth *= 5;
-				coneheight *= 5;
-			} else {
-				conewidth = conewidth<<2;
-				coneheight = coneheight<<2;
-			}
+			ptargettype = GetPlanePtr(ps[targnum].type);
+			conewidth = 12;
+			coneheight = 12;
 		}
-		else {
-			conewidth = conewidth<<2;
-			coneheight = coneheight<<2;
+		if ((Rtime % NTRACE) == i) {
+			conewidth = conewidth>>1;
+			coneheight = coneheight>>1;
+		}
+		if (ConfigData.WeaponEffect != 2) {
+			conewidth = conewidth<<1;
+			coneheight = coneheight<<1;
 		}
 	}
 

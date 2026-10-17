@@ -224,7 +224,7 @@ TacBox (int color);
 Tacxy (COORD x,COORD y);
 
 /*  bullets.c  */
-int CheckBulletBetter(long x, long y, int z, struct Tracer *t, int targnum);
+int CheckBulletBetter(long x, long y, int z, struct Tracer *t, int targnum, int i);
 int IsDeckPlane(int whofired, int targnum);
 
 /*  sams.c  */

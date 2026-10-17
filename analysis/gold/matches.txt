@@ -673,7 +673,7 @@
 3fb2:2df2 n=  71 -> _GetPlayerHelp                      dev@36f4:31d8 jac=0.54 lcs=0.63
 220f:2d25 n= 200 -> _ShowFuel                           dev@13ba:44dc jac=0.73 lcs=0.63
 3ad2:4104 n=  49 -> _GetAIBase                          dev@3091:55fa jac=0.59 lcs=0.63
-1342:127b n=  27 -> _DumpLogFile                        dev@4a1b:002e jac=0.59 lcs=0.63
+50aa:0023 n=  27 -> _DumpLogFile                        dev@4a1b:002e jac=0.59 lcs=0.63
 3ad2:4bb5 n=  98 -> _Langle                             dev@3091:5e5e jac=0.64 lcs=0.63
 2cac:0459 n= 140 -> _NWaitShowJoy                       dev@2201:0432 jac=0.68 lcs=0.63
 18de:2881 n=  23 -> _MissilesInAir                      dev@40fb:1d62 jac=0.61 lcs=0.62
