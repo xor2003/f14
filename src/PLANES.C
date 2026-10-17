@@ -3434,7 +3434,7 @@ void FreeFighter() {
 	int enemyhead, enemyalt;
 	COORD tdist, tdistnm;
 
-	if(!(ps[i].status & (FRIENDLY|NEUTRAL))) {
+	if(!(ps[i].status & (FRIENDLY|NEUTRAL)) && bv[i].winglevel < 4) {
 		StraightAttack();
 		return;
 	}
