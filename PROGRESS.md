@@ -235,3 +235,36 @@ sharing, ±0x8000 segment-wrap equivalence).
   artifacts.
 - `_TIDAttkInfo` re-anchored 4d7e:0362 (was wrongly _Air2GroundHoming);
   still 131 edits — retail does fixed-position itoa+RpPrint blocks.
+
+### Damage system batch (post-AirKill)
+- `_DamageAI` @2ad2:22b3 — 2-arg retail form: `DamageAI(planenum, damage)`
+  with dense 32-case switch (jump table) mapping damage codes to severity
+  0..4; DAMAGELITE[0]∈{0,1} or damage>=0x20 -> AirKill; behaveflag damage
+  bits, damage smoke, GetAIBase/PromoteToLeader/WingDamageMsg calls.
+  All callers (AAAHIT, BULLETS, PLANES3, SAMS) pass retail codes.
+- `_ShowAIStatus` @21ce:5d73 — 3-arg form `(ainum, otherai, effects)`
+  emitting "I'm Hit, ..." strings per effect bit; _ShowAIWeaponStatus
+  unpaired (no gold counterpart — its sites call other code in retail).
+- `_PromoteToLeader` @2fb2:4a51 — promotes BOTH wingman(+6) and
+  nextsec(+0xa): Formation||GorillaBomb gate, Behavior/groundt copy +
+  DoNextWayPt (skipped when TAKEOFF), DOWPTROOPDROP leader unlink, and
+  surviving-wingman `behaveflag = (x & ~0xf) + 2` position fixup.
+- `_VectorIntercept` — byte-exact after merging fragmented gold.map
+  extents (0467-0850).
+- `_GorillaBomb` @2ad2:44b2 — byte-exact (new gold.map FUN entry; the
+  old 2b89:02d4 entry was pitchbar2's anchor).
+- `_DESIGNATED_TrackingAI` @21ce:6f8e — retail blocks recovered:
+  first-entry xloc/yloc init from AIBOMBX/Y; abs>0x800 one-shot
+  LowBombTarget (Behavior!= guard) + >0x2000 forced switch;
+  UpdateMissionData on DOWPGOAL; groundt +=2 on aiwp.x==-2L else ++;
+  GetWayXYZ -> xloc/yloc before DoNextWayPt/RestoreCover. 7 regalloc diffs.
+
+Sweep anchors: `_DamageAI`->3ad2:22b3, `_ShowAIStatus`->31ce:5d73,
+`_TakingOff`->31ce:0b7e, `_DESIGNATED_TrackingAI`->31ce:6f8e,
+`_GorillaBomb`->3ad2:44b2, `_ShowAIWeaponStatus` unpaired.
+
+Next big ports (largest residual insn counts): `_TakingOff` @21ce:0b7e
+(gold 387 vs ours 210 — Gtime>5 gate, Behavior indirect-call path,
+bclass==0x28 split, GetWayPointChanges+LogIt tail), `_FlyWayPoint`
+@2ad2:37a6 (520 vs 464), `_SetUpWingman` @2fb2:58d1 (gold init tables),
+`_pitchbar2` @1b89:02d4, `_TIDAttkInfo` @3d7e:0362.
