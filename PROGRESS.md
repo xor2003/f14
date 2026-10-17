@@ -347,3 +347,20 @@ Retail algorithm (replaces ours entirely):
 - Small-edit DIFFs surveyed (_AIGetBombDist, _AISanitizeCheck,
   _AIRadarRearCheck, _AIBombTarget): all artifact-class (jump-form polarity,
   global-offset, push-eq-zero, imul-via-global-i vs si).
+
+## Session N+1 — DoAltHover / CruiseDistruct / CheckForMobileR5 / DoGroupAction
+
+- `_CruiseDistruct` BYTE-EXACT: retail gate is GetQHeight(xL,yL)>>2 + 300 > alt
+- `_CheckForMobileR5` semantic match: faction mask = Rdrs[base].status &
+  (FRIENDLY|NEUTRAL) (isfriend param dead), FriendMatchType positive sense,
+  dead Dist2D call kept, first Ready5 leader wins, yval steps +2
+- `_DoAltHover` semantic match: i=planecnt head store, aiwp (-2,-1) pair test
+  (int casts on long fields), basespeed=InvAltSpeedConv(alt,speedval),
+  dual ChangeGroupBehavior(planecnt,0) around DoNextWayPt
+- `_DoGroupAction` operand order Gtime+waypt (4 regalloc edits)
+- `_SetUpWingman` semantic match @2ad2:0004 (see prev entry)
+- `_CheckPlaneBlast` remaining: ~53 edits, needs shared-tail 12-arg call-site
+  decode (gold pushes 0,0,0,[bp+0x12]... jmp shared call at 0x3e0e)
+- `_pitchbar2` remaining: gold draws bracket with 9 Rotate2D/2 prints vs our
+  13/4 - different structure, needs visual decode
+- `_CheckTurnStuff` 38 edits: si/di regalloc + probably real diffs deeper
