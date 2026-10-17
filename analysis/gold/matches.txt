@@ -1021,7 +1021,7 @@
 172e:0515 n=  39 -> _DrawShadow                         dev@06ca:06b0 jac=0.67 lcs=0.29
 1dc3:1e3a n= 227 -> _CheckBulletBetter                  dev@0dc6:0b96 jac=0.67 lcs=0.28
 3ad2:3562 n= 117 -> _PlaneThreats                       dev@45cf:012a jac=0.51 lcs=0.28
-15ce:0a0e n= 149 -> _AISanitizeGroupCheck               dev@25e2:96bc jac=0.47 lcs=0.27
+31ce:7d84 n= 112 -> _AISanitizeGroupCheck               dev@25e2:96bc jac=0.47 lcs=0.27
 1342:13ae n= 443 -> _CheckPlaneBlast                    dev@36f4:4576 jac=0.62 lcs=0.27
 3060:005e n= 853 -> _AWG9_CHANGE_MODE                   dev@0901:0846 jac=0.47 lcs=0.27
 3fb2:0fa7 n= 584 -> _DrawCarrier                        dev@0eb6:0caa jac=0.71 lcs=0.25
