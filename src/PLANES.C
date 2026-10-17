@@ -763,31 +763,32 @@ TakingOff () {
 	}
 #endif
 
-	if(Gtime < bv[i].varcnt){
-		psi->speed = 0;
-		bv[i].basespeed = 0;
-		pdest = 0;
-		droll = 0;
-		psi->roll = 0;
-		return(0);
-	}
-	else if(bv[i].varcnt != 0){
-		bv[i].basespeed = 10;
-		bv[i].varcnt = 0;
-		psi->speed = 10;
-
-		if((ps[i].base < 0) && (bv[i].threathead >= 0) && (bv[i].threathead < 4)) {
-#ifdef SRECATTEST
-			TXT("Plane Launch ");
-			TXN(i);
-			TXA(" CAT ");
-			TXN(bv[i].threathead);
-			Message(Txt);
-#endif
-			PlaneLaunched(bv[i].threathead, i);
-	  		GetNextLaunch(i);
+	if(ptype->bclass == HELICOPTER_OBJCLASS) {
+		if(Gtime < bv[i].varcnt){
+			psi->speed = 0;
+			bv[i].basespeed = 0;
+			pdest = 0;
+			droll = 0;
+			psi->roll = 0;
+			return(0);
 		}
+		else if(bv[i].varcnt != 0){
+			bv[i].basespeed = 10;
+			bv[i].varcnt = 0;
+			psi->speed = 10;
 
+			if((ps[i].base < 0) && (bv[i].threathead >= 0) && (bv[i].threathead < 4)) {
+#ifdef SRECATTEST
+				TXT("Plane Launch ");
+				TXN(i);
+				TXA(" CAT ");
+				TXN(bv[i].threathead);
+				Message(Txt);
+#endif
+				PlaneLaunched(bv[i].threathead, i);
+		  		GetNextLaunch(i);
+			}
+		}
 	}
 
     droll = 0;
