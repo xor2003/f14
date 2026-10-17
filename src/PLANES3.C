@@ -2219,7 +2219,12 @@ int GetPlayerHelp()
 
 void ProcessOtherComm()
 {
+	int maxv = 0;
 	int helpai;
+	int cnt;
+	int stat;
+	struct Behavevars *bvp;
+	struct Planes *psp;
 
 	if(!behavecommands)
 		return;
@@ -2239,15 +2244,21 @@ void ProcessOtherComm()
 				bv[helpai].horizontalsep = CRUISEDIST;
 				bv[helpai].behaveflag &= ~COMBAT_SPREAD;
 				UpdateInterceptGroup(helpai, 1);
+				for (cnt = 0, bvp = bv, psp = ps; cnt < planecnt; cnt ++, bvp ++, psp ++) {
+					stat = psp->status;
+					if ((stat & ALIVE) && (stat & ACTIVE) && (bvp->Behavior == FollowPlayer)) {
+						if (bvp->verticlesep >= maxv)
+							maxv = bvp->verticlesep + 0x7d;
+					}
+				}
 				bv[helpai].Behavior = FollowPlayer;
-				TXT("(Carrier)Vectoring Assistance ");
-				TXN(helpai);
-				Message(Txt,GAME_MSG);
+				bv[helpai].verticlesep = maxv;
+				TXA("(Carrier)Vectoring Assistance ");
 			}
 			else {
 				TXA("(Carrier)No Assistance Available");
-				Message(Txt,GAME_MSG);
 			}
+			Message(Txt,GAME_MSG);
 		break;
 	}
 
