@@ -43,9 +43,34 @@ Reference oracle: `/home/xor/games/f14gold/Fleetgold/F14GOLD/F14.EXE` (retail).
 
 ## Remaining
 
-- 267 routines with real instruction-level drift (see `tools/realdiff.py`
-  output; false-DIFF filtering strips data-relocs). AWG9, SAMS, PLANES*,
-  RIOMAP, TID are the heavy modules.
+## Current counts (verify_build, extents from gold.map)
+
+- 475/748 mzdiff MATCH; `tools/realdiff.py` (normalized-disasm compare
+  stripping data-relocs + far-call targets) isolates **267 routines with
+  real instruction-level drift**. Heaviest: PLANES3 (31), PLANES (28),
+  PLANES2 (24), AWG9 (19), COCKPIT (14), CARR (13), $3DPLANES (11).
+- `/Ot` vs `/Os` tested on PLANES3 — no change. The diffs are register
+  allocation + branch-polarity + operand-order spread across bodies:
+  genuine SOURCE drift (snapshot predates retail), not flag selection.
+- Some sweep DIFFs are mispairings (e.g. `_Messages`->FUN_05ce_0db1,
+  `_InitGraphicPages`->FUN_40b5_0470); verify pairing before editing.
+
+## Runtime status (kvikdos + libdosbox det)
+
+- GOLD under kvikdos reaches mode 13h + renders (kvikdos exits on its own
+  after graphics). OURS exits after config.snd/JOY.F14/config.f14/
+  KOR04.WLD — never opens Fonts.F14/gm-load.PIC/sp*.pic.
+- Root gap: ours issues **zero int21-4B overlay execs**. Retail execs
+  Mgraphic.exe + Nsound.14g from a real loader at gold `CODE_8`
+  (para 0x504+, caller ip ~079d); the `int21 4B03` site itself is
+  FUN_2050_0012 (gold CODE_46). Our binary only contains
+  `dig_load_overlay` (OVL.C, sound variant). The MPSLIBM `LoadOverlay`
+  trampoline does not reach a real implementation -> graphics driver never
+  loads -> LoadPicture/LoadPicNoPal no-op -> LoadFiles' pic opens skipped.
+- det-run harness: `~/inertia_player/libdosbox/run_det.sh -a AUTOEXEC
+  OUTDIR MAXFRAMES` -> frames.log (byte-identical hashes). Our det run
+  hangs in text mode (fixed RTC/int1a pinning may freeze wait loops —
+  investigate when comparing).
 - mzdiff needs `DGROUP DATA <para>` in maps to resolve DS refs: gold DGROUP
   image para `50b1`, ours `5340` (auto-emitted by linkmap2mzmap.py).
 - Runtime verification under DOSBox/kvikdos pending for this build.
