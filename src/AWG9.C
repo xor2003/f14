@@ -140,6 +140,7 @@ int FIRINGORDERCNT;
 int DETECTED_TARG[MAXPLANE];
 int DataLinkList[8];
 int DataLinkCnt=0;
+extern int whichourcarr;
 
 int     AZSWEEP;				// Azimuth sweep position
 int     AZSWEEP_DIR;			// Azimuth sweep direction
@@ -2594,7 +2595,6 @@ CheckDataLink()
 		if (!ps[i].speed) continue;
 
 		tempplane = GetPlanePtr(ps[i].type);
-
 		if ((tempplane->PlaneEnumId != SO_E_2CA) &&
 			(tempplane->PlaneEnumId != SO_F_14FDA) &&
 			(tempplane->PlaneEnumId != SO_F_14FDB) &&
@@ -2607,22 +2607,31 @@ CheckDataLink()
 		rng = (t.conv) ? 4750L:152000L;	// 100 nmi
 		if (t.d > rng) continue;
 
-		if (tempplane->PlaneEnumId == SO_E_2CA) {
+		if((tempplane->PlaneEnumId == SO_E_2CA) ||
+			(tempplane->PlaneEnumId == SO_F_14FDA) ||
+			(tempplane->PlaneEnumId == SO_F_14FDB) ||
+			(tempplane->PlaneEnumId == SO_F_14FDC) ||
+			(tempplane->PlaneEnumId == SO_F_14MCA) ||
+			(tempplane->PlaneEnumId == SO_F_14MCB))
 			dlorig = 1;
-		}
 	}
 
-	dlorig=1;
+	if(whichourcarr != -1) {
+		SetupNewTarget(&t, whichourcarr);
+		orient_to_player(&t);
+		rng = (t.conv) ? 4750L:152000L;	// 100 nmi
+		if (t.d < rng)
+			dlorig = 1;
+	}
 	if (dlorig==1) {
 		for (i=0; i<NPLANES; i++) {
 			if (DataLinkCnt>7) break;
 			if (!(ps[i].status & ACTIVE)) continue;
 			if (!ps[i].speed) continue;
-			if (DETECTED_TARG[i]) continue;
 
 			SetupNewTarget(&t,i);
 			orient_to_player(&t);
-			rng = (t.conv) ? 9500L:304000L;	// 200 nmi
+			rng = (t.conv) ? 4750L:152000L;	// 100 nmi
 			if (t.d > rng) continue;
 
 			if (ps[i].status & FRIENDLY) {
