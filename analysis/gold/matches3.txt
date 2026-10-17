@@ -104,7 +104,7 @@
 4a9a:04a6 n=  1 -> _CruiseDistruct
 2081:05c6 n=  1 -> _CursorInCrt
 2528:0148 n=  1 -> _DDDWeaponRanges
-2a48:0b67 n=  1 -> _DESIGNATED_TrackingAI
+31ce:6f8e n=  1 -> _DESIGNATED_TrackingAI
 3ad2:22b3 n=  1 -> _DamageAI
 48b6:123b n=  1 -> _DamageIt
 28a7:0032 n=  1 -> _Decompose
@@ -527,7 +527,7 @@
 4c08:0823 n=  1 -> _TacScaleRotate256
 4c08:06bf n=  1 -> _Tacxy
 2081:000c n=  1 -> _TakeInputs
-3ad2:15b2 n=  1 -> _TakingOff
+31ce:0b7e n=  1 -> _TakingOff
 18de:1188 n=  1 -> _TargetTrack
 2604:0bb2 n=  1 -> _TblTRPL
 47ba:046a n=  1 -> _TextInTheBox

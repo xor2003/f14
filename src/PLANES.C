@@ -4804,6 +4804,10 @@ void DESIGNATED_TrackingAI (int relangle)
 	tempspeed = ps[i].speed * FPStoKNTS;
 //	dx = aiwaypoints[bv[i].groundt].x-AIBOMBX;
 //	dy = aiwaypoints[bv[i].groundt].y-AIBOMBY;
+	if((bv[i].yloc == bv[i].xloc) && (bv[i].xloc == 0)) {
+		bv[i].xloc = AIBOMBX;
+		bv[i].yloc = AIBOMBY;
+	}
 	dx = bv[i].xloc-AIBOMBX;
 	dy = bv[i].yloc-AIBOMBY;
 
@@ -4819,6 +4823,12 @@ void DESIGNATED_TrackingAI (int relangle)
 
 	if(AITREL < 6) {
 		if(abs(relangle) > 0x800) {
+			if(bv[i].Behavior != LowBombTarget) {
+				bv[i].Behavior = LowBombTarget;
+				return;
+			}
+		}
+		if(abs(relangle) > 0x2000) {
 			bv[i].Behavior = LowBombTarget;
 			return;
 		}
@@ -4831,10 +4841,20 @@ void DESIGNATED_TrackingAI (int relangle)
 			GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 			if(wpflag & DOWPGOAL) {
 				LogIt (SLG_WAY_PT_GOAL, i, ps[i].xL, ps[i].yL, ps[i].alt, -(int)bv[i].path, bv[i].groundt, 0L, LOG_AIR);
-//				DoGroupAction(i, DOWPGOAL, bv[i].groundt);
+				UpdateMissionData(0, ptype->PlaneEnumId);
 			}
 			bv[i].Behavior = FlyWayPoint;
-			bv[i].groundt ++;
+			if(aiwaypoints[bv[i].groundt].x == -2L)
+				bv[i].groundt += 2;
+			else
+				bv[i].groundt ++;
+			{
+				long gwx, gwy;
+				UWORD gwz;
+				GetWayXYZ(bv[i].groundt, &gwx, &gwy, &gwz);
+				bv[i].xloc = gwx;
+				bv[i].yloc = gwy;
+			}
 			DoNextWayPt(i, bv[i].groundt);
 			RestoreCover(i);
 #if 0
