@@ -1835,7 +1835,7 @@ void DoAICounters(int ainum, int distnm, struct Sams *enemymissile)
 		emsltype = GetMissilePtr(enemymissile->type);
 //    	emsltype = s+ enemymissile->type;
 		if (((emsltype->homing == IR_1) || (emsltype->homing == IR_2))
-				&& (((!(Gtime & difftime)) && (distnm == 1) && (bv[ainum].leader != -1))
+				&& (((!(difftime & Gtime)) && (distnm == 1) && (bv[ainum].leader != -1))
 				|| ((bv[ainum].leader == -1) && (distnm == 2)))) {
 			if(bv[ainum].leader == -1) {
 				GetWingName(ainum, Txt);
@@ -1846,7 +1846,7 @@ void DoAICounters(int ainum, int distnm, struct Sams *enemymissile)
 			bv[ainum].behaveflag |= CFDROPPED;
 		}
 		else if (((emsltype->homing == RDR_1) || (emsltype->homing == RDR_2))
-				&& (((distnm == 3) && (!(Gtime & difftime)) && (bv[ainum].leader != -1))
+				&& (((distnm == 3) && (!(difftime & Gtime)) && (bv[ainum].leader != -1))
 				|| ((distnm == 2) && (bv[ainum].leader == -1)))) {
 			if((bv[ainum].leader == -1) && (distnm == 2)) {
 				GetWingName(ainum, Txt);

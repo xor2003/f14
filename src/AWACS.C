@@ -103,10 +103,7 @@ NSpeech (int num, int isawac)
     TXA (s);
 
     for (i=0; s[i]!=0; i++) {
-		if(isawac)
-        	Speech (A_ZERO+(s[i]-'0'));
-		else
-        	Speech (ZERO+(s[i]-'0'));
+       	Speech (ZERO+(s[i]-'0'));
     }
 }
 

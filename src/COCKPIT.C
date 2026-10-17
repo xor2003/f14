@@ -346,7 +346,8 @@ LookDown()
 		RpCRT4->YBgn = 39;
 
 		VdiMask[MASKY] = 27;
-		AdiMask[MASKY] = 25;
+		VdiMask[3] = 57;
+		AdiMask[MASKY] = 26;
 		RawMask[MASKY] = 39;
 	} else {
 		Rp3D->Length1 = 50;
@@ -1834,7 +1835,6 @@ int ZoomDisplay()
 	} else {
 		if (View==FRONT) {
 			AWG9_DEC_RANGE();
-			if (RadarRange>0) RadarRange--;
 		}
 		if (View==DOWN) {
 			if (Tscale<4) Tscale++;
@@ -1855,7 +1855,6 @@ UnZoomDisplay()
 	} else {
 		if (View==FRONT) {
 			AWG9_INC_RANGE();
-			if (RadarRange<5) RadarRange++;
 		}
 		if (View==DOWN) {
 			if (Tscale>0) --Tscale;

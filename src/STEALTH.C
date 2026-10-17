@@ -333,11 +333,7 @@ Help()
     Stores[CHAFF] = 18;
     Stores[FLARE] = 12;
 
-    if (REALFLIGHT) {
-		Fuel = 19800;  //16200 internal 3600 ext
-    } else {
-        Fuel = 19800;
-    }
+	Fuel = 19800;	//16200 internal 3600 ext
 
 	LLowFuelWarn=0;
 	RLowFuelWarn=0;

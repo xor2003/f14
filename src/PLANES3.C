@@ -2721,7 +2721,7 @@ int FormOnWP(int planenum)
 	wingcnt = orgprewing;
 	while (wingcnt >= 0) {
 		tmpcnt = bv[wingcnt].wingman;
-		if(tmpcnt >= 0) {
+		if(tmpcnt > 0) {
 			if(tmpcnt != planenum)
 				bv[tmpcnt].behaveflag += orgsecplace;
 		}
