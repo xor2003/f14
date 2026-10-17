@@ -5202,9 +5202,12 @@ int AIRadarRearCheck(int wingnum, int showinfo, unsigned Bearrange)
 {
 	int otherrange;
 
-	otherrange = Bearrange ? 150 : 0;
+	if(Bearrange)
+		otherrange = 40;
+	else
+		otherrange = 0;
 
-	return(AICoreRadarCheck(wingnum, showinfo, otherrange, 0, 0x2000));
+	return(AICoreRadarCheck(wingnum, showinfo, otherrange, 0, 0x5000));
 }
 
 int AICoreRadarCheck(int wingnum, int showinfo, int otherrange, int lessangle, int greaterangle)

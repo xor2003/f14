@@ -1065,3 +1065,5 @@
 3fb2:055b n=   7 -> (none)
 48b6:123b n=  85 -> (none)
 3fb2:0467 n= 401 -> _VectorIntercept                      dev@0000:0000 jac=1.00 lcs=1.00
+2a48:77bc n=  18 -> _AIRadarForwardCheck                dev@25e2:8f36 jac=1.00 lcs=1.00
+2a48:77e1 n=  18 -> _AIRadarRearCheck                   dev@25e2:8f6e jac=1.00 lcs=1.00

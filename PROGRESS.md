@@ -382,3 +382,16 @@ Retail algorithm (replaces ours entirely):
   _TIDAttkInfo (needs anchor), retail-only fns 2fb2:6bb5 (group-attack helper, writes
   behavecnt=Gtime, callees GetPlaneOrgNum/GetSquadLeader/GetWayPointChanges/DoGroupAction/
   CheckPlaneBlast/GetWayXYZ/DoNextWayPt) and 2fb2:58d1 (formation separation helper)
+
+## HSD.C (pitchbar family) — 2026-04-15
+- `_pitchnum` @1b89:01c9 — **BYTE-EXACT** (102=102)
+- `_pitchbar` @1b89:0128 — artifact-class (63v66, 10 edits): gold emits `local+arg`
+  (`mov ax,[bp-8]; add ax,[bp+0xa]`); ours `arg+local`. MSC6 canonicalizes
+  `x+ox`/`ox+x` to identical output — spelling cannot flip leaf order.
+  Same for live-ax reuse after scaley. Semantic-identical.
+- `_pitchbar2` @1b89:02d4 — artifact-class (355=355!, 7 edits): gold.map extent
+  was truncated (02d4-04f9 → real 02d4-063f). Whole body byte-identical except
+  one CSE cluster: ours hoists `ox-t` into dx→spill [bp-0x1a] (enter 0x1a),
+  gold recomputes in swapped di (enter 0x18) via si↔di swap after print1.
+  No spelling variant (ox-t+c, flags /Osegl//Oaegcls) changes the CSE choice.
+- gold.map: fixed FUN_1b89_02d4 extent 04f9→063f (was truncated mid-function).
