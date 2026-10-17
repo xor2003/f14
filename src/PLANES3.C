@@ -3265,24 +3265,29 @@ void DoAltHover()
 	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
 	int wayval = 0;
 
-	if(bv[planecnt].varcnt <= Gtime) {
-		bv[planecnt].varcnt = 0;
+	i = planecnt;
+	if(bv[i].varcnt <= Gtime) {
+		bv[i].varcnt = 0;
 		wayval = bv[i].groundt;
 		if(wayval < 0)
 			return;
-		if(aiwaypoints[wayval].x == (long)-2)
+		if(((int)aiwaypoints[wayval].x == -2) && ((int)aiwaypoints[wayval].y == -1))
 			wayval = bv[i].groundt + 2;
 		else
 			wayval = bv[i].groundt + 1;
 
-		bv[planecnt].groundt = wayval;
-		bv[planecnt].Behavior = FlyWayPoint;
+		bv[i].groundt = wayval;
+		bv[i].Behavior = FlyWayPoint;
 		GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 		if(speedval == -1)
 			bv[planecnt].basespeed = 90;
 		else
-			bv[planecnt].basespeed = speedval;
+			bv[planecnt].basespeed = InvAltSpeedConv(ps[planecnt].alt, speedval);
+		if(GetSquadLeader(planecnt) == planecnt)
+			ChangeGroupBehavior(planecnt, 0);
 		DoNextWayPt(planecnt, bv[planecnt].groundt);
+		if(GetSquadLeader(planecnt) == planecnt)
+			ChangeGroupBehavior(planecnt, 0);
 		return;
 	}
 	DoHover();
