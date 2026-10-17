@@ -353,9 +353,15 @@ int ChangeHUDFilter()
 {
     UBYTE   Buf[3];
 
-	Palette[3*HUD_COLOR+0] = Buf[0] = 0x64;
-    Palette[3*HUD_COLOR+1] = Buf[1] = 0x35;
-    Palette[3*HUD_COLOR+2] = Buf[2] = 0;
+	if (HUDFilterMode == 4) return;
+	if (HUDFilterMode == 5) return;
+
+	Palette[3*HUD_COLOR+0] = 0x63;
+	Palette[3*HUD_COLOR+1] = 0x35;
+	Palette[3*HUD_COLOR+2] = 0;
+	DayPal[3*HUD_COLOR+0] = Buf[0] = NitePal[3*HUD_COLOR+0] = DuskPal[3*HUD_COLOR+0] = 0x63;
+    DayPal[3*HUD_COLOR+1] = Buf[1] = NitePal[3*HUD_COLOR+1] = DuskPal[3*HUD_COLOR+1] = 0x35;
+    DayPal[3*HUD_COLOR+2] = Buf[2] = NitePal[3*HUD_COLOR+2] = DuskPal[3*HUD_COLOR+2] = 0;
 
     MCGAColors(HUD_COLOR,1,Buf);
 }
