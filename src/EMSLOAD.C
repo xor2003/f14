@@ -9,11 +9,14 @@
 #define  SDEFBANK 2
 #define  STMPBANK 3
 #define  TILEBANK 11
-#define  NUMBANKS 19
+#define  NUMBANKS 13
 
 extern	char Txt[];
 
 extern	int	GRPAGE0[];
+
+extern	int	far EMSReallocPages(int h, int pages);
+extern	int	EMSFileUsage();
 
 
 
@@ -73,14 +76,21 @@ NewEmsFunction()
 	if (EMMThere()) {
       if (NEMSSEG=EMSPageFrame()) {
          EMSPagesFree=EMSPagesLeft();
-         EMSPagesGrabbed= 100+(NUMBANKS*4);     // over 2 meg !!!
-         if (EMSPagesGrabbed>EMSPagesFree)
-            EMSPagesGrabbed=EMSPagesFree;
+         EMSPagesGrabbed= EMSPagesFree;
          EMSHANDLE=EMSAllocatePages( EMSPagesGrabbed );
          EMSPagesGrabbed-= (4*NUMBANKS);
 
 	  }
 	}
+}
+
+//***************************************************************************
+LoadPlanesEms()
+{
+   int   i;
+
+   i = EMSFileUsage();
+   EMSReallocPages (EMSHANDLE, i+0x35);
 }
 
 //***************************************************************************

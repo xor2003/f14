@@ -85,6 +85,12 @@ def main():
     for i in code_idx:
         st = segs[i][0]
         print(f'{segs[i][2]} CODE {st // 16:04x}')
+    # DGROUP anchor so mzdiff can resolve DS-relative data refs;
+    # NULL/BEGDATA starts DGROUP in the link map.
+    for i, s in enumerate(segs):
+        if s[3].upper() in ('BEGDATA', 'DATA') and s[2] == 'NULL':
+            print(f'DGROUP DATA {s[0] // 16:04x}')
+            break
     for i in code_idx:
         st, sp, sname, _ = segs[i]
         entries = sorted(byseg.get(i, []))

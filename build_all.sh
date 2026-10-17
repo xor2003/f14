@@ -14,11 +14,15 @@ OBJ=$ROOT/build/obj
 LOG=$ROOT/build/log
 ASTAGE=$ROOT/build/asmstage
 MASM510=/home/xor/games/f19ru/F19/dos/masm510
+MASM510BIN=/home/xor/kvikdos/borrow/msdos4/TOOLS
 UASM=/usr/bin/uasm
+
+# asm modules that must stay on UASM (MASM 6-era syntax: `word` data types etc)
+UASM_ONLY="_rp"
 
 mkdir -p "$OBJ" "$LOG" "$ASTAGE"
 
-CFLAGS="/FPa /G2 /AM /Osegcl /nologo /c /Zi /Zd"
+CFLAGS="/FPa /G2 /Gs /AM /Osegcl /nologo /c /Zi /Zd"
 
 # object list from MAKEFILE OBJS — original link order (determines segment layout)
 OBJS="monoprin adicrt npolys n3d emsload pasm emm nqfly 3dexcept 3dloadt 3dloader 3dmatrix 3dobject 3dplanes 3dscene aaa aaahit armt awacs awg9 billasm boats bullets carr carrai cmds cockpit ctrlvect ddd egraph ems flight2 flir fltmath gmain nhorz horzasm hud2 hsd joystx njoycal keyjoy libglue loadmiss map math mcga mcgamask nmenus message options ovl planes planes2 planes3 radars rastport riohead riomap sams savemode sound sprites stealth support tac tews tgtflir tid trig track views vdi world _rp"
@@ -43,17 +47,53 @@ do_c() {
 prep_stage() {
     # include-file aliases as referenced inside the .ASM sources
     cd "$ASTAGE" || return 1
-    for i in CLIP.EQU GRAPH.EXT SIN.TBL ATN.TBL TANTORAD.TBL ARCSIN.TBL; do
+    for i in CLIP.EQU GRAPH.EXT SIN.TBL ATN.TBL TANTORAD.TBL ARCSIN.TBL \
+             GLOBAL.INC COLORS.EQU CLIP.EXT; do
         [ -f "$SRC/$i" ] && ln -sf "$SRC/$i" .
     done
-    # lowercase aliases uasm asks for
-    for i in clip.equ graph.ext sin.tbl atn.tbl tantorad.tbl arcsin.tbl; do
+    # lowercase aliases uasm/MASM asks for
+    for i in clip.equ graph.ext sin.tbl atn.tbl tantorad.tbl arcsin.tbl \
+             global.inc colors.equ clip.ext; do
         src=$(ls "$SRC" | grep -ix "$i" | head -1)
         [ -n "$src" ] && ln -sf "$SRC/$src" "$i"
     done
     # literal '..\h\RpAsm.H' filename (backslashes are valid chars on ext4)
     ln -sf "$HDR/RPASM.H" '..\h\RpAsm.H' 2>/dev/null
     ln -sf "$HDR/RPASM.H" 'RpAsm.H' 2>/dev/null
+    # for MASM-under-kvikdos: '..\h\RpAsm.H' resolves via CWD=asmstage ->
+    # parent\h = build\h ; keep a real copy there.
+    mkdir -p "$ROOT/build/h"
+    cp -f "$HDR/RPASM.H" "$ROOT/build/h/" 2>/dev/null
+}
+
+# assemble with real MASM 5.10 under kvikdos: produces MASM-era encodings
+# (far-call relocs, imm16 forms, nop pads) that UASM optimizes differently.
+# Staging dir is a COPY of the source (never a symlink into src/) plus the
+# include-file aliases MASM resolves relative to CWD.
+MASMSTAGE=$ROOT/build/masmstag
+do_asm_masm() {
+    local f=$1 b=$2
+    local B=$(tr 'a-z' 'A-Z' <<< "$b")
+    mkdir -p "$MASMSTAGE" "$ROOT/build/h"
+    cp -f "$f" "$MASMSTAGE/$B.ASM"
+    cp -f "$HDR/RPASM.H" "$ROOT/build/h/" 2>/dev/null
+    for i in CLIP.EQU GRAPH.EXT SIN.TBL ATN.TBL TANTORAD.TBL ARCSIN.TBL \
+             GLOBAL.INC COLORS.EQU CLIP.EXT; do
+        [ -f "$SRC/$i" ] && ln -sf "$SRC/$i" "$MASMSTAGE/"
+    done
+    for i in clip.equ graph.ext sin.tbl atn.tbl tantorad.tbl arcsin.tbl \
+             global.inc colors.equ clip.ext; do
+        local s
+        s=$(ls "$SRC" | grep -ix "$i" | head -1)
+        [ -n "$s" ] && ln -sf "$SRC/$s" "$MASMSTAGE/$i"
+    done
+    "$KV" --mount=C:"$MASM510BIN/" --mount=D:"$ROOT/build/" \
+        --mount=E:"$OBJ/" \
+        --drive=D --cwd-dos=D:/masmstag \
+        --env='INCLUDE=D:\h\;D:\masmstag\' \
+        'C:\MASM.EXE' "$B.ASM,E:\\$B.OBJ,,;" \
+        > "$LOG/$b.masm510.log" 2>&1
+    [ -f "$OBJ/$B.OBJ" ]
 }
 
 # files mixing EQU const-dot fields ([reg].NAME) with 386 instrs:
@@ -64,6 +104,14 @@ NOZM_SED="math pasm"
 do_asm() {
     local f=$1 b=$2
     local st="$ASTAGE/$(basename "$f")"
+    # stale result guard: never let UASM fallback overwrite a MASM-produced obj
+    if ! grep -qw "$b" <<< "$UASM_ONLY"; then
+        rm -f "$OBJ/$(tr 'a-z' 'A-Z' <<< "$b").OBJ" "$OBJ/$b.OBJ"
+        if do_asm_masm "$f" "$b"; then
+            echo "OK-masm $b"
+            return 0
+        fi
+    fi
     if grep -qw "$b" <<< "$NOZM_SED"; then
         sed -E '/include/I!{
             :a

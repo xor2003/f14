@@ -78,6 +78,15 @@ int  MyMSGTYP=0;
 int msgtime=0;
 int   Mupdate=0;
 int   MsgEMS=0;
+//***************************************************************************
+LoadMsgEMS()
+{
+	if (MsgEMS==0) {
+		MsgEMS=MakeEMSFileBlock("MSG.EMS",(320*16/16));
+	}
+}
+
+//***************************************************************************
 MyMessages()
 {
    int   outside;

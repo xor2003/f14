@@ -2632,3 +2632,19 @@ CheckDataLink()
 
 
 
+
+//***************************************************************************
+int ThreatTblBase=0;
+int ThreatTblCnt=0;
+int ThreatScanIdx=0;
+int ThreatTbl[64];
+
+InitThreatTbl()
+{
+	int i;
+	ThreatTblBase = (int)ThreatTbl;
+	ThreatScanIdx = 0;
+	for (i=0; i<ThreatTblCnt; i++) {
+		ThreatTbl[i]=0;
+	}
+}

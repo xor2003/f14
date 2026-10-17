@@ -82,6 +82,25 @@ EMSAllocatePages	PROC PAGES:WORD
 
 EMSAllocatePages	ENDP
 
+EMSReallocPages	PROC HANDLE:WORD,PAGES:WORD
+	cmp	emminstalled,0
+	je	@@bad
+	mov	ah,51h
+	mov	dx,HANDLE
+	or	dx,dx
+	je	@@bad
+	mov	bx,PAGES
+	int	67h
+	or	ah,ah
+	jne	@@bad
+	mov	ax,-1
+	or	ax,ax
+	ret
+@@bad:
+	sub	ax,ax
+	ret
+EMSReallocPages	ENDP
+
 EMSReleasePages	PROC HANDLE:WORD
 	cmp	emminstalled,0
 	je	@@bad

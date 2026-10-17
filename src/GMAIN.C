@@ -40,6 +40,29 @@ extern int World;
 
 extern  int     StickType;
 
+extern int MissionWeather;
+extern int CLOUDTHICK;
+extern UWORD CLOUDHEIGHT;
+extern int LEV;
+extern int EMSPagesGrabbed;
+extern int EMSPagesFree;
+extern int MsgEMS;
+extern int whichourcarr;
+
+extern int far EMSpages(int *a, int *b);
+
+
+int WeatherType=0;
+int RIOEmsOk=0;
+
+struct _mrec_ {
+	int		z;
+	long	x;
+	long	y;
+	int		pad[15];
+};
+extern struct _mrec_ aipaths[];
+
 
 RPS     *Rp;
 UBYTE   ExitCode=C_NORMAL;
@@ -66,16 +89,12 @@ int     argc;
 char    **argv;
 char    **envp;
 {
-    int z;
-
 	save_video_state();
-    InitOverlay(LoadOverlay("Mgraphic.exe","Fonts.F15"));
+    InitOverlay(LoadOverlay("Mgraphic.exe","Fonts.F14"));
     TurnOnGraphicsMode(0);
 
-	mclear_screen();
-	mprintf("****  DEBUGGING INFORMATION IS ON!!! - NOT FOR QA ****");
+	InitOptions();
 
-    InitOptions();
 	LoadSoundConfig();
     InitSound();
     InitGraphicPages();
@@ -89,13 +108,15 @@ char    **envp;
 	GetJoyConfig();
 	LoadConfig();
     LoadFiles();
-    InitSpeech();
     InitLogFile();
+	ConfigCrts();
 
-    ConfigCrts();
 	InitCarrier();
 	LoadScottMission();
-    InitStealth();
+	LEV=0;
+    InitEmsFiles();
+	InitStealth();
+	InitWeather();
 
 	ScreenOff();
 	ClearPage(0,0);
@@ -108,6 +129,7 @@ char    **envp;
 
 	ARMT_INIT();
     AWG9_INIT();
+	InitThreatTbl();
 
     MainGameLoop();
 
@@ -147,6 +169,33 @@ int InitAbort()
 //***************************************************************************
 int InitWeather()
 {
+	if ((MissionWeather<0) || (MissionWeather>2))
+		MissionWeather=1;
+	if ((MissionWeather!=1) && (MissionWeather!=2)) {
+		WeatherType=rnd(3);
+		switch (WeatherType) {
+			case 0:
+				CLOUDHEIGHT=9150;
+				CLOUDTHICK=500;
+			break;
+			default:
+				CLOUDHEIGHT=9150;
+				CLOUDTHICK=500;
+			break;
+			case 1:
+				CLOUDHEIGHT=6150;
+				CLOUDTHICK=2500;
+			break;
+			case 2:
+				CLOUDHEIGHT=2240;
+				CLOUDTHICK=4240;
+			break;
+		}
+	} else {
+		WeatherType=-1;
+		CLOUDHEIGHT=8150;
+		CLOUDTHICK=600;
+	}
 }
 
 //***************************************************************************
@@ -155,32 +204,32 @@ int DisplayErrorMessages()
 	if (ExitErrorCode != 0) {
 		printf("\nProgram Termination:  ");
 		switch(ExitErrorCode) {
-			case -10:
-				printf("Not Enough Memory to load objects.\n");
-			break;
-			case -12:
-				printf("Not Enough Memory to Load Planes Objects.\n");
-			break;
-			case -14:
-				printf("Not Enough Memory to Load Missile Objects.\n");
-			break;
-			case -16:
-				printf("Not Enough Memory to Load Radar Objects.\n");
-			break;
-			case -40:
-				printf("F14PD01.DAT File Not Found.\n");
-			break;
-			case -42:
-				printf("F14RD01.DAT File Not Found.\n");
-			break;
-			case -44:
-				printf("F14MD01.DAT File Not Found.\n");
+			case -60:
+				printf("3D Object Not Found.\n");
 			break;
 			case -46:
 				printf("MISSION.F14 File Not Found.\n");
 			break;
-			case -60:
-				printf("3D Object Not Found.\n");
+			case -44:
+				printf("F14MD01.DAT File Not Found.\n");
+			break;
+			case -42:
+				printf("F14RD01.DAT File Not Found.\n");
+			break;
+			case -40:
+				printf("F14PD01.DAT File Not Found.\n");
+			break;
+			case -16:
+				printf("Not Enough Memory to Load Radar Objects.\n");
+			break;
+			case -14:
+				printf("Not Enough Memory to Load Missile Objects.\n");
+			break;
+			case -12:
+				printf("Not Enough Memory to Load Planes Objects.\n");
+			break;
+			case -10:
+				printf("Not Enough Memory to load objects.\n");
 			break;
 		}
 	}
@@ -189,45 +238,70 @@ int DisplayErrorMessages()
 //***************************************************************************
 LoadFiles()
 {
-	NewEMSFunction();
+	if (LoadEMSPicFile("sp1ex2.pic",SPRTXPLSEG,0,20)) {
+    	LoadEMSPicFile("sp2ex2.pic",SPRTXPLSEG,1,0);
+    	LoadEMSPicFile("sp3ex2.pic",SPRTXPLSEG,2,0);
+    	LoadEMSPicFile("sp4ex2.pic",SPRTXPLSEG,3,0);
+    	LoadEMSPicFile("sp5ex2.pic",SPRTXPLSEG,4,0);
+	}
+
+	if (LoadEMSPicFile("cpsp1.PIC",MISCSPRTSEG,0,8)) {
+		LoadEMSPicFile("cpsp2.PIC",MISCSPRTSEG,1,0);
+	}
+
+	NewEmsFunction();
 
 	switch(ConfigData.World) {
 		case 0:
-			LoadTheWorld("NC07F.WLD");
+			LoadTheWorld("NCN01.WLD");
 		break;
 		case 1:
-			LoadTheWorld("MEDO6.WLD");
+			LoadTheWorld("MEDN01.WLD");
 		break;
 		case 2:
-			LoadTheWorld("USA08.WLD");
+			LoadTheWorld("USAN01.WLD");
+		break;
+		case 3:
+			LoadTheWorld("KOR04.WLD");
+		break;
+		case 4:
+			LoadTheWorld("INDIA09.WLD");
 		break;
 		default:
-			LoadTheWorld("USA08.WLD");
+			LoadTheWorld("USAN01.WLD");
 		break;
 	}
 
+	LoadMsgEMS();
 	Init3DPlanes();
 	LoadSpecialObjects();
 	LoadClouds();
+}
 
-	// Explosions & Padlock Part
-	if (LoadEMSPicFile("EXPAGE1.pic",SPRTXPLSEG,0,5*4+1)) {
-    	LoadEMSPicFile("EXPAGE2.pic",SPRTXPLSEG,1,0);
-    	LoadEMSPicFile("EXPAGE3.pic",SPRTXPLSEG,2,0);
-    	LoadEMSPicFile("EXPAGE4.pic",SPRTXPLSEG,3,0);
-    	LoadEMSPicFile("EXPAGE5.pic",SPRTXPLSEG,4,0);
-	}
+//***************************************************************************
+InitEmsFiles()
+{
+	unsigned int	free;
+	unsigned int	total;
+	int		left;
 
-	// Misc. Cockpit sprites
-	if (LoadEMSPicFile("F14SPR3.PIC",MISCSPRTSEG,0,8)) {
-		LoadEMSPicFile("F14MISC3.PIC",MISCSPRTSEG,1,0);
-	}
-
-	if (LoadEMSPicFile("RIO-1.PIC",HEAD1SEG,0,8)) {
-		LoadEMSPicFile("RIO-2.PIC",HEAD1SEG,1,0);
-	}
-
+	left = EMSFileUsage();
+	left -= EMSPagesGrabbed;
+	left = -left;
+	if (left<20) LEV=1;
 	LoadGroundObjects();
+	LEV=0;
+	LoadPlanesEms();
+	EMSpages(&free,&total);
+	if (free>8) {
+		if (LoadEMSPicFile("RIO-1.PIC",HEAD1SEG,0,8)) {
+			LoadEMSPicFile("RIO-2.PIC",HEAD1SEG,1,0);
+		}
+		RIOEmsOk=1;
+	} else {
+		RIOEmsOk=0;
+	}
+	InitSpeech();
 }
 
 //***************************************************************************
@@ -235,22 +309,14 @@ int InitDamnPalettes()
 {
     UBYTE   PalPkt[256*3 + 6];
 
-	LoadPalToPal("F14ORG01.PIC",PalPkt);
-	UpdatePalBuf(PalPkt);
-
-	/* Load initial front cockpit */
 	View=FRONT;
+    InitSpecialPal(-1);
     LoadPicToPal(1, CockpitFiles[0][FRONT], PalPkt);
-	UpdatePalBuf(PalPkt);
-
-	InitSpecialPal();
-
 	UpdatePalette();
     ShowPage(1);
 
     BuildCockpitSprites();
 }
-
 
 //***************************************************************************
 int LoadConfig()
@@ -264,21 +330,8 @@ int LoadConfig()
 
 	AWG9_REALITY_LEVEL = ConfigData.Radar;
 	RIO_ASSIST = ConfigData.RioAssist;
-
-	AWG9_REALITY_LEVEL = AWG9_AUTHENTIC;
-	RIO_ASSIST = RIO_ASSIST_AUTHENTIC;
-//	ConfigData.damage=1;
-//	ConfigData.GunCamera=2;
-//	ConfigData.landings=2;
-//	ConfigData.crashmode=2;
-//	DifficultyLevel	= ConfigData.diffLevel;
-//	DifficultyLevel = 0;
 	if (_training) Status ^= TRAINING;
-//	ConfigData.world=1;
-//	ConfigData.carrier=2;
-//	ConfigData.Squadron=5;
 }
-
 
 //***************************************************************************
 int LoadSoundConfig()
@@ -327,6 +380,14 @@ MainGameLoop()
         }
     } while (!BEND);
 
+	if (whichourcarr != -999) {
+		LogIt(45,whichourcarr,
+			aipaths[whichourcarr].x,
+			aipaths[whichourcarr].y,
+			aipaths[whichourcarr].z,
+			-999,-999,0L,1);
+	}
+
 	Release3DMemory();
 
     MouseHIDE();
@@ -348,3 +409,12 @@ InitGraphicPages()
     Rp = Rp2;
 }
 
+//***************************************************************************
+int NoOp1()
+{
+}
+
+//***************************************************************************
+int NoOp2()
+{
+}
