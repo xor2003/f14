@@ -139,9 +139,9 @@ SF_COUNT} ;
 
 typedef struct _path_ {
 
-        char far        *name ;
         unsigned        wp0 ;
         unsigned        numWPs ;
+        char far        *name ;
 
         } _Path ;
 

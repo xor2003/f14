@@ -476,3 +476,37 @@ REMAINING DIFFS ARE PLACEMENT/ARTIFACT CLASS: zfix-loop arm hoisting
 (gold emits the two small arms between `jmp test` and inc, ours inline),
 cmp operand-order polarity (jnl/jng), BSS absolute offsets (MustX at
 0x651e vs ours 0x95d8 etc.), `mov si,bx` regalloc, jump-table data bytes.
+
+RIOMAP.C + CMDS.C (Gold RIO map screen) — retail port COMPLETE
+==============================================================
+- Rebuilt module mirrors CODE_53 layout: BigRioDot(triangle 3-line),
+  RioWpMark(plane validate + route draw), DrawRioWayPoints(aipaths
+  sentinel loop), RioCircle(parametric ring + label), DrawRioTrack
+  (UpdateOurWPS(-999,1) + wps[] trail + range rings 29/58 "100"/"200"),
+  GetToken, TextInTheBox (do..while(T[l]!='\n'), no SetAPen), 
+  DrawRioMapInfo 5-mode renderer (1=carrier 2=player+rings+trail
+  3=wingman 4=friendly wps 5=non-F14 bclass sprite switch),
+  RioLegend (MOVE/WINGMAN column fixup), RioMap (mission goal fread
+  0x102 hdr, goalLen clamp >0xfe + S[254]=0 dead store, status strings
+  Escort/Intercept/Survive-fail/MinTime, 6-case world map dispatch,
+  RPS9 init {1,0,0,0x13f,0xc7,2,2,0,2}, key dec-chain
+  ESC/W/R/O/P/F/C/B/M/SLASH, TRAINING(0x1000)-gated MKEY reposition)
+- CheckOurAlt added to CMDS.C (gold 1081:1230-1273): register int q
+  ->si + volatile int GroundH ->[bp-2] reproduces enter-2 + lea ax,
+  [si+0x1f4] spill pattern exactly
+- MSC6 local ordering: aggregates sorted by SIZE not decl order;
+  register/volatile mix controls memory-vs-reg residence
+- WayPoint {x,y,xL,yL} 12B stride matches retail wps[] base 0x4fde
+- _path_ reordered {wp0@0,numWPs@2,name@4} (name field unused)
+
+FOCUSED RESULT: 9/12 byte-match; 3 residual = pure codegen artifacts
+- _RioWpMark: tp far-ptr home split di+[bp-2] + pcid [bp-1e] dead
+  stores (volatile pcid reproduces frame; regalloc order differs)
+- _DrawRioMapInfo: case-4 loop bound cmp operand-order (i-N vs N-i)
+- _DrawRioTrack: same operand-order class at trail loop
+
+Gold BSS: wps[] 0x4fde, NextWayPoint 0x500e, numplanes 0xc56e,
+AIWingMan 0x3a0c, whichourcarr 0xc558, RioWingOK 0x4740,
+Rp1 0x43ea, Rp2 0x43fe, Rp3 0x4412, MouseSprite 0xc562, Button 0x5a7e
+DoMustLive->escort strs 0xc560, DoMustDie->intercept 0x6670,
+DoMustEsc->survive-fail 0xc566, MinTimeSet->aloft 0x64c6

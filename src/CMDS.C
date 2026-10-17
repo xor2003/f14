@@ -1086,6 +1086,22 @@ Cmds()
 
 
 //***************************************************************************
+CheckOurAlt()
+{
+	register int	q;
+	volatile int	GroundH;
+
+	q = GetQHeight(PxLng,(0x100000-PyLng));
+	GroundH = q + 500;
+	if (q + 500 > OurAlt) {
+		OurAlt = q + 500;
+		Alt = OurAlt >> 2;
+		InitScottFlight();
+	}
+}
+
+
+//***************************************************************************
 LocalCmds()
 {
     int i;

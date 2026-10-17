@@ -106,54 +106,124 @@ int NextRioTime=0;
 int   iconmode=0;
 BigRioDot(RPS *Rp,int x, int y, int color)
 {
-   RectFill(Rp, x-1, y-1, 3, 3, color);
-}
-WpsStar(RPS *Rp,int x, int y, int color)
-{
-   DrawLine(Rp, x-1,y,x+1,y,color);
-   DrawLine(Rp, x,y-1,x,y+1,color);
+   DrawLine(Rp,x,y-2,x+3,y+2,color);
+   DrawLine(Rp,x+3,y+2,x-3,y+2,color);
+   DrawLine(Rp,x-3,y+2,x,y-2,color);
 }
 
-extern    struct _path_ aipaths[];
+extern struct _wayPoint_ aiwaypoints[];
+extern struct _path_ aipaths[];
+extern int DoMustLive,DoMustDie,DoMustEsc;
+extern int MinTimeSet;
+extern int CheckOurAlt();
+int RioWingOK;
+
+RioWpMark(RPS *Rp,int num,int type)
+{
+   long	xL,yL;
+   UWORD	z;
+   int	x,y,px,py;
+   int	ox,oy;
+   int	i,end;
+   int	start;
+   register struct PlaneData far *tp;
+   volatile int	pcid;
+
+   if (num>=LASTPLANE || num<0) return;
+   if (ps[num].status&(LANDED|LANDING|BACKTOBASE)) return;
+   if (!(ps[num].status&ALIVE)) return;
+   if (!(ps[num].status&ACTIVE)) return;
+   if (!(ps[num].status&FRIENDLY)) return;
+   tp=GetPlanePtr(ps[num].type);
+   pcid=tp->PlaneEnumId;
+   if (tp->PlaneEnumId>=SO_F_14FDA && tp->PlaneEnumId<=SO_AS_4) {
+      if (type==0) return;
+   } else {
+      if (type!=0) return;
+   }
+   ox=ps[num].xL>>12;
+   oy=MulDiv((int)(ps[num].yL>>12),192,256);
+   BigRioDot(Rp,ox,oy,7);
+   start=bv[num].groundt;
+   end=aipaths[bv[num].path].wp0+aipaths[bv[num].path].numWPs;
+   for (i=start;i<end;i++) {
+      GetWayXYZ(i,&xL,&yL,&z);
+      x=(int)(xL>>12);
+      y=MulDiv((int)(yL>>12),192,256);
+      if (i==start)
+         DrawLine(Rp,ox,oy,x,y,7);
+      else
+         DrawLine(Rp,px,py,x,y,7);
+      BigRioDot(Rp,x,y,7);
+      px=x;
+      py=y;
+      if (aiwaypoints[i].x==-2L) i++;
+   }
+}
+
 DrawRioWayPoints(RPS *Rp,int type)
 {
-   int   cnt,i;
-   int   Wpx,Wpy;
+   int   i,wp;
 
-   cnt= aipaths[OurPath].numWPs;
-
-   if (type==-1)
+   for (i=0;i<aipaths[OurPath].numWPs;i++)
       {
-      for (i=1;i<cnt;i++)
-         {
-         Wpx=((wps[i].xL) >> 12);
-         Wpy=((wps[i].yL) >> 12);
-         Wpy=MulDiv(Wpy,192,256);
-         TXTN(i);
-         SetAPen(Rp,WPTCOLOR);
-         RpPrint (Rp, Wpx-2,Wpy-2,Txt);
-         RectCopy(Rp,Wpx-2,Wpy-2,10,10,Rp1,Wpx-2,Wpy-2);
-         WaitTicks(30);
-         }
-      return;
+      wp=aipaths[OurPath].wp0+i;
+      if (aiwaypoints[wp].x<0)
+         RioWpMark(Rp,GetPlaneOrgNum((int)aiwaypoints[wp].y),type);
+      if (aiwaypoints[wp].x==-2L)
+         i++;
       }
+}
 
+RioCircle(RPS *Rp,int x,int y,int color,int radius,char *str)
+{
+   int	r34;
+   int	i,ang;
+   int	nx,ny;
+   int	px,py;
 
-   for (i=1;i<cnt;i++)
+   r34=radius*3/4;
+   i=0;
+   ang=0;
+   for (i=0;i<0x80;i++,ang+=0x200)
       {
-      Wpx=((wps[i].xL) >> 12);
-      Wpy=((wps[i].yL) >> 12);
-      Wpy=MulDiv(Wpy,192,256);
-      if (type)
+      nx=ASinB(radius,ang)+x;
+      ny=y-ACosB(r34,ang);
+      if (i==0)
          {
-         TXTN(i);
-         SetAPen(Rp,WPTCOLOR);
-         RpPrint (Rp, Wpx-2,Wpy-2,Txt);
+         px=nx;
+         py=ny;
          }
-      else
-         {
-         WpsStar(Rp,Wpx,Wpy,WPTCOLOR);
-         }
+      DrawLine(Rp,px,py,nx,ny,color);
+      px=nx;
+      py=ny;
+      }
+   RpPrint(Rp,x-pstrlen(Rp,str)/2,y-r34,str);
+}
+
+DrawRioTrack(RPS *Rp)
+{
+   int	cnt,i;
+   int	x,y;
+   int	px,py;
+   int	ox,oy;
+
+   cnt=UpdateOurWPS(-999,1);
+   ox=(int)(PxLng>>12);
+   oy=MulDiv((int)((0x100000L-PyLng)>>12),192,256);
+   RioCircle(Rp,ox,oy,7,29,"100");
+   RioCircle(Rp,ox,oy,7,58,"200");
+   for (i=0;i<=cnt;i++)
+      {
+      x=(int)(wps[i].xL>>12);
+      y=MulDiv((int)(wps[i].yL>>12),192,256);
+      if (i!=0)
+         DrawLine(Rp,px,py,x,y,7);
+      if (i==NextWayPoint)
+         DrawLine(Rp,ox,oy,x,y,7);
+      BigRioDot(Rp,x,y,7);
+      px=x;
+      py=y;
       }
 }
 
@@ -206,14 +276,15 @@ TextInTheBox(RPS *Rp,char *S, int xl, int yl, int xh, int yh, int color)
       l=0;
       while (isspace(*(S+j)))
          j++;
-      while (tl=GetToken(S+j,&T[l]))
+      do
          {
+         tl=GetToken(S+j,&T[l]);
+         if (tl==0) break;
          if ( (Xp+pstrlen(Rp,T))>xh  ) break;
          j+=tl;
          l+=tl;
-         }
+         } while (T[l]!='\n');
       T[l]=0;
-      SetAPen(Rp,TXTCOLOR);
       RpPrint(Rp,Xp,Yp,T);
       Yp+=fontht;
       i=j;
@@ -226,282 +297,222 @@ TextInTheBox(RPS *Rp,char *S, int xl, int yl, int xh, int yh, int color)
 
 DrawRioMapInfo(RPS *Rp,int force)
 {
-   int   Myx,Myy;
-   int   Wngx,Wngy;
-   int   Carx,Cary;
-   int   time,i;
-   long  TY;
-   int   WngHead;
-   int   CarHead;
+   RPS	sav;
+   int	x,y,i;
+   struct PlaneData far *tp;
 
-   if (force==-1)
+   RectCopy (Rp3,0,0,256,200,Rp2,0,0);
+   sav=*Rp2;
+   Rp2->XBgn=0;
+   Rp2->YBgn=0;
+   Rp2->Width1=0xff;
+   Rp2->Length1=0xbb;
+   switch (force)
       {
-      MouseHIDE();
-
-      Myx=(PxLng >> 12);
-      TY=(0x100000L-PyLng);
-      TY>>=12;
-      Myy=TY;
-      Myy=MulDiv(Myy,192,256);
-
-      // get wingman x,y, carrier x,y
-	  if (AIWingMan != -999) {
-      	if (ps[AIWingMan].status & ALIVE)
-         	{
-         	Wngx=(ps[AIWingMan].xL >> 12);
-         	Wngy=(ps[AIWingMan].yL >> 12);
-         	Wngy=MulDiv(Wngy,192,256);
-         	WngHead=-ps[AIWingMan].head;
-         	}
-	  }
-
-      Carx=(ps[whichourcarr].xL >> 12);
-      Cary=(ps[whichourcarr].yL >> 12);
-      Cary=MulDiv(Cary,192,256);
-
-      RectCopy (Rp3, 0,0,256,200,Rp2,0,0);
-
-      SetAPen(Rp,MSGCOLOR);
-      RpPrint (Rp, 20,192,"CARRIER");
-      RectCopy (Rp2, 0,0,320,200,Rp1,0,0);
-      BigRioDot(Rp2,Carx, Cary, CARCOLOR);
-      for (i=0;i<3;i++)
-         {
-         ScaleRotate(GRPAGE0[2],CARXMID,CARYMID,CARWID,CARHT,Rp1,Carx,Cary,0x100,0,0,0);
-         WaitTicks(20);
-         RectCopy(Rp2,Carx-10,Cary-10,20,20,Rp1,Carx-10,Cary-10);
-         WaitTicks(20);
-         }
-      ScaleRotate(GRPAGE0[2],CARXMID,CARYMID,CARWID,CARHT,Rp2,Carx,Cary,0x100,0,0,0);
-
-	  if (AIWingMan != -999) {
-      	if (ps[AIWingMan].status & ALIVE)
-         	{
-         	RectCopy (Rp3, 0,192,320,8,Rp2,0,192);
-         	BigRioDot(Rp2,Wngx, Wngy, WPLNCOLOR);
-         	SetAPen(Rp,MSGCOLOR);
-         	RpPrint (Rp, 20,192,"WINGMAN");
-         	RectCopy (Rp2, 0,0,320,200,Rp1,0,0);
-         	for (i=0;i<3;i++)
-            	{
-            	ScaleRotate(GRPAGE0[2],WPLNXMID,WPLNYMID,WPLNWID,WPLNHT,Rp1,Wngx,Wngy,0x100,WngHead,0,0);
-            	WaitTicks(20);
-            	RectCopy(Rp2,Wngx-10,Wngy-10,20,20,Rp1,Wngx-10,Wngy-10);
-            	WaitTicks(20);
-            	}
-         	ScaleRotate(GRPAGE0[2],WPLNXMID,WPLNYMID,WPLNWID,WPLNHT,Rp2,Wngx,Wngy,0x100,WngHead,0,0);
-         	}
-	  }
-
-      RectCopy (Rp3, 0,192,320,8,Rp2,0,192);
-      BigRioDot(Rp2,Myx, Myy, RPLNCOLOR);
-      SetAPen(Rp,MSGCOLOR);
-      RpPrint (Rp, 20,192,"PLAYER");
-      RectCopy (Rp2, 0,0,320,200,Rp1,0,0);
-
-      for (i=0;i<3;i++)
-         {
-         ScaleRotate(GRPAGE0[2],RPLNXMID,RPLNYMID,RPLNWID,RPLNHT,Rp1,Myx,Myy,0x100,-OurHead,0,0);
-         WaitTicks(20);
-         RectCopy(Rp2,Myx-10,Myy-10,20,20,Rp1,Myx-10,Myy-10);
-         WaitTicks(20);
-         }
-      ScaleRotate(GRPAGE0[2],RPLNXMID,RPLNYMID,RPLNWID,RPLNHT,Rp2,Myx,Myy,0x100,-OurHead,0,0);
-
-      RectCopy (Rp3, 0,192,320,8,Rp2,0,192);
-      SetAPen(Rp,MSGCOLOR);
-      RpPrint (Rp, 20,192,"WAYPOINTS");
-      RectCopy (Rp2, 0,0,320,200,Rp1,0,0);
-      DrawRioWayPoints(Rp,-1);
-      WaitTicks(20);
-      RectCopy (Rp3, 0,192,320,8,Rp2,0,192);
-      RectCopy (Rp2, 0,0,320,200,Rp1,0,0);
-
-      MouseSHOW();
-
-      return;
-
+      case 1:
+         x=(int)(ps[whichourcarr].xL>>12);
+         y=MulDiv((int)(ps[whichourcarr].yL>>12),192,256);
+         ScaleRotate(GRPAGE0[2],0x10f,0xe,6,9,Rp2,x,y,0x100,0,0,0);
+         break;
+      case 2:
+         x=(int)(PxLng>>12);
+         y=MulDiv((int)((0x100000L-PyLng)>>12),192,256);
+         ScaleRotate(GRPAGE0[2],0x110,4,9,9,Rp2,x,y,0x100,0,0,0);
+         DrawRioTrack(Rp2);
+         break;
+      case 3:
+         if (RioWingOK)
+            {
+            x=(int)(ps[AIWingMan].xL>>12);
+            y=MulDiv((int)(ps[AIWingMan].yL>>12),192,256);
+            ScaleRotate(GRPAGE0[2],0x11a,4,9,9,Rp2,x,y,0x100,0,0,0);
+            }
+         break;
+      case 4:
+         for (i=0;i<LASTPLANE;i++)
+            {
+            if ((ps[i].status&ALIVE)&&(ps[i].status&FRIENDLY))
+               {
+               tp=GetPlanePtr(ps[i].type);
+               if (tp->PlaneEnumId>=SO_F_14FDA && tp->PlaneEnumId<=SO_AS_4)
+                  {
+                  x=(int)(ps[i].xL>>12);
+                  y=MulDiv((int)(ps[i].yL>>12),192,256);
+                  ScaleRotate(GRPAGE0[2],0x110,4,9,9,Rp2,x,y,0x100,0,0,0);
+                  }
+               }
+            }
+         DrawRioWayPoints(Rp,1);
+         break;
+      case 5:
+         for (i=0;i<LASTPLANE;i++)
+            {
+            if (!((ps[i].status&ALIVE)&&(ps[i].status&FRIENDLY)))
+               continue;
+            tp=GetPlanePtr(ps[i].type);
+            if (tp->PlaneEnumId<SO_F_14FDA || tp->PlaneEnumId>SO_AS_4)
+               {
+               x=(int)(ps[i].xL>>12);
+               y=MulDiv((int)(ps[i].yL>>12),192,256);
+               switch (tp->bclass)
+                  {
+               case FIGHTER_OBJCLASS:
+                  ScaleRotate(GRPAGE0[2],0x124,4,9,9,Rp2,x,y,0x100,0,0,0);
+                  break;
+               case BOMBER_OBJCLASS:
+               case HELICOPTER_OBJCLASS:
+                  ScaleRotate(GRPAGE0[2],0x138,4,9,9,Rp2,x,y,0x100,0,0,0);
+                  break;
+               case CARRIER_OBJCLASS:
+                  ScaleRotate(GRPAGE0[2],0x11a,0xe,3,9,Rp2,x,y,0x100,0,0,0);
+                  break;
+               case CMISSILE_OBJCLASS:
+                  ScaleRotate(GRPAGE0[2],0x12e,4,9,9,Rp2,x,y,0x100,0,0,0);
+                  break;
+                  }
+               }
+            }
+         DrawRioWayPoints(Rp,0);
+         break;
       }
+   *Rp2=sav;
+   MouseHIDE();
+   RectCopy (Rp2,0,0,320,200,Rp1,0,0);
+   MouseSHOW();
+}
+//**********************************************************************
 
-
-   if ( force|| (NextRioTime>60)  )
-      {
-      NextRioTime=0;
-      iconmode^=1;
-
-      RectCopy (Rp3, 0,0,256,200,Rp2,0,0);
-
-      Myx=(PxLng >> 12);
-      TY=(0x100000L-PyLng);
-      TY>>=12;
-      Myy=TY;
-      Myy=MulDiv(Myy,192,256);
-
-// get wingman x,y, carrier x,y
-	  if (AIWingMan != -999) {
-      	if (ps[AIWingMan].status & ALIVE)
-         	{
-         	Wngx=(ps[AIWingMan].xL >> 12);
-         	Wngy=(ps[AIWingMan].yL >> 12);
-         	Wngy=MulDiv(Wngy,192,256);
-         	}
-	  }
-
-      Carx=(ps[whichourcarr].xL >> 12);
-      Cary=(ps[whichourcarr].yL >> 12);
-      Cary=MulDiv(Cary,192,256);
-
-
-
-// and waypoint info
-
-      if (iconmode)
-         {
-         ScaleRotate(GRPAGE0[2],CARXMID,CARYMID,CARWID,CARHT,Rp2,Carx,Cary,0x100,0,0,0);
-
-		if (AIWingMan != -999) {
-	         if (ps[AIWingMan].status & ALIVE)
-    	        ScaleRotate(GRPAGE0[2],WPLNXMID,WPLNYMID,WPLNWID,WPLNHT,Rp2,Wngx,Wngy,0x100,WngHead,0,0);
-		}
-         ScaleRotate(GRPAGE0[2],RPLNXMID,RPLNYMID,RPLNWID,RPLNHT,Rp2,Myx,Myy,0x100,-OurHead,0,0);
-         }
-      else
-         {
-         BigRioDot(Rp2,Carx, Cary, CARCOLOR);
-
-		if (AIWingMan != -999) {
-         if (ps[AIWingMan].status & ALIVE)
-            BigRioDot(Rp2,Wngx, Wngy, WPLNCOLOR);
-		}
-         BigRioDot(Rp2,Myx, Myy, RPLNCOLOR);
-         }
-      DrawRioWayPoints(Rp,iconmode);
-
-      MouseHIDE();
-      RectCopy (Rp2, 0,0,320,200,Rp1,0,0);
-      MouseSHOW();
-
-      }
-
-   if (force==0)
-      {
-      WaitTicks(1);
-      NextRioTime++;
-      }
-
-
-
-
+RioLegend()
+{
+   if (!(Status & TRAINING))
+      RectCopy (Rp3,268,72,51,13,Rp2,268,72);
+   if (!RioWingOK)
+      RectCopy (Rp3,268,117,51,13,Rp2,268,117);
+   RectCopy (Rp2,256,50,63,149,Rp3,256,50);
 }
 //**********************************************************************
 
 RioMap()
 {
-    int size,i,j,val,a,b;
-	int key=0;
-    struct Sams   *ssi;
-    struct Radars *rri;
-    struct Planes *psi;
-	struct MissileData far *tempmissile;
-	struct PlaneData far *tempplane;
-	long MapX;
-	long MapY;
-	RPS Rpdef  =  {1, 0,0, 319,199, JAM3, GREEN, BLACK, 2};
-	RPS *Rtemp  = &Rpdef;
-	char far *DST;
-	char far *SRC;
-	int done=0;
-	int MyMouseHits=0;
-	int xpos;
-	int ypos;
-	int mseg;
-	int GroundH;
-   char S[255];
+   int	i,j;
+   int	key;
+   int	done;
+   int	MyMouseHits;
+   int	val,ofont;
+   RPS Rpdef  =  {1, 0,0, 319,199, JAM3, GREEN, BLACK, 2};
+   RPS *Rtemp  = &Rpdef;
    FILE    *File;
-	struct _missionHeader_ start_data;
+   struct _missionHeader_ start_data;
+   char S[255];
 
+   RioWingOK=0;
+   if (AIWingMan != -999)
+      if (ps[AIWingMan].status & ALIVE)
+         RioWingOK=1;
 
-   UpdateOurWPS(-999, 1);
-
-
-
-
+   S[0]=0;
+   strcpy (S,"No briefing information available.");
    if ((File = fopen ("mission.f14", "rb")) != NULL)
       {
       fread (&start_data, sizeof (struct _missionHeader_), 1, File);
-
-      fseek  (File, start_data.goalLoc, SEEK_SET) ;
-      fread (S, sizeof(char),start_data.goalLen, File);
-      fclose(File);
-      for (i=0;i<start_data.goalLen;i++)
-         S[i]=toupper(S[i]);
-      S[start_data.goalLen]=0;
-      S[254]=0;
+      if (start_data.goalLoc && start_data.goalLen)
+         {
+         fseek  (File, start_data.goalLoc, SEEK_SET) ;
+         j=start_data.goalLen;
+         if (j>0xfe) j=0xfe;
+         fread (S, sizeof(char), j, File);
+         fclose(File);
+         for (i=0;i<j;i++)
+            S[i]=toupper(S[i]);
+         S[j]=0;
+         S[254]=0;
+         }
+      else
+         fclose(File);
       }
-   else
-      {
-      S[0]=0;
-      }
+   if (DoMustLive==1)
+      strcat (S," Escort Mission in progress. ");
+   else if (DoMustLive==2)
+      strcat (S," Escort Goal achieved! ");
+   if (DoMustDie==1)
+      strcat (S," Intercept Mission in progress. ");
+   else if (DoMustDie==2)
+      strcat (S," Intercept Goal achieved! ");
+   if (DoMustEsc==2)
+      strcat (S," Survive Goal failed! ");
+   if (MinTimeSet==1)
+      strcat (S," Minimum time aloft not achieved. ");
+   else if (MinTimeSet==2)
+      strcat (S," Minimum time aloft achieved! ");
 
-	MouseSETUP(MouseSprite,0,0);
-	ScreenOff();
-   	SndSounds(N_Pause);
-
-//	RioTop(Rtemp, PxLng,(0x100000-PyLng), 0x100);
+   MouseSETUP(MouseSprite,0,0);
+   ScreenOff();
+   SndSounds(N_Pause);
 
    LoadPicture(2,"map-sprt.PIC");
 
-	switch(ConfigData.World) {
-		case 0:
-			LoadPicture(1,"map-cape.PIC");
-		break;
-		case 1:
-			LoadPicture(1,"map-med.PIC");
-		break;
-		case 2:
-			LoadPicture(1,"map-us.PIC");
-		break;
-		default:
-			LoadPicture(1,"map-us.PIC");
-		break;
-	}
+   switch(ConfigData.World) {
+      case 0:
+         LoadPicture(1,"map-cape.PIC");
+      break;
+      case 1:
+         LoadPicture(1,"map-med.PIC");
+      break;
+      case 2:
+         LoadPicture(1,"map-us.PIC");
+      break;
+      case 3:
+         LoadPicture(1,"map-kor.PIC");
+      break;
+      case 4:
+         LoadPicture(1,"map-ind.PIC");
+      break;
+      default:
+         LoadPicture(1,"map-us.PIC");
+      break;
+   }
+   RioLegend();
    RectCopy (Rp2, 0,0,256,200,Rp3,0,0);
 
-   if (Status & TRAINING)
-      {
-      RectCopy (Rp3,TELEXL,TELEYL,TELEXH-TELEXL+1,TELEYH-TELEYL+1,
-                  Rp2,TELEXL,TELEYL);
-      }
+   val=1;
    DrawRioMapInfo(Rtemp,1);
 
-	ScreenOn();
-	MouseSHOW();
+   ScreenOn();
+   MouseSHOW();
 
-	while (kbhit()) _bios_keybrd (_KEYBRD_READ); /* Flush kbd buffer */
+   while (kbhit()) _bios_keybrd (_KEYBRD_READ); /* Flush kbd buffer */
 
    done=0;
-	while (!done)
+   while (!done)
       {
-		key=0;
-		MyMouseHits=0;
-		MyMouseHits = MouseHITS();
+      key=0;
+      MyMouseHits = MouseHITS();
 
-		if (kbhit())
-			key = _bios_keybrd (_KEYBRD_READ);
+      if (kbhit())
+         key = _bios_keybrd (_KEYBRD_READ);
 
       if (key==0)
          {
          if (MyMouseHits & 1)
             {
-            if (InBox(MouseX,MouseY,RESUMEXL,RESUMEYL,RESUMEXH,RESUMEYH))
+            if (InBox(MouseX,MouseY,268,177,318,194))
                key=ESCKEY;
-
-            if (InBox(MouseX,MouseY,OBJXL,OBJYL,OBJXH,OBJYH))
+            if (InBox(MouseX,MouseY,268,57,318,69))
                key=BKEY;
-
-            if (InBox(MouseX,MouseY,TELEXL,TELEYL,TELEXH,TELEYH))
+            if (InBox(MouseX,MouseY,268,72,318,84))
+               key=MKEY;
+            if (InBox(MouseX,MouseY,268,87,318,99))
+               key=CKEY;
+            if (InBox(MouseX,MouseY,268,102,318,114))
                key=PKEY;
-
+            if (InBox(MouseX,MouseY,268,117,318,129))
+               key=WKEY;
+            if (InBox(MouseX,MouseY,268,132,318,144))
+               key=FKEY;
+            if (InBox(MouseX,MouseY,268,147,318,159))
+               key=OKEY;
+            while (Button & 1);
+            MouseHITS();
             }
          }
 
@@ -509,99 +520,111 @@ RioMap()
          {
          switch (key)
             {
-//            case FKEY:
-//               RioFont++;
-//               Rtemp->FontNr=RioFont;
-//               DrawRioMapInfo(Rtemp,1);
-//               break;
             case ESCKEY:
-            case SLASH:
             case RKEY:
+            case SLASH:
                done++;
+               break;
+            case WKEY:
+               if (RioWingOK)
+                  {
+                  val=3;
+                  DrawRioMapInfo(Rtemp,3);
+                  }
+               break;
+            case OKEY:
+               val=5;
+               DrawRioMapInfo(Rtemp,5);
+               break;
+            case PKEY:
+               val=2;
+               DrawRioMapInfo(Rtemp,2);
+               break;
+            case FKEY:
+               val=4;
+               DrawRioMapInfo(Rtemp,4);
+               break;
+            case CKEY:
+               val=1;
+               DrawRioMapInfo(Rtemp,1);
                break;
             case BKEY:
                DrawRioMapInfo(Rtemp,-1);
-               RectFill(Rp2, TXTXL, TXTYL,TXTWID,TXTHT,0);
-               RectFill(Rp2, TXTXL+1, TXTYL+1,TXTWID-2,TXTHT-2,TXTCOLOR);
-               RectFill(Rp2, TXTXL+2, TXTYL+2,TXTWID-4,TXTHT-4,0);
-               TextInTheBox(Rtemp,S,TXTXL, TXTYL, TXTXH,TXTYH, 255);
-               SetAPen(Rtemp,MSGCOLOR);
-               CenterPrint (Rtemp, (TXTXL+TXTXH)/2,TXTYH-10,"PRESS ANY KEY TO CONTINUE");
+               RectFill(Rp2, 0x28,0x40,0xb5,0x65,0);
+               RectFill(Rp2, 0x29,0x41,0xb3,0x63,4);
+               RectFill(Rp2, 0x2a,0x42,0xb1,0x61,0);
+               TextInTheBox(Rtemp,S,0x28,0x40,0xdc,0xa4,0xff);
+               Rtemp->APen=MSGCOLOR;
+               CenterPrint (Rtemp, 0x82,0x9a,"PRESS ANY KEY TO CONTINUE");
                MouseHIDE();
-               RectCopy (Rp2, TXTXL, TXTYL,TXTWID,TXTHT, Rp1,TXTXL, TXTYL);
+               RectCopy (Rp2, 0x28,0x40,0xb5,0x65, Rp1,0x28,0x40);
+               MouseHITS();
                while (1)
                   {
-		            MyMouseHits=0;
-		            MyMouseHits = MouseHITS();
-		            if (kbhit()) break;
+                  MyMouseHits = MouseHITS();
+                  if (kbhit()) break;
                   if (MyMouseHits&3) break;
                   }
-            	while (kbhit()) _bios_keybrd (_KEYBRD_READ); /* Flush kbd buffer */
-               MouseHITS();   // flush mouse
-	            MyMouseHits=0;
-               DrawRioMapInfo(Rtemp,1);
+               while (kbhit()) _bios_keybrd (_KEYBRD_READ); /* Flush kbd buffer */
+               MouseHITS();
+               DrawRioMapInfo(Rtemp,val);
                MouseSHOW();
                break;
-            case PKEY:
-               // if in training only
+            case MKEY:
                if (Status & TRAINING)
                   {
                   MouseHIDE();
-                  SetAPen(Rtemp,MSGCOLOR);
-                  CenterPrint (Rtemp, 160,192,"USE LEFT MOUSE BUTTON TO RE-POSITION YOUR PLANE");
-                  RectCopy (Rtemp, 0,192,320,8,Rp1,0,192);
+                  val=2;
+                  DrawRioMapInfo(Rtemp,2);
+                  ofont=Rp1->FontNr;
+                  Rp1->FontNr=Rtemp->FontNr;
+                  TextInTheBox(Rp1,"USE LEFT MOUSE BUTTON TO RE-POSITION YOUR PLANE",0x15,2,0xff,0x1e,0);
+                  TextInTheBox(Rp1,"USE LEFT MOUSE BUTTON TO RE-POSITION YOUR PLANE",0x14,1,0xff,0x1e,4);
+                  Rp1->FontNr=ofont;
                   MouseSHOW();
                   while (1)
                      {
-		               key=0;
-		               MyMouseHits=0;
-		               MyMouseHits = MouseHITS();
-		               if (kbhit())
-			               key = _bios_keybrd (_KEYBRD_READ);
+                     key=0;
+                     MyMouseHits = MouseHITS();
+                     if (kbhit())
+                        key = _bios_keybrd (_KEYBRD_READ);
                      if (key==ESCKEY) break;
                      if (MyMouseHits&1)
                         {
-                        if ((MouseX<256)&&(MouseY<192))
+                        if ((MouseX<0x100)&&(MouseY<0xc0))
                            {
-			                  PxLng = MouseX;
-			                  PxLng = (PxLng << 12);
-			                  PyLng = MulDiv(256,MouseY,192);
-			                  PyLng = (PyLng << 12);
-			                  PyLng = (0x100000 - (PyLng));
-
-			                  GroundH = GetQHeight(PxLng,(0x100000-PyLng));
-
-			                  if ((GroundH+500) > OurAlt)
-                              {
-				                  OurAlt = GroundH + 500;
-				                  Alt = OurAlt >> 2;
-				                  InitScottFlight();
-   			                  }
+                           PxLng = MouseX;
+                           PxLng = (PxLng << 12);
+                           PyLng = MulDiv(256,MouseY,192);
+                           PyLng = (PyLng << 12);
+                           PyLng = (0x100000 - (PyLng));
+                           CheckOurAlt();
                            }
                         break;
                         }
                      }
-                  DrawRioMapInfo(Rtemp,1);
+                  DrawRioMapInfo(Rtemp,2);
                   }
                break;
             }
          }
-      DrawRioMapInfo(Rtemp,0);
       }
 
-	MouseHIDE();
-	ScreenOff();
-	lastmsgview=-1;
+   MouseHIDE();
+   ScreenOff();
+   lastmsgview=-1;
 
-	if (View<FRONTAL) {
-    	LoadNewCockpit();
-	} else {
-       	ClearPage(0, BLACK);
-		LoadPalNoPic("F14ORG01.PIC");
-	}
-	SndSounds(N_UnPause);
-    return 1;
-
+   if (View<FRONTAL) {
+      LoadNewCockpit();
+   } else {
+      ClearPage(0, BLACK);
+      InitSpecialPal(-1);
+   }
+   UpdatePalette();
+   ScreenOn();
+   SndSounds(N_UnPause);
+   return 1;
+}
 
 #if 0
 		// Re-position our plane
@@ -803,8 +826,6 @@ RioMap()
 	SndSounds(N_UnPause);
     return 1;
 #endif
-
-}
 
 
 #define  HMAPBANK 0
