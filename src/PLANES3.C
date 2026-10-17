@@ -2922,7 +2922,7 @@ int MovePlane(int planenum, int xval, int yval)
 
 void CruiseDistruct(int planenum)
 {
-	if(ps[planenum].alt < 300) {
+	if(((GetQHeight(ps[planenum].xL, ps[planenum].yL) >> 2) + 300) > ps[planenum].alt) {
 		LogIt (SLG_GROUND_CRUISE_HIT, -999, ps[planenum].xL, ps[planenum].yL, ps[planenum].alt, bv[planenum].prevsec, ps[planenum].type, 0L, LOG_GRND);
 		CheckBlastArea(ps[planenum].xL, ps[planenum].yL, W_MK_84, planenum);
 	}
