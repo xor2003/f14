@@ -545,7 +545,6 @@
 18de:0fb0 n=  1 -> _UpdateBeam
 1c38:01eb n=  1 -> _UpdateBoatHeadPitchRoll
 1c38:0244 n=  1 -> _UpdateBoatSpeedAndPosition
-3060:0cb8 n=  1 -> _UpdateCarrierAnim
 4b61:00ab n=  1 -> _UpdateCloseBase
 18de:21ec n=  1 -> _UpdateConsoleXY
 31ce:133c n=  1 -> _UpdateHeadPitchRoll
