@@ -741,7 +741,7 @@
 48b6:16e8 n=  30 -> _ResetTargetTrack                   dev@0901:2246 jac=0.56 lcs=0.59
 4a9a:09d9 n=  39 -> _farfread                           dev@4a1b:006e jac=0.59 lcs=0.59
 18de:0e53 n=  23 -> _CHANGE_NUM_BARS                    dev@0901:12ea jac=0.70 lcs=0.59
-18de:1b41 n=  28 -> _ChangeHUDFilter                    dev@1c9a:08c6 jac=0.70 lcs=0.59
+3060:164e n=  43 -> _ChangeHUDFilter                    dev@1c9a:08c6 jac=0.70 lcs=0.59
 2fc6:0009 n=  29 -> _Sound                              dev@4312:00d8 jac=0.55 lcs=0.59
 50b5:087c n=  26 -> _TurnTo                             dev@0eb6:3064 jac=0.71 lcs=0.59
 1125:0181 n=  22 -> _FreeEMS                            dev@0533:03fa jac=0.58 lcs=0.59

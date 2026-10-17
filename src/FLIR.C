@@ -354,8 +354,8 @@ int ChangeHUDFilter()
     UBYTE   Buf[3];
 	UBYTE   far *hp;
 
-	if (HUDFilterMode == 4) return;
-	if (HUDFilterMode == 5) return;
+	if (View == 4) goto out;
+	if (View == 5) goto out;
 
 	hp = &Palette[3*HUD_COLOR];
 	hp[0] = 0x63;
@@ -366,6 +366,9 @@ int ChangeHUDFilter()
     DuskPal[3*HUD_COLOR+2] = Buf[2] = NitePal[3*HUD_COLOR+2] = DayPal[3*HUD_COLOR+2] = 0;
 
     MCGAColors(HUD_COLOR,1,Buf);
+	return;
+out:
+	return(0);
 }
 
 //***************************************************************************
