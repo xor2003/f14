@@ -192,7 +192,7 @@ TrackBullets()
 									if((!(DOINVISIBLE||ENEMYNODIE)) && (bv[j].Behavior != EngageTrain)) {
 										if(Rtime & 0x1) {
 											crashstat = ps[j].status & CRASH;
-											DamageAI(j);
+											DamageAI(j, 2);
 											if(crashstat != (ps[j].status & CRASH)) {
 												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
 	                    	                	TXA (" destroyed by ");
@@ -261,7 +261,7 @@ TrackBullets()
 									if((!(DOINVISIBLE||ENEMYNODIE)) && (bv[j].Behavior != EngageTrain)) {
 										if((bv[j].leader == -1) || (Rtime & 0x1)) {
 											crashstat = ps[j].status & CRASH;
-											DamageAI(j);
+											DamageAI(j, 2);
 											if(crashstat != (ps[j].status & CRASH)) {
 												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
 												if(GetSquadLeader(trs[i].firedby) == -1) {

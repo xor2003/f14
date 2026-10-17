@@ -3898,32 +3898,66 @@ void ShowAIWeaponStatus(int ainum)
 	Message(Txt,WINGMAN_MSG);
 }
 
-void ShowAIStatus(int ainum, int otherai)
+void ShowAIStatus(int ainum, int otherai, int effects)
 {
-	int isdamaged;
-    char Str[80];
-    char Str2[80];
+	int flag;
+	int gotone;
+	int eff;
 	int rtemp;
 
-	isdamaged = 0;
-	GetWingName(ainum, Str);
-    TXT (Str);
+	flag = 0;
+	gotone = 0;
+	GetWingName(ainum, Txt);
 
-	if(bv[ainum].behaveflag & DAMAGERADAR) {
-    	TXA ("Radar ");
-		isdamaged = 1;
+	if(effects) {
+		eff = effects;
+		TXA (" I'm Hit, ");
 	}
-	if(bv[ainum].behaveflag & DAMAGEENGINE) {
-		TXA ("Engine ");
-		isdamaged = 1;
-	}
-	if(bv[ainum].behaveflag & DAMAGECONTROLSURFACE) {
-		TXA ("Controls ");
-		isdamaged = 1;
+	else {
+		eff = bv[ainum].behaveflag & 0xe0;
 	}
 
-	if(isdamaged != 0) {
-		TXA ("Damaged!");
+	if(eff & DAMAGERADAR) {
+		eff &= ~DAMAGERADAR;
+    	TXA ("Radar");
+		flag = 1;
+		gotone = 1;
+	}
+	if(eff & DAMAGEENGINE) {
+		eff &= ~DAMAGEENGINE;
+		if(gotone) {
+			if(eff)
+				TXA(", ");
+			else
+				TXA(" and ");
+		}
+		TXA ("Engine");
+		flag = 1;
+		gotone = 1;
+	}
+	if(eff & DAMAGECONTROLSURFACE) {
+		eff &= ~DAMAGECONTROLSURFACE;
+		if(gotone) {
+			if(eff)
+				TXA(", ");
+			else
+				TXA(" and ");
+		}
+		if(effects)
+			TXA ("Control Surfaces");
+		else
+			TXA ("Controls");
+		gotone = 1;
+	}
+	if((eff & DAMAGEMUNITIONS) && (effects != 0)) {
+		if(gotone)
+			TXA(", ");
+		TXA ("Missiles");
+		gotone = 1;
+	}
+
+	if(gotone) {
+		TXA (" Damaged!");
 	}
 	else {
 		rtemp = (Rtime + otherai) & 3;
@@ -3937,7 +3971,8 @@ void ShowAIStatus(int ainum, int otherai)
 			TXA ("Good");
 	}
 	Message(Txt,WINGMAN_MSG);
-	ShowAIWeaponStatus(ainum);
+	if(effects == 0)
+		ShowAIWeaponStatus(ainum);
 }
 
 void ShowMenuStuff(int MenuID)
@@ -4163,7 +4198,7 @@ int ProcessAICommunications(int ainum)
 
 			case AISHOWSTATUS:   /*  ALT F8 KEY  */
 				Speech(ROGER);
-				ShowAIStatus(ainum, otherai);
+				ShowAIStatus(ainum, otherai, 0);
 			break;
 
 			case AIREJOIN:		 /*  ALT F9 KEY  */

@@ -22,6 +22,7 @@
 #include "proto.h"
 #include "setup.h"
 
+extern int DAMAGELITE[];
 extern int lastcatused;
 int whichdefensethreat[MAXPLANE];
 
@@ -1933,74 +1934,92 @@ void EvadeMissile(int ainum)
 	}
 }
 
-void DamageAI(int planenum)
+void DamageAI(int planenum, int damage)
 {
 	int damagenum;
 	int damageeffect;
-	char Str[80];
+	int miseffect;
+	int hitflag;
+	int slot;
+	int i;
 	struct PlaneData far *tempplane;
 
-	if(ps[planenum].status & CRASH)
+	hitflag = 0;
+	if(ps[planenum].status & CRASH) {
+		AirKill(planenum);
 		return;
+	}
 
 	if(bv[planenum].Behavior == FlyCruise) {
 		AirKill(planenum);
 		return;
 	}
 
-	damagenum = Rtime & 3;
+	if((DAMAGELITE[0] == 0) || (DAMAGELITE[0] == 1) || (damage >= 0x20)) {
+		AirKill(planenum);
+		return;
+	}
+
+	slot = (Rtime + planenum) & 3;
 	damageeffect = 0;
-	if(damagenum == 0) {
-		damageeffect = DAMAGERADAR;
-		if((Night) && (bv[planenum].leader != -1) && (bv[planenum].Behavior != FlyCruise)) {
-    		ps[planenum].status |= BACKTOBASE;
-			bv[planenum].Behavior = AIGoHome;
-			LetWingmenContinue(planenum);
-#ifdef SHOWHOME
-			TXT("Bad Damage, Going Home ");
-			TXN(i);
-			Message(Txt,DEBUG_MSG);
-#endif
-			GetAIBase(planenum);
+	miseffect = 0;
+
+	switch(damage) {
+		case 0:
+			damagenum = 0;
+			break;
+		case 3: case 4: case 12: case 30: case 31:
+			damagenum = 2;
+			break;
+		case 13: case 14:
+			damagenum = 3;
+			break;
+		case 15:
+			damagenum = 4;
+			break;
+		case 1: case 2: case 5: case 6: case 7: case 8: case 9:
+		case 10: case 11: case 16: case 17: case 18: case 19:
+		case 20: case 21: case 22: case 23: case 24: case 25:
+		case 26: case 27: case 28: case 29:
+			damagenum = 1;
+	}
+
+	if((damagenum >= 3) && (Rtime & 2)) {
+		AirKill(planenum);
+		return;
+	}
+
+	for(i = 0; i < damagenum; i++) {
+		if(slot == 0) {
+			damageeffect |= DAMAGERADAR;
+			if(Night)
+				goto gohome;
 		}
-	}
-	else if(damagenum == 1) {
-		damageeffect = DAMAGEENGINE;
-	}
-	else if(damagenum == 2) {
-		damageeffect = DAMAGECONTROLSURFACE;
+		else if(slot == 1) {
+			damageeffect |= DAMAGEENGINE;
+			goto next;
+		}
+		else if(slot == 2) {
+			damageeffect |= DAMAGECONTROLSURFACE;
+			goto gohome;
+		}
+		else {
+			if((ps[planenum].mcnt[0] != 0) || (ps[planenum].mcnt[1] != 0) || (ps[planenum].mcnt[2] != 0)) {
+				miseffect |= DAMAGEMUNITIONS;
+				ps[planenum].mcnt[0] = ps[planenum].mcnt[1] = ps[planenum].mcnt[2] = 0;
+			}
+		}
+gohome:
 		if((bv[planenum].leader != -1) && (bv[planenum].Behavior != FlyCruise)) {
     		ps[planenum].status |= BACKTOBASE;
 			bv[planenum].Behavior = AIGoHome;
-			LetWingmenContinue(planenum);
-#ifdef SHOWHOME
-			TXT("Bad Damage 2, Going Home ");
-			TXN(i);
-			Message(Txt,DEBUG_MSG);
-#endif
+			hitflag = 1;
 			GetAIBase(planenum);
 		}
-	}
-	else {
-		if(ps[planenum].mcnt[0] || ps[planenum].mcnt[1]) {
-			ps[planenum].mcnt[0] = 0;
-			ps[planenum].mcnt[1] = 0;
-			if((bv[planenum].leader != -1) && (bv[planenum].Behavior != FlyCruise)) {
-    			ps[planenum].status |= BACKTOBASE;
-				bv[planenum].Behavior = AIGoHome;
-				LetWingmenContinue(planenum);
-#ifdef SHOWHOME
-				TXT("Bad Damage3, Going Home ");
-				TXN(i);
-				Message(Txt,DEBUG_MSG);
-#endif
-				GetAIBase(planenum);
-			}
-		}
-		else {
-			AirKill(planenum);
-			return;
-		}
+next:
+		slot ++;
+		if(slot > 3)
+			slot = 0;
 	}
 
 	if(bv[planenum].behaveflag & damageeffect) {
@@ -2010,25 +2029,16 @@ void DamageAI(int planenum)
 	else {
 		bv[planenum].behaveflag |= damageeffect;
 		StartASmoke( ps[planenum].xL, ps[planenum].alt,ps[planenum].yL, AIR2XPLO, 20 );
+		if(hitflag)
+			PromoteToLeader(planenum);
+		if(bv[planenum].leader == -1) {
+			Speech(IM_HIT);
+			ShowAIStatus(planenum, 0, damageeffect | miseffect);
+		}
+		tempplane = GetPlanePtr(ps[planenum].type);
+    	FTXT (tempplane->name);
+		TXA (" ");
 	}
-
-	if(bv[planenum].leader == -1) {
-		Speech(IM_HIT);
-		GetWingName(planenum, Str);
-		if(damagenum == 0)
-			strcat (Str, "I'm Hit, Radar Out!");
-		else if(damagenum == 1)
-			strcat (Str, "I'm Hit, Engine Damaged!");
-		else if(damagenum == 2)
-			strcat (Str, "I'm Hit, Control Surfaces Damaged!");
-		else
-			strcat (Str, "I'm Hit, Missiles Out");
-		Message(Str,WINGMAN_MSG);
-	}
-
-	tempplane = GetPlanePtr(ps[planenum].type);
-    FTXT (tempplane->name);
-	TXA (" ");
 }
 
 void GetSortInfo(int ainum)

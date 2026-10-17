@@ -109,7 +109,7 @@ void CheckAAAHit(int planenum, int gtnum)
 		else {
 	        if ((Dist2Obj&255)==(Rtime&255)) {
 				crashstat = ps[planenum].status & CRASH;
-                DamageAI (planenum);
+                DamageAI (planenum, 3);
 				if(crashstat != (ps[planenum].status & CRASH)) {
 					LogIt (SLG_AAA_DESTROY, planenum, ps[planenum].xL, ps[planenum].yL, ps[planenum].alt, src, -999, 0L, LOG_AIR);
 	                TXA (" destroyed by ");

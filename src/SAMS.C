@@ -636,7 +636,7 @@ void CheckProximityHit()
 		if((!(DOINVISIBLE||ENEMYNODIE)) && (bv[killed].Behavior != EngageTrain)) {
 			if((bv[killed].leader == -1) || (Rtime & 0x1)) {
 				crashstat = ps[killed].status & CRASH;
-				DamageAI(killed);
+				DamageAI(killed, sst->damage);
 				if(crashstat != (ps[killed].status & CRASH))
 					LogIt (SLG_AIR_DESTROYED_MISSILE, killed, ps[killed].xL, ps[killed].yL, ps[killed].alt, src, ssi->type, 0L, LOG_AIR);
 				else

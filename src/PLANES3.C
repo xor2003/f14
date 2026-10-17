@@ -1902,6 +1902,53 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 	return(returnval);
 }
 
+void PromoteToLeader(int planenum)
+{
+	int si;
+	int stat;
+
+	si = bv[planenum].wingman;
+	if(si >= 0) {
+		stat = ps[si].status;
+		if((stat & ACTIVE) && (stat & ALIVE) && (!(stat & CRASH))) {
+			if((bv[si].Behavior == Formation) || (bv[si].Behavior == GorillaBomb)) {
+				bv[si].Behavior = bv[planenum].Behavior;
+				if(!(ps[si].status & TAKEOFF)) {
+					bv[si].groundt = bv[planenum].groundt;
+					DoNextWayPt(si, bv[si].groundt);
+				}
+				if(bv[si].behaveflag & DOWPTROOPDROP) {
+					bv[si].leader = -999;
+					bv[planenum].wingman = -999;
+				}
+			}
+		}
+	}
+	si = bv[planenum].nextsec;
+	if(si >= 0) {
+		stat = ps[si].status;
+		if((stat & ACTIVE) && (stat & ALIVE) && (!(stat & CRASH))) {
+			if((bv[si].Behavior == Formation) || (bv[si].Behavior == GorillaBomb)) {
+				bv[si].Behavior = bv[planenum].Behavior;
+				if(!(ps[si].status & TAKEOFF)) {
+					bv[si].groundt = bv[planenum].groundt;
+					DoNextWayPt(si, bv[si].groundt);
+				}
+				if(bv[si].behaveflag & DOWPTROOPDROP) {
+					bv[si].prevsec = -999;
+					bv[planenum].nextsec = -999;
+					if(si >= 0) {
+						int *pstat;
+						pstat = &bv[bv[si].wingman].behaveflag;
+						*pstat &= ~0xf;
+						*pstat += 2;
+					}
+				}
+			}
+		}
+	}
+}
+
 int DoNextWayPt(int planenum, int waypt)
 {
 	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
@@ -2956,7 +3003,7 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
 						doKill = 0;
 						if((bv[cnt].leader == -1) || (Rtime & 0x1) || (cnt == whichourcarr)) {
 							crashstat = ps[cnt].status & CRASH;
-							DamageAI(cnt);
+							DamageAI(cnt, 0x1f);
 							if(crashstat != (ps[cnt].status & CRASH))
 								doKill = 1;
 						}
