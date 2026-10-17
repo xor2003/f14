@@ -131,3 +131,26 @@ Sweep: 501 → **507 MATCH / 720** pairings (matches3.txt anchors).
 - `_BaseBracket` — two extra calls to a scale-wrapper (2fb2:4dac) around a
   FLIGHT2 routine; needs the helper reconstructed.
 - `ReadEMSPCX` index-API, `X2map`/`Y2map` inlining, overlay thunk table.
+
+### Altitude/speed conversion cluster (499b216)
+- Gold has three helpers at 2fb2:4d73/4dac/4dcd: `InvAltSpeedConv`
+  (IAS->TAS: MulDiv(knots,100,TAStoIAS(100)|1) with OurAlt pinned),
+  `AltSpeedConv` (TAS->IAS), `GetDAltSpeed` (retail keeps only 2 callers).
+- `_InvAltSpeedConv`, `_AltSpeedConv`, `_IsVTOL` — byte-exact (edits=0).
+- `_CheckTurnStuff` — full retail rewrite: `maxspeed -= GetDAltSpeed`
+  after the 450 clamp, both MinSpdG arms use InvAltSpeedConv gates +
+  AltSpeedConv stores, IsVTOL(ptype->PlaneEnumId) gates a 150-knot floor,
+  tail clamps basespeed=maxspeed not ptype->speed. Residual: si/di
+  regalloc ordering only (38 insn but all reg/slot swaps).
+- PLANES2 FormationSpeedAdjustUS: `-= / += GetDAltSpeed` pair replaced by
+  nested `AltSpeedConv(ps[i].alt, InvAltSpeedConv(ps[prewing].alt,
+  prespeed))` gated on `type!= || alt!=`.
+- PLANES.C: `spd = InvAltSpeedConv(alt, spd)` replaces dead `#if 0`
+  GetDAltSpeed block (under !(status&CRASH)); `abspeed -= GetDAltSpeed`
+  added after 450 clamp; `basespeed = 200` flat else-arm.
+- Gold call topology (far+near): InvAlt 7, AltConv 16, GetDAlt 2.
+- Remaining Conv-caller functions still DIFF: `_TakingOff`@21ce:0b7e
+  (extra zero-block: ptype->f26 check, basespeed/pdest/droll stores),
+  `_AddSomePlanes2`@21ce:82fd (double Conv), `_BaseBracket`@2ad2:1d6a
+  (Conv vs InvAlt branches under >10 gates), `_SetUpOval1`@2ad2:2a11,
+  `_StraightAttack`@21ce:3e77, FUN_2ad2_37a6 (unpaired, 2 callers).
