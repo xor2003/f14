@@ -103,3 +103,31 @@ python3 tools/verify_build.py GOLD.EXE analysis/gold/gold.map \
     analysis/gold/classified.tsv analysis/gold/matches.txt
 python3 tools/realdiff.py build/verify_<n>.log   # real-vs-reloc diffs
 ```
+
+## Session: retail-asm porting batch (continued)
+
+Sweep: 501 → **507 MATCH / 720** pairings (matches3.txt anchors).
+
+### Byte-exact this session
+- `_CheckAISix` — retail guards the six-check with
+  `bv[GetSquadLeader(cnt)].Behavior != FollowPlayer && !FriendMatch(...)`.
+- `_ChangeHUDFilter` — real anchor found at 21c4:000e (retail returns early on
+  HUDFilterMode 4/5, writes 0x63/0x35/0 to Palette + 3 stored palettes + Buf).
+- `_BearingToText` — retail drops isawac branches, always `Speech(ZERO)` once
+  per branch (residual: tail-merge granularity, compiler artifact).
+
+### Verified artifacts (unreachable via source)
+- `_All2AirHoming` — mem/mem compare operand order + ax CSE reuse.
+- `_AwacsPicture` — `(Diff+1)*60` eval order; all spellings emit same code.
+- `_CAPAI` — tdist/ovaldist mem/mem compare order.
+- `_CheckAZELChange` — CSE reuse of compare value in ax.
+- `_CheckLandingAndCrash`/`_Messages`/`_DamageAI` mispairings noted.
+
+### Structural (deferred)
+- `_AWG9` — retail drops set_acq(), adds `if (PW==18) TwsScheduler()` calling a
+  ~0x490-byte TWS cluster (08de:306c+) absent from our module.
+- `_DamageAI` — retail has 2nd arg (dtype), Diff<2/dtype>=0x20 → AirKill,
+  switch/jump-table on dtype, `(tick+planenum)&3` damagenum.
+- `_BaseBracket` — two extra calls to a scale-wrapper (2fb2:4dac) around a
+  FLIGHT2 routine; needs the helper reconstructed.
+- `ReadEMSPCX` index-API, `X2map`/`Y2map` inlining, overlay thunk table.

@@ -66,7 +66,7 @@
 31ce:4d58 n=  1 -> _Champagne
 15ce:0d7a n=  1 -> _ChangeColor
 31ce:74d6 n=  1 -> _ChangeGroupBehavior
-28d5:035e n=  1 -> _ChangeHUDFilter
+31c4:000e n=  1 -> _ChangeHUDFilter
 18de:0cba n=  1 -> _ChangeModerateScan
 18de:0d6d n=  1 -> _ChangeSRCHMode
 1868:0235 n=  1 -> _CheckAAAHit
