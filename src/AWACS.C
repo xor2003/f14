@@ -71,22 +71,10 @@ BearingToText (UWORD angl, int isawac)
 
     if (angl<10) {
         TXA ("00");
-		if(isawac) {
-	        Speech (A_ZERO);
-    	    Speech (A_ZERO);
-		}
-		else {
-	        Speech (ZERO);
-    	    Speech (ZERO);
-		}
+        Speech (ZERO);
     } else if (angl<100) {
         TXA ("0");
-		if(isawac) {
-        	Speech (A_ZERO);
-		}
-		else {
-        	Speech (ZERO);
-		}
+        Speech (ZERO);
     }
 
     NSpeech (angl, isawac);

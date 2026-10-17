@@ -4208,7 +4208,7 @@ void CheckAISix(int wingnum)
     for (cnt=0; cnt<NPLANES; cnt++) {
         if ((ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE) && (!(ps[cnt].status & CRASH)) &&
 				(ps[cnt].speed) && (bv[cnt].target == wingnum)) { /* Planes in the air */
-			if(!FriendMatch(planecnt, cnt)) {
+			if((bv[GetSquadLeader(cnt)].Behavior != FollowPlayer) && !FriendMatch(planecnt, cnt)) {
 		    	dx = x- ps[cnt].x;
     			dy = y- ps[cnt].y;
 				GetTargADP(i, dx, dy, &tdist1, &tpitch, &tangle, &tdistnm, &enemyalt, 0);
