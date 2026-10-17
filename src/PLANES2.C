@@ -4391,6 +4391,85 @@ void GorillaBomb()
 #endif
 }
 
+/*----------*/
+TakingOff () {
+	int   bhead;
+	int   speedval;
+	int   prewing = -1;
+	int   talt;
+	int   vsep;
+	int   tangle;
+	int   bret;
+	long  x, y;
+
+	i = planecnt;
+
+	if((Gtime & 0x3) && (whichourcarr >= 0) && (ps[whichourcarr].status & ALIVE) && (ps[whichourcarr].status & ACTIVE)
+		&& (abs(ps[whichourcarr].x - Px) < 0x708)
+		&& (abs(ps[whichourcarr].y - Py) < 0x708)) {
+		ps[planecnt].status |= BACKTOBASE;
+		bv[planecnt].Behavior = AIGoHome;
+	}
+
+	pdest = 0;
+	bhead = bv[i].behaveflag & 0xf;
+	speedval = AltSpeedConv(ps[i].alt, Knots);
+
+	if(bv[i].behaveflag & 0x4000) {
+		if(bv[i].behaveflag & ENEMYNOFIRE) {
+			bv[i].behaveflag &= ~ENEMYNOFIRE;
+			if(!(bv[i].behaveflag & 0x20))
+				bv[i].behaveflag |= 0x100;
+		}
+		if(bhead == 2)
+			tangle = OurHead + 0x4000;
+		else
+			tangle = OurHead - 0x4000;
+	}
+	else {
+		if(bhead == 2)
+			tangle = OurHead + 0x6000;
+		else
+			tangle = OurHead - 0x6000;
+	}
+
+	prewing = -1;
+	if(bv[i].leader != -999)
+		prewing = bv[i].leader;
+	else if(bv[i].prevsec != -999)
+		prewing = bv[i].prevsec;
+
+	if(prewing == -1)
+		GetLastPosition(-1, &x, &y, &talt);
+	else if(planecnt > prewing)
+		GetLastPosition(prewing, &x, &y, &talt);
+	else {
+		x = ailoc[prewing].xloc;
+		y = ailoc[prewing].yloc;
+		talt = ps[prewing].alt;
+	}
+
+	x += sinXL(tangle, (long)bv[i].horizontalsep * 100);
+	y -= cosXL(tangle, (long)bv[i].horizontalsep * 100);
+
+	bret = ARCTAN((((x + 0x10) * 100) >> 5) - ps[i].x, (((y + 0x10) * 100) >> 5) - ps[i].y);
+
+	if(((unsigned)bret < 0x80) && (Alt == 0)) {
+		droll = 0x4000 - ps[i].roll;
+		if(bv[i].basespeed < 0xb4)
+			bv[i].basespeed = 0xb4;
+	}
+	else {
+		if(bv[i].verticlesep == 0)
+			vsep = bv[i].verticlesep + talt;
+		else
+			vsep = bv[i].verticlesep + Alt + 4;
+		if(vsep < 0x4b)
+			vsep = 0x4b;
+		LFlyTo(x, y, vsep, -1, speedval);
+	}
+}
+
 int Langle(long x, long y)
 {
 

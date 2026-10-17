@@ -102,6 +102,7 @@ void AIGoHome();
 void AIGoHome2();
 void CheckAISix(int wingnum);
 void GorillaBomb();
+int ARCTAN(int delx, int dely);
 int Langle(long x, long y);
 void LGetTargADP(int planenum, long dx, long dy, COORD *tdist, int *tpitch, int *tangle, COORD *tdistnm, int *enemyalt, int deltalt, long *ldist);
 void LFlyTo(long xdim, long ydim, int altdim, int prewing, int prespeed);
