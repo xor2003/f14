@@ -133,7 +133,7 @@
 189f:0000 n=  1 -> _DoHover
 3fb2:5ae7 n=  1 -> _DoLandWait
 1868:0235 n=  1 -> _DoNextWayPt
-3fb2:4ba8 n=  1 -> _DoOClockCall
+3fb2:64e2 n=  1 -> _DoOClockCall
 4e88:0f4e n=  1 -> _DoPadLockView
 220f:0782 n=  1 -> _DoPlayerOnTheCat
 1dc3:1e3a n=  1 -> _DoPlayerOnTheHook

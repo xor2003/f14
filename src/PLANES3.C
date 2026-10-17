@@ -4324,7 +4324,7 @@ void DoOClockCall()
 	closeplane = -1;
 	ldist = -1;
 	for(cnt = 0; cnt < NPLANES; cnt ++) {
-		if((ps[cnt].status & ALIVE) && (ps[cnt].status & ACTIVE) && (!(ps[cnt].status & (FRIENDLY|CRASH|CIVILIAN)))) {
+		if((ps[cnt].status & ALIVE) && (ps[cnt].status & ACTIVE) && (bv[GetSquadLeader(cnt)].Behavior != FollowPlayer) && (!(ps[cnt].status & (FRIENDLY|CRASH|CIVILIAN)))) {
 			if((abs(ps[cnt].x - Px) < 450) && (abs(ps[cnt].y - Py) < 450)) {
 				if((GetSquadLeader(bv[cnt].target) == -1) || (targUS == 0)) {
 					tldist = LDist2D((ps[cnt].xL - PxLng), (ps[cnt].yL - (0x100000-PyLng)));
