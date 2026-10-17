@@ -1276,28 +1276,29 @@ void FollowPlayer()
 
 	prespeed = AltSpeedConv(ps[planecnt].alt, Knots);
 
-	temphead = OurHead - 0x5000;
+	temphead = OurHead - 0x2000;
 
 	tempwing = -1;
 
 
 	GetLastPosition (-1, &dx, &dy, &ourleadalt);
-	dx = dx + sinXL(temphead, ((long)bv[i].horizontalsep * AILOCDIV));
-	dy = dy - cosXL(temphead, ((long)bv[i].horizontalsep * AILOCDIV));
+	dx = dx + sinXL(temphead, ((long)bv[i].horizontalsep * 200));
+	dy = dy - cosXL(temphead, ((long)bv[i].horizontalsep * 200));
 
-	tempalt = ourleadalt + 10;
+	tempalt = bv[planecnt].verticlesep + ourleadalt + 10;
 
-	if(tempalt < 75)
-		tempalt = 75;
+	if(tempalt < 150)
+		tempalt = 150;
 
 	LFlyTo(dx, dy, tempalt, prewing, prespeed);
 
 	if(bv[planecnt].varcnt) {
-		if((bv[planecnt].varcnt - Gtime) < 2) {
+		if((bv[planecnt].varcnt - Gtime) < 2 && bv[planecnt].varcnt > Gtime) {
 			tempplane = GetPlanePtr(ps[planecnt].type);
-			FTXT (tempplane->name);
+			TXT ("(RIO) ");
+			FTXA (tempplane->name);
 			TXA (" Heading Home");
-			Message(Txt,GAME_MSG);
+			Message(Txt,RIO_MSG);
 			bv[planecnt].varcnt = Gtime - 1;
 		}
 	}
