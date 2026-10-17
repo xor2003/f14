@@ -680,8 +680,14 @@ void AvoidMountains () {     // sets pdest
 	int levelarea2 = 200;
 	int daltclimb = 50;
 
-	if(ps[i].status & (TAKEOFF|LANDING))
+	if(ps[i].status & (TAKEOFF|LANDING)) {
+		if(Gtime > 5)
+			return;
+		heightval = (int)LDist2D(psi->xL, psi->yL) >> 2;
+		if(ps[i].alt < heightval + 6)
+			ps[i].alt = heightval + 6;
 		return;
+	}
 
     if (((i&7) == (Rtime&7)) || (ps[i].status & PITCHUP)) {
 		if(!(ps[i].status & PITCHUP)) {

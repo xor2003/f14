@@ -778,6 +778,8 @@ void AddGroundTarget(struct _object_ one_object, int cnt)
 		radarnum = 13;
 	else if((!strcmp("Nike-Herc", one_object.name)) || (one_object.type == ST_NIKE_HERCULES))
 		radarnum = 47;
+	else if((!strcmp("Patriot", one_object.name)) || (one_object.type == ST_PATRIOT))
+		radarnum = 48;
 	else if(one_object.type == ST_AIRPORT)
 		radarnum = 27;
 	else {
@@ -796,7 +798,7 @@ void AddGroundTarget(struct _object_ one_object, int cnt)
 		TXT("More radars ");
 		TXN(NRADAR);
 		TXA(" than allocated space: ");
-		TXN(MAXRADAR);
+		TXN(MAXGROUNDTARGET);
 		Message(Txt,SYSTEM_MSG);
 		return;
 	}
