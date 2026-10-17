@@ -1730,10 +1730,12 @@ void BaseBracket(int angleinc, int angleevade)
 		else
 			winglead = -999;
 		if(winglead == -999) {
-			if(bv[i].target == -1)
-				relangle = (OurHead + angleevade) - ps[i].head;
+			if(bv[i].target == -1) {
+				relangle = angleevade - ps[i].head;
+				relangle += OurHead;
+			}
 			else
-				relangle = (ps[bv[i].target].head + angleevade) - ps[i].head;
+				relangle = ps[bv[i].target].head - ps[i].head + angleevade;
 
 			TurnAIPlaneBy(i, relangle);
 			return;

@@ -875,7 +875,7 @@
 18de:01a6 n=  31 -> _IsBombing                          dev@36f4:3ba0 jac=0.47 lcs=0.46
 28d5:04f9 n=  30 -> _EngineBreathe                      dev@1952:13fa jac=0.51 lcs=0.46
 3fb2:09f2 n= 406 -> _LocationPicture                    dev@36f4:0c84 jac=0.59 lcs=0.46
-3ad2:1236 n= 290 -> _GorillaBomb                        dev@3091:5a84 jac=0.75 lcs=0.46
+3ad2:44b2 n= 290 -> _GorillaBomb
 28d5:01a5 n=  51 -> _DrawIndexer                        dev@13ba:189e jac=0.44 lcs=0.46
 3050:0012 n=  93 -> _FloatingHUD                        dev@47e3:0ed2 jac=0.52 lcs=0.46
 2a48:1014 n=  89 -> _UpdateCarrierAnim                  dev@0eb6:13ce jac=0.56 lcs=0.46
