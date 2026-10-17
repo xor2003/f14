@@ -17,7 +17,7 @@ extern long  PxLng;
 extern long  PyLng;
 extern UWORD Px, Py;
 extern UWORD Alt;
-extern int   Rtime;
+extern UWORD   Rtime;
 extern UBYTE FlirTbl[];
 extern UWORD NOASPECT;
 extern UWORD GRPAGE0[];

@@ -51,7 +51,7 @@ extern  int     Demo;
 extern  int     FIRST_ENEMY_TRACE,DMAX9;
 extern  int     TSpeed;
 
-extern  int     Rtime;
+extern  UWORD     Rtime;
 extern  int     PovMisl;
 extern  int     detected, atarg;
 extern  COORD   xlast[],ylast[];
@@ -5316,16 +5316,13 @@ int AIRadarForwardCheck(int wingnum, int showinfo, int CAPrange)
 	return(AICoreRadarCheck(wingnum, showinfo, otherrange, 0x2000, 0));
 }
 
-int AIRadarRearCheck(int wingnum, int showinfo, int Bearrange)
+int AIRadarRearCheck(int wingnum, int showinfo, unsigned Bearrange)
 {
 	int otherrange;
 
-	if(Bearrange)
-		otherrange = 40;
-	else
-		otherrange = 0;
+	otherrange = Bearrange ? 150 : 0;
 
-	return(AICoreRadarCheck(wingnum, showinfo, otherrange, 0, 0x5000));
+	return(AICoreRadarCheck(wingnum, showinfo, otherrange, 0, 0x2000));
 }
 
 int AICoreRadarCheck(int wingnum, int showinfo, int otherrange, int lessangle, int greaterangle)

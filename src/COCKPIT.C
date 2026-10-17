@@ -29,7 +29,7 @@ extern  int 	WingRot;
 extern  int     THRUST;
 extern  int     ThrustI;
 extern  int     Knots;
-extern  int     Rtime;
+extern  UWORD     Rtime;
 extern  int     Px, Py;
 extern  long	PxLng;
 extern  long    PyLng;

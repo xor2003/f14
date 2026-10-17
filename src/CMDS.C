@@ -72,7 +72,8 @@ extern  UWORD   RudderStick;
 extern  UWORD   RadarCursorSprite[];
 extern  UWORD   MouseSprite;
 
-extern  int     Px,Py,Alt,OurAlt, View,PovMisl,Mscale,vScale,Rtime;
+extern  int     Px,Py,Alt,OurAlt, View,PovMisl,Mscale,vScale;
+extern  UWORD   Rtime;
 extern  long    PxLng,PyLng;
 extern  int     atarg,gtarg;
 extern  int     ThrustI;

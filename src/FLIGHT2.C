@@ -32,7 +32,7 @@ extern  SWORD   Isin(),Icos();
 extern  UBYTE   Rate;
 extern  UBYTE   BSPEED;
 extern  SBYTE   TRIMAOACHG;
-extern  int     Rtime;
+extern  UWORD     Rtime;
 extern  int     atarg,gtarg,vScale;
 extern  char    Txt[];
 extern  int     PovHead,PovPitch,PovRoll,RPov,PovMisl,NextWayPoint;

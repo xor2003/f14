@@ -51,7 +51,7 @@ extern  int     Demo;
 extern  int     FIRST_ENEMY_TRACE,DMAX9;
 extern  int     TSpeed;
 
-extern  int     Rtime;
+extern  UWORD   Rtime;
 extern  int     PovMisl;
 extern  int     detected, atarg;
 extern  COORD   xlast[],ylast[];
@@ -378,7 +378,7 @@ void CheckBoatGunFiring()
 	COORD tdistl;
 	int tanglel, tpitchl;
 
-	if(Rtime & 3)
+	if(Rtime & 7)
 		return;
 
 	if(bv[boatnum].target == -1) {

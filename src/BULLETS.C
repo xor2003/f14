@@ -31,7 +31,7 @@ extern  SWORD	Knots;
 extern  RPS     *Rp3D;
 extern  int     OurHead,OurPitch;
 extern  UWORD   Alt;
-extern  int     Rtime;
+extern  UWORD   Rtime;
 extern  char    Txt[50];
 extern  int     sx,sy,sz;
 extern  UWORD   KEYPRINT;

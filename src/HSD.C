@@ -19,7 +19,7 @@ extern  int     DeClutter;
 extern  char    Txt[];
 extern  int     NextWayPoint,ChangeWayPoint,WPMode;
 extern  int     BingoFuel;
-extern  int     Rtime;
+extern  UWORD     Rtime;
 
 extern RPS *Rp1;
 

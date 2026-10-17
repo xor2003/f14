@@ -27,7 +27,7 @@ extern  UWORD   BasePointSprite[];
 extern  int     OurHead;
 extern  long    PxLng,PyLng;
 extern  COORD   Px,Py;
-extern  int     Rtime;
+extern  UWORD     Rtime;
 
 int Mscale = 5;
 int Mapx =  0;

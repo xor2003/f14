@@ -46,7 +46,7 @@ extern unsigned Alt;
 extern int      PovMisl;
 extern UWORD    LastSlotNMount;
 extern int      DMAX9;
-extern int      Rtime;
+extern UWORD      Rtime;
 extern int      IneffectiveHit;
 extern int      CrtDisplays[];
 extern int      CrtConfig[3][8];

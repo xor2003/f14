@@ -104,7 +104,7 @@ extern unsigned   Alt,OurAlt;
 extern int        MinKnots,Knots;
 extern int        PitchAngle,ThrustI,VVI;
 extern unsigned   FTicks;
-extern int        Rtime;
+extern UWORD        Rtime;
 extern int        DeClutter;
 
 extern int        VM[3][3];

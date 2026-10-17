@@ -181,7 +181,7 @@ LaunchAircraft()
 	OurHead=0;
 	InitScottFlight();
 #endif
-	BlastShield[3]^=1;
+	BlastShield[3]=0;
 }
 
 

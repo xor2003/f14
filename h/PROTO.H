@@ -26,7 +26,7 @@ void TurnAIPlaneBy(int ainum, int relangle);
 void InitAddedWingmen ();
 int NearWingTarget(int wingnum);
 int AIRadarForwardCheck(int wingnum, int showinfo, int CAPrange);
-int AIRadarRearCheck(int wingnum, int showinfo, int Bearrange);
+int AIRadarRearCheck(int wingnum, int showinfo, unsigned Bearrange);
 int AICoreRadarCheck(int wingnum, int showinfo, int otherrange, int lessangle, int greaterangle);
 void DoVSeperation(int ainum);
 void ShowAIWeaponStatus(int ainum);

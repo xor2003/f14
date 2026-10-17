@@ -56,7 +56,7 @@ extern  int     FIRST_ENEMY_TRACE,DMAX9;
 extern  int     TSpeed;
 extern  char OurWingName[];
 
-extern  int     Rtime;
+extern  UWORD     Rtime;
 extern  int     PovMisl;
 extern  int     detected, atarg;
 extern  COORD   xlast[],ylast[];
