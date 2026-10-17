@@ -209,6 +209,8 @@ All2AirHoming()
 Air2GroundHoming()
 {
 	int boatnum;
+	long xval,yval;
+	UWORD zval;
 
 	// Since there are NO LGBOMBs for us, I forced this to false
 	if (ssi->type==ML_LGBOMB) {
@@ -219,7 +221,13 @@ Air2GroundHoming()
 	HomeHead = -1;
 	if(ssi->tgtx <= (long)-1) {
 		boatnum = GetPlaneOrgNum((int)ssi->tgty);
-		if(ps[boatnum].status & CRASH) {
+		if(boatnum == MAXPLANE) {
+			GetPlanePointXYZ((int)ssi->tgty, &xval, &yval, &zval);
+			ssi->tgtx = xval;
+			ssi->tgty = yval;
+			homing = home (ssi->tgtx, ssi->tgty,0, homer);
+		}
+		else if(ps[boatnum].status & CRASH) {
 			ssi->tgtx = ps[boatnum].xL;
 			ssi->tgty = ps[boatnum].yL;
 			homing = home (ssi->tgtx, ssi->tgty,0, homer);

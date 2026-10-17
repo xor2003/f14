@@ -34,7 +34,8 @@
 31ce:82fd n=  1 -> _AddSomePlanes2
 18de:230b n=  1 -> _AddTargetFile
 4a6f:01f1 n=  1 -> _AdjustSounds
-4d7e:0362 n=  1 -> _Air2GroundHoming
+48b6:0229 n=  1 -> _Air2GroundHoming
+4d7e:0362 n=  1 -> _TIDAttkInfo
 3fb2:0100 n=  1 -> _AirKill
 48b6:00a7 n=  1 -> _All2AirHoming
 172e:06f3 n=  1 -> _AnimIsRunning
