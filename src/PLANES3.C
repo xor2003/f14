@@ -2934,7 +2934,7 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
 {
 	int cnt;
 	struct PlaneData far *tempplane;
-	int doKill = 0;
+	int doKill;
 	int logtype;
 	long lxval, lyval;
 	int hitmsg, destroymsg;
@@ -2952,6 +2952,10 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
 			if(iscruise > -1) {
     			FTXA (ptype->name);
 				LogIt (SLG_AIR_CRUISE_HIT, -1, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_AIR);
+			}
+			else if(missiletype == 0x39) {
+				TXA("TORPEDO");
+				LogIt (50, -1, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_AIR);
 			}
 			else {
 				TXA("BOMB");
@@ -2971,6 +2975,10 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
 						if(iscruise > -1) {
 							hitmsg = SLG_BOAT_CRUISE_HIT;
 							destroymsg = SLG_BOAT_DESTROYED_CRUISE;
+						}
+						else if(missiletype == 0x39) {
+							hitmsg = 50;
+							destroymsg = 49;
 						}
 						else {
 							hitmsg = SLG_BOAT_BOMB_HIT;
@@ -3002,6 +3010,10 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
     						FTXA (ptype->name);
 							LogIt (SLG_BOAT_CRUISE_HIT, cnt, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_BOAT);
 						}
+						else if(missiletype == 0x39) {
+							TXA("TORPEDO");
+							LogIt (50, cnt, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_BOAT);
+						}
 						else {
 							TXA("BOMB");
 							LogIt (SLG_BOAT_BOMB_HIT, cnt, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_BOAT);
@@ -3029,7 +3041,10 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
 								LogIt (hitmsg, cnt, lxval, lyval, zval, camefrom, missiletype, 0L, logtype);
 						}
 						else {
-							TXA("BOMB");
+							if(missiletype == 0x39)
+								TXA("TORPEDO");
+							else
+								TXA("BOMB");
 							if(doKill)
 								LogIt (destroymsg, cnt, lxval, lyval, zval, camefrom, missiletype, 0L, logtype);
 							else
