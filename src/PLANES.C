@@ -5681,7 +5681,7 @@ int AddSomePlanes2 (int planenum, int planeid, int AIBehavior, int formnum, int 
 			}
 		}
 
-    	if ((notdone) && (cnt != whichourcarr) && !((ps[cnt].status&ACTIVE) && (ps[cnt].status & ALIVE))) { /* Planes in the air */
+    	if ((notdone) && (whichourcarr != cnt) && !((ps[cnt].status&ACTIVE) && (ps[cnt].status & ALIVE))) { /* Planes in the air */
     		ps[cnt].status = ALIVE+ACTIVE;
 			if(tempplane->bclass == CIVILIAN_OBJCLASS)
     			ps[cnt].status |= CIVILIAN;
