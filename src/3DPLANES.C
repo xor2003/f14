@@ -27,6 +27,7 @@ extern 	RPS		*RpCRT;
 extern  UBYTE   PlaneFlags[];
 extern  SWORD   AnimVals[];
 extern  int     O[3][3];
+extern  int     Scale3d;
 
 extern  int     OurHead,OurRoll,OurPitch;
 extern  UWORD   Alt;
@@ -184,10 +185,12 @@ DrawRegBoat(int NUM, int X, int Y, int Z, int ID, int SHFT)
 
 	if (SHFT) {
 		Shift3X3(O,SHFT);
+		Scale3d=SHFT;
 //		return(1);
 	}
 
 	NDraw3DObject(NUM, X,Y,Z, O, PlaneAnimVals,0);
+	Scale3d=1;
 }
 
 
@@ -275,9 +278,12 @@ DrawShadow(int NUM, int X, int Y, int Z, int Head, int SHFT)
 {
     MakeMatHPR (Head, -0, 0, O);
     InvertMatrix ();
-	if (SHFT)
+	if (SHFT) {
 		Shift3X3(O,SHFT);
+		Scale3d=SHFT;
+	}
 	NDraw3DObject(NUM, X, Y, Z, O, AnimVals);
+	Scale3d=1;
 }
 
 //***************************************************************************

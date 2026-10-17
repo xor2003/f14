@@ -432,7 +432,7 @@ DrawCarrier(int X, int Y, int Z,int heading, int SHFT, int objtype)
 	}
 
 	if (objtype == CARRIER_OBJ_1) {
-		UpdateCarrierAnim();
+		/* UpdateCarrierAnim(); */
 
 // 		If easy mode then draw landing gates
 //   	if (objtype==CARRIER_OBJ_11)
@@ -1135,7 +1135,7 @@ DoPlayerOnTheHook()
       ZSpot= (FPARAMS.Z-carrier.z);
       }
 
-   if (  (TimeOnHook>(20*60))||((TimeOnHook>(3*60))&&(THRUST==0)) )
+   if (  ((TimeOnHook>(20*60))||((TimeOnHook>(3*60))&&(THRUST==0))) && (TimeOnHook>(8*60)) )
 //   if (TimeOnHook>(10*60) )
       EndGame (ENDOFLOG);
 
