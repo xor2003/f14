@@ -198,3 +198,27 @@ Sweep: 507 → **520 MATCH / 746** pairings (new anchors added).
 - `_TakingOff` — 3 residual insns (dead store + lea reg choices).
 - `_AirKill` @2fb2:0100 — 124 edits, behavior-ptr compares missing.
 - `_ChangeGroupBehavior` @21ce:8181 — 37 edits.
+
+Sweep: 520 → **531 MATCH / 748** pairings (matches3.txt anchors, post
+A2G/GetPlanePointXYZ/AddGroundTarget/AvoidMountains/ChangeGroupBehavior
+batch). 217 mzdiff DIFFs remain — triaged: many are aldiff edits<=10
+artifact class (operand-order, regalloc, dead-store elim, epilogue
+sharing, ±0x8000 segment-wrap equivalence).
+
+### Exact this batch
+- `_Air2GroundHoming` @38b6:0229 (+statics decoyed/home/tracking,
+  combined range byte-exact): tgtx==-1 → GetPlaneOrgNum→MAXPLANE(0x46)→
+  GetPlanePointXYZ(&x,&y,&z) store to ssi->tgtx/tgty, else CRASH branch.
+- `_AddGroundTarget` @1d56:1094: missing ST_PATRIOT enum (0x19) +
+  Patriot arm (radarnum=48); NRADAR block replicates retail
+  TXN(MAXGROUNDTARGET) copy-paste bug; block1 TXT vs block2 TXA enables
+  MSC6 tail-merge. gold.map extent +1 (retf).
+- `_GetWayXYZ` @2fb2:2ad1 exact.
+- `_GetPlanePointXYZ` @2fb2:2b6e: full retail rewrite — GetPlaneOrgNum
+  resolve loop, PxLng gate, aipaths[OurPath].wp0 + bv[].target waypoint
+  chain accumulate via shared goto tail; 44 layout/regalloc artifacts.
+- `_AvoidMountains` @21ce:1052: TAKEOFF|LANDING path = Gtime>5 gate +
+  LDist2D(xL,yL)>>2+6 alt clamp (was early return). 8 operand-order
+  artifacts.
+- `_TIDAttkInfo` re-anchored 4d7e:0362 (was wrongly _Air2GroundHoming);
+  still 131 edits — retail does fixed-position itoa+RpPrint blocks.
