@@ -2870,13 +2870,13 @@ int CheckForMobileR5(int basenum, int isfriend)
 
 	xval = Rdrs[basenum].x;
 	yval = Rdrs[basenum].y;
+	otherplane = Rdrs[basenum].status & (FRIENDLY | NEUTRAL);
 
 	for(cnt = 0; cnt < NPLANES; cnt ++) {
-		if((!FriendMatchType(cnt, isfriend)) && (ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE)) {
+		if((FriendMatchType(cnt, otherplane)) && (ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE)) {
 			if((cnt == GetSquadLeader(cnt)) && (bv[cnt].Behavior == Ready5) && (ps[cnt].base >= 0)) {
 				tdist = Dist2D((ps[cnt].x - xval), (ps[cnt].y - yval));
-				if((tdist < cdist) || (returnval == -999)) {
-					tdist = cdist;
+				if(returnval == -999) {
 					returnval = cnt;
 				}
 			}
@@ -2887,19 +2887,19 @@ int CheckForMobileR5(int basenum, int isfriend)
 
 	yval += 30;
 	MovePlane(returnval, xval, yval);
-	yval += 1;
+	yval += 2;
 
 	wingcnt = returnval;
 	while(wingcnt >= 0) {
 		otherplane = bv[wingcnt].wingman;
 		if(otherplane >= 0) {
 			MovePlane(otherplane, xval, yval);
-			yval = yval + 1;
+			yval = yval + 2;
 		}
 		otherplane = bv[wingcnt].nextsec;
 		if(otherplane >= 0) {
 			MovePlane(otherplane, xval, yval);
-			yval = yval + 1;
+			yval = yval + 2;
 		}
 		wingcnt = bv[wingcnt].nextsec;
 	}
