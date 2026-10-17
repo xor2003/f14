@@ -105,7 +105,7 @@
 2081:05c6 n=  1 -> _CursorInCrt
 2528:0148 n=  1 -> _DDDWeaponRanges
 2a48:0b67 n=  1 -> _DESIGNATED_TrackingAI
-3fb2:0100 n=  1 -> _DamageAI
+3ad2:22b3 n=  1 -> _DamageAI
 48b6:123b n=  1 -> _DamageIt
 28a7:0032 n=  1 -> _Decompose
 18de:2337 n=  1 -> _DelTargetFile
@@ -264,7 +264,7 @@
 31ce:7ae4 n=  1 -> _GiveSanitizeMessage
 3ad2:26d5 n=  1 -> _GiveSortInfo
 1dc3:1046 n=  1 -> _GlideScopeCheck
-2b89:02d4 n=  1 -> _GorillaBomb
+3ad2:44b2 n=  1 -> _GorillaBomb
 3ad2:326a n=  1 -> _GorillaCover
 4d41:03ad n=  1 -> _GunCameraZoom
 2a48:000c n=  1 -> _HUD
@@ -489,8 +489,7 @@
 170c:01c9 n=  1 -> _SetViewRot
 18de:1b85 n=  1 -> _SetupNewTarget
 172e:0154 n=  1 -> _Shift3X3
-3fb2:1a23 n=  1 -> _ShowAIStatus
-3fb2:1a23 n=  1 -> _ShowAIWeaponStatus
+31ce:5d73 n=  1 -> _ShowAIStatus
 220f:2d25 n=  1 -> _ShowFuel
 2a48:0b67 n=  1 -> _ShowJettison
 31ce:5edc n=  1 -> _ShowMenuStuff
