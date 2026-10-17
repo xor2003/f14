@@ -72,6 +72,7 @@ BearingToText (UWORD angl, int isawac)
     if (angl<10) {
         TXA ("00");
         Speech (ZERO);
+        Speech (ZERO);
     } else if (angl<100) {
         TXA ("0");
         Speech (ZERO);
