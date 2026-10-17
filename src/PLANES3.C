@@ -1748,7 +1748,7 @@ int SARCAP0(int whatangle, long whatdist, int whatalt)
 
 }
 
-int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, int *elevation, int *heading, int *attack, int *launch, int *wpflag)
+int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, int *elevation, int *heading, int *attack, int *launch, int *wpflag, int wplevel)
 {
 	int cnt;
 	int numactions;
@@ -1908,7 +1908,7 @@ int DoNextWayPt(int planenum, int waypt)
 	}
 
 
-	GetWayPointChanges(waypt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+	GetWayPointChanges(waypt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 
 	if(behavenum != -1)
 		returnval = TranslateBehavior(planenum, behavenum, formnum);
@@ -2537,7 +2537,7 @@ void UpdateOurWPS(int lastwp, int updateall)
 		waystart = 1;
 	}
 	else if(aiwaypoints[waynum].x > -1L) {
-		GetWayPointChanges(waynum, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+		GetWayPointChanges(waynum, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 		if(behavenum != SA_CAP) {
 			waynum += 1;
 			waystart = 1;
@@ -3173,7 +3173,7 @@ void DoAltHover()
 
 		bv[planecnt].groundt = wayval;
 		bv[planecnt].Behavior = FlyWayPoint;
-		GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+		GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 		if(speedval == -1)
 			bv[planecnt].basespeed = 90;
 		else
@@ -3187,7 +3187,7 @@ void DoAltHover()
 	if(wayval < 0)
 		return;
 
-	GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+	GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 	if(altval == -1)
 		altval = 1;
 
@@ -3324,7 +3324,7 @@ void ShowOurWPS()
 		waynum += 1;
 	}
 	else if(aiwaypoints[waynum].x > -1L) {
-		GetWayPointChanges(waynum, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+		GetWayPointChanges(waynum, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 		if(behavenum != SA_CAP) {
 			waynum += 1;
 		}
@@ -3340,7 +3340,7 @@ void ShowOurWPS()
 		waynum = aipaths[OurPath].wp0 + aipaths[OurPath].numWPs - 1;
 	}
 
-	GetWayPointChanges(waynum, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+	GetWayPointChanges(waynum, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 
     TXT ("Next Sequence Point: ");
 

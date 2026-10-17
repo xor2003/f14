@@ -184,7 +184,7 @@ int LoadScottMission()
 
 	for(cnt = 0; cnt < numwaypoints; cnt ++) {
 		if(aiwaypoints[cnt].z <= 0) {
-			GetWayPointChanges(cnt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+			GetWayPointChanges(cnt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 			if(altval != -1) {
 				aiwaypoints[cnt].z = altval;
 				lastalt = altval;
@@ -219,7 +219,7 @@ int LoadScottMission()
 		}
 
 		firstwp = aipaths[one_object.path].wp0;
-		GetWayPointChanges(firstwp, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+		GetWayPointChanges(firstwp, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 /*		if(wpflag & DOWPLAND) {
 			landingstatus |= LANDREQUESTED;
 		}  */
@@ -608,7 +608,7 @@ int ShowScottMission()
 	for(cnt = 0; cnt < numobjects; cnt ++) {
     	fread (&one_object, sizeof (struct _object_), 1, File);
 		firstwp = aipaths[one_object.path].wp0;
-		GetWayPointChanges(firstwp, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+		GetWayPointChanges(firstwp, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 /*		if(aiwaypoints[firstwp].x <= (long)-1) {
 			// WHAT DO WE WANT TO DO ABOUT GUYS WHO ARE REFERENCED AFTER US
 			// CAN CHECK Y VALUE TO SEE IF GUY HAS ALREADY BEEN DONE

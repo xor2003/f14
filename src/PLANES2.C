@@ -1734,7 +1734,7 @@ void BaseBracket(int angleinc, int angleevade)
 		ttdist = Dist2D((Px - ps[i].x), (Py - ps[i].y));
 		ttdistkm = ttdist*32/825;
 		if(ttdistkm > 10) {
-			bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots);
+			bv[i].basespeed = InvAltSpeedConv(ps[i].alt, Knots);
 			tangle = OurHead;
 		}
 	}
@@ -2296,7 +2296,7 @@ int SetUpOval1(int ovalheight, int ovalwidth, int ovallength)
 	dx = (int)(bv[i].xloc>>HTOV);
 	dy = (int)(bv[i].yloc>>HTOV);
 
-	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 
 	if(headval != -1)
 		bv[i].threathead = headval;
@@ -2307,7 +2307,7 @@ int SetUpOval1(int ovalheight, int ovalwidth, int ovallength)
 		dalt = ovalheight;
 
 	if(speedval != -1)
-		bv[i].basespeed = speedval;
+		bv[i].basespeed = AltSpeedConv(ps[i].alt, speedval);
 
 	temphead = bv[i].threathead;
 	temphead2 = temphead + 0x4000;
@@ -2387,7 +2387,7 @@ int SetUpOval2(int ovalheight, int ovalwidth, int ovallength)
 	dx = (int)(bv[i].xloc>>HTOV);
 	dy = (int)(bv[i].yloc>>HTOV);
 
-	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 	if(altval != -1)
 		dalt = altval;
 	else
@@ -2438,7 +2438,7 @@ int SetUpOval3(int ovalheight, int ovalwidth, int ovallength)
 	dx = (int)(bv[i].xloc>>HTOV);
 	dy = (int)(bv[i].yloc>>HTOV);
 
-	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 	if(altval != -1)
 		dalt = altval - 500;
 	else
@@ -2505,7 +2505,7 @@ int OvalTurn1(int ovalheight, int ovalwidth, int ovallength)
 	dx = (int)(bv[i].xloc>>HTOV);
 	dy = (int)(bv[i].yloc>>HTOV);
 
-	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 	if((altval != -1) && (bv[i].Behavior != AICarrierLand))
 		dalt = altval;
 	else
@@ -2596,7 +2596,7 @@ int OvalTurn2(int ovalheight, int ovalwidth, int ovallength)
 	dx = (int)(bv[i].xloc>>HTOV);
 	dy = (int)(bv[i].yloc>>HTOV);
 
-	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 	if((altval != -1) && (bv[i].Behavior != AICarrierLand))
 		dalt = altval;
 	else
@@ -2811,7 +2811,7 @@ int CAPAI(int side, int ovalheight, int ovalwidth, int ovallength, int ovaldist)
 
 	TurnAIPlaneBy(i, relangle);
 
-	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+	GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 	if((altval != -1) && (bv[i].Behavior != AICarrierLand))
 		alttemp = altval;
 	else
@@ -3371,7 +3371,7 @@ void FlyWayPoint()
 		wayval = bv[i].groundt;
 
 		if((aipaths[temppath].wp0 + aipaths[temppath].numWPs) <= wayval) {
-			GetWayPointChanges((aipaths[temppath].wp0 + aipaths[temppath].numWPs - 1), &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+			GetWayPointChanges((aipaths[temppath].wp0 + aipaths[temppath].numWPs - 1), &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 
 			if(speedval != -1) {
 				bv[i].basespeed = speedval;
@@ -3450,7 +3450,7 @@ void FlyWayPoint()
 
 	if(tdist < 10) {
 		temppath = (int)bv[i].path;
-		timeval = GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+		timeval = GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 		if(wpflag & DOWPLAND) {
 			GetAIBase(planecnt);
 			bv[planecnt].Behavior = AIGoHome;
@@ -3514,7 +3514,7 @@ void FlyWayPoint()
 		}
 	}
 	else {
-		GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+		GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 		if(speedval != -1) {
 			bv[i].basespeed = speedval;
 		}

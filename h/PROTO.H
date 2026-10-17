@@ -147,7 +147,7 @@ int SARCAP0(int whatangle, long whatdist, int whatalt);
 void SARCAP1();
 void SARCAP2();
 void SARCAP3();
-int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, int *elevation, int *heading, int *attack, int *launch, int *wpflag);
+int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, int *elevation, int *heading, int *attack, int *launch, int *wpflag, int wplevel);
 int DoNextWayPt(int planenum, int waypt);
 void GetWayXYZ(int waynum, long *xval, long *yval, UWORD *zval);
 void GetPlanePointXYZ(int planenum, long *xval, long *yval, UWORD *zval);

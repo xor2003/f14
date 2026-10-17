@@ -716,7 +716,7 @@ TakingOff () {
 		}
 		else {
 			bv[planecnt].basespeed = ptype->speed - (ptype->speed>>2);
-			GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+			GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 			if(speedval != -1)
 				bv[i].basespeed = speedval;
 			ps[i].status &= ~TAKEOFF;
@@ -835,7 +835,7 @@ TakingOff () {
     } else {
        	if (psi->alt > ((GetQHeight(psi->xL, psi->yL) >> 2) + 300)) {
 			bv[planecnt].basespeed = ptype->speed - (ptype->speed>>2);
-			GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+			GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 			if(speedval != -1)
 				bv[i].basespeed = speedval;
 			ps[i].status &= ~TAKEOFF;
@@ -2740,7 +2740,10 @@ void StraightAttack() {
 			}
 		}
 		if((abs(relangle) > 0x6000) && (abs(rrelangle) > 0x6800)) {
-			if((((Gtime + i) & 0x1F) < (bv[i].winglevel<<1)) && (bv[i].winglevel > 2) && (!(bv[i].behaveflag & ISHELICOPTER)) && (ptype->maneuver > 1)) {
+			if((((Gtime + i) & 0x1F) < (bv[i].winglevel<<1)) && (bv[i].winglevel > 2)) {
+			if(ptype->bclass != HELICOPTER_OBJCLASS) {
+				if((!IsVTOL(ptype->PlaneEnumId)) || (bv[i].basespeed >= 150)) {
+				if(ptype->maneuver > 1) {
 				if(ps[i].alt < 1000) {
 					bv[i].Behavior = Immelmann;
 //					Message("Immelmann1", DEBUG_MSG);
@@ -2765,6 +2768,9 @@ void StraightAttack() {
 					TXN(Rtime);
 					Message(Txt, DEBUG_MSG);  */
 				}
+				}
+				}
+			}
 			}
 		}
 	}
@@ -4959,7 +4965,7 @@ void DESIGNATED_TrackingAI (int relangle)
 				TXA("Bombs Away!");
 				Message(Txt,WINGMAN_MSG);
 			}
-			GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag);
+			GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 			if(wpflag & DOWPGOAL) {
 				LogIt (SLG_WAY_PT_GOAL, i, ps[i].xL, ps[i].yL, ps[i].alt, -(int)bv[i].path, bv[i].groundt, 0L, LOG_AIR);
 //				DoGroupAction(i, DOWPGOAL, bv[i].groundt);
@@ -5781,13 +5787,13 @@ int AddSomePlanes2 (int planenum, int planeid, int AIBehavior, int formnum, int 
 			}
 		}
 
-    	if ((notdone) && !((ps[cnt].status&ACTIVE) && (ps[cnt].status & ALIVE))) { /* Planes in the air */
+    	if ((notdone) && (cnt != whichourcarr) && !((ps[cnt].status&ACTIVE) && (ps[cnt].status & ALIVE))) { /* Planes in the air */
     		ps[cnt].status = ALIVE+ACTIVE;
 			if(tempplane->bclass == CIVILIAN_OBJCLASS)
     			ps[cnt].status |= CIVILIAN;
-			if((cnt >= NPLANES) && (!imaboat))
+			if((NPLANES <= cnt) && (!imaboat))
 				NPLANES = cnt + 1;
-			if((cnt <= LASTPLANE) && (imaboat))
+			if((LASTPLANE >= cnt) && (imaboat))
 				LASTPLANE = cnt;
 
 			if(isfriend == SS_FRIENDLY) {
@@ -5805,19 +5811,15 @@ int AddSomePlanes2 (int planenum, int planeid, int AIBehavior, int formnum, int 
 				ps[cnt].mcnt[1] = 0;
 			}
 
-			if(tempplane->bclass ==  HELICOPTER_OBJCLASS) {
-				bv[cnt].behaveflag |= ISHELICOPTER;
-			}
-
-			if(altval > 6)
+			if(altval > 6 || imaboat)
         		ps[cnt].alt = altval;
 			else
-				altval = 6;
+				ps[cnt].alt = 6;
 			ps[cnt].head = headval;
 			bv[cnt].threathead = headval;
 			if(speedval > 0) {
-	    		ps[cnt].speed = speedval;
-				bv[cnt].basespeed = speedval;
+	    		ps[cnt].speed = AltSpeedConv(ps[cnt].alt, speedval);
+				bv[cnt].basespeed = AltSpeedConv(ps[cnt].alt, speedval);
 			}
 			else {
 	    		ps[cnt].speed = 0;
@@ -5841,7 +5843,7 @@ int AddSomePlanes2 (int planenum, int planeid, int AIBehavior, int formnum, int 
 			else
 				bv[cnt].behaveflag += 1 + numwingmen;
 
-			if(altval != 0)
+			if(altval != 0 || imaboat)
 				ps[cnt].status &= ~TAKEOFF;
 
 			TranslateBehavior(cnt, AIBehavior, formnum);
@@ -5896,6 +5898,9 @@ int AddSomePlanes2 (int planenum, int planeid, int AIBehavior, int formnum, int 
 				SetUpLaunch(cnt, bv[cnt].groundt);
 //				ps[cnt].status &= ~TAKEOFF;
 			}
+
+			if(whattype == ST_NOFIRE)
+				bv[cnt].behaveflag |= ISHELICOPTER;
 
 			if(numwingadd > 0)
 				SetUpWingman(cnt, ps[cnt].base, numwingadd, planeid);

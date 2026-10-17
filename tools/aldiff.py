@@ -14,6 +14,7 @@ def loadmap(path):
 gold=loadmap('analysis/gold/gold_named.map'); gold.update(loadmap('analysis/gold/gold.map'))
 mine=loadmap('build/f14_named.map')
 gex=open(GOLD,'rb').read(); mex=open(OURS,'rb').read()
+def loadof(ex): return int.from_bytes(ex[8:10],'little')*16
 def dis(exe,load,p,a,b):
     d=exe[load+p*16+a:load+p*16+b+1]
     t=tempfile.NamedTemporaryFile(delete=False);t.write(d);t.close()
@@ -60,7 +61,7 @@ if __name__=='__main__':
             if p==gp and a<=go<=b: gf=gn; break
     else: gf=garg
     gp,ga,gb=gold[gf]; mp,ma,mb=mine[nm]
-    gd=dis(gex,0x5400,gp,ga,gb); md=dis(mex,0x5000,mp,ma,mb)
+    gd=dis(gex,loadof(gex),gp,ga,gb); md=dis(mex,loadof(mex),mp,ma,mb)
     edits=lcs_align(gd,md)
     print('GOLD %s @%04x:%04x-%04x  OUR %s %04x-%04x  gd=%d md=%d edits=%d'
           %(gf,gp,ga,gb,nm,ma,mb,len(gd),len(md),len(edits)))
