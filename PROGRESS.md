@@ -199,6 +199,19 @@ Sweep: 507 → **520 MATCH / 746** pairings (new anchors added).
 - `_AirKill` @2fb2:0100 — 124 edits, behavior-ptr compares missing.
 - `_ChangeGroupBehavior` @21ce:8181 — 37 edits.
 
+Sweep: 531 → **530 MATCH / 748** (post AirKill; f14_named.map regenerated —
+some extents shifted; -1 net but several stale-extent fns corrected).
+
+### Byte-exact added
+- `_AirKill` (38b6:0ebc, 215 insns) — full retail rewrite: `ourcarrierdead` flag
+  on `killed==whichourcarr`; catapult release `PlaneLaunched(threathead,killed)`
+  + `GetNextLaunch(killed)` when TAKEOFF+base<0+threathead∈[0,4); chute gated by
+  bclass∉{CMISSILE,CIVILIAN} + killed<NPLANES + (winglevel>=Rtime&0xf || ==0xf);
+  respawn `verticlesep++/varcnt` update for killed>=NPLANES; UpdateMissionData
+  pair (leader==-1 → ourplanetype else PlaneEnumId); Rtime&0xf 3-arm msg select.
+- New globals: `ourcarrierdead`, `ourplanetype`; bv field fix `groundt` in
+  GetPlanePointXYZ (was target — offset map correction).
+
 Sweep: 520 → **531 MATCH / 748** pairings (matches3.txt anchors, post
 A2G/GetPlanePointXYZ/AddGroundTarget/AvoidMountains/ChangeGroupBehavior
 batch). 217 mzdiff DIFFs remain — triaged: many are aldiff edits<=10

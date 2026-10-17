@@ -2305,6 +2305,7 @@ int InAcqList(int n)
 //***************************************************************************
 int AddAcqList(TARGET *t, int start)
 {
+	int sig;
 	int i,j;
 	long rng;
 	struct PlaneData far *tempplane;
@@ -2320,20 +2321,27 @@ int AddAcqList(TARGET *t, int start)
 	// Distance Check - This will be dependent on radar signature
 	tempplane = GetPlanePtr(ps[t->i].type);
 
-	if (AWG9_REALITY_LEVEL != AWG9_EASY) {
-		if (tempplane->radarsig==1) {
+	if (AWG9_REALITY_LEVEL == AWG9_MODERATE) {
+		if ((long)t->d > ((t->conv) ? 4988L:159616L)) {
+			return(0);
+		}
+	}
+
+	if (AWG9_REALITY_LEVEL == AWG9_AUTHENTIC) {
+		sig = tempplane->radarsig;
+		if (sig==1) {
 			rng = (t->conv) ? 1900L:60800L;		// 40 nmi
 		}
-		if (tempplane->radarsig==2) {
+		if (sig==2) {
 			rng = (t->conv) ? 4513L:144416L;	// 95 nmi
 		}
-		if (tempplane->radarsig==3) {
+		if (sig==3) {
 			rng = (t->conv) ? 4988L:159616L;	// 105 nmi
 		}
-		if (tempplane->radarsig==4) {
+		if (sig==4) {
 			rng = (t->conv) ? 5938L:190016L;	// 125 nmi
 		}
-		if (tempplane->radarsig==5) {
+		if (sig==5) {
 			rng = (t->conv) ? 6888L:220416L;	// 145 nmi
 		}
 
