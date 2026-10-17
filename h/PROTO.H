@@ -183,6 +183,7 @@ int GetGTRadarNum(int gtnum);
 void IndirectWPCorrection(int planenum);
 void LetWingmenContinue(int planenum);
 int GetDAltSpeed(UWORD alt);
+int AltSpeedConv(int alt, int knots);
 void CheckTurnStuff(int planenum);
 void AICarrierLand();
 void MoveAIToElevator(int planenum, int elevator);

@@ -1274,7 +1274,7 @@ void FollowPlayer()
 
 	secplace = (bv[i].behaveflag & 15);
 
-	prespeed = Knots + GetDAltSpeed(ps[planecnt].alt);
+	prespeed = AltSpeedConv(ps[planecnt].alt, Knots);
 
 	temphead = OurHead - 0x5000;
 
@@ -3382,17 +3382,34 @@ void ShowOurWPS()
     Message (Txt, RIO_NOW_MSG);
 }
 
+extern	UWORD	OurAlt;
+int TAStoIAS(int TAS);
+
+int AltSpeedConv(int alt, int knots)
+{
+	int save, result;
+
+	save = OurAlt;
+	OurAlt = alt << 2;
+	result = TAStoIAS(knots);
+	OurAlt = save;
+	return(result);
+}
+
 int GetDAltSpeed(UWORD alt)
 {
 	long alteffect;
 
 #if 1
+	if (!ConfigData.FightModel)
+		return(0);
+
 	if(alt > 2500) {
 		alteffect = (((((long)alt - 2500)/25) + 100) * ptype->speed)/1000;
 		return((int)alteffect);
 	}
 	else if(alt > 1250) {
-		alteffect = ((((long)alt - 1250)/25) * ptype->speed)/500;
+		alteffect = (ptype->speed * (((long)alt - 1250)/25))/500;
 		return((int)alteffect);
 	}
 #else

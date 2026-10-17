@@ -2680,7 +2680,7 @@ void StraightAttack() {
 	orgrelangle = relangle = tangle - psi->head;
 	if(bv[i].target == -1) {
 		enemyhead = OurHead;
-		targetspeed = Knots + GetDAltSpeed(ps[i].alt);
+		targetspeed = AltSpeedConv(ps[i].alt, Knots);
 		enemyalt = Alt;
 		enemyroll = OurRoll;
 	}
@@ -5639,8 +5639,8 @@ void FlySanitize()
 	int relangle;
     char Str[80];
 
-	if((Knots+ GetDAltSpeed(ps[i].alt)) > 300)
-		bv[i].basespeed = (Knots + GetDAltSpeed(ps[i].alt)) - 100;
+	if((AltSpeedConv(ps[i].alt, Knots)) > 300)
+		bv[i].basespeed = (AltSpeedConv(ps[i].alt, Knots)) - 100;
 	else
 		bv[i].basespeed = 200 + GetDAltSpeed(ps[i].alt);
 

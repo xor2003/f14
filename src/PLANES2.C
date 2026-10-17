@@ -1248,7 +1248,7 @@ void FormationUS()
 
 	secplace = (bv[i].behaveflag & 15);
 
-	prespeed = Knots + GetDAltSpeed(ps[i].alt);
+	prespeed = AltSpeedConv(ps[i].alt, Knots);
 
 	if(bv[i].behaveflag & COMBAT_SPREAD) {
 		if(bv[i].behaveflag & ENEMYNOFIRE) {
@@ -1727,7 +1727,7 @@ void BaseBracket(int angleinc, int angleevade)
 
 	if((bv[i].target == -1) && (GetSquadLeader(i) == -1)) {
 		if(distkm > 10) {
-			bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt);
+			bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots);
 			tangle = OurHead;
 		}
 		else {
@@ -1738,7 +1738,7 @@ void BaseBracket(int angleinc, int angleevade)
 		ttdist = Dist2D((Px - ps[i].x), (Py - ps[i].y));
 		ttdistkm = ttdist*32/825;
 		if(ttdistkm > 10) {
-			bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt);
+			bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots);
 			tangle = OurHead;
 		}
 	}
@@ -3207,22 +3207,22 @@ void HelpPlayerRefuel(int pdist, int pangle)
 	i = planecnt;
 
 	relangle = pangle - ps[i].head;
-	if(((Knots + GetDAltSpeed(ps[i].alt)) > 200) && ((Knots + GetDAltSpeed(ps[i].alt)) < 300)) {
+	if(((AltSpeedConv(ps[i].alt, Knots)) > 200) && ((AltSpeedConv(ps[i].alt, Knots)) < 300)) {
 		if(abs(relangle) < 0x4000)
-			bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) + 25;
+			bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) + 25;
 		else {
 			if(pdist < 3)
 				bv[i].Behavior = HoldSpeedRefuel;
 			else if(pdist < 7)
-				bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) - 5;
+				bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) - 5;
 			else if(abs(relangle) > 0x7000) {
 				if(pdist < 12)
-					bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) - 10;
+					bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) - 10;
 				else
-					bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) - 25;
+					bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) - 25;
 			}
 			else
-				bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) + 25;
+				bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) + 25;
 		}
 	}
 
@@ -4909,23 +4909,23 @@ void CheckHelpPlayer()
 	}
 
 	relangle = tangle - ps[i].head;
-	if(((Knots + GetDAltSpeed(ps[i].alt)) > 200) && ((Knots + GetDAltSpeed(ps[i].alt)) < 300)) {
+	if(((AltSpeedConv(ps[i].alt, Knots)) > 200) && ((AltSpeedConv(ps[i].alt, Knots)) < 300)) {
 		if(abs(relangle) < 0x4000)
-			bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) + 25;
+			bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) + 25;
 		else {
 			if(ldist < (20 * AILOCDIV))
 //				bv[i].Behavior = HoldSpeedRefuel;
-				bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) + (ldist / AILOCDIV) - (5 + 20);
+				bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) + (ldist / AILOCDIV) - (5 + 20);
 			else if(ldist < (224 * AILOCDIV))
-				bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) - 5;
+				bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) - 5;
 			else if(abs(relangle) > 0x7000) {
 				if(ldist < ((long)1920 * AILOCDIV))
-					bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) - 10;
+					bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) - 10;
 				else
-					bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) - 25;
+					bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) - 25;
 			}
 			else
-				bv[i].basespeed = Knots + GetDAltSpeed(ps[i].alt) + 25;
+				bv[i].basespeed = AltSpeedConv(ps[i].alt, Knots) + 25;
 		}
 	}
 
