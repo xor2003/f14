@@ -2044,7 +2044,7 @@ wp_accum:
 		}
 		if(ps[cnt2].xL <= (long)-1) {
 			otherplane = (int)ps[cnt2].yL;
-			waynum = bv[cnt2].target;
+			waynum = bv[cnt2].groundt;
 			goto wp_accum;
 		}
 		*xval += ps[cnt2].xL;

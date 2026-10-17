@@ -193,6 +193,8 @@ void MoveAIToElevator(int planenum, int elevator);
 void DoLandWait(long dx, long dy, int rearhead);
 void CheckPlaneLand(int planenum);
 void LetNextPlaneLand();
+void GetNextLaunch(int planenum);
+int PlaneLaunched(int cat, int planeid);
 void GetPlaneLanding();
 int GetWhichElevator(int try0, int try1, int try2, int try3, int yesinvis);
 int CheckIsWayTarget(int bogeyi);

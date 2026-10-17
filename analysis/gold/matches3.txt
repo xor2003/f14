@@ -36,7 +36,7 @@
 4a6f:01f1 n=  1 -> _AdjustSounds
 48b6:0229 n=  1 -> _Air2GroundHoming
 4d7e:0362 n=  1 -> _TIDAttkInfo
-3fb2:0100 n=  1 -> _AirKill
+48b6:0ebc n=  1 -> _AirKill
 48b6:00a7 n=  1 -> _All2AirHoming
 172e:06f3 n=  1 -> _AnimIsRunning
 220f:2d25 n=  1 -> _AvoidMountains

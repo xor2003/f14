@@ -26,6 +26,7 @@
 #define CHECKBASES	75
 
 int whichourcarr;     // holds value for which boat our carrier
+int ourcarrierdead;     // set when our carrier is killed
 int boatnum;          // index of this boat in "ps" array
 int     junktime = -999;
 

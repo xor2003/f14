@@ -56,6 +56,9 @@ extern int      JAMMER[];
 
 /* Detection variables */
 extern  int     detected, atarg,gtarg,ImHit;
+extern  int     ourcarrierdead;
+extern  int     ourplanetype;
+extern  int     whichourcarr;
 extern  COORD   xlast[],ylast[],chuteX,chuteY;
 extern  int     zlast[],chuteZ,chuteDZ;
 extern  int     vScale;
@@ -675,17 +678,34 @@ AirKill (int killed)
 
     if (!(ps[killed].status&CRASH)) {
 
+		if(killed == whichourcarr)
+			ourcarrierdead = 1;
+		if((ps[killed].status & TAKEOFF) && (ps[killed].base < 0)
+				&& (bv[killed].threathead >= 0) && (bv[killed].threathead < 4)) {
+			PlaneLaunched(bv[killed].threathead, killed);
+			GetNextLaunch(killed);
+		}
 		IndirectWPCorrection(killed);
 
         ps[killed].status |= CRASH;
 
-		if((bv[killed].Behavior != FlyCruise) && (killed < NPLANES)) {
-	        chuteX = ps[killed].x;
-    	    chuteY = ps[killed].y;
-        	chuteZ = ps[killed].alt;
-        	chuteDZ = 128;
-		}
 		tempplane = GetPlanePtr(ps[killed].type);
+		if((tempplane->bclass != CMISSILE_OBJCLASS) && (tempplane->bclass != CIVILIAN_OBJCLASS)
+				&& (killed < NPLANES)) {
+			if((bv[killed].winglevel >= (Rtime & 0xf)) || ((Rtime & 0xf) == 0xf)) {
+		        chuteX = ps[killed].x;
+	    	    chuteY = ps[killed].y;
+        		chuteZ = ps[killed].alt;
+        		chuteDZ = 128;
+			}
+		}
+		if(killed >= NPLANES) {
+			bv[killed].verticlesep ++;
+			if(bv[killed].varcnt > Gtime)
+				bv[killed].varcnt += 0x1e0;
+			else
+				bv[killed].varcnt = Gtime + 0xf0;
+		}
 
 		// Check and Make sure this is RIGHT!!!!
 		LogWho = tempplane->PlaneEnumId;
@@ -708,6 +728,13 @@ AirKill (int killed)
     }
 
 	tempplane = GetPlanePtr(ps[killed].type);
+	if(bv[killed].leader == -1) {
+		UpdateMissionData(1, ourplanetype);
+		UpdateMissionData(2, ourplanetype);
+	} else {
+		UpdateMissionData(1, tempplane->PlaneEnumId);
+		UpdateMissionData(2, tempplane->PlaneEnumId);
+	}
     FTXT (tempplane->name);
 	TXA (" ");
 
@@ -716,16 +743,16 @@ AirKill (int killed)
 	StartASmoke( ps[killed].xL, ps[killed].alt,ps[killed].yL, AIRXPLO, 10 );
 	if(GetSquadLeader(killed) == -1) {
 		Speech(IM_HIT);
-		arghtmp = Rtime & 3;
+		arghtmp = Rtime & 0xf;
 		GetWingName(killed, Str);
-		if(arghtmp == 0)
-			strcat(Str, "ARRRRRRRGGGGHHHHHHH!!!!!");
-		else if(arghtmp == 1)
-			strcat(Str, "EJECT...EJECT...EJECT!!!!!");
-		else if(arghtmp == 2)
-			strcat(Str, "BAILING OUT!!!!!");
-		else if(arghtmp == 3)
+		if(arghtmp == 0xf)
 			strcat(Str, "GOING IN!!!!!");
+		else if(bv[killed].winglevel < arghtmp)
+			strcat(Str, "ARRRRRRRGGGGHHHHHHH!!!!!");
+		else if(arghtmp & 1)
+			strcat(Str, "EJECT...EJECT...EJECT!!!!!");
+		else
+			strcat(Str, "BAILING OUT!!!!!");
 		Message(Str,WINGMAN_MSG);
 	}
 

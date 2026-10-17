@@ -124,6 +124,7 @@ extern struct RadarData far *GetRadarPtr(int RadarNo);
 
 
 struct PlaneData far *ptype;
+int ourplanetype;	/* enum id of our plane type */
 
 
 extern struct FPARAM{
