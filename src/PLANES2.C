@@ -2902,6 +2902,12 @@ void CheckCAP()
 	}
 }
 
+extern int _pd0;
+extern int _pd1;
+extern int _pd2;
+extern int _pd3;
+extern int _pd4;
+extern int _pd5;
 int CAPAI(int side, int ovalheight, int ovalwidth, int ovallength, int ovaldist)
 {
 
@@ -4683,6 +4689,10 @@ int Langle(long x, long y)
 	return(ARCTAN((int) x, (int) y));
 }
 
+extern int _pd10;
+extern int _pd11;
+extern int _pd12;
+extern int _pd13;
 void LGetTargADP(int planenum, long dx, long dy, COORD *tdist, int *tpitch, int *tangle, COORD *tdistnm, int *enemyalt, int deltalt, long *ldist)
 {
 	int holddist;
