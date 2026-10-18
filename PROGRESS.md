@@ -860,3 +860,9 @@ Additional decode notes:
   can't resolve to matching var names. Feeding DATA-segment publics into
   the candidate map may convert many of these to MATCH (unexploited).
 - verify_sweep_600.log: 601 MATCH / 763 (+16 via re-anchoring)
+- Refinements: '=~' is a dataMap offset-collision (per-compare OffsetMap,
+  offset-keyed not name-keyed) => feeding var symbols won't fix it; treat
+  as real/inconsistent operand mapping. dataMatch allows maxData=#DATA segs.
+- ChangeColor/ClipSprite/DrawDot all anchored to same 4140:10c4 (cls
+  cascade) + byte-scan nohit => genuinely different head bytes.
+- IsLand correct anchor, real mid-func diff (extra far call in retail).
