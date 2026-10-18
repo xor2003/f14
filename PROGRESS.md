@@ -510,3 +510,40 @@ AIWingMan 0x3a0c, whichourcarr 0xc558, RioWingOK 0x4740,
 Rp1 0x43ea, Rp2 0x43fe, Rp3 0x4412, MouseSprite 0xc562, Button 0x5a7e
 DoMustLive->escort strs 0xc560, DoMustDie->intercept 0x6670,
 DoMustEsc->survive-fail 0xc566, MinTimeSet->aloft 0x64c6
+
+=== HSD pitch cluster (commit 2a97b7d, 546/756) ===
+- Removed vestigial #include <stdlib.h> + "armt.h" (F-15 III header) from
+  HSD.C: drops visible-decl count below MSC6's optimizer-tracking
+  threshold -> arg-eval emits local-first adds + live-reg ax reuse as in
+  retail. _pitchbar, _pitchnum2 now byte-MATCH. _pitchnum, _pitch_ladder,
+  _scaler, _circlepoints, _drawcircle also MATCH.
+- _pitchbar2: only residual is MSC6 CSE of shared (ox-t) between the two
+  RpPrint calls (spills si-t to [bp-1a], reloads as cx) vs retail
+  recompute on di after si<->di swap. No expr ordering /O flag /optimize
+  pragma reproduces retail; volatile int t kills the CSE and restores the
+  0x18 frame leaving 2-site load-vs-memop artifact. Semantic match.
+- _fourpoints: pre-existing artifact (screen+x+y operand order + es:bx
+  spill-vs-reload through cx:dx).
+- tools/fdiff.py: read MZ hdrparas for image base (ours 0x5200, gold
+  0x5400) instead of hardcoded 0x5000/0x5400.
+
+=== Header-threshold sweep (557/756) ===
+MSC6's optimizer tracking is bounded by visible-declaration count per
+module. Removing genuinely-unused system headers drops modules under the
+threshold and flips compare-direction / operand-order / CSE codegen to
+retail shape. Applied:
+- AWG9.C:   -bios.h -dos.h      (+4, -0)
+- PLANES.C: -bios.h -dos.h      (+7, -5 artifact regressions)
+- PLANES2.C:-bios.h -dos.h      (+2, -0)
+- PLANES3.C:-bios.h -dos.h      (+3, -3 artifact regressions)
+- BULLETS.C:-bios.h -dos.h      (+2, -0)
+- BOATS.C:  -bios.h -dos.h      (+1, -1 artifact regression)
+- CARR.C:   -bios.h -dos.h
+- CMDS.C:   -dos.h (bios needed for _bios_keybrd)
+Net: +20 MATCH, -9 artifact-class DIFFs. 546 -> 557/756.
+Regressions are same artifact class (operand-order flips); recoverable
+with per-function source adjustments later if needed.
+Gold-only scheduler port pending: AWG9() tail calls FUN_08de_306c
+(counter-gated: [0x12d0]++ >0xa -> call 0x3431 + reset; then calls
+0x30d8, 0x31b2, 0x308e) gated by [0xae9c]==0x12. Gold lacks our
+SearchForTargets() call in AWG9() head.

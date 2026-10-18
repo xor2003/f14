@@ -13,9 +13,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <bios.h>
+
 #include <string.h>
-#include <dos.h>
+
 #include <setjmp.h>
 #include "types.h"
 #include "library.h"
@@ -57,7 +57,6 @@ long LDist3D(long x, long y, int z);
 extern long absL(long x);
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
 extern struct MissileData far *GetMissilePtr(int MissileNo);
-
 
 //***************************************************************************
 static int ASE_Tbl[2][19] =
@@ -180,7 +179,6 @@ int InRangeFlash=0;
 // IT!  THIS MEANS YOU!!! Thanks for your support - MJM
 static jmp_buf resetmark;
 
-
 //***************************************************************************
 int AWG9()
 {
@@ -201,7 +199,6 @@ int AWG9()
 	DetermineShootParams();
 	Aim9Sound();
 }
-
 
 //***************************************************************************
 int InitTWSData()
@@ -242,7 +239,6 @@ int GetWeaponCount(int type)
 	return cnt;
 }
 
-
 //***************************************************************************
 static mode_flip(mode)
 {
@@ -268,8 +264,6 @@ int InitMode()
 		return 0;
 	}
 }
-
-
 
 //***************************************************************************
 int AWG9_ACQ(int flag)
@@ -400,7 +394,6 @@ int UpdateTWSSelected()
             	strcat(ASPECT_S,(asp > 0)?"L":"R");
 			break;
 		}
-
 
 		if (AWG9_project(ps[SelectedTarg].xL,ps[SelectedTarg].yL,ps[SelectedTarg].alt)==-1)
 			return 0;
@@ -894,7 +887,6 @@ int AWG9_CHANGE_MODE(int mode)
 		break;
 	}
 
-
 	// Check Current Beam pitch - if greater than bar-reset
 	if ((abs(BEAM_PIT)/DEG) > ((SELECTED_BAR_NUM*BAR_SIZE)/DEG)) {
 //		sprintf(Txt,"BEAM PITCH: %i  NEW BAR SETTING: %i",(abs(BEAM_PIT)/DEG),
@@ -942,8 +934,6 @@ int CheckAZELChange()
 			prevbar=SELECTED_BAR_NUM;
 	}
 }
-
-
 
 //***************************************************************************
 int ClearTargetFile()
@@ -1003,7 +993,6 @@ int AWG9_LOCK()
 	AWG9_CHANGE_MODE(AWG9_PDSTT);
 }
 
-
 //***************************************************************************
 int ChangeModerateScan(int mode)
 {
@@ -1060,8 +1049,6 @@ int ChangeModerateScan(int mode)
 	}
 	srchmode=ModerateMode;
 }
-
-
 
 //***************************************************************************
 int ChangeSRCHMode(int mode)
@@ -1182,7 +1169,6 @@ int CHANGE_AZIMUTH()
 	}
 	SELECTED_AZ=aztemp;
 }
-
 
 //***************************************************************************
 int AWG9_INC_RANGE()
@@ -1530,7 +1516,6 @@ int UpdateTargetClosure(TARGET *tc)
 	tc->lasttime = curtime;
 	tc->targetclosure = targcl;
 
-
 	asp    = angle (Px-ps[tc->i].x, -(Py-ps[tc->i].y));
 	asp   -= ps[tc->i].head;
 	asp   += 0x8000;
@@ -1549,7 +1534,6 @@ int UpdateTargetClosure(TARGET *tc)
 	Message(Txt);
 #endif
 }
-
 
 //***************************************************************************
 long LDist3D(long x, long y, int z)
@@ -1585,7 +1569,6 @@ long LDist3D(long x, long y, int z)
 
 	return(returnval);
 }
-
 
 //***************************************************************************
 static calc_TTI()
@@ -1654,7 +1637,6 @@ int SearchForTargets()
 	// Cannot track more than one target at a time in PDSTT
 	if (AWG9_MODE == AWG9_PDSTT) return(0);
 
-
 	// Scan for new targets
 	for (i=0; i<NPLANES; i++) {
 		if (i == DESIGNATED) continue;
@@ -1714,7 +1696,6 @@ int SearchForTargets()
 		DETECTED_TARG[i]++;
 	}
 }
-
 
 //***************************************************************************
 int ResetTargetTrack()
@@ -1824,7 +1805,6 @@ int InBeam(TARGET *t)
 	int      az_angle, el_angle, bar_angle;
 	long rng;
 	struct PlaneData far *tempplane;
-
 
 	tempplane = GetPlanePtr(ps[t->i].type);
 
@@ -2097,8 +2077,6 @@ int RioLockCheck()
 		mode_flip(AWG9_PDSTT);
 }
 
-
-
 //***************************************************************************
 int SpecialModeAcq()
 {
@@ -2240,7 +2218,6 @@ int aa_acquire(int flag)
 	}
 }
 
-
 //***************************************************************************
 int DesignateTIDTarg()
 {
@@ -2335,7 +2312,6 @@ int SelectDesig()
 
 	if (new==-1) return(0);
 }
-
 
 //***************************************************************************
 int UpdateTIDTargs()
@@ -2475,7 +2451,6 @@ int ResizeASE()
 
 	// within rmin?
 
-
 	if ((AWG9_MODE == AWG9_PDSTT) || (AWG9_MODE == AWG9_STANDARD_TRACK)) {
 		if (BIT_2_NM(PDT_RNG*10)<ORDNANCE[PW].rmin) {
 			ASE_RADIUS = 0;
@@ -2563,7 +2538,6 @@ static long row3(int r,int dx,int dy,int dz)
 	return z;
 }
 
-
 //***************************************************************************
 int FiringOrder()
 {
@@ -2572,7 +2546,6 @@ int FiringOrder()
 	}
 	BuildFiringList();
 }
-
 
 //***************************************************************************
 int BuildFiringList()
@@ -2643,7 +2616,6 @@ CheckDataLink()
 	int curtime;
 	static int lasttime;
 
-
 	curtime = GETTIME();
 	temptime = curtime - lasttime;
 
@@ -2710,9 +2682,6 @@ CheckDataLink()
 		}
 	}
 }
-
-
-
 
 //***************************************************************************
 int ThreatTblBase=0;

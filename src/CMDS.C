@@ -6,7 +6,6 @@
 /*  Flight related commands are handled in        */
 /*  FLIGHT2.C                                     */
 
-#include <dos.h>
 #include <bios.h>
 
 #include "library.h"

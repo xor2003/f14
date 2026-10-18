@@ -5,8 +5,6 @@
 
 #include <stdlib.h>
 #include	<stdio.h>
-#include <bios.h>
-#include <dos.h>
 #include "library.h"
 #include "world.h"
 #include "sdata.h"

@@ -9,7 +9,6 @@
 //*
 //* Copyright 1993 MicroProse Software, Inc.
 //***************************************************************************
-#include <dos.h>
 #include <stdlib.h>
 #include "Library.h"
 #include "world.h"

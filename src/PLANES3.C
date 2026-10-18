@@ -10,8 +10,6 @@
 //***************************************************************************
 #include <stdio.h>
 #include <stdlib.h>
-#include <bios.h>
-#include <dos.h>
 #include "library.h"
 #include "planeai.h"
 #include "world.h"
