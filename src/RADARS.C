@@ -86,8 +86,8 @@ doradar()
 // Radar detection check
 detect(int i)
 {
-    COORD dist,xydist();
     int  signal,j,k,angl,a,m;
+    COORD dist,xydist();
     long x,y;
 	int targetnum;
 	struct RadarData far *tempradar;
@@ -115,7 +115,7 @@ detect(int i)
 
     // check if detected
 
-    if (signal>dist) {
+    if (dist<signal) {
         if (Rdrs[i].alert + (5<<Diff) <256) {
             Rdrs[i].alert  += (5<<Diff);
         } else {

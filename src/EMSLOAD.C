@@ -64,7 +64,6 @@ fstrcmp(char far *D, char far *S)
 unsigned int NEMSSEG=0;
 unsigned int EMSHANDLE=0;
 int   EMSPagesFree=0;
-int   EMSPagesGrabbed=0;
 
 int   NOTEXTURE=0;
 
@@ -72,6 +71,7 @@ int   NOTEXTURE=0;
 NewEmsFunction()
 {
    int   free;
+   extern int EMSPagesGrabbed;
 
 	if (EMMThere()) {
       if (NEMSSEG=EMSPageFrame()) {
@@ -138,6 +138,7 @@ GetEmsMem( int paras, int *page, int *seg )
 {
    int   i,j,size;
    int   lstpg;
+   extern int EMSPagesGrabbed;
 
 // entry 0 is never used !!!!!!
 
@@ -164,6 +165,7 @@ GetEmsMem( int paras, int *page, int *seg )
 ResizeEmsMem(int i,int oldparas, int paras)
 {
    int   size,j;
+   extern int EMSPagesGrabbed;
 
    for (j=(i+1);oldparas>1024;j++,oldparas-=1024)
       {
@@ -171,7 +173,7 @@ ResizeEmsMem(int i,int oldparas, int paras)
       }
    emspageuse[i]-= oldparas;
    size=emspageuse[i]+paras;
-   for (j=i;(j<EMSPagesGrabbed)&&(size>0);j++,size-=1024)
+   for (j=i;(EMSPagesGrabbed>j)&&(size>0);j++,size-=1024)
       {
       emspageuse[j]= (size>1024)? 1024:size;
       }
@@ -689,4 +691,5 @@ SetPallet( Block )
 	int86x(0x10, &R, &R, &SR );
 }
 
+int EMSPagesGrabbed=0;
 
