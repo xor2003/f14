@@ -2675,6 +2675,9 @@ int AddFiringList(TARGET *t, int start)
 
 //***************************************************************************
 
+extern int _pd0;
+extern int _pd1;
+extern int _pd2;
 CheckDataLink()
 {
 	int i;

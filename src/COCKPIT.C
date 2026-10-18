@@ -503,7 +503,6 @@ DoCockpitDisplays ()
 			DoCRT(1);
  			DoCRT(2);
 			DoCRT(3);
-			DrawVVGauge();
 			DrawAirSpeedGauge();
 			DrawAltGauge();
 			DrawRadarAlt();
@@ -511,6 +510,8 @@ DoCockpitDisplays ()
 			DrawStores();
 			ShowFuel();
 			DrawEngineStat();
+			DrawVVGauge();
+			GDisplay();
    		}
 
 	    if (View==FRONT) {

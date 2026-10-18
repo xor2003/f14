@@ -245,6 +245,16 @@ DisplayRioHead()
 }
 
 //***************************************************************************
+extern int AutoHead;
+extern int SteadyHead;
+extern int BackSeat;
+extern int vHead;
+extern int PadHead;
+extern int CosHead;
+extern int PovHead;
+extern int RioWingOK;
+extern int NextRioTime;
+extern int RIOEmsOk;
 int HeadProject(long x, long y, int z)
 {
 	long  dx,dy;

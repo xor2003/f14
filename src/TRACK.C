@@ -88,9 +88,10 @@ lproject(long x, long y, int z)
     long    xe,ye,ze;
     long    row3();
     int     ZShift;
+    extern long ViewYx;
 
     dx = -(x - ViewX);
-    dy =   y - (0x100000-ViewY);
+    dy =   y - (0x100000-ViewYx);
     dz =  (z - ViewZ);
 
     ZShift = HTOV+BT2KM-3;
