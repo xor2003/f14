@@ -694,3 +694,20 @@ Additional decode notes:
 - count: **573/763 MATCH** (DDD cluster clean: _DoDDD/_show_az_carat/
   _DDDWeaponRanges/_DopplerCheck/_convert_xy/_show_jamming all MATCH;
   _DDDTargetDraw colors 84/88 fixed, frame/regalloc residual remains).
+- Triage of all 190 DIFFs: dominant classes are (a) compare operand-order
+  (mov ax,[local];cmp [global],ax vs reversed) — contextual MSC6 pick,
+  source-insensitive; (b) si/di regalloc; (c) index vs pointer array
+  addressing (bx=i*stride +[bx+base+off] vs bx=&arr[i]+[bx+off]);
+  (d) eval-order of commutative operands (param-first always chosen).
+- doaaa: real fix — struct GroundTarget reordered to {x,y,orgnum,gflags}
+  (gold reads x@si-0xa via +0xe-biased ptr, orgnum@+8 confirmed by
+  CheckAAAHit). Residual = loop-tail operand order only.
+- Still-real diffs noted: _AwacsPicture (eval order (Diff+1)*60 vs
+  Gtime-LastCall — MSC6 picks param/sub first regardless of source),
+  _Do3DObject (ViewY+OY order — all 4 source forms emit param-first),
+  _DoPlayerOnTheCat (gold switches on different var [0x28c8]),
+  _AISanitizeCheck (block-layout + cnt-in-ax regalloc),
+  _DESIGNATED_TrackingAI (index-form vs pointer-form bv[] access).
+- mzretools note: /Fc writes .COD only with bare filename (/Fcname.cod),
+  /Fl with drive path (/FlD:\X.LST); MZ hdrsize gold=0x5400 ours=0x5200.
+- count: **573/763 MATCH**.
