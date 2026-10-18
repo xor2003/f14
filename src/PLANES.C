@@ -5799,7 +5799,7 @@ void GiveSanitizeMessage(int wingnum, int groupcheck[])
 	tdist = 0;
 	groupcnt = 0;
 
-    for (cnt=0; NPLANESx>cnt; cnt++) {
+    for (cnt=0; cnt<NPLANESx; cnt++) {
 		if(groupcheck[cnt]) {
 			groupcnt ++;
 		    dx = ps[cnt].x - x;
@@ -6055,13 +6055,18 @@ void GetWingName(int ainum, char *Str)
 void ChangeGroupBehavior(int ainum, int matchenemyfire)
 {
 	int prewing;
-	int combatspread = 0;
-	int ishelo = 0;
-	int radaron = 0;
-	int enemynofire = 0;
-	int pitchup = 0;
+	int combatspread;
+	int ishelo;
+	int radaron;
+	int enemynofire;
+	int pitchup;
 	int wingcnt;
 
+	radaron = 0;
+	enemynofire = 0;
+	ishelo = 0;
+	combatspread = 0;
+	pitchup = 0;
 	prewing = GetSquadLeader(ainum);
 	if(bv[ainum].behaveflag & RADARON)
 		radaron = 1;
