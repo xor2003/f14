@@ -1125,3 +1125,31 @@ xor ax,ax ×8 · push di ×8 · cmp word ×8 · mov word[L] ×7 · mov ax,[] ×7
 structural (block-layout over-merge/out-of-line arms), DGROUP placement
 (_CheckAAAHit Dist2Obj@0x60d2 class), byte-scan nohits, retail-only
 helpers.
+
+## 595/760 — session notes: pairings audit + lever refinement
+
+- `_CheckE2C` MATCH via decl reorder (`signal` after `dist`) — commit
+  e29809f. Decl order still a working lever for slot+leaf alignment.
+- **Pairing audit**: of the ~165 remaining diffs, classified.tsv marks
+  118 NOCAND-UNVERIFIED + 9 NOCAND-CLAIMED + 1 NOCAND-WEAK. These pairings
+  were similarity-chosen, never anchor-verified. Verified with repair3.py
+  same-segment re-anchor scan: best anchor already chosen for nearly all —
+  the diffs are REAL codegen diffs, not mis-anchors (exceptions: the
+  FUN_4140_0c2d stub cluster — _ClipSprite/_DrawDot/_DrawLine/_DrawPoly/
+  _MouseSHOW/_SndSounds/_ChangeColor/_RpPrint all fuzzy-match the same
+  gold stub; true homes unknown).
+- **Dead ends ruled out this session**:
+  - `extern` vs tentative-def symbol class: identical emit in minimal
+    probe — NOT the operand-pick lever.
+  - `register` keyword on params/locals: no effect on MSC6's pick here.
+  - Local param-copy (`TARGET *p = t`): copy lands on stack, not di.
+  - `/Oa` module flag: no change for PLANES2.
+  - `==`/`add` generators: unconditionally canonicalize global→ax — not
+    source-order-sensitive. Sites needing local→ax must come from a
+    different surrounding structure (e.g. more work inside the arm).
+- Confirmed lever set: inner-extern alias decls (NPLANESx/_y, Altx),
+  decl order (drives both stack slot AND leaf order), `call far ptr`,
+  dropping unused headers (symtable load), hoisted-vs-inner gstr decls.
+- triage_fn.py pairs via classified.tsv `cand` column first; verify_build
+  order is anchor→deepaddr→bestaddr→cand. Column choice explains some
+  reported-vs-actual anchor drift when re-checking manually.
