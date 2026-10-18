@@ -595,6 +595,7 @@ int CheckWingmanSix(int wingnum)
 	int tpitch, tangle, enemyalt, rangle, rrangle, winghead;
 	int cnt, rangle1, rrangle1;
 	COORD tdist, tdist1, tdistnm, tdistnm1;
+	extern int NPLANES;
 
 	i = planecnt;
 
@@ -628,7 +629,7 @@ int CheckWingmanSix(int wingnum)
 		}
 	}
 
-    for (cnt=0; cnt<NPLANES; cnt++) {
+    for (cnt=0; NPLANES>cnt; cnt++) {
         if ((ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE) && (!(ps[cnt].status & (CRASH|CIVILIAN))) &&
 				(ps[cnt].speed) && (bv[cnt].target == wingnum)) { /* Planes in the air */
 			if(!FriendMatch(wingnum, cnt)) {

@@ -328,8 +328,9 @@ void UpdateOurCarrier(int boatnum)
 void UpdateAIsOnCarrier(int boatnum, long cdx, long cdy)
 {
 	int cnt;
+	extern int NPLANES;
 
-	for(cnt = 0; cnt < NPLANES; cnt ++) {
+	for(cnt = 0; NPLANES > cnt; cnt ++) {
 		if((ps[cnt].status & ALIVE) && (ps[cnt].status & ACTIVE) && (ps[cnt].base < 0) &&
 				((bv[cnt].Behavior == Ready5) || (bv[cnt].Behavior == SARWait)
 				|| ((bv[cnt].Behavior == AICarrierLand) && (bv[cnt].threathead <= -3)) || ((ps[cnt].status & TAKEOFF) && (ps[cnt].speed <= 1)))) {

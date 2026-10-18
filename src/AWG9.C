@@ -1609,6 +1609,7 @@ int SearchForTargets()
 	int sr;
 	struct PlaneData far *tempplane;
 	int asp,newasp,ncl;
+	extern int NPLANES;
 
 	if (AWG9_SNIFF) return 0;
 
@@ -1616,7 +1617,7 @@ int SearchForTargets()
 	if (AWG9_MODE == AWG9_PDSTT) return(0);
 
 	// Scan for new targets
-	for (i=0; i<NPLANES; i++) {
+	for (i=0; NPLANES>i; i++) {
 		if (i == DESIGNATED) continue;
 		if (!(ps[i].status & ACTIVE)) continue;
 		if (!ps[i].speed) continue;
