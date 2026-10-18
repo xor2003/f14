@@ -866,3 +866,18 @@ Additional decode notes:
 - ChangeColor/ClipSprite/DrawDot all anchored to same 4140:10c4 (cls
   cascade) + byte-scan nohit => genuinely different head bytes.
 - IsLand correct anchor, real mid-func diff (extra far call in retail).
+- verify_reanchor2.log: 603 MATCH / 763 — _CheckProximityHit re-anchored
+  to FUN_38b6_0b6e (48b6:0b6e); injected false-positive 3ad2:0728 row was
+  shadowing it. Swept all 89 alternate candidates of remaining DIFFs:
+  none match — remaining first-rows are already optimal.
+- _CheckDetection MATCH via local decl reorder (returnval after
+  tdist/tdist1 kills an ax spill). Same lever as _CheckE2C.
+- si/di/bx register-residency class (_CheckPlaneLand startval,
+  _GetQHeight param, _CheckTurnStuff) is NOT driven by decl order and
+  NOT overridden by 'register' keyword — MSC6 cost model follows actual
+  use pattern => likely real source/usage differences, parked.
+- _CheckForMobileR5, _GetWhichElevator: '=~'/'~~'-only — DGROUP offset
+  collisions; need gold-vs-ours variable-layout table to confirm equal.
+- _CheckTurnStuff/_DisplayRioHead/_GetWayPointChanges/_GetWhichElevator
+  remain anchored at shared bogus 1017:02f9; byte-scan nohit for all —
+  real head-byte differences (or absent/merged retail routines).
