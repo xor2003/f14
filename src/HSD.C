@@ -30,6 +30,10 @@ scaley(y)
 	return(y*14/16);
 }
 
+extern int _ph0;
+extern int _ph1;
+extern int _ph2;
+extern int _ph3;
 fourpoints(char far *screen,int x,int y,int color) {                 // draw 4 symmetric points about a circle
    *(screen+x+y)=color;
    *(screen+x-y)=color;
