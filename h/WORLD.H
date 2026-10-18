@@ -509,10 +509,10 @@ struct ChuteStuff {
 };
 
 struct GroundTarget {
-	int orgnum;
-	int gflags;
 	long x;
 	long y;
+	int orgnum;
+	int gflags;
 };
 
 #ifdef ELFAI
