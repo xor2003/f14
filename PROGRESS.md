@@ -990,3 +990,30 @@ Retail code/data boundaries: gold _edata = ours 0x572c+0x79e = 0x5eca;
 gold end-of-BSS ~0xd658+ vs ours ~0xbbe0 — retail has ~0x1a00 more data.
 
 No CodeView in retail exe (checked NB09-NB11/$$SYMBOLS — stripped).
+
+## Turn: COMDEF allocation mechanism — the =~ root cause identified
+
+Empirical discovery via controlled kvikdos LINK experiments (/tmp/comtest):
+- Uninitialized globals become OMF COMDEF records; LINK 5.31 allocates them
+  into the shared `c_common` BSS-class segment in an order that is NOT
+  decl order, NOT module order, NOT extdef/ref order.
+- Evidence: `int a1..a10`(M1)+`d1`(M2)+`e1`(M3)+`f1`(M4) emits as
+  `a1,a2,d1,e1,a3,f1,a4,a5,a6,a7,a10,a8,a9` — modules interleave freely.
+  Identical decl-order reversal yields IDENTICAL layout (name-driven, not
+  order-driven). `qa..qz` in one module emits rotated `qh..qz,qa..qg`.
+- Hypothesis: LINK emits comdefs in internal symbol-hash-table order
+  (hash includes ALL publics+comdefs+extdefs — 3000+ symbols, so fitting
+  against comdefs-only fails). Brute-force over rotate/poly/sum hashes
+  with chained + linear-probe models found no universal fit yet.
+- MASM `var dw ?` in a BSS segment is a real alternative: ordering fully
+  controllable (decl order), but gold interleaves comdefs with library
+  data and segment members — would need multiple data stubs placed at
+  multiple link positions, and gap contents are unknown vars.
+
+Data for next turn: analysis/gold/dseg_order.tsv (482 named gold offsets),
+our_comdef_order.txt (our emission order). Retail has ~0x1a00 more data
+(gold _end ~0xd658 vs ours 0xbbe0) — missing vars both shift hash order
+and explain gold-side gaps.
+
+Pending decision: crack LINK's exact comdef order algorithm vs rebuild
+layout by direct ASM data blocks vs per-symbol hashing simulation.
