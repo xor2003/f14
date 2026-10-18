@@ -16,11 +16,9 @@
 #include "keycodes.h"
 #include "F15defs.h"
 #include "awg9.h"
-#include "common.h"
 #include "armt.h"
 #include <stdlib.h>
 #include <string.h>
-#include "setup.h"
 
 
 #define	MOUSETWSA	0x0001

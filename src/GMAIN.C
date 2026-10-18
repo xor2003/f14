@@ -19,7 +19,6 @@
 #include "sdata.h"
 #include "cockpit.h"
 #include "common.h"
-#include "event.h"
 #include "snddrv.h"
 #include "awg9.h"
 

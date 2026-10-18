@@ -12,7 +12,6 @@
 #include "library.h"
 
 #define _include_code
-#include <stdio.h>
 #include <stdlib.h>
 #include "world.h"
 #include "sdata.h"

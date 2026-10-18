@@ -16,7 +16,6 @@
 #include "cockpit.h"
 #include "F15defs.h"
 #include "speech.h"
-#include "sounds.h"
 #include "carr.h"
 #include "proto.h"
 #include "planeai.h"
