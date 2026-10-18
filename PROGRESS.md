@@ -1308,3 +1308,29 @@ _Closest real diffs: _GetRadarGTNum nd1 (cmp dir), _GiveSanitizeMessage
 nd3 (global-vs-local cmp leaf), _AwacsPicture nd5 (expr difference),
 _AvoidMountains/_FormationSpeedAdjustBoat/_MakeBoxes/_EasyLanding nd6-16
 (block-placement + si/di + regalloc classes)._
+
+## Anchor-scan wins (622/761)
+
+Byte-pattern twin-scan over all DIFFs found correct anchors:
+MATCH: _farfread @40af:0004, _GetInterceptPlane @3037:0001.
+Closer: _MovePlane (nd 40->9), _VectorIntercept (nd 291->2),
+_TIDxy/_TrackDisplayPosition (stream-identical, reloc residual).
+Note: gold contains duplicated function bodies in multiple segments;
+pattern-scan finds the closest twin but relocs still gate MATCH.
+
+## Leaf-order census (all levers exhausted, parked)
+
+cmp-dir (GetRadarGTNum, VectorIntercept, GiveSanitizeMessage),
+param-vs-global (CheckTailAspect si=PyLng+y, GetTargADP, LGetTargADP),
+param-vs-param (MsgBox Len+StartX), eval-order (AwacsPicture).
+Inner-extern works ONLY for specific contexts (Altx succeeded once);
+CheckTailAspect inner-extern PyLng: no effect. Source compare-flips,
+decl reorders, regroupings: all emit-identical. Needs real leaf-rank
+mechanism (probably symtable slot ordering or a different /O flag).
+
+## DGROUP layout (blocks the ~27 stream-identical fns)
+
+NG*32 vars: gold DGROUP+0x010a (early BEGDATA), mine +0xde86 (end of
+_DATA after 56KB GDSEG). Retail's PASM data was BEGDATA-class or in
+GDSEG. dseg_pairs.tsv has 7591 gold<->mine offset pairs; layout is
+block-scrambled (+0x300/-0x5126 runs), not a uniform shift.
