@@ -622,3 +622,63 @@ Additional decode notes:
   AGEDTARGFILE elems? a 50B tracking struct.
 - _AWG9 now diffs ONLY at tail: missing `if(behavecommands==OTHERWINGAI)
   WingmanAISched()` + the whole helper family.
+
+=== Session update: wingman scheduler family ported (563/756) ===
+- _AWG9 tail ported: `if (behavecommands==OTHERWINGAI) WingmanAISched()`
+  reproduces retail's `cmp [0xae9c],0x12; jnz; call 306c` — _AWG9 MATCH.
+- Helper family appended at EOF of AWG9.C (decoded from retail asm):
+  WingmanAISched(F306c, +cnt>10 reset), WingmanListReset(F3431:
+  WING_PTR=WING_TARGS, cnt=0, clear DETECTED_TARG[]), WingmanAdd(F3404:
+  TARGET*WING_PTR + cnt, rep movsw copy, cap 10), WingmanScan(F30d8:
+  ps[] scan — status&ACTIVE, speed, !DETECTED_TARG — SetupNewTarget,
+  rz>=0, long-range gate `(conv)?238L:7616L` max / `?10L:470L` min,
+  az=ARCTAN(rx,rz), el=-ARCTAN(ry,rz), |az|>Angles[DEG20].wdeg,
+  |el|>Angles[DEG40].wdeg gates, WingmanAdd+DETECTED_TARG[i]++),
+  WingmanSelect(F31b2: revalidate LOCKSHOOT vs list; AWG9_project
+  ps[LOCKSHOOT].xL/yL/alt==-1 -> LOCKSHOOT=-1; else update wing tx/ty),
+  WingmanFixup(F308e: WING_HAVETARG flag mgmt + LOCKSHOOT=LOCKED when
+  !AWG9_SNIFF && WING_SELOK && WING_LOCKOK).
+  New statics: WING_CNT(gold be30) WING_SCHED(12d0) WING_SELOK(1054)
+  WING_LOCKOK(6972) WING_HAVETARG(906e) WING_TARGS[10](bb2e)
+  WING_PTR(104e) WING_TX/WING_TY(7df8/7e0a).
+  Gold global map confirmed: 0x1006=SELECTED_AZ, 0x1004=SEL_BAR_NUM,
+  0x102c=LOCKSHOOT, 0x66a2=LOCKED, 0x1030=Angles[] base
+  (Angles[1].wdeg=0x1036=DEG40, Angles[2].wdeg=0x103a=DEG20).
+- _CheckAZELChange: prevaz/prevbar moved to file-scope statics.
+  Remaining DIFF is pure artifact: gold emits `mov ax,[SEL_AZ];
+  cmp [prevaz],ax` vs ours `mov ax,[prevaz]; cmp [SEL_AZ],ax`.
+  Probe .LST proves MSC6 emits gold form for identical source in a
+  fresh module — the flip is module-decl-context regalloc, unfixable
+  by source order/scope/volatile (all probed). Same class as
+  _CheckDataLink tail (`cmp [NPLANES],ax` vs `cmp [bp-2],ax`) and
+  _SearchForTargets loop head — banked as known artifact family.
+- _doaaa diff also artifact-class: gold walks ps via bx=+0x12(pitch)
+  anchor, ours +6(alt) — strength-reduction bias difference, identical
+  field reads. struct Planes is 40B (comment "38 bytes" is stale;
+  stride matches gold 0x28 — NO missing field).
+
+## Session — wingman scheduler byte-match + firemissile (cont.)
+
+- AWG9() tail: `if (behavecommands == OTHERWINGAI) WingmanAISched();`
+  before Aim9Sound — _AWG9 MATCH.
+- Wingman helper family (gold 08de:306c/308e/30d8/31b2/3404/3431) ported to
+  EOF of AWG9.C: WingmanAISched/Fixup/Scan/Select/ListReset all
+  instruction-identical; WingmanAdd differs by ONE dead-store
+  (`mov [bp-2],ax` — MSC6 eliminates the dead local store, gold kept it).
+  WingmanSelect needed `found=0` pre-init + `return (WING_HAVETARG=0)` /
+  `return(0)` tails (gold materializes ax=0 on early exits).
+- Gold global resolutions via matched-fn pairings: 0x6972==SHOOT,
+  0x66a2==LOCKED, 0x102c==LOCKSHOOT; 0x1054/0x906e/0xbe30/0xbb2e/0x12d0 are
+  scheduler-private (written only inside the family) -> statics.
+- _firemissile MATCH: gold's arg9 = `weapon==W_AIM_9 ? LOCKSHOOT :
+  (SHOOT?LOCKED:-1)` — Sidewinders take the scheduler lock target.
+- AWG9 residual diffs now all artifact/pairing class: _AddAcqList
+  (t in di vs bx reload), _CheckAZELChange (data-offset map collision),
+  _CheckDataLink/_SearchForTargets (loop-head cmp operand order),
+  _LockDistanceCheck (`int radarsig[1]` reproduces enter 0xa + dec ax form;
+  residual = `cmp [bp-a],5` vs `mov ax,[bp-a];cmp ax,5` on the last test),
+  _show_az_carat (gold routine is a different function — scaled-point
+  helper, needs real port), _Message/_MissilesInAir (mch anchors point at
+  wrong gold routines).
+- count: **564/756 MATCH**.
+
