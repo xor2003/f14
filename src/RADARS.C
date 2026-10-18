@@ -1,6 +1,3 @@
-extern char gstr699[];
-extern char gstr700[];
-extern char gstr701[];
 
 /*  File:   Radars.c                              */
 /*  Author: Sid Meier                             */
@@ -95,6 +92,9 @@ doradar()
 detect(int i)
 {
     int  signal,j,k,angl,a,m;
+	extern char gstr699[];
+	extern char gstr700[];
+	extern char gstr701[];
     COORD dist,xydist();
     long x,y;
 	int targetnum;

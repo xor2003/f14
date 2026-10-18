@@ -1,19 +1,3 @@
-extern char gstr114[];
-extern char gstr115[];
-extern char gstr116[];
-extern char gstr117[];
-extern char gstr118[];
-extern char gstr119[];
-extern char gstr120[];
-extern char gstr121[];
-extern char gstr122[];
-extern char gstr123[];
-extern char gstr124[];
-extern char gstr125[];
-extern char gstr126[];
-extern char gstr127[];
-extern char gstr128[];
-extern char gstr129[];
 
 //***************************************************************************
 //*
@@ -413,6 +397,10 @@ int UpdateTWSSelected()
 	int i;
 	TARGET t;
 	int asp;
+	extern char gstr114[];
+	extern char gstr115[];
+	extern char gstr116[];
+	extern char gstr117[];
 
 	if (CheckMode(AWG9_MODE,AWG9_TWSA) || CheckMode(AWG9_MODE,AWG9_TWSM)) {
 		if (SelectedTarg==-1) return(0);
@@ -476,6 +464,11 @@ int UpdateTWSSelected()
 int AWG9_IFF()
 {
 	int i;
+	extern char gstr118[];
+	extern char gstr119[];
+	extern char gstr120[];
+	extern char gstr121[];
+	extern char gstr122[];
 
 	if (CheckMode(AWG9_MODE,AWG9_TWSA) || CheckMode(AWG9_MODE,AWG9_TWSM)) {
 		if (SelectedTarg==-1) return(0);
@@ -1162,6 +1155,8 @@ int ChangeSRCHMode(int mode)
 int AWG9_POWERUP()
 {
 	int bh;
+	extern char gstr123[];
+	extern char gstr124[];
 
 	if (!(AWG9_SNIFF ^= 1)) {
 		Message(gstr123, RIO_NOW_MSG);
@@ -1377,6 +1372,10 @@ int TargetTrack()
 {
 	int asp, b_az, b_el;
 	int found,sr;
+	extern char gstr114[];
+	extern char gstr115[];
+	extern char gstr116[];
+	extern char gstr117[];
 
 	PDT_PROJ = 0;
 	TTI = -1;
@@ -1485,6 +1484,7 @@ int LockDistanceCheck(TARGET *t)
 	long rng=0L;
 	struct PlaneData far *tempplane;
 	int radarsig[1];
+	extern char gstr125[];
 
 	tempplane = GetPlanePtr(ps[t->i].type);
 
@@ -1545,6 +1545,7 @@ int UpdateTargetClosure(TARGET *tc)
 	long targcl;
 	int asp,newasp;
 	int ncl;
+	extern char gstr126[];
 
 	curtime = GETTIME();
 	temptime = curtime - tc->lasttime;
@@ -1686,13 +1687,13 @@ static calc_TTI()
 //***************************************************************************
 int SearchForTargets()
 {
-	int i;
-	TARGET t;
 	int found;
 	int sr;
+	int i;
+	TARGET t;
 	struct PlaneData far *tempplane;
 	int asp,newasp,ncl;
-	extern int NPLANES;
+	extern int NPLANESx;
 
 	if (AWG9_SNIFF) return 0;
 
@@ -1700,7 +1701,7 @@ int SearchForTargets()
 	if (AWG9_MODE == AWG9_PDSTT) return(0);
 
 	// Scan for new targets
-	for (i=0; NPLANES>i; i++) {
+	for (i=0; NPLANESx>i; i++) {
 		if (i == DESIGNATED) continue;
 		if (!(ps[i].status & ACTIVE)) continue;
 		if (!ps[i].speed) continue;
@@ -1867,6 +1868,7 @@ int InBeam(TARGET *t)
 	int      az_angle, el_angle, bar_angle;
 	long rng;
 	struct PlaneData far *tempplane;
+	extern char gstr127[];
 
 	tempplane = GetPlanePtr(ps[t->i].type);
 
@@ -2102,6 +2104,7 @@ int RioLockCheck()
 	int dist,n,i;
 	unsigned rng;
 	static int prev_bad_guy=0;   // Guy we where last fighting with
+	extern char gstr128[];
 //	struct PlaneData far *tempplane;
 
 	if ((AWG9_MODE == AWG9_STANDARD_TRACK) || (AWG9_MODE == AWG9_PDSTT))
@@ -2195,6 +2198,7 @@ int aa_acquire(int flag)
 {
 	int     xmin,xmax,ymin,ymax,i,new,*tf;
 	TARGET *t;
+	extern char gstr129[];
 
 	BuildAcqList();
 
@@ -2651,24 +2655,26 @@ int InFiringList(int n)
 //***************************************************************************
 int AddFiringList(TARGET *t, int start)
 {
+	extern int FIRINGORDERCNTx;
 	int i,j;
 	unsigned rng;
 
 	// Need to keep firing order the same once established
 
-	for (i=start; i<FIRINGORDERCNT; i++) {
+	for (i=start; i<FIRINGORDERCNTx; i++) {
 		rng = (TARGFILE[i].conv) ? 95:3040;  // 2 miles
 		if (FIRINGORDERLIST[i]->d > (t->d+rng)) {
-			for (j=FIRINGORDERCNT-1; j>=i; j--)
+			for (j=FIRINGORDERCNTx-1; j>=i; j--)
 				FIRINGORDERLIST[j+1] = FIRINGORDERLIST[j];
 			break;
 		}
 	}
 	FIRINGORDERLIST[i] = t;
-	FIRINGORDERCNT++;
+	FIRINGORDERCNTx++;
 }
 
 //***************************************************************************
+
 CheckDataLink()
 {
 	int i;
@@ -2679,7 +2685,8 @@ CheckDataLink()
 	int temptime;
 	int curtime;
 	static int lasttime;
-	extern int NPLANES;
+	extern int NPLANESx;
+
 
 	curtime = GETTIME();
 	temptime = curtime - lasttime;
@@ -2694,7 +2701,7 @@ CheckDataLink()
 	}
 	DataLinkCnt=0;
 
-	for (i=0; NPLANES>i; i++) {
+	for (i=0; i<NPLANESx; i++) {
 		if (!(ps[i].status & ACTIVE)) continue;
 		if (!ps[i].speed) continue;
 
@@ -2728,7 +2735,7 @@ CheckDataLink()
 			dlorig = 1;
 	}
 	if (dlorig==1) {
-		for (i=0; i<NPLANES; i++) {
+		for (i=0; NPLANESx>i; i++) {
 			if (DataLinkCnt>7) break;
 			if (!(ps[i].status & ACTIVE)) continue;
 			if (!ps[i].speed) continue;

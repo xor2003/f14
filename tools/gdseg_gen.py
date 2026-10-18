@@ -89,13 +89,19 @@ def main():
         else:
             items.append((alloc(len(b)), 'data', sym, b))
 
-    # alias names that share another var's cell
-    ALIASES = {'_joyvals': '_minstick'}
+    # alias names that share another var's cell (inner-extern operand-order
+    # aliases get their own public label at the same GDSEG offset)
+    ALIASES = {'_JoyVals': '_minstick',
+               '_GtimeDAC': '_gtime',
+               '_FIRINGORDERCNTx': '_firingordercnt',
+               '_FETZ': '_first_enemy_trace',
+               '_NPLANESx': '_nplanes', '_NTRACE2x': '_ntrace2', '_NTRACEx': '_ntrace',
+               '_PDLCx': '_planedatalistcnt'}
 
     for nm in ex['near']:
         pub = nm if nm.startswith('_') else '_' + nm
         pl = pub.lower()
-        if pl in emitted or pl in ALIASES:
+        if pl in emitted or pl in {k.lower() for k in ALIASES}:
             continue
         off = alloc(vsize(nm))
         items.append((off, 'label', pub, None))
@@ -110,11 +116,13 @@ def main():
             items.append((placed[el], 'label', extra, None))
             emitted.add(el)
     for al, tgt in ALIASES.items():
-        if al not in emitted:
-            off = mapped_l.get(tgt, placed.get(tgt))
+        if al.lower() not in emitted:
+            off = mapped_l.get(tgt, placed.get(tgt.lower()))
+            if off is None:
+                off = mapped_l.get(tgt.lstrip('_'), placed.get(tgt.lstrip('_')))
             if off is not None:
-                items.append((off, 'label', '_JoyVals', None))
-                emitted.add(al)
+                items.append((off, 'label', al, None))
+                emitted.add(al.lower())
 
     # emit
     pending = {}

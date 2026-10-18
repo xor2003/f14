@@ -1,9 +1,3 @@
-extern char gstr747[];
-extern char gstr748[];
-extern char gstr749[];
-extern char gstr750[];
-extern char gstr751[];
-extern char gstr752[];
 
 /*  File:   Stealth.c                             */
 /*  Author: Sid Meier                             */
@@ -241,6 +235,12 @@ dropdecoy(int type, int local)
 {
     int i,j;
     char *Str;
+	extern char gstr747[];
+	extern char gstr748[];
+	extern char gstr749[];
+	extern char gstr750[];
+	extern char gstr751[];
+	extern char gstr752[];
 
     j=-1;
 

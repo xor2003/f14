@@ -1,8 +1,3 @@
-extern char gstr216[];
-extern char gstr288[];
-extern char gstr764[];
-extern char gstr765[];
-extern char gstr766[];
 
 #include <dos.h>
 #include <stdlib.h>
@@ -479,6 +474,11 @@ int   x1,y1,x2,y2,off;
 int taillength=5;
 	int font;
 	int alt;
+	extern char gstr764[];
+	extern char gstr765[];
+	extern char gstr288[];
+	extern char gstr766[];
+	extern char gstr216[];
 
    clr = WHITE;
 

@@ -1,7 +1,3 @@
-extern char gstr248[];
-extern char gstr249[];
-extern char gstr250[];
-extern char gstr251[];
 
 #include "library.h"
 #include "world.h"
@@ -382,6 +378,10 @@ out:
 int InitSpecialPal()
 {
 	int i,j;
+	extern char gstr248[];
+	extern char gstr249[];
+	extern char gstr250[];
+	extern char gstr251[];
     UBYTE PalPkt[256*3 + 6];
 
 	unsigned char far *P;

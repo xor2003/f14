@@ -1,5 +1,3 @@
-extern char gstr112[];
-extern char gstr113[];
 
 #include "library.h"
 #include "world.h"
@@ -71,6 +69,8 @@ AwacsPicture()
 //***************************************************************************
 BearingToText (UWORD angl, int isawac)
 {
+	extern char gstr112[];
+	extern char gstr113[];
     angl = TrgMul (angl>>1, 360);
 
     if (angl<10) {

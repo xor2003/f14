@@ -1052,3 +1052,48 @@ only vars referenced by `=~` functions if the high region isn't needed.
 
 Tools: tools/dseg_pairs.py (harvested 7591 operand pairs ->
 analysis/gold/dseg_pairs.tsv, dseg_order.tsv: 482 vars with gold offsets).
+
+## Session 2025-10-18 (cont): gstr leaf-order restoration — 579/760
+
+**Mechanism unlocked**: MS C 6 operand pick for mem-vs-mem compares
+(`mov ax,[A]; cmp [B],ax`) is driven by **leaf-table ordering fixed at
+function compile time** — the set/order of symbols bound so far in the TU.
+The DGROUP extern + hoisted `gstr` passes perturbed that state vs retail,
+where string literals bound as anonymous symbols AT THEIR USE SITE inside
+each function.
+
+**Fix**: tools/gstr_inner.py — moved every file-scope
+`extern char gstrN[];` into the functions that use them (inner externs
+after local decls, in use order). Replicates retail's bind-at-use leaf
+positions. Result: **570 -> 579** (+21 fixed: _AvoidLand _AWG9_IFF
+_AWG9_project _BulletDist _CheckAZELChange _CheckTailAspect _DoFuel
+_DrawASmoke _GetEnemyTarget _GetPlaneLanding _GetWhichElevator _GorillaBomb
+_GorillaCover _Ladder2 _Langle _MapEmsFile _pitchnum2
+_ProcessAICommunications _Sound _UpdateTWSSelected _Wall; -12 regressed).
+
+Also: `_UpdateAIsOnCarrier` restored via inner `extern int NPLANESx`
+alias (late-bound global -> local wins ax); `_NPLANESx`/`_LOCKEDx` GDSEG
+alias labels at target ORGs. WORLD.H `NPLANES` now tentative-def in both
+include branches (neutral vs sweep, more faithful K&R common semantics).
+
+**Proven per-function levers** for operand-order flips:
+- inner `extern int <ALIAS>x;` AFTER local decls + alias label at target
+  DGROUP offset (GDSEG.ASM `LABEL BYTE` at same ORG)
+- source direction swap `<`/`>` — works only when leaf orders allow
+- declare the induction local LAST among ints
+- distinct anonymous string literals prevent over-merged tails
+- `==` canonicalizes global->ax regardless of direction/binding — needs
+  TU table-state tuning, not source tweaks
+
+**Table-state tuning**: leaf order flips at symtable size boundaries —
+e.g. 60 dummy decls before CheckDataLink flips its pick to gold; decls at
+EOF don't reach earlier functions. Retail's TU state differs from ours by
+the accumulated pass artifacts; per-function padding or decl placement is
+the remaining lever for stubborn sites (_CheckDataLink, _CheckDetection).
+
+**Regression set** (12, need individual table-state or shape work):
+_AIBombTarget _AISanitizeCheck _CheckAISix _CheckDetection
+_DesignateTIDTarg _DoPlayerOnTheCat _FriendlyChooseBehavior _horiz_line
+_SetUpWingman _ShowAIWeaponStatus _StraightAttack _UpdateAIsOnCarrierFIXED
+
+Diff set now 181 functions.

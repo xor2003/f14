@@ -1,6 +1,3 @@
-extern char gstr223[];
-extern char gstr767[];
-extern char gstr768[];
 
 #include <dos.h>
 #include <stdio.h>
@@ -18,6 +15,8 @@ extern int      nextlog;
 //***************************************************************************
 InitLogFile()
 {
+	extern char gstr767[];
+	extern char gstr223[];
     FILE    *File;
 
 	File = fopen (gstr767, gstr223);
@@ -27,6 +26,8 @@ InitLogFile()
 //***************************************************************************
 DumpLogFile()
 {
+	extern char gstr767[];
+	extern char gstr768[];
     FILE    *File;
 
 	File = fopen (gstr767, gstr768);

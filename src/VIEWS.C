@@ -1,4 +1,3 @@
-extern char gstr357[];
 
 /************************************************************************
 *                                                                       *
@@ -106,6 +105,7 @@ GenDsp ()
 {
     static  LastView = FRONT;
     static  LastSeat = 0;
+	extern char gstr357[];
 
     static UBYTE   PalPkt[256*3 + 6];
 

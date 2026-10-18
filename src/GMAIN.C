@@ -1,33 +1,3 @@
-extern char gstr2[];
-extern char gstr252[];
-extern char gstr253[];
-extern char gstr254[];
-extern char gstr255[];
-extern char gstr256[];
-extern char gstr257[];
-extern char gstr258[];
-extern char gstr259[];
-extern char gstr260[];
-extern char gstr261[];
-extern char gstr262[];
-extern char gstr263[];
-extern char gstr264[];
-extern char gstr265[];
-extern char gstr266[];
-extern char gstr267[];
-extern char gstr268[];
-extern char gstr269[];
-extern char gstr270[];
-extern char gstr271[];
-extern char gstr272[];
-extern char gstr273[];
-extern char gstr274[];
-extern char gstr275[];
-extern char gstr276[];
-extern char gstr277[];
-extern char gstr278[];
-extern char gstr279[];
-extern char gstr280[];
 
 //***************************************************************************
 // FILE: GMAIN.C
@@ -134,6 +104,8 @@ int     argc;
 char    **argv;
 char    **envp;
 {
+	extern char gstr252[];
+	extern char gstr253[];
 	save_video_state();
     InitOverlay(LoadOverlay(gstr252,gstr253));
     TurnOnGraphicsMode(0);
@@ -191,6 +163,7 @@ char    **envp;
 //***************************************************************************
 int WaitScreen()
 {
+	extern char gstr254[];
 	LoadPicture(1,gstr254);
 	ShowPage(1);
 	ScreenOn();
@@ -246,6 +219,16 @@ int InitWeather()
 //***************************************************************************
 int DisplayErrorMessages()
 {
+	extern char gstr255[];
+	extern char gstr256[];
+	extern char gstr257[];
+	extern char gstr258[];
+	extern char gstr259[];
+	extern char gstr260[];
+	extern char gstr261[];
+	extern char gstr262[];
+	extern char gstr263[];
+	extern char gstr264[];
 	if (ExitErrorCode != 0) {
 		printf(gstr255);
 		switch(ExitErrorCode) {
@@ -283,6 +266,18 @@ int DisplayErrorMessages()
 //***************************************************************************
 LoadFiles()
 {
+	extern char gstr265[];
+	extern char gstr266[];
+	extern char gstr267[];
+	extern char gstr268[];
+	extern char gstr269[];
+	extern char gstr270[];
+	extern char gstr271[];
+	extern char gstr272[];
+	extern char gstr273[];
+	extern char gstr274[];
+	extern char gstr275[];
+	extern char gstr276[];
 	if (LoadEMSPicFile(gstr265,SPRTXPLSEG,0,20)) {
     	LoadEMSPicFile(gstr266,SPRTXPLSEG,1,0);
     	LoadEMSPicFile(gstr267,SPRTXPLSEG,2,0);
@@ -329,6 +324,8 @@ InitEmsFiles()
 	unsigned int	free;
 	unsigned int	total;
 	int		left;
+	extern char gstr277[];
+	extern char gstr278[];
 
 	left = EMSFileUsage();
 	left -= EMSPagesGrabbed;
@@ -366,6 +363,8 @@ int InitDamnPalettes()
 //***************************************************************************
 int LoadConfig()
 {
+	extern char gstr279[];
+	extern char gstr2[];
 	FILE *f ;
 
 	f = fopen (gstr279, gstr2) ;
@@ -381,6 +380,8 @@ int LoadConfig()
 //***************************************************************************
 int LoadSoundConfig()
 {
+	extern char gstr280[];
+	extern char gstr2[];
 	FILE *f ;
 
 	f = fopen(gstr280, gstr2) ;

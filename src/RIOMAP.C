@@ -1,24 +1,3 @@
-extern char gstr2[];
-extern char gstr220[];
-extern char gstr221[];
-extern char gstr302[];
-extern char gstr357[];
-extern char gstr702[];
-extern char gstr703[];
-extern char gstr704[];
-extern char gstr705[];
-extern char gstr706[];
-extern char gstr707[];
-extern char gstr708[];
-extern char gstr709[];
-extern char gstr710[];
-extern char gstr711[];
-extern char gstr712[];
-extern char gstr713[];
-extern char gstr714[];
-extern char gstr715[];
-extern char gstr716[];
-extern char gstr717[];
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -232,6 +211,8 @@ DrawRioTrack(RPS *Rp)
    int	x,y;
    int	px,py;
    int	ox,oy;
+	extern char gstr220[];
+	extern char gstr221[];
 
    cnt=UpdateOurWPS(-999,1);
    ox=(int)(PxLng>>12);
@@ -424,6 +405,24 @@ RioMap()
    int	done;
    int	MyMouseHits;
    int	val,ofont;
+	extern char gstr702[];
+	extern char gstr302[];
+	extern char gstr2[];
+	extern char gstr703[];
+	extern char gstr704[];
+	extern char gstr705[];
+	extern char gstr706[];
+	extern char gstr707[];
+	extern char gstr708[];
+	extern char gstr709[];
+	extern char gstr710[];
+	extern char gstr711[];
+	extern char gstr712[];
+	extern char gstr713[];
+	extern char gstr714[];
+	extern char gstr715[];
+	extern char gstr716[];
+	extern char gstr717[];
    RPS Rpdef  =  {1, 0,0, 319,199, JAM3, GREEN, BLACK, 2};
    RPS *Rtemp  = &Rpdef;
    FILE    *File;

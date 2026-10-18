@@ -468,7 +468,7 @@ struct Mission {  /*  14 bytes  */
 extern int NRADAR;
 extern int NERADAR;
 extern int NTARGET;
-extern int NPLANES;
+int NPLANES;
 
 extern struct Mission ms[3];
 
@@ -477,7 +477,8 @@ extern struct Radars Rdrs[MAXRADAR];
 extern struct Planes ps[MAXPLANE];
 
 #else
-extern int  NRADAR,NERADAR,NTARGET,NPLANES;
+extern int  NRADAR,NERADAR,NTARGET;
+int NPLANES;
 extern struct Radars Rdrs[];
 extern struct Planes ps[];
 extern struct Mission ms[];

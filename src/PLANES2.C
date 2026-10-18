@@ -1,114 +1,3 @@
-extern char gstr130[];
-extern char gstr133[];
-extern char gstr134[];
-extern char gstr136[];
-extern char gstr137[];
-extern char gstr138[];
-extern char gstr139[];
-extern char gstr140[];
-extern char gstr141[];
-extern char gstr314[];
-extern char gstr372[];
-extern char gstr389[];
-extern char gstr456[];
-extern char gstr478[];
-extern char gstr479[];
-extern char gstr480[];
-extern char gstr481[];
-extern char gstr482[];
-extern char gstr483[];
-extern char gstr484[];
-extern char gstr485[];
-extern char gstr486[];
-extern char gstr487[];
-extern char gstr488[];
-extern char gstr489[];
-extern char gstr490[];
-extern char gstr491[];
-extern char gstr492[];
-extern char gstr493[];
-extern char gstr494[];
-extern char gstr495[];
-extern char gstr496[];
-extern char gstr497[];
-extern char gstr498[];
-extern char gstr499[];
-extern char gstr500[];
-extern char gstr501[];
-extern char gstr502[];
-extern char gstr503[];
-extern char gstr504[];
-extern char gstr505[];
-extern char gstr506[];
-extern char gstr507[];
-extern char gstr508[];
-extern char gstr509[];
-extern char gstr510[];
-extern char gstr511[];
-extern char gstr512[];
-extern char gstr513[];
-extern char gstr514[];
-extern char gstr515[];
-extern char gstr516[];
-extern char gstr517[];
-extern char gstr518[];
-extern char gstr519[];
-extern char gstr520[];
-extern char gstr521[];
-extern char gstr522[];
-extern char gstr523[];
-extern char gstr524[];
-extern char gstr525[];
-extern char gstr526[];
-extern char gstr527[];
-extern char gstr528[];
-extern char gstr529[];
-extern char gstr530[];
-extern char gstr531[];
-extern char gstr532[];
-extern char gstr533[];
-extern char gstr534[];
-extern char gstr535[];
-extern char gstr536[];
-extern char gstr537[];
-extern char gstr538[];
-extern char gstr539[];
-extern char gstr540[];
-extern char gstr541[];
-extern char gstr542[];
-extern char gstr543[];
-extern char gstr544[];
-extern char gstr545[];
-extern char gstr546[];
-extern char gstr547[];
-extern char gstr548[];
-extern char gstr549[];
-extern char gstr550[];
-extern char gstr551[];
-extern char gstr552[];
-extern char gstr553[];
-extern char gstr554[];
-extern char gstr555[];
-extern char gstr556[];
-extern char gstr557[];
-extern char gstr558[];
-extern char gstr559[];
-extern char gstr560[];
-extern char gstr561[];
-extern char gstr562[];
-extern char gstr563[];
-extern char gstr564[];
-extern char gstr565[];
-extern char gstr566[];
-extern char gstr567[];
-extern char gstr568[];
-extern char gstr569[];
-extern char gstr570[];
-extern char gstr571[];
-extern char gstr572[];
-extern char gstr573[];
-extern char gstr574[];
-extern char gstr575[];
 
 /*  File:   Planes2.c                              */
 /*  Author: Scott Elson                             */
@@ -432,6 +321,12 @@ void SetUpWingman(int leadnum, int b, int numadd, int planeid)
 void UpdateWing()
 {
 	int bvl;
+	extern char gstr478[];
+	extern char gstr479[];
+	extern char gstr480[];
+	extern char gstr481[];
+	extern char gstr482[];
+	extern char gstr483[];
 
 	i = planecnt;
 	if(bv[i].leader >= 0) {
@@ -609,6 +504,10 @@ int GetLeaderCore(int planenum, int nobehave)
 void CloseInFight(int tanglel, int wingnum, int leadernum)
 {
 	int ranglel, rranglel;
+	extern char gstr484[];
+	extern char gstr485[];
+	extern char gstr486[];
+	extern char gstr487[];
 
 	i = planecnt;
 
@@ -705,11 +604,13 @@ void CloseInFight(int tanglel, int wingnum, int leadernum)
 
 int CheckWingmanSix(int wingnum)
 {
+	int cnt;
 	int returnval, x, y, dx, dy, founddist, targetnum;
 	int tpitch, tangle, enemyalt, rangle, rrangle, winghead;
-	int cnt, rangle1, rrangle1;
+	int rangle1, rrangle1;
+	extern char gstr488[];
 	COORD tdist, tdist1, tdistnm, tdistnm1;
-	extern int NPLANES;
+	extern int NPLANESx;
 
 	i = planecnt;
 
@@ -743,7 +644,7 @@ int CheckWingmanSix(int wingnum)
 		}
 	}
 
-    for (cnt=0; NPLANES>cnt; cnt++) {
+    for (cnt=0; NPLANESx>cnt; cnt++) {
         if ((ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE) && (!(ps[cnt].status & (CRASH|CIVILIAN))) &&
 				(ps[cnt].speed) && (bv[cnt].target == wingnum)) { /* Planes in the air */
 			if(!FriendMatch(wingnum, cnt)) {
@@ -786,6 +687,11 @@ void CheckAITarget(int ainum)
 {
 	int targetdead = 0;
 	int orgt, preorgt, prenewt, stat;
+	extern char gstr489[];
+	extern char gstr490[];
+	extern char gstr491[];
+	extern char gstr492[];
+	extern char gstr493[];
 
 	i = planecnt;
 
@@ -854,6 +760,12 @@ void FormationSpeedAdjustUS(int prespeed, int relangle, int tdist, int prewing)
 	int speed1, speed2, speed3;
 	int ppspd;
 	struct PlaneData far *tempplane;
+	extern char gstr130[];
+	extern char gstr494[];
+	extern char gstr495[];
+	extern char gstr133[];
+	extern char gstr134[];
+	extern char gstr496[];
 
 	i = planecnt;
 
@@ -984,6 +896,10 @@ void FormationSpeedAdjustUS(int prespeed, int relangle, int tdist, int prewing)
 
 void Jink()
 {
+	extern char gstr497[];
+	extern char gstr372[];
+	extern char gstr140[];
+	extern char gstr498[];
 	COORD distkm, tdist, tdistnm;
 	int relangle, dojinkangle;
 	int dx, dy, tpitch, tangle;
@@ -1154,6 +1070,12 @@ void Formation() {
 	int relangle;
 	int tangle, tpitch, troll, enemyalt, prewing, temphead, secplace;
 	int tempwing, prespeed, tempspeed;
+	extern char gstr136[];
+	extern char gstr137[];
+	extern char gstr138[];
+	extern char gstr139[];
+	extern char gstr140[];
+	extern char gstr141[];
 	COORD tdist, distkm, tdistnm;
 	int offangle;
 	int tempalt;
@@ -1371,6 +1293,8 @@ void FormationUS()
 	int relangle;
 	int tangle, tpitch, troll, enemyalt, prewing, temphead, secplace;
 	int tempwing, prespeed;
+	extern char gstr136[];
+	extern char gstr140[];
 	COORD tdist, distkm, tdistnm;
 	int tempalt;
 	int ourleadalt;
@@ -1571,6 +1495,13 @@ void Jink2() {
 	int relangle, rrelangle;
 	int tangle, tpitch, troll, twangle;
 	int enemyhead;
+	extern char gstr499[];
+	extern char gstr500[];
+	extern char gstr501[];
+	extern char gstr140[];
+	extern char gstr502[];
+	extern char gstr503[];
+	extern char gstr372[];
 	COORD tdist, tdistnm;
     struct Sams *ssk;
 	int missileinair;
@@ -1766,6 +1697,9 @@ void PostHole()
 	int relangle, rrelangle;
 	int tangle, tpitch, troll;
 	int enemyhead, enemyalt;
+	extern char gstr504[];
+	extern char gstr372[];
+	extern char gstr140[];
 	COORD tdist, tdistnm;
 	int enemynum;
 
@@ -1818,6 +1752,9 @@ void BaseBracket(int angleinc, int angleevade)
 	int dx, dy, dz;
 	int relangle, tempalt;
 	int tangle, tpitch, troll, tangle1, enemyalt;
+	extern char gstr505[];
+	extern char gstr506[];
+	extern char gstr140[];
 	COORD tdist, distkm, tdistnm, ttdist, ttdistnm, ttdistkm;
 	int winglead;
 
@@ -1930,6 +1867,8 @@ void BaseBracket(int angleinc, int angleevade)
 #ifdef SREOLDVERS
 void DoAICounters(int ainum, int distnm, struct Sams *enemymissile)
 {
+	extern char gstr507[];
+	extern char gstr508[];
 //	struct sam *emsltype;
 	struct MissileData far *emsltype;
 
@@ -1967,6 +1906,8 @@ void DoAICounters(int ainum, int distnm, struct Sams *enemymissile)
 
 void DoAICounters(int ainum, int distnm, struct Sams *enemymissile)
 {
+	extern char gstr507[];
+	extern char gstr508[];
 //	struct sam *emsltype;
 	UWORD difftime;
 	struct MissileData far *emsltype;
@@ -2087,6 +2028,7 @@ void DamageAI(int planenum, int damage)
 	int slot;
 	int i;
 	struct PlaneData far *tempplane;
+	extern char gstr130[];
 
 	hitflag = 0;
 	if(ps[planenum].status & CRASH) {
@@ -2191,6 +2133,9 @@ void GetSortInfo(int ainum)
 	int x, y, dx, dy;
 	int tpitch, tangle, enemyalt, rangle, rrangle, winghead;
 	int rangle1, rrangle1, tangle1;
+	extern char gstr509[];
+	extern char gstr510[];
+	extern char gstr511[];
 	COORD tdist, tdist1, tdistnm, tdistnm1, targnm;
 	int aihead;
 	int targetnum;
@@ -2280,6 +2225,13 @@ void GetSortInfo(int ainum)
 void GiveSortInfo(int rangarray[], int numarray[], int distarray[], int targetnum)
 {
 	int tempme, tempother, tempsort;
+	extern char gstr512[];
+	extern char gstr513[];
+	extern char gstr514[];
+	extern char gstr515[];
+	extern char gstr516[];
+	extern char gstr517[];
+	extern char gstr518[];
 
 	if(numarray[2] == -1) {
 		if(abs(distarray[0] - distarray[1]) < 10) {
@@ -2449,6 +2401,7 @@ int SetUpOval1(int ovalheight, int ovalwidth, int ovallength)
 	int temphead, temphead2;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt;
+	extern char gstr519[];
 	COORD tdist, distnm, distkm;
 	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
 	/*   Fly aircraft to one 'corner' of the CAP pattern  */
@@ -2502,6 +2455,7 @@ void SetUpCAP2()
 	int dx, dy, dalt;
 	int temphead, temphead2;
 	int wingnum;
+	extern char gstr520[];
 
 	i = planecnt;
 
@@ -2542,6 +2496,7 @@ int SetUpOval2(int ovalheight, int ovalwidth, int ovallength)
 	int temphead, temphead2;
 	int wingnum;
 	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
+	extern char gstr521[];
 
 	i = planecnt;
 
@@ -2593,6 +2548,7 @@ int SetUpOval3(int ovalheight, int ovalwidth, int ovallength)
 	int dx, dy, dalt;
 	int temphead, temphead2;
 	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
+	extern char gstr522[];
 
 	i = planecnt;
 
@@ -2660,6 +2616,7 @@ int OvalTurn1(int ovalheight, int ovalwidth, int ovallength)
 	int dx, dy, dalt;
 	int temphead, temphead2;
 	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
+	extern char gstr523[];
 
 	i = planecnt;
 
@@ -2708,6 +2665,7 @@ void CAPTurn2()
 	int dx, dy, dalt;
 	int temphead, temphead2;
 	int wingnum;
+	extern char gstr524[];
 
 	i = planecnt;
 
@@ -2752,6 +2710,7 @@ int OvalTurn2(int ovalheight, int ovalwidth, int ovallength)
 	int temphead, temphead2;
 	int wingnum;
 	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
+	extern char gstr525[];
 
 	i = planecnt;
 
@@ -2797,6 +2756,8 @@ int OvalTurn2(int ovalheight, int ovalwidth, int ovallength)
 void CAPLeg1()
 {
 	int wingnum;
+	extern char gstr520[];
+	extern char gstr526[];
 
 	i = planecnt;
 
@@ -2836,6 +2797,7 @@ void CAPLeg1()
 void CAPLeg2()
 {
 	int wingnum;
+	extern char gstr527[];
 
 	i = planecnt;
 
@@ -2858,6 +2820,7 @@ void CAPLeg2()
 void CheckCAP()
 {
 	int targnum;
+	extern char gstr528[];
 	COORD targdist;
 	int bogeyangle;
 	COORD bogeydist;
@@ -2998,6 +2961,8 @@ int CAPAI(int side, int ovalheight, int ovalwidth, int ovallength, int ovaldist)
 
 int FlyTo(int xdim, int ydim, int altdim, int ignoredist)
 {
+	extern char gstr529[];
+	extern char gstr389[];
 
 	int dx, dy, dz;
 	int relangle, rrelangle, enemyhead;
@@ -3054,6 +3019,25 @@ int FlyTo(int xdim, int ydim, int altdim, int ignoredist)
 int TranslateBehavior(int planenum, int behavenum, int formnum)
 {
 	int returnval = 0;
+	extern char gstr530[];
+	extern char gstr531[];
+	extern char gstr532[];
+	extern char gstr533[];
+	extern char gstr534[];
+	extern char gstr535[];
+	extern char gstr536[];
+	extern char gstr537[];
+	extern char gstr538[];
+	extern char gstr539[];
+	extern char gstr540[];
+	extern char gstr541[];
+	extern char gstr542[];
+	extern char gstr543[];
+	extern char gstr544[];
+	extern char gstr545[];
+	extern char gstr546[];
+	extern char gstr547[];
+	extern char gstr548[];
 
 	switch(behavenum) {
 
@@ -3283,6 +3267,10 @@ void FlyRefuel()
 	int dx, dy, dz;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt;
+	extern char gstr549[];
+	extern char gstr389[];
+	extern char gstr456[];
+	extern char gstr550[];
 	COORD tdist, distnm, distkm;
 	int wingman;
 
@@ -3359,6 +3347,9 @@ void HelpPlayerRefuel(int pdist, int pangle)
 	int dx, dy, dz;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt;
+	extern char gstr551[];
+	extern char gstr389[];
+	extern char gstr456[];
 	COORD tdist, distnm, distkm;
 	int wingman;
 
@@ -3417,6 +3408,9 @@ void HoldSpeedRefuel()
 	int dx, dy, dz;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt;
+	extern char gstr552[];
+	extern char gstr389[];
+	extern char gstr456[];
 	COORD tdist, distnm, distkm;
 	int wingman;
 
@@ -3463,6 +3457,7 @@ void HelpAIRefuel()
 	int dx, dy, dz;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt;
+	extern char gstr553[];
 	COORD tdist, distnm, distkm;
 	int wingman;
 
@@ -3724,6 +3719,9 @@ void ShowJettison(int planenum)
 	int  BombAngle;
 	int  otherplane;
 	struct PlaneData far *ptargettype;
+	extern char gstr314[];
+	extern char gstr554[];
+	extern char gstr555[];
 
 	int  doshowdrop = 0;
 	int missilenum;
@@ -3871,6 +3869,7 @@ void AIRefuel()
 	int dx, dy, dalt;
 	int refuelplane;
 	int tangle;
+	extern char gstr556[];
 	COORD tdist;
 
 	i = planecnt;
@@ -3941,6 +3940,8 @@ void AIWaitRefuel()
 	int refuelplane;
 	int refuelhead;
 	int holddist;
+	extern char gstr557[];
+	extern char gstr389[];
 	COORD tdist;
 
 	i = planecnt;
@@ -3994,6 +3995,7 @@ void AILockedRefuel()
 	int refuelplane;
 	int refuelhead;
 	int probedist;
+	extern char gstr558[];
 	COORD tdist;
 	int fueladd;
 
@@ -4038,6 +4040,7 @@ void AILockedRefuel()
 	int dx, dy, dalt;
 	int refuelplane;
 	int tangle;
+	extern char gstr558[];
 	COORD tdist;
 	int fueladd;
 
@@ -4098,6 +4101,8 @@ void ReleaseRefuel()
 {
 	int dx, dy, dalt;
 	int refuelplane;
+	extern char gstr559[];
+	extern char gstr389[];
 	COORD tdist;
 	int ourleader;
 
@@ -4205,6 +4210,8 @@ void AIGoHome()
 	int dx, dy, dz;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt;
+	extern char gstr560[];
+	extern char gstr130[];
 	COORD tdist, distnm, distkm;
 	COORD bxloc, byloc;
 	UWORD bzloc;
@@ -4296,6 +4303,7 @@ void CheckAISix(int wingnum)
 	int returnval, x, y, dx, dy, founddist, targetnum;
 	int tpitch, tangle, enemyalt, rangle, rrangle, winghead;
 	int cnt, rangle1, rrangle1;
+	extern char gstr561[];
 	COORD tdist, tdist1, tdistnm, tdistnm1, threatdist;
 	int threatcone;
     char Str[80];
@@ -4353,6 +4361,11 @@ void GorillaBomb()
 	int relangle;
 	int tangle, tpitch, troll, enemyalt, prewing, temphead, secplace;
 	int tempwing, prespeed, tempspeed;
+	extern char gstr562[];
+	extern char gstr137[];
+	extern char gstr138[];
+	extern char gstr139[];
+	extern char gstr140[];
 	COORD tdist, distkm, tdistnm;
 	int offangle;
 	int hsep;
@@ -4676,6 +4689,9 @@ void LGetTargADP(int planenum, long dx, long dy, COORD *tdist, int *tpitch, int 
 	int tdx, tdy;
 	int junkangle, junkangle2;
 	long holddist2;
+	extern char gstr563[];
+	extern char gstr564[];
+	extern char gstr565[];
 
 	tdx = (int)(((dx+16)/AILOCDIV) >> HTOV);
 	tdy = (int)(((dy+16)/AILOCDIV) >> HTOV);
@@ -4712,6 +4728,8 @@ void LGetTargADP(int planenum, long dx, long dy, COORD *tdist, int *tpitch, int 
 
 void LFlyTo(long xdim, long ydim, int altdim, int prewing, int prespeed)
 {
+	extern char gstr566[];
+	extern char gstr567[];
 
 	long dx, dy;
 	int dz;
@@ -4841,6 +4859,7 @@ long LDist2D(long x, long y)
 	long returnval;
 	long ox, oy;
 	long doshift = 0x3FFFL;
+	extern char gstr568[];
 
 	ox = x;
 	oy = y;
@@ -4884,6 +4903,9 @@ long sinXL(int tangle, long idist)
 	long tdist;
 	int cnt = 0;
 	int shwnum;
+	extern char gstr569[];
+	extern char gstr570[];
+	extern char gstr571[];
 
 	i = planecnt;
 
@@ -4919,6 +4941,10 @@ long cosXL(int tangle, long idist)
 	long holdval;
 	long tdist;
 	int cnt = 0;
+	extern char gstr572[];
+	extern char gstr573[];
+	extern char gstr574[];
+	extern char gstr571[];
 
 	i = planecnt;
 
@@ -4964,6 +4990,7 @@ long sinXL(int tangle, long idist)
 	long holdval;
 	long tdist;
 	int cnt = 0;
+	extern char gstr575[];
 
 	i = planecnt;
 
@@ -4990,6 +5017,7 @@ long cosXL(int tangle, long idist)
 	long holdval;
 	long tdist;
 	int cnt = 0;
+	extern char gstr573[];
 
 	i = planecnt;
 
@@ -5092,6 +5120,7 @@ void RefuelTurn2()
 void RefuelLeg1()
 {
 	int wingnum;
+	extern char gstr526[];
 
 	i = planecnt;
 
@@ -5121,6 +5150,7 @@ void RefuelLeg1()
 void RefuelLeg2()
 {
 	int wingnum;
+	extern char gstr527[];
 
 	i = planecnt;
 
@@ -5147,6 +5177,10 @@ void CheckHelpPlayer()
 	int dz;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt;
+	extern char gstr551[];
+	extern char gstr389[];
+	extern char gstr456[];
+	extern char gstr130[];
 	COORD tdist, distnm, distkm;
 	int wingman;
 	long ldist;

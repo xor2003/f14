@@ -1,6 +1,3 @@
-extern char gstr356[];
-extern char gstr357[];
-extern char gstr358[];
 
 //***************************************************************************
 //
@@ -143,6 +140,8 @@ MainMenu()
 	int MyMouseHits=0;
 	int selectedfunc=0;
 	int i;
+	extern char gstr356[];
+	extern char gstr357[];
     UBYTE PalPkt[256*3 + 6];
 
 	MouseSETUP(MouseSprite,0,0);
@@ -414,6 +413,7 @@ MainMenu()
 //***************************************************************************
 int DrawSettings()
 {
+	extern char gstr358[];
 	SetFont(MenuRp,F_3x5B);
 	MenuRp->APen=10;
 
@@ -500,6 +500,7 @@ pstrlen(RPS *rp, char *s)
 }
 MikesJoyStickRecal(int x, int y)
 {
+	extern char gstr356[];
 	MouseHIDE();
    JoyRecal (x,y);
 	LoadPicture(1,gstr356);

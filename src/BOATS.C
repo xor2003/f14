@@ -1,15 +1,3 @@
-extern char gstr130[];
-extern char gstr131[];
-extern char gstr132[];
-extern char gstr133[];
-extern char gstr134[];
-extern char gstr135[];
-extern char gstr136[];
-extern char gstr137[];
-extern char gstr138[];
-extern char gstr139[];
-extern char gstr140[];
-extern char gstr141[];
 
 /*  File:   boats.c                                 */
 /*  Author: Scott Elson                             */
@@ -345,9 +333,9 @@ void UpdateOurCarrier(int boatnum)
 void UpdateAIsOnCarrier(int boatnum, long cdx, long cdy)
 {
 	int cnt;
-	extern int NPLANES;
+	extern int NPLANESx;
 
-	for(cnt = 0; NPLANES > cnt; cnt ++) {
+	for(cnt = 0; cnt < NPLANESx; cnt ++) {
 		if((ps[cnt].status & ALIVE) && (ps[cnt].status & ACTIVE) && (ps[cnt].base < 0) &&
 				((bv[cnt].Behavior == Ready5) || (bv[cnt].Behavior == SARWait)
 				|| ((bv[cnt].Behavior == AICarrierLand) && (bv[cnt].threathead <= -3)) || ((ps[cnt].status & TAKEOFF) && (ps[cnt].speed <= 1)))) {
@@ -461,6 +449,12 @@ void FormationSpeedAdjustBoat(int prespeed, int relangle, int tdist, int prewing
 	int whatmaneuver;
 	int i;
 	struct PlaneData far *tempplane;
+	extern char gstr130[];
+	extern char gstr131[];
+	extern char gstr132[];
+	extern char gstr133[];
+	extern char gstr134[];
+	extern char gstr135[];
 
 	i = planecnt;
 
@@ -541,6 +535,12 @@ void FormationBoat() {
 	int relangle;
 	int tangle, tpitch, troll, enemyalt, prewing, temphead, secplace;
 	int prespeed;
+	extern char gstr136[];
+	extern char gstr137[];
+	extern char gstr138[];
+	extern char gstr139[];
+	extern char gstr140[];
+	extern char gstr141[];
 	COORD tdist, distkm, tdistnm;
 	int offangle;
 	int ourleadalt;

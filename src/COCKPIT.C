@@ -1,33 +1,3 @@
-extern char gstr192[];
-extern char gstr193[];
-extern char gstr194[];
-extern char gstr195[];
-extern char gstr196[];
-extern char gstr197[];
-extern char gstr198[];
-extern char gstr199[];
-extern char gstr200[];
-extern char gstr201[];
-extern char gstr202[];
-extern char gstr203[];
-extern char gstr204[];
-extern char gstr205[];
-extern char gstr206[];
-extern char gstr207[];
-extern char gstr208[];
-extern char gstr209[];
-extern char gstr210[];
-extern char gstr211[];
-extern char gstr212[];
-extern char gstr213[];
-extern char gstr214[];
-extern char gstr215[];
-extern char gstr216[];
-extern char gstr217[];
-extern char gstr218[];
-extern char gstr219[];
-extern char gstr220[];
-extern char gstr221[];
 
 //***************************************************************************
 // File:	Cockpit.c
@@ -413,6 +383,8 @@ Flip ()
 	char tmp[80];
 	char s[10];
 	static int lastview=-1;
+	extern char gstr192[];
+	extern char gstr193[];
 
 	struct PlaneData far *tempplane;
 
@@ -616,6 +588,26 @@ DrawRadarStatus()
 	char s[25];
 	int l;
 	int offset=0;
+	extern char gstr194[];
+	extern char gstr195[];
+	extern char gstr196[];
+	extern char gstr197[];
+	extern char gstr198[];
+	extern char gstr199[];
+	extern char gstr200[];
+	extern char gstr201[];
+	extern char gstr202[];
+	extern char gstr203[];
+	extern char gstr204[];
+	extern char gstr205[];
+	extern char gstr206[];
+	extern char gstr207[];
+	extern char gstr208[];
+	extern char gstr209[];
+	extern char gstr210[];
+	extern char gstr211[];
+	extern char gstr212[];
+	extern char gstr213[];
 
 	SetFont(Rp2,F_3x5B);
 	Rp2->APen=View?202:54;
@@ -715,6 +707,8 @@ int GDisplay()
 {
 	char txt[10], s[10];
 	int	N;
+	extern char gstr214[];
+	extern char gstr215[];
 
 	SetFont(Rp2,F_3x5B);
 	Rp2->APen=83;
@@ -1182,6 +1176,12 @@ int DrawRadarRange()
 //***************************************************************************
 int DDDSwitchRefresh()
 {
+	extern char gstr216[];
+	extern char gstr217[];
+	extern char gstr218[];
+	extern char gstr219[];
+	extern char gstr220[];
+	extern char gstr221[];
 	MouseHIDE();
 
 	if (AWG9_SNIFF) {
@@ -1279,6 +1279,12 @@ int DDDSwitches()
 	static int RadarMode=0;
 	static int PrevRadar=0;
 	char s[10];
+	extern char gstr216[];
+	extern char gstr217[];
+	extern char gstr218[];
+	extern char gstr219[];
+	extern char gstr220[];
+	extern char gstr221[];
 	SetFont(Rp2,F_3x5B);
 	Rp2->APen=1;
 	Rp2->BPen=1;

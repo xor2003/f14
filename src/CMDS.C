@@ -1,17 +1,3 @@
-extern char gstr155[];
-extern char gstr156[];
-extern char gstr180[];
-extern char gstr181[];
-extern char gstr182[];
-extern char gstr183[];
-extern char gstr184[];
-extern char gstr185[];
-extern char gstr186[];
-extern char gstr187[];
-extern char gstr188[];
-extern char gstr189[];
-extern char gstr190[];
-extern char gstr191[];
 
 /*  File:   Cmds.c                                */
 /*  Author: Sid Meier / Andy Hollis /             */
@@ -574,6 +560,19 @@ ProcessInputs()
 Cmds()
 {
     int i,Move, prevwps;
+	extern char gstr180[];
+	extern char gstr181[];
+	extern char gstr156[];
+	extern char gstr155[];
+	extern char gstr182[];
+	extern char gstr183[];
+	extern char gstr184[];
+	extern char gstr185[];
+	extern char gstr186[];
+	extern char gstr187[];
+	extern char gstr188[];
+	extern char gstr189[];
+	extern char gstr190[];
 
     switch (KEYPRINT) {
         case DECPOWER:
@@ -1096,6 +1095,7 @@ CheckOurAlt()
 LocalCmds()
 {
     int i;
+	extern char gstr191[];
 
 	tempvar = 0;
 	behavecommands = 0;

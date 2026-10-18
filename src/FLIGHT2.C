@@ -1,29 +1,3 @@
-extern char gstr156[];
-extern char gstr183[];
-extern char gstr224[];
-extern char gstr225[];
-extern char gstr226[];
-extern char gstr227[];
-extern char gstr228[];
-extern char gstr229[];
-extern char gstr230[];
-extern char gstr231[];
-extern char gstr232[];
-extern char gstr233[];
-extern char gstr234[];
-extern char gstr235[];
-extern char gstr236[];
-extern char gstr237[];
-extern char gstr238[];
-extern char gstr239[];
-extern char gstr240[];
-extern char gstr241[];
-extern char gstr242[];
-extern char gstr243[];
-extern char gstr244[];
-extern char gstr245[];
-extern char gstr246[];
-extern char gstr247[];
 
 /************************************************************************
 *                                                                       *
@@ -195,6 +169,7 @@ long PlaneWeight();
 InitFlightModel()
 {
     int f, d;
+	extern char gstr224[];
 
 
 	InitPlaneOnCarrier(2);
@@ -227,6 +202,9 @@ InitFlightModel()
 //***************************************************************************
 FLIGHT ()
 {
+	extern char gstr156[];
+	extern char gstr225[];
+	extern char gstr183[];
 
     UWORD   FrameAccel,GndSpeed;
     SWORD   TurnRate,EqV,EqSpeed;
@@ -964,6 +942,9 @@ extern int AutoTrim;
 
 ToggleAutoTrim()
 {
+	extern char gstr226[];
+	extern char gstr227[];
+	extern char gstr228[];
    AutoTrim^=1;
    if (ConfigData.FightModel==2)
       {
@@ -987,6 +968,8 @@ ToggleAutoTrim()
 TrimIt(int amnt)
 {
    char str[20];
+	extern char gstr228[];
+	extern char gstr229[];
 
    if (ConfigData.FightModel!=2)
       {
@@ -1020,6 +1003,8 @@ DoFuel()
    int   T;
    int *TBL;
    long  D;
+	extern char gstr230[];
+	extern char gstr231[];
 
    // every 3 seconds
 
@@ -1078,6 +1063,13 @@ ScottFlight()
 	long	CLCD,CP,DNSTY;
 	int	i;
 	int	OLDH,OLDP,OLDR;
+	extern char gstr232[];
+	extern char gstr233[];
+	extern char gstr156[];
+	extern char gstr183[];
+	extern char gstr234[];
+	extern char gstr235[];
+	extern char gstr236[];
 	SWORD	n,dH,dP;
 	UWORD ALT;
 	long	D;
@@ -1733,6 +1725,17 @@ Splatted(struct FPARAM *F, int spltcode)
    long  VVILIMIT;
    int   ROLLLIMIT;
    int   SPDLIMIT;
+	extern char gstr237[];
+	extern char gstr238[];
+	extern char gstr239[];
+	extern char gstr240[];
+	extern char gstr241[];
+	extern char gstr242[];
+	extern char gstr243[];
+	extern char gstr244[];
+	extern char gstr245[];
+	extern char gstr246[];
+	extern char gstr247[];
 
 // check for blowed up by vvi or OurRoll based on landing level
 // check for gear down while on the deck

@@ -1,6 +1,3 @@
-extern char gstr2[];
-extern char gstr222[];
-extern char gstr223[];
 
 #include <io.h>
 #include <fcntl.h>
@@ -353,6 +350,7 @@ ReadEMSPCXSize( char *name, int SETPAL, int XCLP, int YCLP)
 
 LoadEmsFile(char *Name)
 {
+	extern char gstr222[];
 	FILE	*stream;
 	char	string[10];
 	unsigned int	paras;
@@ -425,6 +423,7 @@ ReadPCX( char *name, char far *DST, int SETPAL)
 #if 1
 ReadPCXSize( char *name, char far *DST, int SETPAL, int XCLP, int YCLP)
 {
+	extern char gstr2[];
 	FILE	*Handle;
 	int	i,j;
 
@@ -512,6 +511,7 @@ ReadPCXSize( char *name, char far *DST, int SETPAL, int XCLP, int YCLP)
 #if 0
 ReadPCXSize( char *name, char far *DST, int SETPAL, int XCLP, int YCLP)
 {
+	extern char gstr2[];
 	FILE	*Handle;
 	int	i,j;
 
@@ -595,6 +595,7 @@ ReadPCXSize( char *name, char far *DST, int SETPAL, int XCLP, int YCLP)
 
 WritePCX(char *name,char far *map,int hs,int vs )
 {
+	extern char gstr223[];
 	FILE	*Handle;
 	int	i,j;
 

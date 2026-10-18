@@ -1,6 +1,3 @@
-extern char gstr339[];
-extern char gstr340[];
-extern char gstr341[];
 
 #include "stdio.h"
 #include <stdlib.h>
@@ -154,6 +151,8 @@ LoadClouds()
 {
 	int	DHNDL;
 	unsigned 	len;
+	extern char gstr339[];
+	extern char gstr340[];
 
 	cldhndl=ReadEMSPCXSize(gstr339,0,256,256);
 	if(_dos_open(gstr340,O_RDONLY,&DHNDL)==0) {
@@ -484,6 +483,7 @@ EndStack3D()
 	int	SHFT;
 	long	t1,t2,t3;
 	int		X,Y,Z;
+	extern char gstr341[];
 
 	for (i=FARSTACK;i!=-1;) {
 		SCL= STACK3D[i].SCL;

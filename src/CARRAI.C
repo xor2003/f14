@@ -1,4 +1,3 @@
-extern char gstr179[];
 
 //***************************************************************************
 //* File Name: carrai.c
@@ -75,6 +74,7 @@ int RequestCat(int cat, int planenum)
 {
 	int i;
 	int catplane;
+	extern char gstr179[];
 
 	if (cat==ANYCAT) {
 		if(landingstatus & LANDREQUESTED)

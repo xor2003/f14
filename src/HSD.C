@@ -1,19 +1,3 @@
-extern char gstr113[];
-extern char gstr281[];
-extern char gstr282[];
-extern char gstr283[];
-extern char gstr284[];
-extern char gstr285[];
-extern char gstr286[];
-extern char gstr287[];
-extern char gstr288[];
-extern char gstr289[];
-extern char gstr290[];
-extern char gstr291[];
-extern char gstr292[];
-extern char gstr293[];
-extern char gstr294[];
-extern char gstr295[];
 
 #include "library.h"
 
@@ -99,6 +83,7 @@ pitchbar(int w,int dist,int ox,int oy) {      // draw a bar according to pitch, 
 
 pitchnum(int w,int pitch,int dist,int off,int ox,int oy) { // draw numbers on a pitch bar where the left side is in ten's of degrees, the right side always zero ie: 1 - 0 is 10 degrees
    int x,y;
+	extern char gstr113[];
 
    x=abs(pitch-dist-off)/10;
    if (x>8) x=9-(x%8);               // max pitch 90 degrees
@@ -273,6 +258,21 @@ HsdCrt(int CrtNr)
 	char far *screen;
 	char s[10];
 	int off,font;
+	extern char gstr281[];
+	extern char gstr282[];
+	extern char gstr283[];
+	extern char gstr284[];
+	extern char gstr285[];
+	extern char gstr286[];
+	extern char gstr287[];
+	extern char gstr288[];
+	extern char gstr289[];
+	extern char gstr290[];
+	extern char gstr291[];
+	extern char gstr292[];
+	extern char gstr293[];
+	extern char gstr294[];
+	extern char gstr295[];
 
 	if (Damaged&D_PDISPLAYS) {
 		RectFill(RpCRT,0,0,RpCRT->Width1+1,RpCRT->Length1+1, BLACK);

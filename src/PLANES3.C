@@ -1,139 +1,3 @@
-extern char gstr130[];
-extern char gstr135[];
-extern char gstr136[];
-extern char gstr140[];
-extern char gstr290[];
-extern char gstr389[];
-extern char gstr402[];
-extern char gstr465[];
-extern char gstr466[];
-extern char gstr467[];
-extern char gstr468[];
-extern char gstr493[];
-extern char gstr519[];
-extern char gstr576[];
-extern char gstr577[];
-extern char gstr578[];
-extern char gstr579[];
-extern char gstr580[];
-extern char gstr581[];
-extern char gstr582[];
-extern char gstr583[];
-extern char gstr584[];
-extern char gstr585[];
-extern char gstr586[];
-extern char gstr587[];
-extern char gstr588[];
-extern char gstr589[];
-extern char gstr590[];
-extern char gstr591[];
-extern char gstr592[];
-extern char gstr593[];
-extern char gstr594[];
-extern char gstr595[];
-extern char gstr596[];
-extern char gstr597[];
-extern char gstr598[];
-extern char gstr599[];
-extern char gstr600[];
-extern char gstr601[];
-extern char gstr602[];
-extern char gstr603[];
-extern char gstr604[];
-extern char gstr605[];
-extern char gstr606[];
-extern char gstr607[];
-extern char gstr608[];
-extern char gstr609[];
-extern char gstr610[];
-extern char gstr611[];
-extern char gstr612[];
-extern char gstr613[];
-extern char gstr614[];
-extern char gstr615[];
-extern char gstr616[];
-extern char gstr617[];
-extern char gstr618[];
-extern char gstr619[];
-extern char gstr620[];
-extern char gstr621[];
-extern char gstr622[];
-extern char gstr623[];
-extern char gstr624[];
-extern char gstr625[];
-extern char gstr626[];
-extern char gstr627[];
-extern char gstr628[];
-extern char gstr629[];
-extern char gstr630[];
-extern char gstr631[];
-extern char gstr632[];
-extern char gstr633[];
-extern char gstr634[];
-extern char gstr635[];
-extern char gstr636[];
-extern char gstr637[];
-extern char gstr638[];
-extern char gstr639[];
-extern char gstr640[];
-extern char gstr641[];
-extern char gstr642[];
-extern char gstr643[];
-extern char gstr644[];
-extern char gstr645[];
-extern char gstr646[];
-extern char gstr647[];
-extern char gstr648[];
-extern char gstr649[];
-extern char gstr650[];
-extern char gstr651[];
-extern char gstr652[];
-extern char gstr653[];
-extern char gstr654[];
-extern char gstr655[];
-extern char gstr656[];
-extern char gstr657[];
-extern char gstr658[];
-extern char gstr659[];
-extern char gstr660[];
-extern char gstr661[];
-extern char gstr662[];
-extern char gstr663[];
-extern char gstr664[];
-extern char gstr665[];
-extern char gstr666[];
-extern char gstr667[];
-extern char gstr668[];
-extern char gstr669[];
-extern char gstr670[];
-extern char gstr671[];
-extern char gstr672[];
-extern char gstr673[];
-extern char gstr674[];
-extern char gstr675[];
-extern char gstr676[];
-extern char gstr677[];
-extern char gstr678[];
-extern char gstr679[];
-extern char gstr680[];
-extern char gstr681[];
-extern char gstr682[];
-extern char gstr683[];
-extern char gstr684[];
-extern char gstr685[];
-extern char gstr686[];
-extern char gstr687[];
-extern char gstr688[];
-extern char gstr689[];
-extern char gstr690[];
-extern char gstr691[];
-extern char gstr692[];
-extern char gstr693[];
-extern char gstr694[];
-extern char gstr695[];
-extern char gstr696[];
-extern char gstr697[];
-extern char gstr698[];
 
 //***************************************************************************
 //*  File:   Planes3.c                              */
@@ -584,6 +448,14 @@ void VectorIntercept(int planenum, int targetnum)
 	int replacecap;
 	int whichbehave;
 	int bogeyangle;
+	extern char gstr576[];
+	extern char gstr577[];
+	extern char gstr578[];
+	extern char gstr579[];
+	extern char gstr580[];
+	extern char gstr581[];
+	extern char gstr582[];
+	extern char gstr583[];
 	COORD bogeydist;
 	int dx, dy;
 	int prewing;
@@ -853,6 +725,22 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 	int cnt;
 	struct PlaneData far *ptemp;
 	int carrx, carry, carrangle, carrrelangle;
+	extern char gstr584[];
+	extern char gstr585[];
+	extern char gstr586[];
+	extern char gstr130[];
+	extern char gstr587[];
+	extern char gstr588[];
+	extern char gstr589[];
+	extern char gstr402[];
+	extern char gstr465[];
+	extern char gstr466[];
+	extern char gstr467[];
+	extern char gstr468[];
+	extern char gstr590[];
+	extern char gstr591[];
+	extern char gstr592[];
+	extern char gstr593[];
 	UWORD carrdist = 18000;
 	int do_id = 0;
 	int is_target = 0;
@@ -1145,6 +1033,7 @@ void LaunchCruise(int planenum)
 	struct MissileData far *tempmissile;
 	int sideid;
 	int log_launch, log_src;
+	extern char gstr130[];
 
 	if(GetSquadLeader(planenum) != planenum)
 		return;
@@ -1362,6 +1251,9 @@ void GetLastPosition (int planenum, long *aixloc, long *aiyloc, UWORD *palt)
 
 void FlyWPFollowPlayer()
 {
+	extern char gstr594[];
+	extern char gstr595[];
+	extern char gstr596[];
 	COORD tdistnm;
 	int prewing;
 	struct PlaneData far *tempplane;
@@ -1405,6 +1297,11 @@ void FollowPlayer()
 	int relangle;
 	int tangle, tpitch, troll, enemyalt, prewing, temphead, secplace;
 	int tempwing, prespeed;
+	extern char gstr594[];
+	extern char gstr597[];
+	extern char gstr598[];
+	extern char gstr136[];
+	extern char gstr140[];
 	COORD tdist, distkm, tdistnm;
 	int tempalt;
 	int ourleadalt;
@@ -1529,6 +1426,10 @@ void GorillaCover()
 	int relangle;
 	int tangle, tpitch, troll, enemyalt, temphead, secplace;
 	int tempwing, prespeed, tempspeed;
+	extern char gstr599[];
+	extern char gstr389[];
+	extern char gstr135[];
+	extern char gstr600[];
 	COORD tdist, distkm, tdistnm;
 	int offangle;
 	int hsep;
@@ -1665,6 +1566,7 @@ void RearCover()
 	int relangle;
 	int tangle, tpitch, troll, enemyalt, temphead, secplace;
 	int tempwing, prespeed, tempspeed;
+	extern char gstr601[];
 	COORD tdist, distkm, tdistnm;
 	int offangle;
 	int hsep;
@@ -1888,6 +1790,7 @@ int SARCAP0(int whatangle, long whatdist, int whatalt)
 	int temphead, temphead2;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt;
+	extern char gstr519[];
 	COORD tdist, distnm, distkm;
 	int smalldist;
 	int secplace;
@@ -2112,6 +2015,7 @@ int DoNextWayPt(int planenum, int waypt)
 	int wpflag;
 	int behavenum, launch, formnum, attack, headval, altval, speedval;
 	int temppath;
+	extern char gstr602[];
 
 	temppath = (int)bv[planenum].path;
 	if(!(ps[planenum].status & FRIENDLY))
@@ -2207,6 +2111,9 @@ void GetPlanePointXYZ(int planenum, long *xval, long *yval, UWORD *zval)
 	int cnt3;
 	int waynum;
 	int otherplane;
+	extern char gstr603[];
+	extern char gstr493[];
+	extern char gstr604[];
 
 	otherplane = planenum;
 	*xval = 0;
@@ -2304,6 +2211,37 @@ int ReturnBaseInfo(int basenum, COORD *xloc, COORD *yloc, UWORD *zloc, int *base
 #ifdef SHOWBEHAVIORS
 void ShowWhichBehave(int planenum)
 {
+	extern char gstr130[];
+	extern char gstr605[];
+	extern char gstr606[];
+	extern char gstr607[];
+	extern char gstr608[];
+	extern char gstr609[];
+	extern char gstr610[];
+	extern char gstr611[];
+	extern char gstr612[];
+	extern char gstr613[];
+	extern char gstr614[];
+	extern char gstr615[];
+	extern char gstr616[];
+	extern char gstr617[];
+	extern char gstr618[];
+	extern char gstr619[];
+	extern char gstr620[];
+	extern char gstr621[];
+	extern char gstr622[];
+	extern char gstr623[];
+	extern char gstr624[];
+	extern char gstr625[];
+	extern char gstr626[];
+	extern char gstr627[];
+	extern char gstr628[];
+	extern char gstr629[];
+	extern char gstr630[];
+	extern char gstr493[];
+	extern char gstr631[];
+	extern char gstr632[];
+	extern char gstr633[];
 	TXT(gstr130);
 	TXN(planenum);
 	if(bv[planenum].Behavior == Box)
@@ -2394,6 +2332,17 @@ void ShowWhichBehave(int planenum)
 
 void ShowWhichBehave2(int planenum)
 {
+	extern char gstr634[];
+	extern char gstr635[];
+	extern char gstr636[];
+	extern char gstr637[];
+	extern char gstr638[];
+	extern char gstr639[];
+	extern char gstr640[];
+	extern char gstr641[];
+	extern char gstr642[];
+	extern char gstr643[];
+	extern char gstr644[];
 	if(bv[planenum].Behavior == FlyStraight)
 		TXA(gstr634);
 	else if(bv[planenum].Behavior == FreeFighter)
@@ -2455,6 +2404,8 @@ void ProcessOtherComm()
 	int stat;
 	struct Behavevars *bvp;
 	struct Planes *psp;
+	extern char gstr645[];
+	extern char gstr646[];
 
 	if(!behavecommands)
 		return;
@@ -2544,6 +2495,8 @@ void SARWait()
 void SAR()
 {
 	int dx, dy, dalt;
+	extern char gstr647[];
+	extern char gstr648[];
 	COORD tdist;
 	int covernum;
 
@@ -2691,6 +2644,7 @@ void RestoreCover(int planenum)
 {
 	int cnt;
 	int returnval = -999;
+	extern char gstr649[];
 	COORD tdist, cdist;
 	int isfriend;
 	int lastcap = -1;
@@ -2773,6 +2727,7 @@ void UpdateOurWPS(int lastwp, int updateall)
 {
 	int waynum;
 	long xval, yval;
+	extern char gstr650[];
 	UWORD zval;
 	int cnt, cnt2;
 	int iscarr = 0;
@@ -2900,6 +2855,10 @@ int FormOnWP(int planenum)
 	int orgsecplace;
 	int orgprewing;
 	int cnt;
+	extern char gstr651[];
+	extern char gstr652[];
+	extern char gstr653[];
+	extern char gstr629[];
 
 	orgprewing = GetSquadLeader(planenum);
 
@@ -3013,6 +2972,7 @@ int CheckForMobileR5(int basenum, int isfriend)
 {
 	int cnt;
 	int returnval = -999;
+	extern char gstr654[];
 	COORD tdist, cdist;
 	int wingcnt;
 	int otherplane;
@@ -3091,6 +3051,11 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
 	long lxval, lyval;
 	int hitmsg, destroymsg;
 	int crashstat;
+	extern char gstr655[];
+	extern char gstr656[];
+	extern char gstr657[];
+	extern char gstr658[];
+	extern char gstr659[];
 
 	lxval = (long)xval<<HTOV;
 	lyval = (long)yval<<HTOV;
@@ -3256,6 +3221,12 @@ void SetUpLaunch(int planenum, int waypt)
 	int yplacefront[] = { -84, -65, -77};
 	int yplacerear[]  = { -47, -26, -41};
 	int whichcarr;
+	extern char gstr660[];
+	extern char gstr661[];
+	extern char gstr662[];
+	extern char gstr663[];
+	extern char gstr664[];
+	extern char gstr665[];
 
 
 	whichcarr = ConfigData.Carrier;
@@ -3356,6 +3327,8 @@ void GetNextLaunch(int planenum) {
 	int elevnum;
 	int cnt2;
 	int whichcarr;
+	extern char gstr666[];
+	extern char gstr662[];
 
 
 	whichcarr = ConfigData.Carrier;
@@ -3591,6 +3564,17 @@ void ShowOurWPS()
 	int wayobj;
 	int cnt;
 	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
+	extern char gstr667[];
+	extern char gstr668[];
+	extern char gstr669[];
+	extern char gstr670[];
+	extern char gstr671[];
+	extern char gstr672[];
+	extern char gstr673[];
+	extern char gstr674[];
+	extern char gstr675[];
+	extern char gstr676[];
+	extern char gstr677[];
 
 //	waynum = aipaths[OurPath].wp0 + NextWayPoint - 1;
 
@@ -4169,6 +4153,20 @@ void CheckPlaneLand(int planenum)
 	long dx, dy;
 	int angels;
 	int status;
+	extern char gstr678[];
+	extern char gstr130[];
+	extern char gstr586[];
+	extern char gstr679[];
+	extern char gstr680[];
+	extern char gstr681[];
+	extern char gstr682[];
+	extern char gstr683[];
+	extern char gstr684[];
+	extern char gstr685[];
+	extern char gstr576[];
+	extern char gstr686[];
+	extern char gstr687[];
+	extern char gstr688[];
 
 	landingstatus |= LANDREQUESTED;
 	if(landingstatus & (LANDCAT0USED | LANDCAT1USED))
@@ -4284,6 +4282,11 @@ void LetNextPlaneLand()
 	int startval = 100;
 	int gotone = 0;
 	int letland = -1;
+	extern char gstr689[];
+	extern char gstr586[];
+	extern char gstr679[];
+	extern char gstr690[];
+	extern char gstr691[];
 
 	if(landingstatus & (LANDCAT0USED | LANDCAT1USED)) {
 		return;
@@ -4495,6 +4498,9 @@ void UpdateMissionData(int typeid, int match)
 	int cnt1, cnt2;
 	int *rec;
 	int *p;
+	extern char gstr692[];
+	extern char gstr693[];
+	extern char gstr694[];
 
 	cnt1 = 0;
 	cnt2 = 0;
@@ -4602,6 +4608,11 @@ void DoOClockCall()
 	int targUS = 0;
 	long ldist, tldist;
 	long dx, dy;
+	extern char gstr695[];
+	extern char gstr290[];
+	extern char gstr696[];
+	extern char gstr697[];
+	extern char gstr698[];
 	UWORD aoclock;
 	int noclock;
 	int tpitch;
@@ -4761,9 +4772,9 @@ void ReArmWingman()
 {
 	int cnt;
 	struct PlaneData far *ptemp;
-	extern int NPLANES;
+	extern int NPLANESx;
 
-	for(cnt = 0; NPLANES > cnt; cnt++) {
+	for(cnt = 0; NPLANESx > cnt; cnt++) {
 		if ((ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE) && (bv[cnt].leader == -1) && (ps[cnt].status & FRIENDLY) && (!(ps[cnt].status & CRASH))) {
 			ptemp = GetPlanePtr(ps[cnt].type);
 			ps[cnt].mcnt[0] = ptemp->mcnt[0];

@@ -1,5 +1,3 @@
-extern char gstr758[];
-extern char gstr759[];
 
 #include "library.h"
 #include "world.h"
@@ -57,6 +55,8 @@ extern int GunZoom;
 int DrawGunCameraView()
 {
     int     TM[9], RM[9], PM[9],phd,pptchmin;
+	extern char gstr758[];
+	extern char gstr759[];
 	RPS *Rtmp;
 	int   PadHead,PadPitch;
 	long  delx,dely;

@@ -1,8 +1,3 @@
-extern char gstr753[];
-extern char gstr754[];
-extern char gstr755[];
-extern char gstr756[];
-extern char gstr757[];
 
 //************************************************************************
 //*
@@ -325,6 +320,10 @@ int concentric()
 static arrows()
 {
 	int x,y,color;
+	extern char gstr753[];
+	extern char gstr754[];
+	extern char gstr755[];
+	extern char gstr756[];
 #ifdef YEP
 	if (QUADLITE[0]) Message(gstr753);
 	if (QUADLITE[1]) Message(gstr754);
@@ -460,6 +459,7 @@ int show_plane(int i)
 int show_jamming()
 {
 	static ticks=0, off=0;
+	extern char gstr757[];
 
 	RpCRT->APen = 0x54;
 	if (JAMMER[0]) {

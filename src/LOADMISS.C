@@ -1,38 +1,3 @@
-extern char gstr130[];
-extern char gstr2[];
-extern char gstr302[];
-extern char gstr303[];
-extern char gstr304[];
-extern char gstr305[];
-extern char gstr306[];
-extern char gstr307[];
-extern char gstr308[];
-extern char gstr309[];
-extern char gstr310[];
-extern char gstr311[];
-extern char gstr312[];
-extern char gstr313[];
-extern char gstr314[];
-extern char gstr315[];
-extern char gstr316[];
-extern char gstr317[];
-extern char gstr318[];
-extern char gstr319[];
-extern char gstr320[];
-extern char gstr321[];
-extern char gstr322[];
-extern char gstr323[];
-extern char gstr324[];
-extern char gstr325[];
-extern char gstr326[];
-extern char gstr327[];
-extern char gstr328[];
-extern char gstr329[];
-extern char gstr330[];
-extern char gstr331[];
-extern char gstr332[];
-extern char gstr333[];
-extern char gstr334[];
 
 /*
 ������������������������������������������������������������������������������
@@ -143,6 +108,24 @@ extern int GetEscortNum(int objid);
 
 int LoadScottMission()
 {
+	extern char gstr302[];
+	extern char gstr2[];
+	extern char gstr303[];
+	extern char gstr304[];
+	extern char gstr305[];
+	extern char gstr306[];
+	extern char gstr307[];
+	extern char gstr308[];
+	extern char gstr309[];
+	extern char gstr310[];
+	extern char gstr130[];
+	extern char gstr311[];
+	extern char gstr312[];
+	extern char gstr313[];
+	extern char gstr314[];
+	extern char gstr315[];
+	extern char gstr316[];
+	extern char gstr317[];
 
     int     cnt, cnt2;
     FILE    *File;
@@ -734,6 +717,16 @@ extern int pathshow;
 
 int ShowScottMission()
 {
+	extern char gstr302[];
+	extern char gstr2[];
+	extern char gstr303[];
+	extern char gstr130[];
+	extern char gstr318[];
+	extern char gstr319[];
+	extern char gstr320[];
+	extern char gstr321[];
+	extern char gstr322[];
+	extern char gstr323[];
 
     int     cnt;
     FILE    *File;
@@ -935,6 +928,17 @@ void AddGroundTarget(struct _object_ one_object, int cnt)
 {
 	int radarnum = 27;
 	struct RadarData far *tempradar;
+	extern char gstr324[];
+	extern char gstr325[];
+	extern char gstr326[];
+	extern char gstr327[];
+	extern char gstr328[];
+	extern char gstr329[];
+	extern char gstr330[];
+	extern char gstr331[];
+	extern char gstr332[];
+	extern char gstr333[];
+	extern char gstr334[];
 
 	if(NGTARGETS >= MAXGROUNDTARGET) {
 		TXT(gstr324);

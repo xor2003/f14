@@ -1,21 +1,3 @@
-extern char gstr114[];
-extern char gstr115[];
-extern char gstr116[];
-extern char gstr117[];
-extern char gstr216[];
-extern char gstr288[];
-extern char gstr296[];
-extern char gstr297[];
-extern char gstr298[];
-extern char gstr299[];
-extern char gstr300[];
-extern char gstr760[];
-extern char gstr761[];
-extern char gstr762[];
-extern char gstr763[];
-extern char gstr764[];
-extern char gstr765[];
-extern char gstr766[];
 
 //***************************************************************************
 // File: TID.C
@@ -161,6 +143,19 @@ int TIDAttkInfo()
 	char t[10];
 	int r;
 	char l[5];
+	extern char gstr760[];
+	extern char gstr761[];
+	extern char gstr762[];
+	extern char gstr114[];
+	extern char gstr115[];
+	extern char gstr116[];
+	extern char gstr117[];
+	extern char gstr763[];
+	extern char gstr296[];
+	extern char gstr297[];
+	extern char gstr298[];
+	extern char gstr299[];
+	extern char gstr300[];
 
 	SetFont(RpCRT,F_3x5B);
 
@@ -342,6 +337,11 @@ int TID_draw_target(TARGET *tc, int locked,int dl)
 	char s[10];
 	int cnt=0;
 	int ipos=0;
+	extern char gstr764[];
+	extern char gstr765[];
+	extern char gstr288[];
+	extern char gstr766[];
+	extern char gstr216[];
 
 
 	tempps = ps + tc->i;

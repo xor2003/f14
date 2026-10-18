@@ -1,7 +1,3 @@
-extern char gstr335[];
-extern char gstr336[];
-extern char gstr337[];
-extern char gstr338[];
 
 #include <dos.h>
 #include "library.h"
@@ -50,6 +46,7 @@ Messages()
 Message(char *s,int src)
 {
     int i, min, slot;
+	extern char gstr335[];
 
     if (ejected) return(1);
 
@@ -99,6 +96,7 @@ extern int MsgEMS;
 //***************************************************************************
 LoadMsgEMS()
 {
+	extern char gstr336[];
 	if (MsgEMS==0) {
 		MsgEMS=MakeEMSFileBlock(gstr336,(320*16/16));
 	}
@@ -112,6 +110,7 @@ MyMessages()
    char far *SRC;
    int cnt, lastmsg, lastmsgnum;
    int msgplace;
+	extern char gstr336[];
 
 	if (MsgEMS==0) {
 	// try to get ems for messages
@@ -359,6 +358,8 @@ OutSideHeading(RPS *Rp)
 {
 	char	S[80];
 	char	N[90];
+	extern char gstr337[];
+	extern char gstr338[];
 	UWORD V;
 
    S[0]=0;

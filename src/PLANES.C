@@ -1,128 +1,3 @@
-extern char gstr130[];
-extern char gstr134[];
-extern char gstr135[];
-extern char gstr137[];
-extern char gstr138[];
-extern char gstr140[];
-extern char gstr359[];
-extern char gstr360[];
-extern char gstr361[];
-extern char gstr362[];
-extern char gstr363[];
-extern char gstr364[];
-extern char gstr365[];
-extern char gstr366[];
-extern char gstr367[];
-extern char gstr368[];
-extern char gstr369[];
-extern char gstr370[];
-extern char gstr371[];
-extern char gstr372[];
-extern char gstr373[];
-extern char gstr374[];
-extern char gstr375[];
-extern char gstr376[];
-extern char gstr377[];
-extern char gstr378[];
-extern char gstr379[];
-extern char gstr380[];
-extern char gstr381[];
-extern char gstr382[];
-extern char gstr383[];
-extern char gstr384[];
-extern char gstr385[];
-extern char gstr386[];
-extern char gstr387[];
-extern char gstr388[];
-extern char gstr389[];
-extern char gstr390[];
-extern char gstr391[];
-extern char gstr392[];
-extern char gstr393[];
-extern char gstr394[];
-extern char gstr395[];
-extern char gstr396[];
-extern char gstr397[];
-extern char gstr398[];
-extern char gstr399[];
-extern char gstr400[];
-extern char gstr401[];
-extern char gstr402[];
-extern char gstr403[];
-extern char gstr404[];
-extern char gstr405[];
-extern char gstr406[];
-extern char gstr407[];
-extern char gstr408[];
-extern char gstr409[];
-extern char gstr410[];
-extern char gstr411[];
-extern char gstr412[];
-extern char gstr413[];
-extern char gstr414[];
-extern char gstr415[];
-extern char gstr416[];
-extern char gstr417[];
-extern char gstr418[];
-extern char gstr419[];
-extern char gstr420[];
-extern char gstr421[];
-extern char gstr422[];
-extern char gstr423[];
-extern char gstr424[];
-extern char gstr425[];
-extern char gstr426[];
-extern char gstr427[];
-extern char gstr428[];
-extern char gstr429[];
-extern char gstr430[];
-extern char gstr431[];
-extern char gstr432[];
-extern char gstr433[];
-extern char gstr434[];
-extern char gstr435[];
-extern char gstr436[];
-extern char gstr437[];
-extern char gstr438[];
-extern char gstr439[];
-extern char gstr440[];
-extern char gstr441[];
-extern char gstr442[];
-extern char gstr443[];
-extern char gstr444[];
-extern char gstr445[];
-extern char gstr446[];
-extern char gstr447[];
-extern char gstr448[];
-extern char gstr449[];
-extern char gstr450[];
-extern char gstr451[];
-extern char gstr452[];
-extern char gstr453[];
-extern char gstr454[];
-extern char gstr455[];
-extern char gstr456[];
-extern char gstr457[];
-extern char gstr458[];
-extern char gstr459[];
-extern char gstr460[];
-extern char gstr461[];
-extern char gstr462[];
-extern char gstr463[];
-extern char gstr464[];
-extern char gstr465[];
-extern char gstr466[];
-extern char gstr467[];
-extern char gstr468[];
-extern char gstr469[];
-extern char gstr470[];
-extern char gstr471[];
-extern char gstr472[];
-extern char gstr473[];
-extern char gstr474[];
-extern char gstr475[];
-extern char gstr476[];
-extern char gstr477[];
 
 /*  File:   Planes.c                              */
 /*  Author: Sid Meier                             */
@@ -343,6 +218,12 @@ doplanes () {
 	int fdroll;
 	long ldroll;
 	int minpassed;
+	extern char gstr359[];
+	extern char gstr360[];
+	extern char gstr361[];
+	extern char gstr362[];
+	extern char gstr130[];
+	extern char gstr363[];
 
     int z, n;
 
@@ -781,6 +662,9 @@ GetDestinationXYZ () {
 /*----------*/
 GetDestinationAngles () {   // set dist, angl, and pdest
     int dx, dy;
+	extern char gstr364[];
+	extern char gstr365[];
+	extern char gstr366[];
 
     dx   = xd-psi->x;  /* Calculate deltas, angles and dist */
     dy   = yd-psi->y;
@@ -1025,6 +909,7 @@ UpdateSpeedAndPosition ()
 	long rolleffect3;
 	long rolleffect4;
 	int pitchval;
+	extern char gstr360[];
 
 	if(((ailoc[i].xloc / AILOCDIV) != ps[i].xL) || ((ailoc[i].yloc / AILOCDIV) != ps[i].yL)) {
 		ailoc[i].xloc = ps[i].xL * AILOCDIV;
@@ -1225,6 +1110,8 @@ Landing ()
 	extern UWORD Alt;
 	int otherplane;
 	int dx, dy, xd, yd, zd;
+	extern char gstr367[];
+	extern char gstr368[];
 	COORD bxloc, byloc;
 	UWORD bzloc;
 	int   bhead;
@@ -1358,6 +1245,14 @@ ReturnToBase () {
 search ()
 {
 	extern UWORD Alt;
+	extern char gstr369[];
+	extern char gstr370[];
+	extern char gstr371[];
+	extern char gstr372[];
+	extern char gstr373[];
+	extern char gstr374[];
+	extern char gstr375[];
+	extern char gstr376[];
     COORD       dist;
     int         signal;
     int         angl;
@@ -1867,6 +1762,7 @@ void CoreCheckGunFiring(COORD tdistl, int tanglel, int tpitchl, int turretangle,
 {
 	int dbulpitch, dbulhead;
     int nn,tspd;
+	extern char gstr377[];
 
     if (tdistl<tdistfire && (!(bv[i].behaveflag & (ENEMYNOFIRE|ISHELICOPTER))) && // .5 nm
         abs((psi->head + turretangle)-tanglel)<(fireangle) && abs(psi->pitch-tpitchl)<(fireangle) ) {
@@ -1938,6 +1834,9 @@ void GetEnemyTarget(int ainum)
 	int cnt, founddist, wingrear;
 	int dx, dy, dx1, dy1, angle;
 	int x, y, targetnum;
+	extern char gstr378[];
+	extern char gstr379[];
+	extern char gstr380[];
 	COORD dist, dist1, distnm;
 	int wingnum, othertarget;
 	int otherdist;
@@ -2152,6 +2051,8 @@ void FriendlyChooseBehavior()
 	int dxl, dyl;
 	int tanglel, tanglew, tpitchl, tpitchw, ranglel, ranglew, rranglel, rranglew;
 	int enemyalt;
+	extern char gstr381[];
+	extern char gstr130[];
 	COORD tdistl, tdistw, tdistnm;
 	int temphold;
 	long lx, ly;
@@ -2339,6 +2240,11 @@ int KeepBehavior(int tdistnm, int prewing)
 void ChooseBehavior() {
 	int dxl, dyl, dxw, dyw;
 	int tanglel, tanglew, tpitchl, tpitchw, ranglel, ranglew, rranglel, rranglew;
+	extern char gstr382[];
+	extern char gstr383[];
+	extern char gstr384[];
+	extern char gstr385[];
+	extern char gstr386[];
 	COORD tdistl, tdistw, tdistnm;
 	int changew = 0;
 	int changel = 0;
@@ -2626,6 +2532,12 @@ void StraightAttack() {
 	int dx, dy, dz;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt, enemyroll;
+	extern char gstr387[];
+	extern char gstr388[];
+	extern char gstr389[];
+	extern char gstr135[];
+	extern char gstr130[];
+	extern char gstr390[];
 	COORD tdist, distnm, distkm;
 	long lx, ly;
 	long ldist;
@@ -2875,6 +2787,11 @@ void Ladder() {
 	int txl, tyl, tzl;
 	int relangle, rrelangle;
 	int tangle, tpitch, troll, leadhead, isleader, tanglel, enemyalt;
+	extern char gstr391[];
+	extern char gstr392[];
+	extern char gstr388[];
+	extern char gstr393[];
+	extern char gstr140[];
 	COORD tdist, distkm, tdistnm;
 	int prewing, prespeed, secplace, prewing2, wingcnt;
 	int temphead, tsepangle;
@@ -3102,6 +3019,11 @@ void Box() {
 	int tx, ty, tz, txl, tyl, tzl;
 	int relangle;
 	int tangle, tpitch, troll, leadhead, isleader, tanglel, enemyalt;
+	extern char gstr384[];
+	extern char gstr137[];
+	extern char gstr138[];
+	extern char gstr393[];
+	extern char gstr140[];
 	COORD tdist, distkm, tdistnm;
 	int prewing, prespeed, secplace;
 	int txi, tyi;
@@ -3284,6 +3206,10 @@ void Champagne() {
 	int tx, ty, tz, txl, tyl, tzl;
 	int relangle;
 	int tangle, tpitch, troll, leadhead, isleader, tanglel;
+	extern char gstr394[];
+	extern char gstr134[];
+	extern char gstr393[];
+	extern char gstr140[];
 	COORD tdist, distkm, tdistnm;
 	int prewing, prespeed, secplace;
 	int txi, tyi;
@@ -3410,6 +3336,9 @@ void Wall() {
 	int tx, ty, tz, txl, tyl, tzl;
 	int relangle;
 	int tangle, tpitch, troll, leadhead, isleader, tanglel;
+	extern char gstr395[];
+	extern char gstr372[];
+	extern char gstr140[];
 	COORD tdist, distkm, tdistnm;
 	int prewing, prespeed, secplace;
 	int txi, tyi;
@@ -3602,6 +3531,9 @@ void FreeFighter() {
 	int relangle, rrelangle;
 	int tangle, tpitch, troll;
 	int enemyhead, enemyalt;
+	extern char gstr396[];
+	extern char gstr372[];
+	extern char gstr140[];
 	COORD tdist, tdistnm;
 
 	if(!(ps[i].status & (FRIENDLY|NEUTRAL)) && bv[i].winglevel < 4) {
@@ -3858,6 +3790,11 @@ void LadderCircle ()
 	int dx, dy, dz;
 	int relangle;
 	int tangle, tpitch, troll, leadhead, isleader, tanglel, enemyalt;
+	extern char gstr397[];
+	extern char gstr398[];
+	extern char gstr399[];
+	extern char gstr140[];
+	extern char gstr134[];
 	COORD tdist, distkm, tdistnm;
 	int prewing, prespeed, secplace;
 	int whofollow, tmpcnt, temphead;
@@ -3975,16 +3912,16 @@ void LadderCircle ()
 
 int CheckDetection(int planenum)
 {
-	extern int LOCKED;
 	int cnt;
 	COORD tdist, tdist1;
 	int returnval = -999;
 	int dx, dy, x, y;
+	extern int LOCKEDx;
 
 	x = ps[planenum].x;
 	y = ps[planenum].y;
 
-	if((planenum == LOCKED) && (!FriendMatchType(planenum, FRIENDLY))) {
+	if((LOCKEDx == planenum) && (!FriendMatchType(planenum, FRIENDLY))) {
     	dx = Px-x;
     	dy = Py-y;
     	tdist = xydist(dx,dy);
@@ -4039,6 +3976,15 @@ void ShowAIWeaponStatus(int ainum)
     struct sam  *S;
 	static struct PlaneData far *aiptype;
 	int flag;
+	extern char gstr400[];
+	extern char gstr401[];
+	extern char gstr130[];
+	extern char gstr402[];
+	extern char gstr403[];
+	extern char gstr404[];
+	extern char gstr405[];
+	extern char gstr406[];
+	extern char gstr407[];
 
 	flag = 0;
 	aiptype = GetPlanePtr(ps[ainum].type);
@@ -4081,6 +4027,19 @@ void ShowAIStatus(int ainum, int otherai, int effects)
 	int gotone;
 	int eff;
 	int rtemp;
+	extern char gstr408[];
+	extern char gstr409[];
+	extern char gstr402[];
+	extern char gstr410[];
+	extern char gstr411[];
+	extern char gstr412[];
+	extern char gstr413[];
+	extern char gstr414[];
+	extern char gstr415[];
+	extern char gstr416[];
+	extern char gstr417[];
+	extern char gstr418[];
+	extern char gstr419[];
 
 	flag = 0;
 	gotone = 0;
@@ -4154,6 +4113,11 @@ void ShowAIStatus(int ainum, int otherai, int effects)
 
 void ShowMenuStuff(int MenuID)
 {
+	extern char gstr420[];
+	extern char gstr421[];
+	extern char gstr422[];
+	extern char gstr423[];
+	extern char gstr424[];
 	switch(MenuID) {
 		case GETWINGBRACKET:
 //		    MsgBox (316, 2, 2);
@@ -4193,6 +4157,22 @@ int ProcessAICommunications(int ainum)
     char Str[80];
     char Str2[80];
 	int htemp;
+	extern char gstr425[];
+	extern char gstr426[];
+	extern char gstr427[];
+	extern char gstr428[];
+	extern char gstr429[];
+	extern char gstr430[];
+	extern char gstr431[];
+	extern char gstr432[];
+	extern char gstr433[];
+	extern char gstr434[];
+	extern char gstr435[];
+	extern char gstr436[];
+	extern char gstr437[];
+	extern char gstr438[];
+	extern char gstr439[];
+	extern char gstr440[];
 
     Rp3D->APen   = WHITE;
     Rp3D->FontNr = F_3x5B;
@@ -4446,6 +4426,16 @@ int ProcessAICommMenu(int ainum)
     char Str[80];
     char Str2[80];
 	int htemp;
+	extern char gstr441[];
+	extern char gstr442[];
+	extern char gstr443[];
+	extern char gstr444[];
+	extern char gstr445[];
+	extern char gstr446[];
+	extern char gstr447[];
+	extern char gstr448[];
+	extern char gstr449[];
+	extern char gstr450[];
 
     Rp3D->APen   = WHITE;
     Rp3D->FontNr = F_3x5B;
@@ -4670,6 +4660,9 @@ int ProcessAICommMenu(int ainum)
 void DoVSeperation(int ainum)
 {
 	int htemp;
+	extern char gstr451[];
+	extern char gstr452[];
+	extern char gstr453[];
 
 	if(behavecommands < 61) {
 		bv[ainum].verticlesep = -250 * (behavecommands - 50);
@@ -4710,6 +4703,10 @@ void AIGetBombDist()
 	int dx, dy, dz;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt;
+	extern char gstr454[];
+	extern char gstr455[];
+	extern char gstr389[];
+	extern char gstr456[];
 	COORD tdist, distnm, distkm;
 	int wingman;
 	long xval, yval;
@@ -4779,6 +4776,11 @@ void AIBombTarget()
 	int dx, dy, dz;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt;
+	extern char gstr457[];
+	extern char gstr458[];
+	extern char gstr459[];
+	extern char gstr389[];
+	extern char gstr456[];
 	COORD tdist, distnm, distkm;
 	int wingman;
 	int bandit;
@@ -4978,6 +4980,7 @@ void DESIGNATED_TrackingAI (int relangle)
 	int tempspeed;
 	int showpa;
 	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
+	extern char gstr460[];
 
 	tempspeed = ps[i].speed * FPStoKNTS;
 //	dx = aiwaypoints[bv[i].groundt].x-AIBOMBX;
@@ -5069,6 +5072,7 @@ int DropAIBomb()
     struct sam  *S;
 	int missilenum;
 	long xval, yval;
+	extern char gstr461[];
 	UWORD zval;
 
 	aistation = CheckAIBombs(i);
@@ -5167,6 +5171,7 @@ int DropAIBomb()
 
 void TurnAIPlaneBy(int ainum, int relangle)
 {
+	extern char gstr462[];
 
 #if 0
 	if(abs(relangle) > 0x2000) {
@@ -5314,9 +5319,10 @@ int CheckAIMissiles(ainum)
 
 int NearWingTarget(int wingnum)
 {
+	int cnt;
 	int returnval, x, y, dx, dy, founddist, targetnum;
 	int tpitch, tangle, enemyalt, rangle, rrangle, winghead;
-	int cnt, rangle1, rrangle1;
+	int rangle1, rrangle1;
 	COORD tdist, tdist1, tdistnm, tdistnm1;
 
 	if(wingnum == -1) {
@@ -5393,6 +5399,9 @@ int AICoreRadarCheck(int wingnum, int showinfo, int otherrange, int lessangle, i
 	int returnval, x, y, dx, dy, founddist, targetnum;
 	int tpitch, tangle, enemyalt, rangle, rrangle, winghead;
 	int cnt, rangle1, rrangle1, tangle1;
+	extern char gstr463[];
+	extern char gstr402[];
+	extern char gstr464[];
 	COORD tdist, tdist1, tdistnm, tdistnm1, distkm;
 	int degreetmp;
 	UWORD dangle;
@@ -5498,7 +5507,17 @@ void GiveSanitizeMessage(int wingnum, int groupcheck[])
 {
 	int returnval, x, y, dx, dy, founddist, targetnum;
 	int tpitch, tangle, enemyalt, rangle, rrangle, winghead;
+	extern int NPLANESx;
 	int cnt, rangle1, rrangle1, tangle1;
+	extern char gstr465[];
+	extern char gstr466[];
+	extern char gstr467[];
+	extern char gstr468[];
+	extern char gstr469[];
+	extern char gstr470[];
+	extern char gstr402[];
+	extern char gstr471[];
+	extern char gstr472[];
 	COORD tdist, tdist1, tdistnm, tdistnm1;
 	int degreetmp, groupcnt, groupalt;
 	UWORD dangle;
@@ -5519,7 +5538,7 @@ void GiveSanitizeMessage(int wingnum, int groupcheck[])
 	tdist = 0;
 	groupcnt = 0;
 
-    for (cnt=0; cnt<NPLANES; cnt++) {
+    for (cnt=0; NPLANESx>cnt; cnt++) {
 		if(groupcheck[cnt]) {
 			groupcnt ++;
 		    dx = ps[cnt].x - x;
@@ -5651,6 +5670,7 @@ void AISanitizeCheck(int wingnum)
 	int returnval, x, y, dx, dy, founddist, targetnum;
 	int tpitch, tangle, enemyalt, rangle, rrangle, winghead;
 	int cnt, rangle1, rrangle1, tangle1;
+	extern char gstr464[];
 	COORD tdist, tdist1, tdistnm, tdistnm1;
 	int degreetmp;
 	UWORD dangle;
@@ -5726,6 +5746,9 @@ void FlySanitize()
 
 AIFoxCall (weapon)
 {
+	extern char gstr473[];
+	extern char gstr474[];
+	extern char gstr475[];
     switch (weapon) {
         case ML_AIM7M:
 			TXA (gstr473);  Speech (FOX1);         break;
@@ -5741,6 +5764,8 @@ AIFoxCall (weapon)
 
 void GetWingName(int ainum, char *Str)
 {
+	extern char gstr476[];
+	extern char gstr477[];
 	strcpy (Str, OurWingName);
 
 	if(WingID[0] == ainum) {

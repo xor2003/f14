@@ -1,12 +1,3 @@
-extern char gstr113[];
-extern char gstr214[];
-extern char gstr217[];
-extern char gstr296[];
-extern char gstr297[];
-extern char gstr298[];
-extern char gstr299[];
-extern char gstr300[];
-extern char gstr301[];
 
 //************************************************************************
 //*
@@ -287,6 +278,7 @@ char *deg_prt(int deg)
 {
 	static char t[3];
     char s[3];
+	extern char gstr113[];
 
 	if (deg <= 0) deg += 36;
 	else
@@ -582,6 +574,11 @@ int missile_cnt ()
 {
 	char   t[10],s[6],l[5];
 	static char mo[2]="",so[2]="";
+	extern char gstr296[];
+	extern char gstr297[];
+	extern char gstr298[];
+	extern char gstr299[];
+	extern char gstr300[];
 
 	SetFont(Rp2,F_3x5B);
 //	if (!(Status & WHEELSUP)) return 0;
@@ -699,6 +696,9 @@ int PDT_closure()
 {
 	int i,y1,y2,r,v;
 	char s[10];
+	extern char gstr217[];
+	extern char gstr113[];
+	extern char gstr301[];
 
 	if ((AWG9_MODE != AWG9_PDSTT) && (AWG9_MODE != AWG9_STANDARD_TRACK)
 		&&  (!CheckMode(AWG9_MODE,AWG9_TWSA))
@@ -756,6 +756,7 @@ static PDT_alt()
 {
 	int  l;
 	char s[10];
+	extern char gstr214[];
 
 	if ((AWG9_MODE != AWG9_PDSTT) && (AWG9_MODE != AWG9_STANDARD_TRACK)
 		&&  (!CheckMode(AWG9_MODE,AWG9_TWSA))

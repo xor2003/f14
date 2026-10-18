@@ -1,19 +1,3 @@
-extern char gstr2[];
-extern char gstr223[];
-extern char gstr342[];
-extern char gstr343[];
-extern char gstr344[];
-extern char gstr345[];
-extern char gstr346[];
-extern char gstr347[];
-extern char gstr348[];
-extern char gstr349[];
-extern char gstr350[];
-extern char gstr351[];
-extern char gstr352[];
-extern char gstr353[];
-extern char gstr354[];
-extern char gstr355[];
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -164,6 +148,17 @@ GetRidOfKeyJoy()
 JoyRecal (int x, int y)
 {
 	int   b;
+	extern char gstr342[];
+	extern char gstr343[];
+	extern char gstr344[];
+	extern char gstr345[];
+	extern char gstr346[];
+	extern char gstr347[];
+	extern char gstr348[];
+	extern char gstr349[];
+	extern char gstr350[];
+	extern char gstr351[];
+	extern char gstr352[];
 
 	LoadPicNoPal (1, gstr342);
 
@@ -205,6 +200,7 @@ NShowJoy(char *msg,struct STX j)
 {
    int   SEG;
    int   x,y,w,z,d,i;
+	extern char gstr353[];
 
    SEG= GRPAGE0[RpJoyBack->PageNr];
 
@@ -362,6 +358,8 @@ CenterPrint (RPS *Rp, int x, int y, char *str )
 //***************************************************************************
 int GetJoyConfig()
 {
+	extern char gstr354[];
+	extern char gstr2[];
 
 	FILE *f ;
 	int offset;
@@ -401,6 +399,8 @@ int GetJoyConfig()
 //***************************************************************************
 int SaveJoyConfig()
 {
+	extern char gstr355[];
+	extern char gstr223[];
 	FILE *f ;
 	int offset=16;
 

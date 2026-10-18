@@ -1,4 +1,3 @@
-extern char gstr746[];
 
 #include <stdlib.h>
 #include "library.h"
@@ -41,6 +40,7 @@ extern int XPLODETAIL;
 LoadSprites()
 {
     int i,j;
+	extern char gstr746[];
 
     OpenSprite();
     LoadPicGmem(gstr746,1);

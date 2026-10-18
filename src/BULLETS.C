@@ -1,14 +1,3 @@
-extern char gstr110[];
-extern char gstr142[];
-extern char gstr143[];
-extern char gstr144[];
-extern char gstr145[];
-extern char gstr146[];
-extern char gstr147[];
-extern char gstr148[];
-extern char gstr149[];
-extern char gstr150[];
-extern char gstr151[];
 
 /*  File:   BULLETS.C                             */
 /*  Author: Sid Meier / Andy Hollis               */
@@ -178,13 +167,23 @@ dotracers ()
 //***************************************************************************
 TrackBullets()
 {
-    int size,i,j,n;
-    int r,angl, cnt;
-    int dx,dy,targt,tsize;
+    int j,n,cnt;
+    int tsize;
     int Radii[] = {50, 25, 17, 13};  // 50/(Diff+1)
 	struct PlaneData far *planetemp;
 	int src;
 	int crashstat;
+	int i;
+	extern int FETZ, NTRACE2x, NTRACEx;
+	extern char gstr110[];
+	extern char gstr142[];
+	extern char gstr143[];
+	extern char gstr144[];
+	extern char gstr145[];
+	extern char gstr146[];
+	extern char gstr147[];
+	extern char gstr148[];
+	extern char gstr149[];
 
 	/* Process bullets */
 
@@ -192,9 +191,9 @@ TrackBullets()
 
     tsize = TSpeed + Radii[Diff];   // 50 feet @ diff==3
 
-    for (i=0; NTRACE2>i; i++) {
+    for (i=0; NTRACE2x>i; i++) {
         if (trs[i].x) {
-            if (FIRST_ENEMY_TRACE>i) {
+            if (FETZ>i) {
                 for (j=0; j<NPLANES; j++) {
                     if ((ps[j].status&(ACTIVE+CRASH))==ACTIVE) {
                         n = BulletDist (ps[j].xL, ps[j].yL, ps[j].alt, trs+i);
@@ -212,7 +211,7 @@ TrackBullets()
 											if(crashstat != (ps[j].status & CRASH)) {
 												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
 	                    	                	TXA (gstr110);
-    	                    	            	if (NTRACE<=i) TXA (gstr142);
+    	                    	            	if (NTRACEx<=i) TXA (gstr142);
         	                    	        	TXA (gstr143);
             	                    	    	Message (Txt,GAME_MSG);
                 	                    		trs[i].x = 0;
@@ -222,12 +221,12 @@ TrackBullets()
 											}
 										}
 										else {
-											if(!(ps[j].status & CRASH)) {
+											if((ps[j].status & CRASH)==0) {
 							        			AirKill (j);
 												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
-                    	                		TXA (gstr110);
-                        	            		if (NTRACE<=i) TXA (gstr142);
-                            	        		TXA (gstr143);
+                    	                		TXA (" destroyed by ");
+                        	            		if (NTRACEx<=i) TXA ("wingman ");
+                            	        		TXA ("gunfire");
                                 	    		Message (Txt,GAME_MSG);
                                     			trs[i].x = 0;
 											}
@@ -301,7 +300,7 @@ TrackBullets()
 											}
 										}
 										else {
-											if(!(ps[j].status & CRASH)) {
+											if((ps[j].status & CRASH)==0) {
 												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
 												if(GetSquadLeader(trs[i].firedby) == -1) {
 													TXT(gstr148);
@@ -406,6 +405,8 @@ int CheckBulletBetter(long x, long y, int z, struct Tracer *t, int targnum, int 
 	long	dwidth;
 	long	dheight;
 	int     whofired;
+	extern char gstr150[];
+	extern char gstr151[];
 //	struct plane  far *ptargettype;
 	struct PlaneData far *ptargettype;
 

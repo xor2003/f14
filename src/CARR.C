@@ -1,30 +1,3 @@
-extern char gstr152[];
-extern char gstr153[];
-extern char gstr154[];
-extern char gstr155[];
-extern char gstr156[];
-extern char gstr157[];
-extern char gstr158[];
-extern char gstr159[];
-extern char gstr160[];
-extern char gstr161[];
-extern char gstr162[];
-extern char gstr163[];
-extern char gstr164[];
-extern char gstr165[];
-extern char gstr166[];
-extern char gstr167[];
-extern char gstr168[];
-extern char gstr169[];
-extern char gstr170[];
-extern char gstr171[];
-extern char gstr172[];
-extern char gstr173[];
-extern char gstr174[];
-extern char gstr175[];
-extern char gstr176[];
-extern char gstr177[];
-extern char gstr178[];
 
 //***************************************************************************
 //* File Name: carr.c
@@ -322,6 +295,8 @@ int InitPlaneOnCarrier(int reqcat)
 	int M[9];
 	int TM[9];
 	int cat;
+	extern char gstr152[];
+	extern char gstr153[];
 
 	if((Alt > 20) || (PlayerCat < 0)) {
 		InitScottFlight();
@@ -626,6 +601,7 @@ int GlideScopeCheck(long PX, long PZ, long PY)
 	int V[3];
 	int M[9];
 	int TM[9];
+	extern char gstr154[];
 
 
 	dx = labs(((carrier.x+carrier.wires[2].cx)-PX)/100L);
@@ -1304,6 +1280,8 @@ SlopeCheck( long X,long Y, long Z, int *HD, int *PTCH, int *DELHT, int *DST )
 //***************************************************************************
 SetGear(int G)
 {
+	extern char gstr155[];
+	extern char gstr156[];
    if (ejected) return;
    switch (G)
       {
@@ -1328,6 +1306,8 @@ SetDLC(int DLC)
 
 SetHook(int Hook)
 {
+	extern char gstr157[];
+	extern char gstr158[];
 	if(HookDown==Hook) {
 		return(1);
 	}
@@ -1484,6 +1464,16 @@ DoLSO()
    char  str2[40];
    char *strptr;
    int   HT,LFT,CLMBRATE,WVOFF,i;
+	extern char gstr159[];
+	extern char gstr160[];
+	extern char gstr161[];
+	extern char gstr162[];
+	extern char gstr163[];
+	extern char gstr164[];
+	extern char gstr165[];
+	extern char gstr166[];
+	extern char gstr167[];
+	extern char gstr168[];
 
    if ( (ONTHEHOOK)||ONTHECAT )
       {
@@ -1652,6 +1642,25 @@ DoLSO()
    char  str2[40];
    char *strptr;
    int   HT,LFT,CLMBRATE,WVOFF,i;
+	extern char gstr169[];
+	extern char gstr160[];
+	extern char gstr170[];
+	extern char gstr171[];
+	extern char gstr172[];
+	extern char gstr173[];
+	extern char gstr174[];
+	extern char gstr175[];
+	extern char gstr176[];
+	extern char gstr177[];
+	extern char gstr178[];
+	extern char gstr161[];
+	extern char gstr162[];
+	extern char gstr163[];
+	extern char gstr164[];
+	extern char gstr165[];
+	extern char gstr166[];
+	extern char gstr167[];
+	extern char gstr168[];
 
    if ( (ONTHEHOOK)||ONTHECAT )
       {

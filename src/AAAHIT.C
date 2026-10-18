@@ -1,6 +1,3 @@
-extern char gstr109[];
-extern char gstr110[];
-extern char gstr111[];
 
 #include "library.h"
 #include "f15defs.h"
@@ -13,8 +10,6 @@ extern char gstr111[];
 #include "setup.h"
 #include	<stdio.h>
 #include	<stdlib.h>
-#include <bios.h>
-#include <dos.h>
 
 
 extern  UWORD   QTimer;
@@ -33,16 +28,17 @@ static  int     NUM, k;
 //***************************************************************************
 void doaaa()
 {
-	int cnt;
 	int pcnt;
 	int pstart;
 	long dx, dy;
 	long ldistval;
 	int thistime;
 	int lastfire;
+	int cnt;
+	extern int NGTARGETSx;
 
 	pstart = Rtime & 7;
-	for(cnt = 0; cnt < NGTARGETS; cnt ++) {
+	for(cnt = 0; cnt < NGTARGETSx; cnt ++) {
 		if(gt[cnt].gflags & AAA_ACTIVE) {
 			lastfire = (gt[cnt].gflags & 0xE)>>1;
 			gt[cnt].gflags &= ~(0xE);
@@ -94,6 +90,9 @@ void CheckAAAHit(int planenum, int gtnum)
 {
 	int crashstat;
 	int src;
+	extern char gstr109[];
+	extern char gstr110[];
+	extern char gstr111[];
 
 	src = -gt[gtnum].orgnum;
 

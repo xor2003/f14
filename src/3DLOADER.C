@@ -1,112 +1,3 @@
-extern char gstr0[];
-extern char gstr1[];
-extern char gstr10[];
-extern char gstr100[];
-extern char gstr101[];
-extern char gstr102[];
-extern char gstr103[];
-extern char gstr104[];
-extern char gstr105[];
-extern char gstr106[];
-extern char gstr107[];
-extern char gstr108[];
-extern char gstr11[];
-extern char gstr12[];
-extern char gstr13[];
-extern char gstr14[];
-extern char gstr15[];
-extern char gstr16[];
-extern char gstr17[];
-extern char gstr18[];
-extern char gstr19[];
-extern char gstr2[];
-extern char gstr20[];
-extern char gstr21[];
-extern char gstr22[];
-extern char gstr23[];
-extern char gstr24[];
-extern char gstr25[];
-extern char gstr26[];
-extern char gstr27[];
-extern char gstr28[];
-extern char gstr29[];
-extern char gstr3[];
-extern char gstr30[];
-extern char gstr31[];
-extern char gstr32[];
-extern char gstr33[];
-extern char gstr34[];
-extern char gstr35[];
-extern char gstr36[];
-extern char gstr37[];
-extern char gstr38[];
-extern char gstr39[];
-extern char gstr4[];
-extern char gstr40[];
-extern char gstr41[];
-extern char gstr42[];
-extern char gstr43[];
-extern char gstr44[];
-extern char gstr45[];
-extern char gstr46[];
-extern char gstr47[];
-extern char gstr48[];
-extern char gstr49[];
-extern char gstr5[];
-extern char gstr50[];
-extern char gstr51[];
-extern char gstr52[];
-extern char gstr53[];
-extern char gstr54[];
-extern char gstr55[];
-extern char gstr56[];
-extern char gstr57[];
-extern char gstr58[];
-extern char gstr59[];
-extern char gstr6[];
-extern char gstr60[];
-extern char gstr61[];
-extern char gstr62[];
-extern char gstr63[];
-extern char gstr64[];
-extern char gstr65[];
-extern char gstr66[];
-extern char gstr67[];
-extern char gstr68[];
-extern char gstr69[];
-extern char gstr7[];
-extern char gstr70[];
-extern char gstr71[];
-extern char gstr72[];
-extern char gstr73[];
-extern char gstr74[];
-extern char gstr75[];
-extern char gstr76[];
-extern char gstr77[];
-extern char gstr78[];
-extern char gstr79[];
-extern char gstr8[];
-extern char gstr80[];
-extern char gstr81[];
-extern char gstr82[];
-extern char gstr83[];
-extern char gstr84[];
-extern char gstr85[];
-extern char gstr86[];
-extern char gstr87[];
-extern char gstr88[];
-extern char gstr89[];
-extern char gstr9[];
-extern char gstr90[];
-extern char gstr91[];
-extern char gstr92[];
-extern char gstr93[];
-extern char gstr94[];
-extern char gstr95[];
-extern char gstr96[];
-extern char gstr97[];
-extern char gstr98[];
-extern char gstr99[];
 
 //***************************************************************************
 //	FILE: 3DLOADER.C
@@ -220,6 +111,11 @@ int Load3DPlaneInfo(int PlaneEnumId)
 {
 	int i;
 	int PlaneId=-1;
+	extern char gstr0[];
+	extern char gstr1[];
+	extern char gstr2[];
+	extern char gstr3[];
+	extern char gstr4[];
 	FILE *PlaneDataFile;
 	long recseek;
 	struct prec planerec;
@@ -332,6 +228,11 @@ int RadarAdd(int RadarEnumId)
 {
 	int i;
 	int cnt=-1;
+	extern char gstr5[];
+	extern char gstr6[];
+	extern char gstr2[];
+	extern char gstr7[];
+	extern char gstr8[];
 	FILE *RadarDataFile;
 	long radarrecseek;
 	struct rrec radarrec;
@@ -397,6 +298,11 @@ int MissileAdd(int MissileEnumId)
 {
 	int i;
 	int cnt=-1;
+	extern char gstr9[];
+	extern char gstr10[];
+	extern char gstr2[];
+	extern char gstr11[];
+	extern char gstr12[];
 	FILE *MissileDataFile;
 	long missilerecseek;
 	struct mrec missilerec;
@@ -467,6 +373,8 @@ int MissileAdd(int MissileEnumId)
 //***************************************************************************
 int GetPicType(int PlaneNo)
 {
+	extern char gstr13[];
+	extern char gstr14[];
 	if (PlaneNo <0) {
 		TXT(gstr13);
 		TXN(PlaneNo);
@@ -485,6 +393,9 @@ int GetPicType(int PlaneNo)
 //***************************************************************************
 struct PlaneData far *GetPlanePtr(int PlaneNo)
 {
+	extern int PDLCx;
+	extern char gstr15[];
+	extern char gstr16[];
 
 	if (PlaneNo <0) {
 		TXT(gstr15);
@@ -493,7 +404,7 @@ struct PlaneData far *GetPlanePtr(int PlaneNo)
 		return (NULL);
 	}
 
-	if (PlaneNo > PlaneDataListCnt) {
+	if (PlaneNo > PDLCx) {
 		TXT(gstr16);
 		TXN(PlaneNo);
 		Message(Txt,DEBUG_MSG);
@@ -507,6 +418,8 @@ struct MissileData far *GetMissilePtr(int MissileNo)
 {
 	int i;
 	int FoundNo=-1;
+	extern char gstr17[];
+	extern char gstr18[];
 
 	if (MissileNo <0) {
 		TXT(gstr17);
@@ -536,6 +449,8 @@ struct RadarData far *GetRadarPtr(int RadarNo)
 {
 	int i;
 	int FoundNo=-1;
+	extern char gstr19[];
+	extern char gstr20[];
 
 	if (RadarNo <0) {
 		TXT(gstr19);
@@ -598,6 +513,94 @@ int Init3DPlanes()
 int LoadSpecialObjects()
 {
 	int i,j,squad;
+	extern char gstr21[];
+	extern char gstr22[];
+	extern char gstr23[];
+	extern char gstr24[];
+	extern char gstr25[];
+	extern char gstr26[];
+	extern char gstr27[];
+	extern char gstr28[];
+	extern char gstr29[];
+	extern char gstr30[];
+	extern char gstr31[];
+	extern char gstr32[];
+	extern char gstr33[];
+	extern char gstr34[];
+	extern char gstr35[];
+	extern char gstr36[];
+	extern char gstr37[];
+	extern char gstr38[];
+	extern char gstr39[];
+	extern char gstr40[];
+	extern char gstr41[];
+	extern char gstr42[];
+	extern char gstr43[];
+	extern char gstr44[];
+	extern char gstr45[];
+	extern char gstr46[];
+	extern char gstr47[];
+	extern char gstr48[];
+	extern char gstr49[];
+	extern char gstr50[];
+	extern char gstr51[];
+	extern char gstr52[];
+	extern char gstr53[];
+	extern char gstr54[];
+	extern char gstr55[];
+	extern char gstr56[];
+	extern char gstr57[];
+	extern char gstr58[];
+	extern char gstr59[];
+	extern char gstr60[];
+	extern char gstr61[];
+	extern char gstr62[];
+	extern char gstr63[];
+	extern char gstr64[];
+	extern char gstr65[];
+	extern char gstr66[];
+	extern char gstr67[];
+	extern char gstr68[];
+	extern char gstr69[];
+	extern char gstr70[];
+	extern char gstr71[];
+	extern char gstr72[];
+	extern char gstr73[];
+	extern char gstr74[];
+	extern char gstr75[];
+	extern char gstr76[];
+	extern char gstr77[];
+	extern char gstr78[];
+	extern char gstr79[];
+	extern char gstr80[];
+	extern char gstr81[];
+	extern char gstr82[];
+	extern char gstr83[];
+	extern char gstr84[];
+	extern char gstr85[];
+	extern char gstr86[];
+	extern char gstr87[];
+	extern char gstr88[];
+	extern char gstr89[];
+	extern char gstr90[];
+	extern char gstr91[];
+	extern char gstr92[];
+	extern char gstr93[];
+	extern char gstr94[];
+	extern char gstr95[];
+	extern char gstr96[];
+	extern char gstr97[];
+	extern char gstr98[];
+	extern char gstr99[];
+	extern char gstr100[];
+	extern char gstr101[];
+	extern char gstr102[];
+	extern char gstr103[];
+	extern char gstr104[];
+	extern char gstr105[];
+	extern char gstr106[];
+	extern char gstr107[];
+	extern char gstr108[];
 
 	char *CarrierAmerica[14] = {
 		gstr21,		// Base - Level 1

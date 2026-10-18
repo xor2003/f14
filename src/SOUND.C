@@ -1,6 +1,3 @@
-extern char gstr743[];
-extern char gstr744[];
-extern char gstr745[];
 
 #include <dos.h>
 #include <stdio.h>
@@ -97,6 +94,7 @@ OtherJetSound(int n, int plane, int mode)
 //***************************************************************************
 Sound(int n, int priority, int param)
 {
+	extern char gstr743[];
 	if (SNDDETAIL==3) return(0);
     if ((priority>SndPriority) && (!ejected)) {
 #ifdef YEP
@@ -112,6 +110,7 @@ Sound(int n, int priority, int param)
 //***************************************************************************
 InitSpeech()
 {
+	extern char gstr744[];
     UBYTE far  *fptr;
     int         fhand;
     long        size;
@@ -173,6 +172,7 @@ UpdateJetSnd()
 //***************************************************************************
 AdjustSounds()
 {
+	extern char gstr745[];
     SNDDETAIL = ++SNDDETAIL&3;
     TXT (gstr745);
     TXN (3-SNDDETAIL);

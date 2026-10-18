@@ -1,33 +1,3 @@
-extern char gstr130[];
-extern char gstr473[];
-extern char gstr474[];
-extern char gstr475[];
-extern char gstr659[];
-extern char gstr718[];
-extern char gstr719[];
-extern char gstr720[];
-extern char gstr721[];
-extern char gstr722[];
-extern char gstr723[];
-extern char gstr724[];
-extern char gstr725[];
-extern char gstr726[];
-extern char gstr727[];
-extern char gstr728[];
-extern char gstr729[];
-extern char gstr730[];
-extern char gstr731[];
-extern char gstr732[];
-extern char gstr733[];
-extern char gstr734[];
-extern char gstr735[];
-extern char gstr736[];
-extern char gstr737[];
-extern char gstr738[];
-extern char gstr739[];
-extern char gstr740[];
-extern char gstr741[];
-extern char gstr742[];
 
 /*  File:   Sams.c                                */
 /*  Author: Sid Meier                             */
@@ -184,6 +154,8 @@ WeaponHoming()
 All2AirHoming()
 {
 	int j;
+	extern char gstr718[];
+	extern char gstr719[];
 
 	j = ssi->target;
 
@@ -562,6 +534,9 @@ CheckGroundHit ()
 {
     int targ, dx, dy, LastTgt, ObjNr;
 	int NTargetHit;
+	extern char gstr720[];
+	extern char gstr721[];
+	extern char gstr722[];
 
     if ( ssi->alt <= (GetQHeight(ssi->x, ssi->y) >> 2)) {
         ssi->dist=0;
@@ -613,6 +588,8 @@ void CheckProximityHit()
 	int gtnum;
 	struct PlaneData far *tempplane;
 	struct MissileData far *tempmissile;
+	extern char gstr130[];
+	extern char gstr659[];
 
     if (ssi->tgttype==0) return;   // don't do for air-to-ground
     if (ssi->target==-1) return;   // never had a target
@@ -708,6 +685,11 @@ AirKill (int killed)
 	char Str[80];
 	int sarnum;
 	struct PlaneData far *tempplane;
+	extern char gstr130[];
+	extern char gstr723[];
+	extern char gstr724[];
+	extern char gstr725[];
+	extern char gstr726[];
 
     if (!(ps[killed].status&CRASH)) {
 
@@ -870,6 +852,19 @@ DamageMe(int DamageType)
 //***************************************************************************
 DamageIt(x)
 {
+	extern char gstr727[];
+	extern char gstr728[];
+	extern char gstr729[];
+	extern char gstr730[];
+	extern char gstr731[];
+	extern char gstr732[];
+	extern char gstr733[];
+	extern char gstr734[];
+	extern char gstr735[];
+	extern char gstr736[];
+	extern char gstr737[];
+	extern char gstr738[];
+	extern char gstr739[];
     switch (x) {
         case D_LEFTENGINE:
 			Message(gstr727,RIO_MSG);
@@ -1186,6 +1181,10 @@ MissilesInAir ()
 //***************************************************************************
 FoxCall(weapon)
 {
+	extern char gstr740[];
+	extern char gstr473[];
+	extern char gstr474[];
+	extern char gstr475[];
     TXT (gstr740);
     switch (weapon) {
         case W_AIM_7:
@@ -1208,6 +1207,7 @@ FoxCall(weapon)
 //***************************************************************************
 LaunchCall()
 {
+	extern char gstr741[];
 	Message(gstr741,RIO_NOW_MSG);
 	Speech(LAUNCH);
 	Sound(N_RadarLock, 1,0);
@@ -1221,6 +1221,7 @@ int CheckBlastArea(long xval, long yval, int weapon, int cruise)
 	int cnt;
 	long gdx, gdy;
 	int radarnum;
+	extern char gstr742[];
 
 	TargetHit = 0;
 
