@@ -1,3 +1,9 @@
+3ad2:0718 n=  99 -> _GetBehaviorLeader               dev@0000:0000 jac=0.00 lcs=0.00
+4a6f:0008 n=  99 -> _InitSound                       dev@0000:0000 jac=0.00 lcs=0.00
+2081:0005 n=  99 -> _LaunchAircraft                  dev@0000:0000 jac=0.00 lcs=0.00
+48b6:1816 n=  99 -> _MissilesInAir                   dev@0000:0000 jac=0.00 lcs=0.00
+1125:0485 n=  99 -> _ReadEMSPCX                      dev@0000:0000 jac=0.00 lcs=0.00
+5140:0d7c n=  99 -> __dos_read                       dev@0000:0000 jac=0.00 lcs=0.00
 31ce:4f55 n=  99 -> _AIBombTarget                    dev@0000:0000 jac=0.00 lcs=0.00
 1dc3:22c1 n=  99 -> _AICarrierLand                   dev@0000:0000 jac=0.00 lcs=0.00
 31ce:7d84 n=  99 -> _AISanitizeCheck                 dev@0000:0000 jac=0.00 lcs=0.00
@@ -16,7 +22,6 @@
 3ad2:338e n=  99 -> _FlyTo                           dev@0000:0000 jac=0.00 lcs=0.00
 3fb2:679e n=  99 -> _FlyWayPoint                     dev@0000:0000 jac=0.00 lcs=0.00
 4c08:07cb n=  99 -> _GDisplay                        dev@0000:0000 jac=0.00 lcs=0.00
-3ad2:0718 n=  99 -> _GetBehaviorLeader               dev@0000:0000 jac=0.00 lcs=0.00
 18de:34cb n=  99 -> _GetRadarGTNum                   dev@0000:0000 jac=0.00 lcs=0.00
 1017:02f9 n=  99 -> _GetWayPointChanges              dev@0000:0000 jac=0.00 lcs=0.00
 1017:02f9 n=  99 -> _GetWhichElevator                dev@0000:0000 jac=0.00 lcs=0.00
@@ -41,7 +46,6 @@
 11ac:01d6 n=  99 -> _NPFFill                         dev@0000:0000 jac=0.00 lcs=0.00
 2a3c:0002 n=  99 -> _NSCALELINE2                     dev@0000:0000 jac=0.00 lcs=0.00
 18de:30d8 n=  99 -> _RadarThreats                    dev@0000:0000 jac=0.00 lcs=0.00
-3ad2:47d0 n=  99 -> _ReadEMSPCX                      dev@0000:0000 jac=0.00 lcs=0.00
 2cac:05da n=  99 -> _RedrawJoyBox                    dev@0000:0000 jac=0.00 lcs=0.00
 18de:252b n=  99 -> _ScottFlight                     dev@0000:0000 jac=0.00 lcs=0.00
 1017:02f9 n=  99 -> _SetUpLaunch                     dev@0000:0000 jac=0.00 lcs=0.00
