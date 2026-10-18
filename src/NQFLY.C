@@ -199,7 +199,8 @@ DrawSBox(struct SBox far *B,struct PT3D far *P1,struct PT3D far *P2,
             P4->YT=P3->YT= B->YH;
             P1->YT=P2->YT= B->YL;
             P2->XT=P4->XT= B->XH;
-            MapInBank(STMPBANK+((B->BITID/16)&15));
+            if (B->BITID>0x7f) MapInBank((((B->BITID-0x80)/16)&15)+8);
+            else MapInBank(STMPBANK+((B->BITID/16)&15));
             Npoly3D( 4, &List[0], DST, (B->CLR1<<8)+2+4, BitMaps[(B->BITID/16)&3] );
             return;
             break;
@@ -231,7 +232,8 @@ DrawSBox(struct SBox far *B,struct PT3D far *P1,struct PT3D far *P2,
             P1->YT=P2->YT= B->YL;
             P2->XT=P4->XT= B->XH;
             P4->YT= B->YH;
-            MapInBank(STMPBANK+((B->BITID/16)&15));
+            if (B->BITID>0x7f) MapInBank((((B->BITID-0x80)/16)&15)+8);
+            else MapInBank(STMPBANK+((B->BITID/16)&15));
             Npoly3D( 3, &List[0], DST, (B->CLR1<<8)+2+4, BitMaps[(B->BITID/16)&3] );
             break;
          }
@@ -261,7 +263,8 @@ DrawSBox(struct SBox far *B,struct PT3D far *P1,struct PT3D far *P2,
             P1->YT= B->YL;
             P4->XT= B->XH;
             P4->YT=P3->YT= B->YH;
-            MapInBank(STMPBANK+((B->BITID/16)&15));
+            if (B->BITID>0x7f) MapInBank((((B->BITID-0x80)/16)&15)+8);
+            else MapInBank(STMPBANK+((B->BITID/16)&15));
             Npoly3D( 3, &List[0], DST, (B->CLR2<<8)+2, BitMaps[(B->BITID/16)&3] );
             break;
          }
@@ -515,12 +518,15 @@ DoBox(struct SBox far *B,struct GRDPT far *PL1,struct GRDPT far *PL2,
    if ( PL1->PT.FLAGS& PL2->PT.FLAGS& PL3->PT.FLAGS& PL4->PT.FLAGS&ROUTS  )
       return;
 
+   if ((GRNDDETAIL == 2) && ((B->BITID & 0x7f) == 0x7f))
+      return;
+
    SZ= (1024>>LEV);
-   SZ2= (1024>>LEV);
+   SZ2= SZ;
 //   if (LEV<3)
 //      SZ2= (2048>>LEV);
 
-   if ( (LEV>=MAXLEV)|| ( ((X+SZ)<(-SZ2)|| (X>SZ2)|| (Z+SZ)<(-SZ2)|| (Z>(SZ2)))&&
+   if ( (LEV>=MAXLEV)|| ( ((X+SZ2)<(-SZ2)|| (X>SZ2)|| (Z+SZ2)<(-SZ2)|| (Z>(SZ2)))&&
 
           !( (B->BITID==32)&&(LEV<3)&&(abs(X)<(4*SZ))&&(abs(Z)<(4*SZ)) ) )
 //   if ( (LEV>=MAXLEV)|| ( ((X+SZ)<(-SZ)|| (X>SZ)|| (Z+SZ)<(-SZ)|| (Z>(SZ)))&&
