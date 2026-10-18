@@ -3815,8 +3815,8 @@ void LadderCircle ()
 int CheckDetection(int planenum)
 {
 	int cnt;
-	int returnval = -999;
 	COORD tdist, tdist1;
+	int returnval = -999;
 	int dx, dy, x, y;
 
 	x = ps[planenum].x;
