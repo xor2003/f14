@@ -818,3 +818,27 @@ Additional decode notes:
     operand picks (regressed _AddSomePlanes2's whichourcarr!=cnt compare).
   - Parked: Boats3D pointer-walk + bv[i].field0&0x800 test; FlyTo preamble
     (gold has bounds-check+exit, different frame); EasyLanding then/else layout.
+- verify_sweep_new.log: 585 MATCH / 763 (verified current; earlier "589" likely
+  included transient probe state — committed tree reproduces 585)
+  - _InitCarrier: retail CAT0Z {165,190,174}, CAT1Z {...,136}, CAT2Z {-221,-168,-205},
+    CAT3Z {-221,-185,-205} extracted from image (committed). Still DIFF: retail
+    frame 0x10c vs ours 0x10a, scrambled local-array order, extra live local.
+  - _GenDsp: PalPkt -> static (retail routine is frameless). Frame gone; residual
+    diffs are branch-layout/data-offset. Committed.
+  - _InitSound: gold is a pure dec-ax switch cascade on [0xae94] with case values
+    {0,1,2,3,4,0x46-0x48,0xca-0xcd,0xce,0xd0-0xd1} writing 0x8b/0x96/'n' bytes to
+    [0x1c86] — does NOT match our music_type switch on C_* consts (0x10..0x38).
+    Either retail-only logic or a bad pairing; needs identification.
+  - _NewLockView: ours' candidate anchor (3b2e:0aaa) starts mid-instruction —
+    mispairing, needs map/pairing regen.
+  - Parked class inventory (first-diff scan, /tmp/cls.tsv):
+    ~33 SAMEOP:mov — dominant sub-class: ours reads local [bp-X] copy where gold
+      reads global directly (~12 fns: GetWhichElevator, CheckDataLink,
+      CheckWingmanSix, ReArmWingman, SearchForTargets, UpdateAIsOnCarrier, doaaa,
+      GetEmsMem, ResizeEmsMem, SetMatsPtrsOrder, lproject, HeadProject) —
+      local-vs-global residency / eval-order, not per-line fixable.
+    ~30 SAMEOP:push — arg-eval-order + si/di prologue-save picks.
+    mem-reg cmp flips + jge/jle polarity: symtab-order class (All2AirHoming,
+      AwacsPicture, CheckProximityHit probes confirmed not source-spellable).
+    si-zero-cache regalloc (InitSpeech): gold keeps si=0 live for two zero-uses.
+  - _DoCockpitDisplays: retail-only helper FUN_120f_08e1 call in DOWN block.
