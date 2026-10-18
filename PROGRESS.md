@@ -791,3 +791,17 @@ Additional decode notes:
 - Mispairings found (verify DIFF but not real routines):
   _UpdateLights 2fb2:1759 = 4-arg position query; _ChangeColor/
   _ClipSprite 4140:10c4 = 6-byte thunk stubs.
+- verify_curr.log: 577 -> 581 MATCH / 763 pairings
+  - _CheckLandingAndCrash: Gtime<2 mission-start grace term; !ejected guard on crash LogIts;
+    RadarAlt+=10 before OurAlt+=10; REALFLIGHT fixup block unconditional — MATCH
+  - _End3D: sweep state (bounds -15/45, +12/-5, PlaneAnimVals[1]=SweepVar*DEG, [2]=*-DEG),
+    GrndAnimVals[16/17]->PlaneAnimVals copies, beacon ternary, UpdateCarrierAnim() call — MATCH
+  - _UpdateCarrierAnim: launch-strobe preamble + CarrierAnimVals[28]=Night||!LightsOn,
+    else-if cat branch structure — MATCH
+  - _FireColors: no direct Palette[] writes, bounds 3*9/3*6, MCGAColors(ORANGEFLAME,2,Buf) — MATCH
+  - _AIGetBombDist: flipped compare arms (pdest=0x2000 uses >, pdest=0xD000 uses <) — MATCH
+  - _CoreCheckGunFiring: behaveflag mask is ENEMYNOFIRE|ISHELICOPTER (0x82 byte test) — MATCH
+  - Parked classes: mem-reg compare operand order (binder pick), si/di/ax regalloc,
+    MSC6 |/== leaf canonicalization (DoBox VIS1|VIS2, DoOClockCall equality),
+    mispairings (TacBox, MBox, UpdateLights anchor)
+  - FLIGHT still large structural diff; ejection rng bounds fixed to +-64/FrameRate
