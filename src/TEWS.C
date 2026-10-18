@@ -257,6 +257,7 @@ TEWS_SPOTTED(int i)
 // TEWS_GFX
 //
 //************************************************************************
+extern int _pq0;
 int TEWS_GFX()
 {
 	int f,i;

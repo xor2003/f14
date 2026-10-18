@@ -188,12 +188,14 @@ void SetUpWingman(int leadnum, int b, int numadd, int planeid)
 //	bv[leadnum].behaveflag += 1;   I have know idea why I was doing this SRE
     wingspace = (Direction==1 ? wingdist:-wingdist);
 	for(cnt = startval; cnt<endval; cnt++) {
+		extern int NPLANESx;
+		extern int LASTPLANEx;
         PlanesLaunched++;
-		if((NPLANES <= cnt) && (updatecnt))
-			NPLANES = cnt + 1;
+		if((NPLANESx <= cnt) && (updatecnt))
+			NPLANESx = cnt + 1;
 
-		if(imaboat && (LASTPLANE > cnt))
-			LASTPLANE = cnt;
+		if(imaboat && (LASTPLANEx > cnt))
+			LASTPLANEx = cnt;
 
 		if(ps[leadnum].status & FRIENDLY)
 			ps[cnt].status |= FRIENDLY;

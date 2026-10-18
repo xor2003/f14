@@ -41,6 +41,18 @@ for l in open('analysis/gold/classified.tsv'):
             if (s, o) in goldmap:
                 anch[r['name']] = (s, o); break
 
+# order-aligned anchors override mis-paired classified entries
+if os.path.exists('analysis/gold/aligned_anchors.tsv'):
+    for l in open('analysis/gold/aligned_anchors.tsv'):
+        f = l.rstrip().split('\t')
+        if f[0] == 'name':
+            continue
+        m = re.match(r'([0-9a-f]{4}):([0-9a-f]{4})', f[2])
+        if m:
+            s, o = int(m.group(1), 16), int(m.group(2), 16)
+            if (s, o) in goldmap:
+                anch[f[0]] = (s, o)
+
 myseg = {}
 for l in open('build/f14_named.map'):
     m = re.match(r'(_\S+): (\S+) FAR', l)

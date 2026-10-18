@@ -1758,6 +1758,10 @@ void CheckGunFiring(COORD tdistl, int tanglel, int tpitchl)
 	CoreCheckGunFiring(tdistl, tanglel, tpitchl, 0, (8<<8), 0x200, 24);
 }
 
+extern int _pd0;
+extern int _pd1;
+extern int _pd2;
+extern int _pd3;
 void CoreCheckGunFiring(COORD tdistl, int tanglel, int tpitchl, int turretangle, int fireangle, int dangle, COORD tdistfire)
 {
 	int dbulpitch, dbulhead;
@@ -1829,6 +1833,15 @@ void CoreCheckGunFiring(COORD tdistl, int tanglel, int tpitchl, int turretangle,
     }
 }
 
+extern int _pd4;
+extern int _pd5;
+extern int _pd6;
+extern int _pd7;
+extern int _pd8;
+extern int _pd9;
+extern int _pd10;
+extern int _pd11;
+extern int _pd12;
 void GetEnemyTarget(int ainum)
 {
 	int cnt, founddist, wingrear;
@@ -2237,6 +2250,14 @@ int KeepBehavior(int tdistnm, int prewing)
 }
 
 /*----------*/
+extern int _pd13;
+extern int _pd14;
+extern int _pd15;
+extern int _pd16;
+extern int _pd17;
+extern int _pd18;
+extern int _pd19;
+extern int _pd20;
 void ChooseBehavior() {
 	int dxl, dyl, dxw, dyw;
 	int tanglel, tanglew, tpitchl, tpitchw, ranglel, ranglew, rranglel, rranglew;
@@ -3331,6 +3352,21 @@ void Champagne() {
 #define WALLHDIST 12
 #endif
 
+extern int _pq0;
+extern int _pq1;
+extern int _pq2;
+extern int _pq3;
+extern int _pq4;
+extern int _pq5;
+extern int _pq6;
+extern int _pq7;
+extern int _pq8;
+extern int _pq9;
+extern int _pq10;
+extern int _pq11;
+extern int _pq12;
+extern int _pq13;
+extern int _pq14;
 void Wall() {
 	int dx, dy, dz;
 	int tx, ty, tz, txl, tyl, tzl;
@@ -3910,6 +3946,9 @@ void LadderCircle ()
 #endif
 }
 
+extern int _pd21;
+extern int _pd22;
+extern int _pd23;
 int CheckDetection(int planenum)
 {
 	int cnt;
@@ -4969,6 +5008,15 @@ void BOMB_TrackingAI ()
 
 
 //////////////////////////////////////////////////////////////////////////
+extern int _pd24;
+extern int _pd25;
+extern int _pd26;
+extern int _pd27;
+extern int _pd28;
+extern int _pd29;
+extern int _pd30;
+extern int _pd31;
+extern int _pd32;
 void DESIGNATED_TrackingAI (int relangle)
 {
 	long dx, dy;
@@ -5665,6 +5713,18 @@ void AISanitizeGroupCheck(int wingnum, int enemynum, int planecheck[])
 	GiveSanitizeMessage(wingnum, groupcheck);
 }
 
+extern int _pd33;
+extern int _pd34;
+extern int _pd35;
+extern int _pd36;
+extern int _pd37;
+extern int _pd38;
+extern int _pd39;
+extern int _pd40;
+extern int _pd41;
+extern int _pd42;
+extern int _pd43;
+extern int _pd44;
 void AISanitizeCheck(int wingnum)
 {
 	int returnval, x, y, dx, dy, founddist, targetnum;

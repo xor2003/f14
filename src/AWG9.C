@@ -307,7 +307,7 @@ int GetWeaponCount(int type)
 	int cnt=0, i;
 
 	for(i=0;i<F14_STATION_NUM;i++) {
-		if (F14_STATION[i] == type) cnt++;
+		if (type == F14_STATION[i]) cnt++;
 	}
 	return cnt;
 }
@@ -1536,6 +1536,7 @@ int LockDistanceCheck(TARGET *t)
 }
 
 //***************************************************************************
+extern int _pq0;
 int UpdateTargetClosure(TARGET *tc)
 {
 	int temptime;
@@ -1761,6 +1762,23 @@ int SearchForTargets()
 }
 
 //***************************************************************************
+extern int _pq1;
+extern int _pq2;
+extern int _pq3;
+extern int _pq4;
+extern int _pq5;
+extern int _pq6;
+extern int _pq7;
+extern int _pq8;
+extern int _pq9;
+extern int _pq10;
+extern int _pq11;
+extern int _pq12;
+extern int _pq13;
+extern int _pq14;
+extern int _pq15;
+extern int _pq16;
+extern int _pq17;
 int ResetTargetTrack()
 {
 	int i;
@@ -1801,6 +1819,10 @@ int ResetBar()
 }
 
 //***************************************************************************
+extern int _pq18;
+extern int _pq19;
+extern int _pq20;
+extern int _pq21;
 int SetupNewTarget(TARGET *t, int plane)
 {
 	long x,y,z;
@@ -2099,6 +2121,9 @@ int DelTargetFile(int n)
 }
 
 //***************************************************************************
+extern int _pq22;
+extern int _pq23;
+extern int _pq24;
 int RioLockCheck()
 {
 	int dist,n,i;
@@ -2643,6 +2668,21 @@ int BuildFiringList()
 }
 
 //***************************************************************************
+extern int _pq25;
+extern int _pq26;
+extern int _pq27;
+extern int _pq28;
+extern int _pq29;
+extern int _pq30;
+extern int _pq31;
+extern int _pq32;
+extern int _pq33;
+extern int _pq34;
+extern int _pq35;
+extern int _pq36;
+extern int _pq37;
+extern int _pq38;
+extern int _pq39;
 int InFiringList(int n)
 {
 	int i;

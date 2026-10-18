@@ -81,6 +81,7 @@ project (x,y,z)
 }
 
 //***************************************************************************
+extern int _pq0;
 lproject(long x, long y, int z)
 {
     long    dx,dy;
