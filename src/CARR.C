@@ -85,6 +85,8 @@ extern int	BlastShield[];
 extern int  CatReady[];
 extern int	WingsReady;
 extern long labs(long X);
+extern SlopeCheck(long X,long Y,long Z,int *HD,int *PTCH,int *DELHT,int *DST);
+extern DisplayBall();
 
 int BelowDeck;
 extern   int   TRIM;
@@ -346,6 +348,7 @@ Carrier3D()
 	long t3;
 
 
+	DisplayBall();
 	t2 = abs(dz);
 	if (t2 > 16000) return (1);
 
@@ -613,14 +616,15 @@ int GlideScopeCheck(long PX, long PZ, long PY)
 //***************************************************************************
 DisplayBall()
 {
-	int y;
-	y = GlideScopeCheck(FPARAMS.X,FPARAMS.Z,FPARAMS.Y);
+	int PTCH,DST,DELHT,HD;
+	SlopeCheck(FPARAMS.X,FPARAMS.Y,FPARAMS.Z,&HD,&PTCH,&DELHT,&DST);
+	PTCH+=637;
 
-	if (y<=455) MeatBall=4;
-	if ((y>455) && (y<545)) MeatBall=3;
-	if ((y>545) && (y<728)) MeatBall=2;  /* Perfect */
-	if ((y>728) && (y<819)) MeatBall=1;
-	if (y>=819) MeatBall=0;
+	if (PTCH<=455) MeatBall=4;
+	if ((PTCH>455) && (PTCH<545)) MeatBall=3;
+	if ((PTCH>545) && (PTCH<728)) MeatBall=2;  /* Perfect */
+	if ((PTCH>728) && (PTCH<819)) MeatBall=1;
+	if (PTCH>=819) MeatBall=0;
 }
 
 
@@ -1002,26 +1006,22 @@ DoPlayerOnTheCat()
 {
 	long  X,Y,Z;
 
-#ifdef YEP
 	switch(StormLevel) {
 		case 0:
-			WaveHeight=2;
-			WaveSpeed=120;
-		break;
 		case 1:
-			WaveHeight=4;
-			WaveSpeed=150;
+			WaveSpeed=WaveHeight=0;
 		break;
 		case 2:
-			WaveHeight=7;
-			WaveSpeed=170;
+			WaveHeight=3;
+			WaveSpeed=110;
 		break;
 	}
 	Heaving=ACosB(WaveHeight,HeavAngle);
 	HeavAngle+=(WaveSpeed*Fticks);
 	if (HeavAngle>0)
 		HeavAngle+=(150*Fticks);
-#endif
+	if (StormLevel<2)
+		HeavAngle=Heaving=0;
    HorzHeave=0;
    switch (View)
       {
@@ -1054,7 +1054,7 @@ DoPlayerOnTheCat()
    if (ONTHECAT==0)
       {
       DoPlayerOnTheHook();
-      return;
+      return 1;
       }
 
    if (ONTHECAT==1)
@@ -1066,9 +1066,10 @@ DoPlayerOnTheCat()
       }
    else
       {
-      CATVEL+= 30*Fticks;
-      ONTHECAT+= (Fticks*(CATVEL/60));
+      CATVEL+= 20*Fticks;
+      if (CATVEL>0xec4) CATVEL=0xec4;
       AirSpeed= ((CATVEL/16)<<4);
+      ONTHECAT+= (Fticks*(CATVEL/60));
 
 //      ((AirSpeed*Fticks)/40);
 //      AirSpeed+= (10*Fticks);
@@ -1087,7 +1088,7 @@ DoPlayerOnTheCat()
 	RadarAlt = OurAlt;
 	Alt = OurAlt>>2;
 
-	if (ONTHECAT>8900) {
+	if (ONTHECAT>0x2710) {
 		ONTHECAT= Heaving= 0;
 		PlaneLaunched(PlayerCat,-1);
 		GetNextLaunch(-1);
