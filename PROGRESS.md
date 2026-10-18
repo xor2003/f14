@@ -881,3 +881,15 @@ Additional decode notes:
 - _CheckTurnStuff/_DisplayRioHead/_GetWayPointChanges/_GetWhichElevator
   remain anchored at shared bogus 1017:02f9; byte-scan nohit for all —
   real head-byte differences (or absent/merged retail routines).
+- _EasyLanding: anchor 0dc3:22c1 correct; bodies identical through the
+  weather/landpt chain (all data-off diffs normalize). REAL TAIL DIFF:
+  retail has an extra epilogue block ours lacks — near call FUN_0dc3_2293,
+  push [0x7a78]; call FUN_1604_0dda (CRT28, sprintf-class), [0x25c0]=ax,
+  [0x186a]=0, call FUN_1604_0c69, then re-tests the 0x5038/0xca1e/0x145a
+  trio. Likely LSO-string/lastlso bookkeeping (Coursestr cluster sits at
+  file scope nearby). Needs identification of the two CODE_28 callees and
+  the three globals before source reconstruction.
+- Mass classification (tools replica of verify pipeline): of 160 DIFFs,
+  82 are =~/~~-only (zero '!=' insns). =~ collisions arise when the SAME
+  gold offset pairs to different ours offsets inside one routine — real
+  access-order/codegen differences, NOT a bulk-fixable class.
