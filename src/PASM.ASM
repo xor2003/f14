@@ -1,13 +1,12 @@
 	DOSSEG
 	.MODEL MEDIUM,C
 
-	PUBLIC	NGXLO32,NGYLO32,NGXHI32,NGYHI32
-	PUBLIC	NGXLO,NGYLO,NGXHI,NGYHI,NGXMID,NGYMID
+	PUBLIC	NGXLO32,NGYLO32,NGXHI32,NGYHI32,CLIPZ
 	PUBLIC	NTRANSGREYPTRS, GRTBLSEG
 
 
 ;	extrn	FlagRotate3D:PROC
-	extrn	CLIPZ:DWORD
+	extrn	NGXLO:WORD,NGYLO:WORD,NGXHI:WORD,NGYHI:WORD
 	extrn	MULT1X3:PROC, MULT3X3:PROC, COPY3X3:PROC, TRANS3X3:PROC
         extrn   OBJ:WORD,BSPBASE:DWORD,FBPTR:WORD,DRAWPTR:WORD
 
@@ -84,13 +83,11 @@ C3HI	equ	10
 
 
 .DATA
-NGXLO	label	word
+CLIPZ	dd	020000h		;0x46 retail: clip z distance (2.0 fixed)
+	DB	0C0H DUP(0)		; pad: retail DGROUP has RTL+early C data at 0x4a-0x109
 NGXLO32	dd	0
-NGYLO	label	word
 NGYLO32	dd	0
-NGXHI	label	word
 NGXHI32	dd	319
-NGYHI	label	word
 NGYHI32	dd	199
 
 NGXMID	dw	160
@@ -107,24 +104,24 @@ FILLYHI	dd	-1	;yhi
 zoomfactor	dw	7fffh			;amount to scale z val by
 NOASPECT	dw	0
 
-CNT	dw	0
-DELZ	dd	0
-NPX	dd	0
-NPXT	dd	0
-NPYT	dd	0
-NPXADD	dd	0
-NPXTADD	dd	0
-NPYTADD	dd	0
-TOPTOBOT        dw      0
+CNT	dw	0		;0x13c
+	dw	0		;0x13e unnamed
+DELZ	dd	0		;0x140
+TOPTOBOT        dw      0	;0x144
+	dw	7 DUP(0)	;0x146-0x153 retail gap vars
 
-VECT    dw      0,0,0
-LVECT   dd      0,0,0
+NPX	dd	0		;0x154
+NPXT	dd	0		;0x158
+NPYT	dd	0		;0x15c
+NPXADD	dd	0		;0x160
+NPXTADD	dd	0		;0x164
+NPYTADD	dd	0		;0x168
 
-OFlags  dw      0
-MWID    dw      0
+VECT    dw      0,0,0	;0x16c
+LVECT   dd      0,0,0	;0x172
 
-
-
+OFlags  dw      0	;0x17e
+MWID    dw      0	;0x180
 
 TransTable	db	0,1,8,8,0,5,0,8,0,8,8,8,4,0,6,7
 	db	16,18,26,18,31,31,31,31,31,31,31,31,31,28,24,16
