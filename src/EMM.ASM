@@ -1,6 +1,7 @@
 	.MODEL MEDIUM,C
 
 	extrn	OldHandle:WORD
+	extrn	emminstalled:WORD,emmname:BYTE,emmpagemap:WORD,emmmpbuf:WORD
 
 .CODE
 EMMThere	PROC uses es si di
@@ -210,16 +211,6 @@ doit:
         ret
 EMMMapMultiPage	ENDP
 
-.DATA
-	dw	0184h			;0x284 retail: pointer into PASM data area
-emminstalled	dw	0		;0x286
-emmname	db	'EMMXXXX0'	;0x288
-emmpagemap      dw      -1,-1,-1,-1	;0x290
-
-emmmpbuf        dw      0,0, 1,1, 2,2, 3,3, 0,0, 0,0, 0,0, 0,0 ;0x298
-	dw	0,0			;0x2b8
-	dw	5			;0x2bc
-	dw	-1			;0x2be
 	END
 
 
