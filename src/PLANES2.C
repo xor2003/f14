@@ -903,7 +903,7 @@ void Jink()
 	dojinkangle = (0x8000 + tangle) - enemyhead;
 	e2uspitch = -tpitch;
 
-	if((abs(enemyroll) < 0x1800) && (abs(enemyroll) < abs(ps[i].roll))) {
+	if((abs(enemyroll) < 0x1800) && (abs(ps[i].roll) > abs(enemyroll))) {
 		if(ps[i].roll < 0) {
 			droll = 0xC000 - ps[i].roll;
 		}

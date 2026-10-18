@@ -734,3 +734,22 @@ Additional decode notes:
 - Other classes: si/di regalloc swap (~15), index-form `[bx+base+off]`
   vs pointer `[bx+off]` for arr[i].field (~10), eval-order for
   commutative exprs (param-first always).
+- GetCloseAirBase MATCH: retail has `ainum==-1` player-coord branch
+  (xydist(Px-R.x, Py-R.y)) ours lacked; mask is AIRBASE+DESTROYED (0x81)
+  NOT +NEUTRAL; `volatile COORD d` + decl-order swap (`tdist` before `d`)
+  reproduces gold's stack layout + jnb.
+- EasyLanding: `if(Night||MW==0||landpt<3)--l; elif(l<5)l=2; else l-=4`
+  was written as goto+separate-if; semantics now exact but MSC6 still
+  emits dec out-of-line last vs gold inline-first — block-order heuristic
+  not driven by braces/goto/elif-nesting (all probe variants identical).
+- MSC6 long-add rule proven: `global ± param` ALWAYS loads param into
+  ax:dx first (probes: all source forms identical). Gold's
+  `mov ax,[ViewY];add ax,[OY]` therefore comes from a different tree —
+  Do3DObject dy remains uncracked (eval-order class).
+- Verify corrected: classified.tsv is the second input (not classes.tsv);
+  bogus matches.txt anchors for _DoPlayerOnTheCat removed — it now
+  MATCHes at cls anchor 0dc3:1c10. Current: 532 MATCH / 763 pairings
+  (mch 440/644, cls 92/119). Prior 576 figure used different pairing set.
+- DrawTexPlane: gold re-reads es:[bx]->PlaneEnumId per compare (no CSE)
+  and orders the bv[ID]/AnimVals statements differently — 352-insn
+  function needs deeper reconstruction pass.

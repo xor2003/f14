@@ -47,6 +47,7 @@ extern  int     O[3][3];
 extern	int		PlaneAnimVals[];
 extern  int     whichourcarr;     // holds value for which boat our carrier
 extern  int     Fticks;
+extern  int     TimeOnHook;
 extern  int     LightsOn;
 
 extern	int Shift3X3(int *M, int SHFT);
@@ -922,6 +923,15 @@ OnTheDeck(long X, long Y, long Z )
 	int TM[9];
 	int x1,x2,z1,z2;
 	int i;
+
+   if (ONTHECAT)
+      return(1);
+   if (TimeOnHook < 0xf0) {
+      if (ONTHECAT)
+         return;
+      TimeOnHook += Fticks;
+      return;
+   }
 
    if ( (labs(X-carrier.x)>50000L) || (labs(Z-carrier.z)>50000L)|| (Y>12000) )
       return(0);

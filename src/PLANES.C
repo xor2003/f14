@@ -5775,7 +5775,7 @@ int AddSomePlanes2 (int planenum, int planeid, int AIBehavior, int formnum, int 
 			GetAIBase(cnt);
 			bv[cnt].winglevel = howgood;
 
-			if(whattype == ST_READY_5)
+			if(whattype == ST_READY_5 && !imaboat)
 				bv[cnt].Behavior = Ready5;
 
 			if(AIBehavior != SA_CRUISE_MISS) {
