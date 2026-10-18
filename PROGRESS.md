@@ -842,3 +842,21 @@ Additional decode notes:
       AwacsPicture, CheckProximityHit probes confirmed not source-spellable).
     si-zero-cache regalloc (InitSpeech): gold keeps si=0 live for two zero-uses.
   - _DoCockpitDisplays: retail-only helper FUN_120f_08e1 call in DOWN block.
+- Re-anchoring round (verify_sweep_reanch2.log): 595/763 (+10, zero regressions)
+  - mnemonic-prefix scan over gold routine starts found 62 changed anchors;
+    10 became MATCH (InitGraphicPages, JetisonSwitch, MBox, MyMessage,
+    RedrawJoyBox, TacBox, UpdateCloseBase, ZoomDisplay, diamondbox,
+    draw_shoot_cue) — they were correct code all along, wrongly paired.
+- Byte-scan reanchor (/tmp/bytescan2.py — masked-operand needle over whole
+  gold image, not just Ghidra starts): +6 more MATCH:
+  GetBehaviorLeader 2ad2:0718, InitSound 4a6f:0008(eff 3a6f:0008),
+  LaunchAircraft, MissilesInAir, ReadEMSPCX, __dos_read.
+  ~45 DIFF names get NO byte-scan hit => genuinely different head bytes
+  (real source diffs or merged/!present retail routines).
+- _MBox: retail fill color is 5 not 17 (DrawLine 18 ok) — committed.
+- Discovery: verify_build.py reads matches.txt first-row-per-name wins;
+  matches.txt dev@ offsets are stale but unused; only gold seg:off consumed.
+- Discovery: '=~' (INS_MATCH_DIFFOP2) counts as DIFF — memory operands that
+  can't resolve to matching var names. Feeding DATA-segment publics into
+  the candidate map may convert many of these to MATCH (unexploited).
+- verify_sweep_600.log: 601 MATCH / 763 (+16 via re-anchoring)
