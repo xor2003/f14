@@ -711,3 +711,26 @@ Additional decode notes:
 - mzretools note: /Fc writes .COD only with bare filename (/Fcname.cod),
   /Fl with drive path (/FlD:\X.LST); MZ hdrsize gold=0x5400 ours=0x5200.
 - count: **573/763 MATCH**.
+- CARR.C big win (576/763): retail DID compile the `#ifdef YEP` heave
+  block in DoPlayerOnTheCat — but with different constants than the
+  dead source: switch(StormLevel){case0/1:WS=WH=0;case2:WH=3,WS=110},
+  plus `if(StormLevel<2)HeavAngle=Heaving=0` (chain stores L-to-R).
+  Also retail: CATVEL+=20*Ft (not 30) + `if(CATVEL>0xec4)CATVEL=0xec4`
+  clamp, AirSpeed before ONTHECAT+=, `if(ONTHECAT>0x2710)`=10000,
+  `return 1` (int-returning, not void).
+- DisplayBall: retail calls SlopeCheck(X,Y,Z,&HD,&PTCH,&DELHT,&DST)
+  NOT GlideScopeCheck; PTCH+=637 then MeatBall zones {<=455:4,
+  456-544:3, 545-727:2, 728-818:1, >=819:0}. Locals PTCH@bp-2.
+- Carrier3D calls DisplayBall() between dz compute and abs(dz)
+  (near call inside CODE_20 — retail-only interposition).
+- KeepPlaneOnCarrier: `if(planenum==-1)return 1` is an early return
+  (dead `if(!WireCaught)` block is genuinely absent in gold —
+  reconstruction artifact confirmed). Residual: basenum cmp order.
+- Dominant residual class proven by batch triage (batchdiff.py):
+  `local<global` loop-tail compares — gold `mov ax,[cnt];cmp [NG],ax`
+  vs ours `mov ax,[NG];cmp[cnt],ax`. ~25+ functions. MSC6 operand pick
+  is context-sensitive (ax-liveness from prior store); standalone
+  probes emit gold's form, module context flips it.
+- Other classes: si/di regalloc swap (~15), index-form `[bx+base+off]`
+  vs pointer `[bx+off]` for arr[i].field (~10), eval-order for
+  commutative exprs (param-first always).
