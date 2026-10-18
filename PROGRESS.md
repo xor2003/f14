@@ -1388,3 +1388,40 @@ TODO to finish DGROUP:
 4. Fix wrong string CONTENTS: gold F14L09C/F14R09C/F14SMLO3/F14SMC02 vs
    mine F14L09B/F14R09B/F14SMLO2/F14SMC01 (version-suffix diffs).
 5. _RioLeftShould@0x150 sits inside PASM block gap vars (0x146-0x153).
+
+## GDSEG full migration — DONE (39eca83), 623/761 held
+
+GDSEG.ASM is now a byte-image replica of gold's DGROUP: BEGDATA at
+DGROUP+0, 1206 labels at verified gold offsets, emitted bytes = gold
+image (extent 0x642e), uninit tail = ORG'd labels only. PASM.ASM and
+EMM.ASM .DATA sections removed — all vars EXTRN to GDSEG labels.
+
+Verify invocation (complete arg set — aligned_anchors MUST be first):
+  python3 tools/verify_build.py GOLD analysis/gold/gold.map \
+    build/obj/F14.EXE build/f14_named.map \
+    analysis/gold/aligned_anchors.tsv analysis/gold/classified.tsv \
+    analysis/gold/matches.txt
+  -> 623 MATCH / 761 pairings
+
+Pitfall learned: unplaced vars MUST NOT alias one address — mzdiff
+maps gold-off->my-off per ref; N gold offs -> same my-off = collision
+DIFF. The 558 unresolved vars now get distinct synthetic offsets at
+0xde40+ (past _BEND, no emitted bytes).
+
+Naming collisions decoded (gold has BOTH a C-visible var and a same-
+named PASM-block var): NGXMID->NGXMIDL@0x11a, NGYMID->NGYMIDL@0x11c
+(C vars _NGXMID@0x7b66 etc. stay separate). PASM code refs renamed.
+
+Relocatable data defs preserved: _PalPtr3D DW _defaultpal @0x2b3a,
+_Seg3D DW SEG _Seg3D @0x2d3c (DW-offset relocs survive as baked image
+bytes; SEG relocs need real defs for runtime correctness).
+
+Still TODO for DGROUP:
+- 558 vars at synthetic offsets (unresolved gold position) — biggest
+  residual source. Resolve via gold code-operand analysis: disasm each
+  gold fn's data refs, map my fn's corresponding operands by position.
+- ~30 lib data syms (crt0dat family) are GDSEG labels -> L2025 dups
+  (harmless, first-def wins) but change lib module pull — watch _TEXT
+  ordering diffs if lib code offsets shift.
+- wrong string contents in image where my data differed (now emits
+  gold bytes verbatim — resolved).
