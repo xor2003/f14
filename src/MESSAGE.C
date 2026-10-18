@@ -36,13 +36,6 @@ extern int MSGDETAIL;
 
 
 //***************************************************************************
-Messages()
-{
-	if ((View!=PADLOCK) && (View!=PILOT))
-		MyMessages();
-}
-
-//***************************************************************************
 Message(char *s,int src)
 {
     if (ejected) return(1);
@@ -56,10 +49,10 @@ Message(char *s,int src)
 MsgBox (Len, StartX, StartY)
 {
     RectFill (Rp3D, StartX-1, StartY-1, Len+1+1, 7, LGREY);
-    RectFill (Rp3D, StartX-2, StartY-2, StartX+Len+1, StartY-2, WHITE);
-    RectFill (Rp3D, StartX-1, StartY+6, StartX+Len+1, StartY+6, DGREY);
-    RectFill (Rp3D, StartX-2, StartY-1, StartX-2, StartY+5, WHITE);
-    RectFill (Rp3D, StartX+Len+1, StartY-1, StartX+Len+1, StartY+5, DGREY);
+    DrawLine (Rp3D, StartX-2, StartY-2, Len+StartX+1, StartY-2, WHITE);
+    DrawLine (Rp3D, StartX-1, StartY+6, Len+StartX+1, StartY+6, DGREY);
+    DrawLine (Rp3D, StartX-2, StartY-1, StartX-2, StartY+5, WHITE);
+    DrawLine (Rp3D, Len+StartX+1, StartY-1, Len+StartX+1, StartY+5, DGREY);
 }
 
 
@@ -96,20 +89,17 @@ LoadMsgEMS()
 }
 
 //***************************************************************************
-MyMessages()
+Messages()
 {
    int   outside;
    char far *P;
    char far *SRC;
    int cnt, lastmsg, lastmsgnum;
    int msgplace;
-	extern char gstr336[];
 
-	if (MsgEMS==0) {
-	// try to get ems for messages
-		if ((MsgEMS=MakeEMSFileBlock(gstr336,(320*16/16) ))==0)
-			MsgEMS=-1; // cant get it no inside messages !!!!
-	}
+    if (ejected) return(0);
+	if (MSGDETAIL==3) return(0);
+    if (MsgEMS==0) return(0);
 
 	Rp1->Length1=199;
 

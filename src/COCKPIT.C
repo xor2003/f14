@@ -1663,48 +1663,49 @@ DrawAOADisplay()
 DrawSweepDisplay()
 {
 	static int prevrot;
+	static int timer;
 	int pos;
 
+	if (--timer > 0) return 1;
+	timer = 20;
 
-	if (prevrot!=WingRot) {
-		if (WingRot<=(30*DEG))
-	   		pos=0;
-		if (((WingRot>(30*DEG)) && (WingRot<(40*DEG))) || (WingRot==(40*DEG)))
-			pos=1;
-		if (((WingRot>(40*DEG)) && (WingRot<(50*DEG))) || (WingRot==(50*DEG)))
-			pos=2;
-		if ((WingRot>(50*DEG)) && (WingRot<(60*DEG)))
-			pos=3;
-		if (WingRot>=(60*DEG))
-			pos=4;
+	if (WingRot<=(30*DEG))
+   		pos=0;
+	if ((WingRot>(30*DEG)) && (WingRot<(40*DEG)))
+		pos=1;
+	if ((WingRot>=(40*DEG)) && (WingRot<=(50*DEG)))
+		pos=2;
+	if ((WingRot>(50*DEG)) && (WingRot<(60*DEG)))
+		pos=3;
+	if (WingRot>=(60*DEG))
+		pos=4;
 
-		prevrot=WingRot;
-		RectFill(Rp2,234,105,1,21,33);
-		DrawDot(Rp2,234,108,32);
-		DrawDot(Rp2,234,113,32);
-		DrawDot(Rp2,234,118,32);
-		DrawDot(Rp2,234,123,32);
-		RectCopy(Rp2,234,105,1,21,Rp1,234,105);
+	prevrot=WingRot;
+	RectFill(Rp2,236,106,1,21,23);
+	DrawDot(Rp2,236,109,57);
+	DrawDot(Rp2,236,114,57);
+	DrawDot(Rp2,236,119,57);
+	DrawDot(Rp2,236,124,57);
+	RectCopy(Rp2,236,106,1,21,Rp1,236,106);
 
-		switch(pos) {
-			case 0:
-				DrawLine(Rp2,234,105,234,107,2);
-			break;
-			case 1:
- 				DrawLine(Rp2,234,109,234,112,2);
-			break;
-			case 2:
-				DrawLine(Rp2,234,114,234,117,2);
-			break;
-			case 3:
-				DrawLine(Rp2,234,119,234,122,2);
-			break;
-			case 4:
-				DrawLine(Rp2,234,124,234,126,2);
-			break;
-		}
-		RectCopy(Rp2,234,105,1,21,Rp1,234,105);
+	switch(pos) {
+		case 0:
+			RectFill(Rp2,236,106,236,108,54);
+		break;
+		case 1:
+			RectFill(Rp2,236,110,236,113,54);
+		break;
+		case 2:
+			RectFill(Rp2,236,115,236,118,54);
+		break;
+		case 3:
+			RectFill(Rp2,236,120,236,123,54);
+		break;
+		case 4:
+			RectFill(Rp2,236,125,236,127,54);
+		break;
 	}
+	RectCopy(Rp2,236,106,1,21,Rp1,236,106);
 }
 
 //***************************************************************************

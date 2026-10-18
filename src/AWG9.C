@@ -2846,11 +2846,8 @@ int WingmanListReset()			/* FUN_08de_3431 */
 //***************************************************************************
 int WingmanAdd(TARGET *t)			/* FUN_08de_3404 */
 {
-	TARGET *dst;
-
 	if (WING_CNT < 10) {
-		dst = WING_PTR + WING_CNT++;
-		*dst = *t;
+		WING_PTR[WING_CNT++] = *t;
 	}
 }
 
