@@ -92,7 +92,7 @@ GenDsp ()
     static  LastView = FRONT;
     static  LastSeat = 0;
 
-    UBYTE   PalPkt[256*3 + 6];
+    static UBYTE   PalPkt[256*3 + 6];
 
     if (ejected) View = EJECTVIEW;
 
