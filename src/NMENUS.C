@@ -42,9 +42,12 @@ extern  UWORD   MouseSprite;
 extern	int	    GRNDDETAIL;
 extern	int	    PLANEDETAIL;
 extern  int     SKYDETAIL;
-int MISSILETRAIL=1;
-int MSGDETAIL=0;
-int SNDDETAIL=0;
+extern int MISSILETRAIL;
+
+extern int MSGDETAIL;
+
+extern int SNDDETAIL;
+
 int RudderType;
 extern  int     StickType;
 extern  UWORD   MinStick[];
@@ -110,42 +113,8 @@ typedef struct {
 	int funcval;
 } hs;
 
-hs menuhotspots[] = {
-	93,26, 103, 32, NONE_JOY,			// 0
-	93,34, 103, 40, ONE_JOY,			// 1
-	93,42, 103, 48, TWO_JOY,			// 2
-	93,50, 103, 56, JOYWTHROT,			// 3
-	93,58, 103, 64, THRUSTMASTER,		// 4
-	93,66, 103, 72, VPILOT,				// 5
-	93,74, 103, 80, FSPRO,				// 6
-	93,82, 103, 88, FOOTPEDALS,			// 7
-	93,100,103,106, KEY_SENS_HIGH,		// 8
-	93,108,103,114, KEY_SENS_MED,		// 9
-	93,116,103,122, KEY_SENS_LOW,		// 10
-	6,179,73,196, RESUME_GAME,			// 11
-	81,179,148,196, ABORT_GAME,			// 12
-	246,179,313,196, EXIT_TO_DOS,		// 13
-	220,152,270,164, RECAL,				// 14
-	190,26,201,32, SNDS_ALL_ON,			// 15
-	190,34,201,40, SNDS_ENGINE_OFF,		// 16
-	190,42,201,48, SNDS_SPEECH,			// 17
-	190,50,201,57, SNDS_ALL_OFF,		// 18
-	190,68,202,75, MSG_ALL_ON,			// 19
-	190,76,202,83, MSG_F14_SYS,			// 20
-	190,84,202,91, MSG_WORLD_CHAT,		// 21
-	190,92,202,99, MSG_ALL_OFF,			// 22
-	157,118,173,125, WD_SKY_HIGH,		// 23
-	173,118,189,125, WD_SKY_MED,		// 24
-	189,118,203,125, WD_SKY_LOW,		// 25
-	157,126,173,133, WD_GROUND_HIGH,	// 26
-	173,126,189,133, WD_GROUND_MED,		// 27
-	189,126,203,133, WD_GROUND_LOW,		// 28
-	157,134,173,141, WD_F14_HIGH,		// 29
-	173,134,189,141, WD_F14_MED,		// 30
-	189,134,203,141, WD_F14_LOW,		// 31
-	173,150,189,157, WD_MT_ON,			// 32
-	189,150,203,157, WD_MT_OFF,			// 33
-};
+extern hs menuhotspots[];
+
 
 UWORD mseg;
 

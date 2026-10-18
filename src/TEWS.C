@@ -85,8 +85,10 @@ static int  flash_off=0;
 
 int    MLAUNCH;
 int    AIDETECT;
-int    JAMMER_ACTIVE = 0;
-int    JAMMER[2]     = {1, 0};
+extern int JAMMER_ACTIVE;
+
+extern int JAMMER[2];
+
 
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
 extern struct MissileData far *GetMissilePtr(int MissileNo);

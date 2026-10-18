@@ -6,9 +6,11 @@
 #include "keycodes.h"
 
 RPS RpJoyX  =  {0, 0,0, 319,199, JAM3, WHITE, LGREY, F_3x5B};
-RPS *RpJoy  = &RpJoyX;
+extern RPS * RpJoy;
+
 RPS RpJoyBackX  =  {1, 0,0, 319,199, JAM3, WHITE, LGREY, F_3x5B};
-RPS *RpJoyBack  = &RpJoyBackX;
+extern RPS * RpJoyBack;
+
 
 extern  UWORD	Joystick;
 extern  UWORD   ThrustStick;
@@ -100,7 +102,8 @@ static ThrustVals[] = {0,      0,       8,       8,       0,       8,       8  }
 static CoolyVals [] = {0,      0,       0,       0,       8,       0,       0  };
 static RudderVals[] = {0,      0,       4,       0,       0,       0,       0  };
 
-int   KeyJoyInstalled=0;
+extern int KeyJoyInstalled;
+
 //***************************************************************************
 SetJoysticks(int i)
 {

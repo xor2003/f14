@@ -56,20 +56,8 @@ animtype RioHead[15] =
 	0,   80, 89, 80, 1, 160, 65,
 };
 
-animtype RioLeftShould[13] =
-{
-	0,   163, 38, 31, 0, 147,131,
-	39,  163, 47, 33, 0, 147,129,
-	87,  163, 44, 33, 0, 147,129,
-	276, 79,  43, 29, 1, 147,132,
-	276, 109, 43, 29, 1, 147,133,
-	276, 139, 43, 29, 1, 147,133,
-	276, 169, 43, 24, 1, 147,138,
-	180, 157, 46, 22, 1, 144,140,
-	180, 180, 47, 16, 1, 143,146,
-	230, 157, 45, 19, 1, 145,143,
-	230, 177, 45, 21, 1, 145,141,
-};
+extern animtype RioLeftShould[13];
+
 
 animtype RioLeftArm[6] =
 {
@@ -133,13 +121,19 @@ extern struct RadarData far *GetRadarPtr(int RadarNo);
 extern int whichourcarr;
 extern  COORD   Px,Py;
 
-int AnimCnt=0;
+extern int AnimCnt;
+
 int TestIt=0;
-int head_proj_x=0;
-int head_proj_y=0;
-int head_proj_z=0;
-int behindus=0;
-int closeplane = -1;
+extern int head_proj_x;
+
+extern int head_proj_y;
+
+extern int head_proj_z;
+
+extern int behindus;
+
+extern int closeplane;
+
 
 
 //***************************************************************************

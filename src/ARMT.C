@@ -41,51 +41,17 @@ UWORD   LastSlotNMount;
 
 int      MODE_MASTER    = MASTER_NAV;
 int      MODE_NAV       = NAV_NAV;
-int      MODE_AA        = AA_MRM;
+extern int MODE_AA;
+
 
 //***************************************************************************
-int F14_STATION[F14_STATION_NUM] = {
-	W_AIM_9,
-	W_AIM_9,
-	-1,
-	-1,
-	W_FUEL_TANK,
-	W_FUEL_TANK,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-};
+extern int F14_STATION[F14_STATION_NUM];
+
 
 int OurLoadOut=0;
 
-WEAPON ORDNANCE[W_TYPES] =
-{
-{ "" ,      "" ,ML_NONE   ,W_DUD      ,  0,  0,0  ,  0,  0 },   // W_NONE
-{ "MK82"  , "" ,ML_FFBOMB ,W_AGW|W_SYM,999,  0,125, 50,100 },   // W_MK_82
-{ "BSU49" , "" ,ML_RTBOMB ,W_AGW|W_SYM,999,  0,125, 50,100 },   // W_BSU_49
-{ "MK20"  , "" ,ML_FFBOMB ,W_AGW|W_SYM,999,  0,255, 60, 15 },   // W_MK_20   (ROCKEYE II)
-{ "AGM65" , "D",ML_HARPOON,W_AGW|W_IND,108,  0,  2, 60, 25 },   // W_AGM_65D
-{ "MK84"  , "" ,ML_FFBOMB ,W_AGW|W_SYM,999,  0,125,100,200 },   // W_MK_84
-{ "BSU50" , "" ,ML_RTBOMB ,W_AGW|W_SYM,999,  0,125,100,200 },   // W_BSU_50
-{ "GBU10" , "" ,ML_LGBOMB ,W_AGW|W_IND,100,  0,  2,110,200 },   // W_GBU_10
-{ "GBU12" , "" ,ML_LGBOMB ,W_AGW|W_IND,100,  0,  2, 60,100 },   // W_GBU_12
-{ "GBU15" , "" ,ML_LGBOMB ,W_AGW|W_IND,108,  0,  2,200,210 },   // W_GBU_15
-{ "CBU87" , "" ,ML_FFBOMB ,W_AGW|W_SYM,999,  0,255, 60, 50 },   // W_CBU_87
-{ "CBU89" , "" ,ML_FFBOMB ,W_AGW|W_SYM,999,  0,255, 60, 20 },   // W_CBU_89
-{ "AGM88" , "" ,ML_HARM   ,W_AGW|W_IND,135, 16,  2,110,110 },   // W_AGM_88  (HARM)
-{ "AGM84" , "A",ML_HARPOON,W_AGW|W_IND,648,108,  2,200,200 },   // W_AGM_84A (HARPOON)
-{ "AGM84" , "E",ML_HARPOON,W_AGW|W_IND,540,108,  2,200,200 },   // W_AGM_84E (SLAM)
-{ "PHNIX" , "A",ML_AIM54C ,W_AAW|W_IND,570, 16,  1,  0,  0 },   // PHEONIX - taken from AIM_120
-{ "AXQ14" , "" ,ML_NONE   ,W_DUD      ,  0,  0,  0,  0,  0 },   // W_AXQ_14
-{ "FUEL"  , "" ,ML_NONE   ,W_DUD      ,  0,  0,  0,  0,  0 },   // W_FUEL_TANK
-{ "9"     , "M",ML_AIM9M  ,W_AAW|W_IND, 43,  2,  1,  0,  0 },   // W_AIM_9
-{ "120"   , "A",ML_AIM120 ,W_AAW|W_IND,270, 16,  1,  0,  0 },   // W_AIM_120
-{ "7"     , "M",ML_AIM7M  ,W_AAW|W_IND,216, 16,  1,  0,  0 },   // W_AIM_7
-{ "CANNON", "" ,ML_NONE   ,W_DUD      ,  0,  0,  1, 45, 50 }    // W_CANNON
-};
+extern WEAPON ORDNANCE[W_TYPES];
+
 
 LAUNCHPOS   LP;
 

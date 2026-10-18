@@ -4,7 +4,8 @@
 #include "keycodes.h"
 
 RPS RpJoyX  =  {0, 0,0, 319,199, JAM3, WHITE, LGREY, F_3x5B};
-RPS *RpJoy  = &RpJoyX;
+extern RPS * RpJoy;
+
 
 extern  UWORD	Joystick;
 extern  UWORD   ThrustStick;

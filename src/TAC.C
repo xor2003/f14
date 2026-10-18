@@ -37,7 +37,8 @@ extern struct RadarData far *GetRadarPtr(int RadarNo);
 
 int tacx=0;
 int tacy=0;
-int tacz=0;
+extern int tacz;
+
 
 /*  static function prototypes  */
 concentric ();

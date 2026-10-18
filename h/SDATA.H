@@ -27,12 +27,23 @@ extern char Txt[];
 
 /* ------ All about our plane ------ */
 #ifdef _include_data
-    int Damaged=4,Status=0,Fuel=5000;
-    int Stores[4] = {0,12,18,3};
-    int Rounds=675;
-    int AutoAlt=0,AutoHead;
-    int Diff=1,Night=FALSE;
-    int ejected,FrameRate=4,Gtime,Direction;
+    extern int Damaged;
+extern int Status;
+extern int Fuel;
+
+    extern int Stores[4];
+
+    extern int Rounds;
+
+    extern int AutoAlt;
+int AutoHead;
+
+    extern int Diff;
+extern int Night;
+
+    extern int FrameRate;
+int ejected,Gtime,Direction;
+
 #else
 	extern int Damaged,Status,Fuel,Rounds;
 	extern int Stores[];

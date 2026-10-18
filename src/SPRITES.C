@@ -22,8 +22,10 @@ extern	int		ABOVECLOUDS;
 extern   int MISSILETRAIL;
 
 
-int	InXPLO=0;
-int	XPLODETAIL=1;
+extern int InXPLO;
+
+extern int XPLODETAIL;
+
 
 
 //***************************************************************************
@@ -274,15 +276,9 @@ struct SPRTCRD{
 struct XPLANM{
 	int	START;
 	int 	LAST;
-	} XPLOANIMS[]={
-		0,16,
-		17,24,
-		25,32,
-		33,49,
-		50,58,
-		59,67,
-		68,84
-		};
+	};
+extern struct XPLANM XPLOANIMS[];
+
 
 //***************************************************************************
 DrawXploSprite(RPS *Rp, int X, int Y, int NUM, int SCL, int ROLL)

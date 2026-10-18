@@ -40,13 +40,10 @@ struct WayPoint {
 };
 
 #ifdef _include_data
-  struct WayPoint wps[NWAYPOINTS] =
-  {     0,  0,  0,  0,
-        0,  0,  0,  0,
-        0,  0,  0,  0,
-        0,  0,  0,  0,
-  };
-  int NextWayPoint=0;
+  extern struct WayPoint wps[NWAYPOINTS];
+
+  extern int NextWayPoint;
+
   int ChangeWayPoint=0;
   int WPMode;
 #else
@@ -434,12 +431,18 @@ struct MissileData {
 
 
 #ifdef _include_data
-struct PlaneData far *PlaneDataList=NULL;
-struct RadarData far *RadarDataList=NULL;
-struct MissileData far *MissileDataList=NULL;
-int PlaneDataListCnt=0;
-int RadarDataListCnt=0;
-int MissileDataListCnt=0;
+extern struct PlaneData far * PlaneDataList;
+
+extern struct RadarData far * RadarDataList;
+
+extern struct MissileData far * MissileDataList;
+
+extern int PlaneDataListCnt;
+
+extern int RadarDataListCnt;
+
+extern int MissileDataListCnt;
+
 #else
 extern struct PlaneData far *PlaneDataList;
 extern struct RadarData far *RadarDataList;

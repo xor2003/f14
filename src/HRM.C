@@ -42,7 +42,8 @@ extern char	        far MAPBUF[256][256];
        int   CheckingHRMLimits=1;
 
 static int   Mapx       = -1;
-static int   Mapy       = -1;
+extern static int Mapy;
+
 static int   MapHead    =  0;
 static int   MapScale   =  0;
 static int   MapTime    =  0;

@@ -123,10 +123,9 @@ CLR		equ	80h		; reset the stick - NumPad "5"
 ;
 	.DATA
 
-	PUBLIC	KeyJoyX, KeyJoyY
 
-KeyJoyX		db	?		; current KeyBoard Joystick "X" value
-KeyJoyY		db	?		; current KeyBoard Joystick "Y" value
+	EXTRN KeyJoyX:BYTE
+	EXTRN KeyJoyY:BYTE
 
 JoyKey		db	?		; cursor image: Right | Left | Down | Up
 KeyTic		dw	?		; clock tic @ last key PRESS

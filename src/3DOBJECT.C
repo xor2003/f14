@@ -33,14 +33,21 @@
     /* Don't move these guys or the file unpacker won't work right !! */
     /* Also, StackObject requires this */
 
-            UWORD   Object = 0;
+            extern UWORD Object;
+
             long    XEB, YEB, ZEB;
 
-            int     OX=0, OY=0, OZ=0;           /* relative object location */
+            extern int OX;
+extern int OY;
+extern int OZ;
+           /* relative object location */
 
-            int     SecondMatrix=0;
+            extern int SecondMatrix;
+
     static  int     Dx=0, Dy=0, Dz=0;
-            int     Dist2Obj=0, Class=0;
+            extern int Dist2Obj;
+int Class=0;
+
 
             int     VX=0, VY=0, VZ=0;           /* Viewer location */
             int     HCent, VCent;               /* screen center */

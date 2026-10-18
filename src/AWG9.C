@@ -72,8 +72,10 @@ int		 RIO_ASSIST=RIO_ASSIST_AUTHENTIC;
 unsigned AWG9_MODE=0;
 int      MAXRNG=5;
 int		 MINRNG=0;
-int      RANGES[] =  { 5, 10, 20, 50, 100, 200 };
-int      BRANGES[]=  { 238, 475, 950, 2375, 4750, 9500 }; // in 15-bit scale (1 bit == 4*32 ft)
+extern int RANGES[];
+
+extern int BRANGES[];
+ // in 15-bit scale (1 bit == 4*32 ft)
 int      RANGE=5;
 
 int      DESIGNATED;
@@ -95,7 +97,8 @@ int      STEER_DOT;
 int      TTI;
 int      CLOSURE;
 int      AWG9_SNIFF;
-int      LOCKSHOOT=1;
+extern int LOCKSHOOT;
+
 int      IFF_timer;
 int      proj_x, proj_y, proj_z;
 
@@ -171,7 +174,8 @@ int BAD_GUY;
 int	NumBars=0;
 int AZSweep=0;
 int ModerateMode=0;
-int InRangeFlash=0;
+extern int InRangeFlash;
+
 
 // THIS IS NOT MINE!!! I DID NOT DO THIS!!! I PLEDGE TO RIP THE HEART
 // FROM THE INDIVIDUAL WHO DID!  THIS IS JUST A WORSE VERSION OF GOTO!

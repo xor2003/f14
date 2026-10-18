@@ -12,8 +12,10 @@
 #include "armt.h"
 #include "snddrv.h"
 
-int		SndPriority	  = 0;
-int     CanDoSpeech   = 0;
+extern int SndPriority;
+
+extern int CanDoSpeech;
+
 char    SoundFile[]   = "Psound.14g";
 char    SpeechDriver[]= "Digital.f14";
 

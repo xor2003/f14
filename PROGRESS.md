@@ -1017,3 +1017,38 @@ and explain gold-side gaps.
 
 Pending decision: crack LINK's exact comdef order algorithm vs rebuild
 layout by direct ASM data blocks vs per-symbol hashing simulation.
+
+## 2026-10-18 — GDSEG replica approach: mechanism works, hits 64K wall
+
+Attempted the explicit-layout fix for the ~82 `=~` functions (identical insn
+streams, only DGROUP operand offsets differ):
+
+- `src/GDSEG.ASM` (generated): `GDSEG SEGMENT BYTE PUBLIC 'BEGDATA'` linked
+  first in OBJS — `ORG` + `PUBLIC _x LABEL BYTE` for all 480 mapped gold vars
+  at their retail offsets; raw retail image bytes emitted 0..0x642e; real
+  fixups for `_PalPtr3D` (DW _defaultpal) and `_Seg3D` (DW SEG _Seg3D).
+- `tools/extern_defs.py` converted ~187 C globals to `extern` (all modules
+  compile clean; idempotent; comment/string-masked parsing).
+- ASM externs added in EGRAPH/EMS/JOYSTX/KEYJOY/PASM/HORZASM/_rp
+  (`.MODEL MEDIUM,C` auto-underscores PUBLIC/EXTRN — `GXLO` IS `_GXLO`).
+- Verified `_psi` landed exactly at gold 0x61a4 — ORG control works.
+
+**L2041 wall**: GDSEG spans 0..0xd658 (gold's full data extent) + leftover
+real data (strings/anonymous ~0x4745 _DATA + _BSS 0x632 + CONST + lib data +
+103 unmapped comdefs) + stack > 64K. mzretools `OffsetMap::dataMatch` uses
+maxData=1 (bijective per-function offset remap), so unmapped vars need only
+unique offsets — but the leftover bytes physically occupy DGROUP space
+regardless of matching, and ~0x4300 over the 64K cap.
+
+Gold's image itself contains its strings inside 0..0x642e — our strings are
+DUPLICATED content. To fit, the anonymous literal/anonymous _DATA must move
+into GDSEG at gold offsets (labels + content-match search), or the whole
+approach must switch to reproducing gold's COMDEF hash-order by matching its
+exact comdef multiset (blocked: names of gold's unmapped vars are unknown).
+
+Next candidate: string-literal-to-extern-`char[]` conversion emitting each
+literal's bytes at its gold offset (content-matched), OR shrink GDSEG to
+only vars referenced by `=~` functions if the high region isn't needed.
+
+Tools: tools/dseg_pairs.py (harvested 7591 operand pairs ->
+analysis/gold/dseg_pairs.tsv, dseg_order.tsv: 482 vars with gold offsets).

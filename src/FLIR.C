@@ -37,9 +37,11 @@ char WorldColor[256] = {
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
 };
 
-int SelectedPal=0;
+extern int SelectedPal;
 
-int LightsOn = 0;
+
+extern int LightsOn;
+
 int OverG    = 0;
 int PaletteChanged = FALSE;
 int CLOUDAMNT;
@@ -64,8 +66,10 @@ extern	int	ABOVECLOUDS;
 extern	int	OVERCAST;
 extern	int	GAMNT;
 extern  int BackSeat;
-int	OldG=0;
-int	OldOvercast=0;
+extern int OldG;
+
+extern int OldOvercast;
+
 
 #define NightStart	(20*60)
 #define NightEnd	(5*60)
@@ -303,12 +307,11 @@ NSetGreyPal(int TR, int TG, int TB)
 //***************************************************************************
 union REGS D;
 
-UBYTE BlueFlame[] = {63,63,63, 60,62,63, 53,60,63, 47,57,63,
-                     43,56,63, 40,55,63, 50,59,63, 56,61,63};
+extern UBYTE BlueFlame[];
 
-UBYTE OrangeFlame[]={62,63,22, 61,57,21, 61,49,21, 61,41,21,
-                     61,33,21, 61,25,21, 61,33,21, 61,41,21,
-                     61,49,21, 61,57,21 };
+
+extern UBYTE OrangeFlame[];
+
 
 //***************************************************************************
 FireColors ()

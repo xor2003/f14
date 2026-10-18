@@ -26,7 +26,8 @@ long lfpx, lfpy, lox, loy;
 
 int lastcatused = 4;
 int sotnum = -999;
-int friendfire = 0;
+extern int friendfire;
+
 int enemyfire = 0;
 long oldFPX;
 long oldFPZ;
@@ -95,8 +96,10 @@ int   pdest;      // pitch angle to plane's destination
 static    int   dpitch;     // delta pitch this frame
 int   droll;      // delta roll this frame
 
-int   PlanesLaunched=0;
-int AIWingMan = -999;
+extern int PlanesLaunched;
+
+extern int AIWingMan;
+
 
 int tempvar = 1;
 int tempbehavevar = 0;
@@ -105,12 +108,17 @@ long     AIBOMBY;     // 20-bit Scott-style Y position of predicted Bomb impact
 UWORD    AITTGT;      // 2 * Time to target in seconds
 UWORD    AITREL;      // 2 * Time to target intercept (bomb release) in seconds
 UWORD    AIRTGT;      // ground range to target in tenths of nautical miles
-int		 MyWingy = 0;
-int		 OtherAIDo = 0;
-int		 OtherAITime = 0;
+extern int MyWingy;
+
+extern int OtherAIDo;
+
+extern int OtherAITime;
+
 int		 WingID[3];
-int		 AIWingMenu = 0;
-int		 AIWingMenuTime = 0;
+extern int AIWingMenu;
+
+extern int AIWingMenuTime;
+
 extern struct _path_ aipaths[];
 extern struct _wayPoint_ aiwaypoints[];
 extern struct _action_ aiactions[];

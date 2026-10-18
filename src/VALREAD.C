@@ -5,18 +5,24 @@
 
 int offset;
 
-int     KbSense;
+extern int KbSense;
+
 unsigned int Joystick;
 unsigned int ThrustStick;
 unsigned int CoolyStick;
 unsigned int RudderStick;
 unsigned int MouseSprite;
-int	    GRNDDETAIL;
+extern int GRNDDETAIL;
+
 int	    PLANEDETAIL;
-int     SKYDETAIL;
-int 	MISSILETRAIL;
-int 	MSGDETAIL;
-int 	SNDDETAIL;
+extern int SKYDETAIL;
+
+extern int MISSILETRAIL;
+
+extern int MSGDETAIL;
+
+extern int SNDDETAIL;
+
 int 	RudderType;
 int     StickType;
 unsigned char  DeadZone;

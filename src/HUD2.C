@@ -86,8 +86,10 @@
 #define  TB_WINL     119
 #define  TB_WINW     73
 
-int      TB_CTRX=    HUD_CTR-1;
-int      TB_CTRY=    51;
+extern int TB_CTRX;
+
+extern int TB_CTRY;
+
 
 #define  TSPEED      (6000>>KH2BF)              // bullet speed
 
@@ -125,16 +127,20 @@ static char   *deg_prt (int deg);
 static long    row3    (int r, int dx, int dy, int dz);
 
 static RPS  HDGRpX = { 1,HDG_WINX,HDG_WINY,HDG_WINL-1,HDG_WINW-1,JAM1,HUD_COLOR,BLACK,1};
-       RPS *HDGRp  = &HDGRpX;
+       extern RPS * HDGRp;
+
 
 static RPS  PLRpX  = { 1,PL_WINX,PL_WINY,PL_WINL-1,PL_WINW-1,JAM1,HUD_COLOR,BLACK,1};
-       RPS *PLRp   = &PLRpX;
+       extern RPS * PLRp;
+
 
 static RPS  RBRpX  = { 1,RB_WINX,RB_WINY,RB_WINL-1,RB_WINW+7,JAM1,HUD_COLOR,BLACK,1};
-       RPS *RBRp   = &RBRpX;
+       extern RPS * RBRp;
+
 
 RPS  TDBRpX = { 1,TB_WINX,TB_WINY,TB_WINL-1,TB_WINW-1,JAM1,HUD_COLOR,BLACK,1};
-RPS *TDBRp  = &TDBRpX;
+extern RPS * TDBRp;
+
 
 static int  VEL_VECT_Y;
 

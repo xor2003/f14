@@ -810,15 +810,12 @@ RioMap()
 							(int)MapY,0x0100,0,0,0);
 			}
 		}
-	}
+	extern }
 
 
 	MouseHIDE();
-	ScreenOff();
-	lastmsgview=-1;
+	ScreenOff(); lastmsgview;
 
-	if (View<FRONTAL) {
-    	LoadNewCockpit();
 	} else {
        	ClearPage(0, BLACK);
 		LoadPalNoPic("F14ORG01.PIC");

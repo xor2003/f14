@@ -46,7 +46,8 @@ struct	FPARAM{
 extern struct FPARAM FPARAMS;
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
 
-int   GunZoom=1;
+extern int GunZoom;
+
 
 //***************************************************************************
 int DrawGunCameraView()

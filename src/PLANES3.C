@@ -26,8 +26,10 @@
 
 
 #define CHECKBASES	75
-int targetplayer = -999;
-int timetargetplayer = 0;
+extern int targetplayer;
+
+extern int timetargetplayer;
+
 char spotflags[MAXPLANE + 1];
 
 extern  int 	MissionWeather;

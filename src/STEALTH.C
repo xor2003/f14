@@ -43,17 +43,28 @@ extern  int     FM[3][3];
 extern	int 	REALFLIGHT;
 extern  int     MASTER_CAUTION;
 
-UWORD   Rtime = 0, QTime = 0, QTimer = 0, FrameRate10=40, FTicks=0;
+extern UWORD Rtime;
+extern UWORD QTime;
+extern UWORD QTimer;
+extern UWORD FrameRate10;
+extern UWORD FTicks;
+
 int     AutoGearOk=1;
-int     detected=0, atarg=-1,gtarg=-1,ImHit;
+extern int detected;
+extern int atarg;
+extern int gtarg;
+int ImHit;
+
 COORD   xlast[2],ylast[2],chuteX,chuteY;
 int     zlast[2],chuteZ,chuteDZ;
 char    Txt[80];
 int     MinAlt,CloseBase[2],OldClose=-1;
 int     CloseDist[2];
-UWORD   Speedy=1;
+extern UWORD Speedy;
+
 int     AutoLand=FALSE;
-int     nextlog=0;
+extern int nextlog;
+
 
 extern struct FPARAM{
 	long	X;

@@ -3,7 +3,7 @@
 
 	PUBLIC	NGXLO32,NGYLO32,NGXHI32,NGYHI32
 	PUBLIC	NGXLO,NGYLO,NGXHI,NGYHI,NGXMID,NGYMID
-	PUBLIC	Nviewmat,NTRANSGREYPTRS,GRTBLSEG
+	PUBLIC	NTRANSGREYPTRS, GRTBLSEG
 
 
 ;	extrn	FlagRotate3D:PROC
@@ -102,7 +102,7 @@ FILLYLO	dd	07fffh	;ylo
 FILLYHI	dd	-1	;yhi
 
 
-Nviewmat		dw	7fffh,0,0, 0,7fffh,0, 0,0,7fffh ;view and inverse matrixes
+	EXTRN Nviewmat:WORD
 		dw	7fffh,0,0, 0,7fffh,0, 0,0,7fffh
 zoomfactor	dw	7fffh			;amount to scale z val by
 NOASPECT	dw	0

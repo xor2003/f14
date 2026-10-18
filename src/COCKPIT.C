@@ -162,32 +162,43 @@ UWORD	far ElevMask[600];
 extern SWORD PitchAngle;
 extern UWORD DialSprite[];
 
-int     MASTER_CAUTION=0;
+extern int MASTER_CAUTION;
+
 int     DAMAGELITE[16];
 int     RadarRepeat=0;
-int     BackSeat    = 0;
+extern int BackSeat;
+
 int     Panning     = 0;
 // int     LookingDown = 0;
-int     DeClutter   = 0;
-int		LLowFuelWarn=0;
-int		RLowFuelWarn=0;
-int		BingoFuelWarn=0;
+extern int DeClutter;
 
-UWORD   OutsideWidth  = 320;     /* size of outside view window */
-UWORD   OutsideLength = 170;
+extern int LLowFuelWarn;
+
+extern int RLowFuelWarn;
+
+extern int BingoFuelWarn;
+
+
+extern UWORD OutsideWidth;
+     /* size of outside view window */
+extern UWORD OutsideLength;
+
 // UWORD   OutsideLength = 199;
 
 RPS     RpCX1  =  {1, 119,138,	82,57, JAM3, GREEN, BLACK, 1};
-RPS     *RpCRT1  = &RpCX1;
+extern RPS     * RpCRT1;
+
 
 RPS     RpCX2  =  {1, 226,136, 	30,44, JAM3, GREEN, BLACK, 1};
-RPS     *RpCRT2  = &RpCX2;
+extern RPS     * RpCRT2;
+
 
 RPS     RpCX3  =  {1, 118,100, 	83,68, JAM3, GREEN, BLACK, 1};
 RPS     *RpCRT3  = &RpCX3;
 
 RPS     RpCX4  =  {1, 260,150,	42,41, JAM3, GREEN, BLACK, 1};
-RPS     *RpCRT4  = &RpCX4;
+extern RPS     * RpCRT4;
+
 
 RPS     RpCX5  =  {1, 119,106,	83,59, JAM3, GREEN, BLACK, 1};
 RPS     *RpCRT5  = &RpCX5;
@@ -200,7 +211,8 @@ RPS     *RpCRT7  = &RpCX7;
 
 RPS     *RpCRT;
 
-RPS     *CrtRps[] =  {&RpCX1, &RpCX2, &RpCX3, &RpCX4, &RpCX5, &RpCX6, &RpCX7, &TDBRpX};
+extern RPS     * CrtRps[];
+
 int     CrtDisplays [8];
 int     CrtUpdate   [8];
 
@@ -208,8 +220,10 @@ int     CrtConfig[8] = {VDI,ADI,HSD,TEWS,DDD,TID,TSD,HUDCRT };
 
 int     CurCRT=2;
 
-int MasterArmSW=0;
-int JetisonSW=0;
+extern int MasterArmSW;
+
+extern int JetisonSW;
+
 int Lightemup=0;
 int lighton=0;
 int VdiMode=1;
@@ -222,8 +236,10 @@ static  int OldLights[40];
 static  int OldEMIS;
 static  int OldMC;
 
-int EgtL=15;
-int EgtR=15;
+extern int EgtL;
+
+extern int EgtR;
+
 
 // scaley(y) { return(y*14/16); }
 
@@ -247,7 +263,8 @@ extern int DesignateMode;
 extern int HighlightTarg;
 
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
-int RadarRange=5;
+extern int RadarRange;
+
 
 //***************************************************************************
 LoadNewCockpit()

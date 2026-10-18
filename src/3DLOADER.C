@@ -80,7 +80,8 @@ int planerecsize = sizeof(struct prec);
 int missilerecsize = sizeof(struct mrec);
 int radarrecsize = sizeof(struct rrec);
 
-int EMS3DObjectSlot=0;
+extern int EMS3DObjectSlot;
+
 unsigned int PlaneListSeg;
 unsigned int RadarListSeg;
 unsigned int MissileListSeg;

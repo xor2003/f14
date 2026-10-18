@@ -77,10 +77,14 @@ extern confData ConfigData;
 long    Povx,Povy,ViewX,ViewY;
 int     Povz,ViewZ;
 int     PovPitch,PovMisl,RPov;
-int     vScale = 2;
-int	    PadHead=0;
-int	    PadPitch=0;
-int     PadLockee=-1;
+extern int vScale;
+
+extern int PadHead;
+
+extern int PadPitch;
+
+extern int PadLockee;
+
 
 //***************************************************************************
 //

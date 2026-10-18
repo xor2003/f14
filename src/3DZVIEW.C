@@ -354,7 +354,8 @@ DrawMultiObject(char far *DST,int argc,char **argv)
    ShowMouse();
 }
 
-int   cldhndl=0;
+extern int cldhndl;
+
 int   wtrhndl=0;
 int   wtr2hndl=0;
 int   CLOUDSEG=0;
@@ -430,11 +431,13 @@ int	MYWID=208;
 #define MYHT	304
 
 
-int   ABOVECLOUDS=0;
+extern int ABOVECLOUDS;
+
 int   CLOUDAMNT=0;
 UWORD CLOUDHEIGHT=6800;
 int   OVERCAST=1;
-int   SKYDETAIL=1;
+extern int SKYDETAIL;
+
 
 
 

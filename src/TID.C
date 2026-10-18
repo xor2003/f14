@@ -22,7 +22,8 @@
 
 int DesignateMode=0;
 TIDTarg TIDTargetList[24];
-int TIDTargetCnt=0;
+extern int TIDTargetCnt;
+
 extern int DesigTargCnt;
 extern DTARGET DESIG_TARG[];
 

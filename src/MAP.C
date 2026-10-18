@@ -31,7 +31,8 @@ extern  UWORD     Rtime;
 
 int Mscale = 5;
 int Mapx =  0;
-int Mapy =  0;
+extern int Mapy;
+
 
 static int CColors[] = { 20, 14, 16 };
 

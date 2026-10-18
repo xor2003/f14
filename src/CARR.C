@@ -68,18 +68,22 @@ extern struct FPARAM{
 /* Carrier specific var's */
 
 int CarrierAnimVals[48];
-int CarrierScale=4;
+extern int CarrierScale;
+
 int	CARRIERSCALEKLUDGE=0;
 int PlaneScale=40;
 int MeatBall;
-int StormLevel=0;
+extern int StormLevel;
+
 int WaveHeight;
 int WaveSpeed;
 
 carriers far carrier;
 
-int WireCaught=0;
-int PreparePlaneWings=0;
+extern int WireCaught;
+
+extern int PreparePlaneWings;
+
 
 extern int  AvailCat[];
 extern int	BlastShield[];
@@ -1013,11 +1017,15 @@ SetPosOnCat( long *X, long *Y, long *Z, int Cat, int Length)
    *(Z)= (carrier.z+V[2]);
 }
 
-int   HorzHeave=0;
-int   Heaving=0;
-int HeavAngle=0;
+extern int HorzHeave;
+
+extern int Heaving;
+
+extern int HeavAngle;
+
 int   HeaveDir=1;
-int   CATVEL=0;
+extern int CATVEL;
+
 
 DoPlayerOnTheCat()
 {
@@ -1119,10 +1127,12 @@ DoPlayerOnTheCat()
 
 int   LandingAngle;
 int   LandingVel;
-int   TimeOnHook=0;
+extern int TimeOnHook;
+
 long   XSpot;
 long   ZSpot;
-int   WavedOff=0;
+extern int WavedOff;
+
 int   BallCalled=0;
 int   LSOMSGTIME=0;
 
@@ -1286,7 +1296,8 @@ char debugstr[120]= {0};
 extern	int	RUDDERVALS;
 
 //#define MAXPAT 21
-int   landpt=MAXPAT-1;
+extern int landpt;
+
 struct landpt{
    int   X;
    int   Z;
@@ -1342,14 +1353,8 @@ struct landpt{
 
       };
 
-struct landpt NiteLandPat[MAXNITEPAT]={
+extern struct landpt NiteLandPat[MAXNITEPAT];
 
-          26,    110, 96,   10*DEG, -3*DEG,      0,   135,  40,1,1,1,100,          /*  0  */
-         120,    607,225,   10*DEG,-3*DEG+(DEG/4),0, 135,50,1,1,1,100,             /*  1  */
-         167,    855,290,   10*DEG,-3*DEG+(DEG/4),0, 135,50,1,1,1,100,             /*  2  */
-         214,   1104,354,   10*DEG,-3*DEG+(DEG/4),0, 135,50,1,1,1,100,             /*  3  */
-         520,   2208,708,   10*DEG,-3*DEG+(DEG/4),  0*DEG,   140,  50,1,0,1,64,    /*  4  */
-      };
 
 EasyLanding()
 {

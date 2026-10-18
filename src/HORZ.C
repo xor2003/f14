@@ -79,7 +79,8 @@ extern   int   NGYMID;
 
 extern	long	NXSLine( long A, int E, int LN, int HT, int M );
 extern	long	NXSADDLine( int C, int HT, int M );
-int   cldhndl=0;
+extern int cldhndl;
+
 
 
 
@@ -138,8 +139,10 @@ struct STK3D{
 	int NEW3D;
 } far STACK3D[52];
 
-LASTSTACK=0;
-FARSTACK=-1;
+extern  LASTSTACK;
+
+extern  FARSTACK;
+
 
 
 UWORD OBJSEG=0;
@@ -147,15 +150,18 @@ UWORD PLANESEG=0;
 UWORD LASTOBJ;
 
 
-int ABOVECLOUDS=0;
+extern int ABOVECLOUDS;
+
 
 
 
 int	MTNDETAIL=2;
-int	GRNDDETAIL=1;
+extern int GRNDDETAIL;
+
 int	OBJECTDETAIL=1;
 int	OVERCAST=0;
-int SKYDETAIL=1;
+extern int SKYDETAIL;
+
 
 #define Width2 160
 
@@ -1157,7 +1163,8 @@ Stack3Dobject(int OBJ, int X, int Y, int Z, int ID, UWORD SCL, int new3d)
 
     return 1;
 }
-int	GFLSH=0;
+extern int GFLSH;
+
 
 #ifdef YEP
 Draw3dGroundObject (int NUM, int X, int Y, int Z, int BlowUpFlags) {

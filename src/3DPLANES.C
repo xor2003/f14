@@ -68,12 +68,14 @@ int WingRot=(48*DEG);
 extern int WingsReady;
 extern int PreparePlaneWings;
 int HookDown=0;
-int HookRot=0;
+extern int HookRot;
+
 int slposx=0;
 int slposy=0;
 
 extern	int	GFLSH;
-int	pflashtbl[4]={251*256+251,146*256+146,147*256+147,146*256+146};
+extern int pflashtbl[4];
+
 
 extern struct MissileData far *GetMissilePtr(int MissileNo);
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
@@ -380,23 +382,8 @@ extern struct obj3d {
 extern	int   IdentInvMat[];
 int   MissileAnimVals[16];
 
-struct obj3d CoolObj[16]={
-	-1,0,0,0, &IdentInvMat,&AnimVals, 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[1]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[2]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[3]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[4]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[5]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[6]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[7]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[8]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[9]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[10]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[11]), 0L,0L,0L,
-	-1,0,0,0, &IdentInvMat,&(MissileAnimVals[12]), 0L,0L,0L,
-	N3DZ_LTAIL,0,0,0, &IdentInvMat,&(MissileAnimVals[13]), 0L,0L,0L,
-	N3DZ_RTAIL,0,0,0, &IdentInvMat,&(MissileAnimVals[14]), 0L,0L,0L,
-};
+extern struct obj3d CoolObj[16];
+
 
 //***************************************************************************
 Init3DMissiles()

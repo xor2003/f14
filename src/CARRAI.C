@@ -56,9 +56,12 @@ extern struct FPARAM{
 /* Carrier specific var's */
 
 /* Air Boss launch clearance */
-int AvailCat[MAXCATS] = {-999,-999,-999,-999};
-int BlastShield[MAXCATS] = {0,0,0,0};
-int CatReady[MAXCATS] = {0,0,0,0};
+extern int AvailCat[MAXCATS];
+
+extern int BlastShield[MAXCATS];
+
+extern int CatReady[MAXCATS];
+
 
 int WingsReady=0;
 

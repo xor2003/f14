@@ -23,90 +23,49 @@ MatrixMul (A,B)      /* Multiply Matrix A by B-> store into FM */
 
 SWORD   A[3][3],B[3][3];
 
-{
+extern {
     SWORD TM[3][3];
 
-    MatMul (A,B, TM);   /* Gotta use temp array 'cuz MatMul stores as it goes */
+    MatMul (A,B, TM);                                                           
 
     memcpy (FM, TM, sizeof (FM));
 
 }
 
-/*<f>*/
-/**********************************************************
-*                                                         *
-*   This function will take the 9 elements of the flight  *
-*   matrix(FM) and decompose them into a Heading, Pitch,  *
-*   and Roll.                                             *
-*                                                         *
-**********************************************************/
+       
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
 
 Decompose() {
 
-    SWORD  CosPitch;
+    SWORD  CosPitch; OurPitch;
+{
+    SWORD TM[3][3];
 
-    OurPitch = Iasin(-FM[1][2]);  /* Now have Pitch  */
-    CosPitch = Icos(OurPitch);
+    MatMul (A,B, TM);                                                           
 
-    if (CosPitch != 0) {  /* When Pitch is 90 deg., we have a special case */
-
-        if (abs(FM[0][2])<(int)(23169)) {
-            OurHead = Iasin(abs(IntDiv(FM[0][2],CosPitch)));
-        }else{
-            OurHead = Iacos(abs(IntDiv(FM[2][2],CosPitch)));
-        }
-
-      /*  Set for correct quadrant  */
-        if (FM[0][2]<=0 && FM[2][2]<0) OurHead += 32768;
-        if (FM[0][2]>0 && FM[2][2]<0) OurHead = 16384L + (16384L - OurHead);
-        if (FM[0][2]<0 && FM[2][2]>0) OurHead = 49152L + (16384L - OurHead);
-
-        if (abs(FM[1][0])<(int)(23169)) {
-            OurRoll = Iasin(abs(IntDiv(FM[1][0],CosPitch)));
-        } else{
-            OurRoll = Iacos(abs(IntDiv(FM[1][1],CosPitch)));
-        }
-
-      /*  Set for correct quadrant  */
-        if (FM[1][0]<=0 && FM[1][1]<0) OurRoll += 32768;
-        if (FM[1][0]>0  && FM[1][1]<0) OurRoll  = 16384L + (16384L - OurRoll);
-        if (FM[1][0]<0  && FM[1][1]>0) OurRoll  = 49152L + (16384L - OurRoll);
-
-    } else {  /* Do this if our Pitch is 90 degrees */
-        OurRoll = 0;
-        OurHead = Iasin(FM[0][1]);
-
-      /*  Set for correct quadrant  */
-        if (FM[1][0]<=0 && FM[1][1]<0) OurHead += 32768;
-        if (FM[1][0]>0 && FM[1][1]<0) OurHead = 16384L + (16384L - OurHead);
-        if (FM[1][0]<0 && FM[1][1]>0) OurHead = 49152l + (16384L - OurHead);
-    }
+    memcpy (FM, TM, sizeof (FM));
 
 }
 
+       
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
 
-abs (int x) {           // REPLACES REGULAR LIBRARY VERSION !!!!!
-    if (x==0x8000) {
-        return 0x7fff;
-    } else if (x<0) {
-        return -x;
-    } else {
-        return (x);
-    }
-}
+Decompose() {
 
-/*<f><s> Integer Math Routines*/
+    SWORD  CosPitch; B;
 
-/*******************************************
-*                                          *
-*   This function performs a division      *
-*   of two signed 15 bit fractions.   A/B  *
-*                                          *
-*******************************************/
-
-SWORD   IntDiv (A,B)
-
-SWORD A,B;
 {
     SBYTE   S1 = 1,S2 = 1;
     unsigned long LA,LB;

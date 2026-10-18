@@ -70,16 +70,24 @@ union REGS D;
     COORD   Px,Py;
     UWORD   AirSpeed;
     SWORD   Weight = 8;
-    SWORD   FM[3][3] = { {0X7FFF,0,0},{0,0X7FFF,0},{0,0,0X7FFF}};
+    extern SWORD FM[3];
+
     SWORD   HC[3][3] = { {0,0,0},{0,0X7FFF,0},{0,0,0}};
     SWORD   PC[3][3] = { {0X7FFF,0,0},{0,0,0},{0,0,0}};
     SWORD   RC[3][3] = { {0,0,0},{0,0,0},{0,0,0X7FFF}};
     SWORD   TM[3][3] = { {0,0,0},{0,0,0},{0,0,0}};
-    UWORD   OurHead = 0;
-    SWORD   OurPitch=0, OurRoll = 0;
+    extern UWORD OurHead;
+
+    extern SWORD OurPitch;
+extern SWORD OurRoll;
+
     SWORD   Gees;
-    UWORD   Alt = 0, OurAlt = 0, OldAlt = 0;
-    long    RadarAlt = 0;
+    extern UWORD Alt;
+extern UWORD OurAlt;
+extern UWORD OldAlt;
+
+    extern long RadarAlt;
+
     UBYTE   TrimAOA = 12;
     ULONG   FrameCnt = 0;
     SWORD   TrgMul(),IntDiv(),Itan();
@@ -92,13 +100,16 @@ union REGS D;
     int     vHead,vPitch,vRoll, VM[3][3];
     char    DoPitchLines;
     int     ejectX,ejectY,ejectZ;
-    int	    REALFLIGHT=0;
+    extern int REALFLIGHT;
+
     char    BEND;
-    int     THRUST=0;
+    extern int THRUST;
+
     int     sightX,sightY;
     int     BingoFuel;
     long    FuelFlow;
-    int	    GAMNT=0;
+    extern int GAMNT;
+
 
 struct  chase {
     long x,y;
@@ -604,9 +615,8 @@ FLIGHT ()
 
 #define	DEG 182
 
-int	DNSTSQR[]={ 1000, 1077, 1164, 1261, 1370, 1494, 1635,
-						1796, 2016, 2273, 2563, 2890, 3259, 3675,
-                  4156, 4697, 5305 };
+extern int DNSTSQR[];
+
 
 
 TAStoIAS(int TAS )
@@ -637,31 +647,8 @@ TblTRPL(int *TBL,unsigned int val, unsigned int interval)
 
 #include "armt.h"
 
-int	W_WEIGHTS[]={
-/*W_NONE*/			0,
-/*W_MK_82*/			540,
-/*W_BSU_49*/		550,
-/*W_MK_20*/			486,
-/*W_AGM_65G*/		500,
-/*W_MK_84*/			1970,
-/*W_BSU_50*/		2010,
-/*W_GBU_10*/		2081,
-/*W_GBU_12*/		500,
-/*W_GBU_15*/		2502,
-/*W_CBU_87*/		950,
-/*W_CBU_89*/		706,
-/*W_AGM_88*/		800,
-/*W_AGM_84A*/		1170,
-/*W_AGM_84E*/		1400,
-/*W_AIM_54 */		985,
-/*W_AXQ_14*/		450,
-/*W_FUEL_TANK*/		320,
-/*W_AIM_9*/			180,
-/*W_AIM_120*/		338,
-/*W_AIM_7*/			510,
-/*W_CANNON*/		0,
-/*W_TYPES*/			0
-};
+extern int W_WEIGHTS[];
+
 
 
 // phoenix = 985
@@ -758,16 +745,21 @@ struct	FPARAM{
 	long	VEL[3];
 	int	MAT[9];
 } FPARAMS;
-int   ONTHECAT=1;
-int   ONTHEHOOK=0;
+extern int ONTHECAT;
+
+extern int ONTHEHOOK;
+
 
 
 
 int   ScottFlightMode=0;
 int   ScottLandingMode=0;
-int   LSORating=0;
-int   tchdwnrating=0;
-int   TRIM=0;
+extern int LSORating;
+
+extern int tchdwnrating;
+
+extern int TRIM;
+
 
 
 InitScottFlight()
@@ -806,12 +798,8 @@ InitScottFlight()
 
 }
 
-int	GTABLE[]={
-	0, 0, 25, 50,
-   100, 150, 200, 225,
-	240, 275, 309, 450,
-   537, 800, 825, 900,
-   1000, 1200, 1200, 1200, 1200, 1200, 1200 };
+extern int GTABLE[];
+
 //int	GTABLE[]={
 //	0, 0, 0, 10, 75, 100, 162, 171, 200,
 //	215, 262, 309, 450, 537, 800, 825, 900, 1000, 1200 };
@@ -819,9 +807,8 @@ int	GTABLE[]={
 long labs(long X);
 
 
-int	DNSTBL[]={ 100, 86, 73, 62, 53, 44,
-							37, 30, 24, 19, 15,
-							11, 9, 7, 6, 5, 3 };
+extern int DNSTBL[];
+
 
 int	Density( UWORD ALT )
 {
@@ -872,10 +859,12 @@ int	TFAPTR=0;
 int	TFAPTRCNT=0;
 
 long   ROLLINERTIA=0;
-int   DirectLiftControl=0;
+extern int DirectLiftControl;
+
 int   DIRECTLIFTSPEED=210;
 
-int   DEBUG1=0;
+extern int DEBUG1;
+
 int   DEBUG2=0;
 
 
@@ -948,7 +937,8 @@ TrimIt(int amnt)
 }
 
 
-int fueltime=0;
+extern int fueltime;
+
 long MilFuelTBLperhour[]= {10000,8000,6000,4000,3000,2000,1000,1000};
 long MaxFuelTBLperhour[]= {63000L,42000L,31500L,25200L,22900L,21000L,21000L};
 // next tables are 1 minute intervals per engine !!!!!!!!

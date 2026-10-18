@@ -120,27 +120,38 @@ extern int AnimCnt;
 extern int OurLoadOut;
 extern int SNDDETAIL;
 
-int     PauseHit = 0;
-int     TickDelay=1,KbSense=2;
+extern int PauseHit;
+
+extern int TickDelay;
+extern int KbSense;
+
 int     DBlaunch=0;
 
-int     ThrustChange=  0;
-int     MouseCrtX   = -1;
-int     MouseCrtY   = -1;
-int     MouseDsp    = -1;
-int     ShowMouse   =  0;
+extern int ThrustChange;
+
+extern int MouseCrtX;
+
+extern int MouseCrtY;
+
+extern int MouseDsp;
+
+extern int ShowMouse;
+
 int     MyMouseHits;
 int 	tempsound=0;
 int 	tempsound2=0;
 
-int	SteadyHead=0;
-int	SteadyPitch=0;
+extern int SteadyHead;
+
+extern int SteadyPitch;
+
 
 UWORD KEYPRINT;
 UWORD KEYPRINT2;
 
 UBYTE  mS1n,mS2n;
-int	RUDDERVALS=0;
+extern int RUDDERVALS;
+
 
 /* F14 Specific variables */
 extern int hsdmode;
@@ -234,10 +245,8 @@ cs BackBotSpots[NUM_BACK_BOT] =
 	166,165,208,194, CHNG_RNG,
 };
 
-cs BackLeftSpots[NUM_BACK_LEFT] =
-{   98,144,126,166, CHNG_AZ,
-	82,168,108,182, CHNG_DEG,
-};
+extern cs BackLeftSpots[NUM_BACK_LEFT];
+
 
 
 //***************************************************************************

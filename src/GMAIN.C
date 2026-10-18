@@ -63,9 +63,12 @@ extern struct _mrec_ aipaths[];
 
 
 RPS     *Rp;
-UBYTE   ExitCode=C_NORMAL;
-int 	ExitErrorCode=0;
-int     DisplayFrame=1;
+extern UBYTE ExitCode;
+
+extern int ExitErrorCode;
+
+extern int DisplayFrame;
+
 int     F14SNUM[2] = { 5252,18 };
 int     F14SCNUM[2] = { 2525,18 };
 char    *F14CNUM[5] = { "F14R" };
@@ -74,7 +77,8 @@ char    *F14SPER[30] = { "Vaughn Thomas" };
 char	*F14VNUM[5]  = { "1.18" };
 
 int _training;
-int DifficultyLevel=0;
+extern int DifficultyLevel;
+
 
 confData ConfigData;
 

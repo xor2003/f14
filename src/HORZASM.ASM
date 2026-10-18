@@ -3,13 +3,10 @@
 
 ;	PUBLIC	viewmat
 
-	PUBLIC	Seg3D
 
-	PUBLIC	PalPtr3D
 
-	PUBLIC	MAPBUF
+	PUBLIC	MAPBUF, defaultpal
 
-	PUBLIC	FlirTbl
 
 .CODE
 
@@ -115,7 +112,7 @@ TacTransScaleLine	ENDP
 
 .DATA
 
-PalPtr3D	dw	defaultpal
+	EXTRN PalPtr3D:WORD
 
 defaultpal	dw	0FF00h,0FF01h,0FF02h,0FF03h,0FF04h,0FF05h,0FF06h,0FF07h
 	dw	0FF08h,0FF09h,0FF0Ah,0FF0Bh,0FF0Ch,0FF0Dh,0FF0Eh,0FF0Fh	; 08
@@ -156,14 +153,14 @@ defaultpal	dw	0FF00h,0FF01h,0FF02h,0FF03h,0FF04h,0FF05h,0FF06h,0FF07h
 ;viewmat		dw	7fffh,0,0, 0,7fffh,0, 0,0,7fffh ;view and inverse matrixes
 ;		dw	7fffh,0,0, 0,7fffh,0, 0,0,7fffh
 
-Seg3D		dw	SEG bogusseg
+	EXTRN Seg3D:WORD
 
 ;TODO	ALIGN 16				;put at paragraph
 bogusseg 	dw	0
 
 ;TODO        ALIGN 256
 
-FlirTbl	db	256 dup(0)
+	EXTRN FlirTbl:BYTE
 
 
 _MAPSG	SEGMENT	PARA PUBLIC 'MP'

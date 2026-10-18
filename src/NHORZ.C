@@ -28,7 +28,8 @@ extern   int   NGYMID;
 extern	long	NXSLine( long A, int E, int LN, int HT, int M );
 extern	long	NXSADDLine( int C, int HT, int M );
 
-int   cldhndl=0;
+extern int cldhndl;
+
 
 extern	struct RastPort    *Rp;
 extern	int	GMODE;
@@ -75,14 +76,19 @@ struct STK3D{
 	int SCL;
 } far STACK3D[52];
 
-LASTSTACK=0;
-FARSTACK=-1;
+extern  LASTSTACK;
+
+extern  FARSTACK;
 
 
-int ABOVECLOUDS=0;
-int	GRNDDETAIL=1;
+
+extern int ABOVECLOUDS;
+
+extern int GRNDDETAIL;
+
 int	OVERCAST=0;
-int SKYDETAIL=1;
+extern int SKYDETAIL;
+
 int WORLDDETAIL=0;
 
 #define Width2 160
@@ -93,7 +99,8 @@ int	MTNRAD= 6;
 int	STKWID= 2;
 int	FLSHXOFF;
 int	FLSHZOFF;
-int	GFLSH=0;
+extern int GFLSH;
+
 struct	SNRM{
 	int	NI;
 	int	NJ;
@@ -137,12 +144,8 @@ LoadClouds()
 
 
 //***************************************************************************
-int   GRYSFHTTBL[16]={
-   0x800,0x1000,0x1800,0x2000,
-   0x2800,0x3000,0x3800,0x4000,
-   0x4800,0x5000,0x5800,0x6000,
-   0x6800,0x7000,0x7000,0x7000,
-};
+extern int GRYSFHTTBL[16];
+
 
 extern   int   HorzHeave;
 

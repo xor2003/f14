@@ -21,7 +21,8 @@ extern UBYTE DeadZone;
 
 extern  RPS     *Rp1;
 extern  int     REALFLIGHT;
-int     SKYDETAIL;
+extern int SKYDETAIL;
+
 
 //***************************************************************************
 InitOptions()

@@ -68,16 +68,24 @@ MsgBox (Len, StartX, StartY)
 
 
 RPS MSGRp={1, 0,0, 319,199, JAM3, GREEN, BLACK, 1};
-RPS *MRp=&MSGRp;
+extern RPS * MRp;
 
-int lastmsgview=-1;
-int LastMsgSeat=-1;
+
+extern int lastmsgview;
+
+extern int LastMsgSeat;
+
 int newmsg=0;
-char MyMSG[120]={0};
-int  MyMSGTYP=0;
-int msgtime=0;
-int   Mupdate=0;
-int   MsgEMS=0;
+extern char MyMSG[120];
+
+extern int MyMSGTYP;
+
+extern int msgtime;
+
+extern int Mupdate;
+
+extern int MsgEMS;
+
 //***************************************************************************
 LoadMsgEMS()
 {
