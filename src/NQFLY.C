@@ -151,8 +151,8 @@ struct   SBox{
    char  CLR1;
    char  CLR2;
    int   BITID;
-   char  VIS1;
    char  VIS2;
+   char  VIS1;
    int   XL;
    int   YL;
    int   XH;
@@ -181,7 +181,7 @@ DrawSBox(struct SBox far *B,struct PT3D far *P1,struct PT3D far *P2,
    int   CLR;
 
 
-   if ((B->VIS1&0x80)&&(GRNDDETAIL==2))
+   if ((B->VIS2&0x80)&&(GRNDDETAIL==2))
       {
       List[0]=P1;
       List[1]=P2;
@@ -208,7 +208,7 @@ DrawSBox(struct SBox far *B,struct PT3D far *P1,struct PT3D far *P2,
 
       }
 
-   if (B->VIS1)
+   if (B->VIS2)
       {
       List[0]=P1;
       List[1]=P2;
@@ -239,7 +239,7 @@ DrawSBox(struct SBox far *B,struct PT3D far *P1,struct PT3D far *P2,
          }
 
       }
-   if (B->VIS2)
+   if (B->VIS1)
       {
       List[0]=P1;
       List[1]=P4;
@@ -378,7 +378,7 @@ MakeBoxes(struct SBox far *BOXBASE)
          t=(abs(8-i)+abs(8-j))/2;
 //         t=max(abs(8-i),abs(8-j))/2;
 //         t=2*max(abs(8-i),abs(8-j));
-         if (t>6) t=6;
+         if (t>5) t=5;
          t=-t;
          B->CLR1=B->CLR2=t;
 
