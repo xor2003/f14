@@ -963,3 +963,30 @@ Additional decode notes:
   under `_include_data`). Unexplained; parked.
 - Verified probe pipeline: kvikdos CL.EXE -> OBJ -> LEDATA extract ->
   objdump -m i8086 works for codegen experiments (see /tmp/probe/cmpp*.c).
+
+## Turn: DGROUP layout analysis — the =~-only class (82 fns) decoded
+
+Harvested 7591 gold<->ours data-operand pairs across all 761 pairings
+(tools/dseg_pairs.py -> analysis/gold/dseg_pairs.tsv), built per-variable
+displacement map (analysis/gold/dseg_order.tsv, 482 vars).
+
+Findings:
+- Retail's DGROUP order is a PER-VARIABLE reordering of ours, not module
+  blocks. e.g. _psi: ours 0xa4a2 -> gold 0x61a4 (next to _OBJ);
+  _TARGFILE: ours 0x6170 -> gold 0x104a (very early); _NPLANES/_FPARAMS
+  ours 0xa476+ -> gold 0xc56e+ (+0x20f8).
+- Dominant deltas: +0x79e (346 pairs, post-_edata BSS region), +0x816
+  (981 pairs, _OBJ/_bv region ours 0x6180-0x6600), +0x96e (416, _ps
+  region 0x74c0+), +0x1f34-0x1f5e (~300, ours 0x8ec0-0xa440 region),
+  +0x38a (~300, ours 0x4c54-0x51b0 PlaneDataList..PadLockee block).
+- Early region (ours <0x2000) has small +deltas (0xec block = GRPAGE/
+  GXYLO/OurHead etc. at ours 0x1d70-0x24f2 -> gold 0x1e5c-0x2498).
+- Negative deltas exist too (_psi -0x42fe, _Mapy -0x2e, _TARGFILE -0x5126)
+  = vars retail placed EARLIER than ours.
+
+To fix: reorder data declarations so each var lands at its gold offset —
+vars may need to move BETWEEN files (module granularity) AND within files.
+Retail code/data boundaries: gold _edata = ours 0x572c+0x79e = 0x5eca;
+gold end-of-BSS ~0xd658+ vs ours ~0xbbe0 — retail has ~0x1a00 more data.
+
+No CodeView in retail exe (checked NB09-NB11/$$SYMBOLS — stripped).
