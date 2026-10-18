@@ -115,13 +115,13 @@ DoMap (int CrtNr)
 #endif
 
 /*----------*/
-X2map (x)
+int near X2map (x)
 {
     return ((int)(x-Mapx)>>(1+Mscale))+CRTXCENT;
 }
 
 /*----------*/
-Y2map (y)
+int near Y2map (y)
 {
     return ((int)(y-Mapy)>>(1+Mscale))+CRTYCENT;
 }
