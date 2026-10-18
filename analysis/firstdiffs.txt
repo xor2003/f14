@@ -1,0 +1,601 @@
+=== _AddAcqList
+   08de:28b0/00b690: mov di, [bp+0x06]                != 07ac:278f/00a24f: cmp word [0x136c], 0x0
+   ERROR: Instruction mismatch in routine _AddAcqList at 08de:28b0/00b690: mov di, [bp+0x06] != 07ac:278f/00a24f:
+   08de:28b3/00b693: cmp word [0x1008], 0x0           != 07ac:2794/00a254: jnz 0x27aa (0x16 down)
+=== _AddSomePlanes2
+   21ce:8367/02a047: jg 0x836e (0x7 down)             != 1fca:7b01/0277a1: jl 0x7b08 (0x7 down)
+   21ce:8374/02a054: cmp [0xc558], ax                 != 1fca:7b0e/0277ae: mov ax, [0xc558]
+   21ce:8378/02a058: jnz 0x837d (0x5 down)            != 1fca:7b11/0277b1: cmp [bp-0x0c], ax
+=== __aFNaldiv
+   1a48:113e/01b5be: push 0x6                         != 3d22:0d2f/03df4f: push bx
+   ERROR: Instruction mismatch in routine __aFNaldiv at 1a48:113e/01b5be: push 0x6 != 3d22:0d2f/03df4f: push bx
+   1a48:1140/01b5c0: mov ax, [bp+0x0a]                != 3d22:0d30/03df50: mov bx, [bp+0x06]
+=== _AIBombTarget
+   21ce:6c57/028937: imul word [0x619a], 0x30         != 1fca:6495/026135: imul si, byte 0x30
+   ERROR: Instruction mismatch in routine _AIBombTarget at 21ce:6c57/028937: imul word [0x619a], 0x30 != 1fca:649
+   21ce:6c63/028943: imul si, byte 0x30               != 1fca:649f/02613f: imul word [0xf45c], 0x30
+=== _AICarrierLand
+   2fb2:51b5/034cd5: push si                          != 2d51:4d8f/03229f: push di
+   ERROR: Instruction mismatch in routine _AICarrierLand at 2fb2:51b5/034cd5: push si != 2d51:4d8f/03229f: push d
+   2fb2:51b6/034cd6: cmp word [0x5038], 0x0           != 2d51:4d90/0322a0: push si
+=== _AIFoxCall
+=== _AISanitizeCheck
+   21ce:7f27/029c07: jz 0x7fa7 (0x80 down)            != 1fca:76c2/027362: jnz 0x76c7 (0x5 down)
+   ERROR: Instruction mismatch in routine _AISanitizeCheck at 21ce:7f27/029c07: jz 0x7fa7 != 1fca:76c2/027362: jn
+   21ce:7f29/029c09: mov bx, [bp-0x08]                != 1fca:76c4/027364: jmp 0x7747 (0x83 down)
+=== _All2AirHoming
+   38b6:01ab/038d0b: jge 0x216 (0x6b down)            != 35a7:01a7/035c17: jle 0x215 (0x6e down)
+   38b6:01c9/038d29: add ax, 0x3                      != 35a7:01c5/035c35: mov ax, [0x669a]
+=== __amsg_exit
+   4140:0113/041513: nop                              != 3d22:010d/03d32d: ret 0x54
+   ERROR: Instruction mismatch in routine __amsg_exit at 4140:0113/041513: nop != 3d22:010d/03d32d: ret 0x54
+   4140:0114/041514: push bp                          != 3d22:0110/03d330: mov ax, 0x3500
+=== _AvoidMountains
+=== _AwacsPicture
+   2fb2:28f0/032410: mov si, [bp+0x06]                != 0796:0010/007970: mov word [bp-0x0a], 0x2bf2
+   ERROR: Instruction mismatch in routine _AwacsPicture at 2fb2:28f0/032410: mov si, [bp+0x06] != 0796:0010/00797
+   2fb2:28f3/032413: mov word [bp-0x02], 0xfc19       != 0796:0015/007975: mov ax, [0x669a]
+=== _Boats3D
+   072e:00d1/0073b1: push 0x4, 0x0                    != 060e:00d4/0061b4: push di
+   ERROR: Instruction mismatch in routine _Boats3D at 072e:00d1/0073b1: push 0x4, 0x0 != 060e:00d4/0061b4: push d
+   072e:00d5/0073b5: push di                          != 060e:00d5/0061b5: push si
+=== _CAPAI
+   2ad2:3425/02e145: jbe 0x342d (0x8 down)            != 2828:33ed/02b66d: jnb 0x33f5 (0x8 down)
+=== _ChangeColor
+   4140:10c4/0424c4: xor ah, ah                       != 3d0c:0020/03d0e0: xor ax, ax
+   ERROR: Instruction mismatch in routine _ChangeColor at 4140:10c4/0424c4: xor ah, ah != 3d0c:0020/03d0e0: xor a
+   4140:10c6/0424c6: call 0x10ca (0x4 down)           != 3d0c:0022/03d0e2: call far 0x3d220298
+=== _ChangeGroupBehavior
+=== _ChangeHUDFilter
+   40b5:05c4/041114: push bp                          != 17b1:0786/018296: push 0x4, 0x0
+   ERROR: Instruction mismatch in routine _ChangeHUDFilter at 40b5:05c4/041114: push bp != 17b1:0786/018296: push
+   40b5:05c5/041115: mov bp, sp                       != 17b1:078a/01829a: cmp word [0xae94], 0x4
+=== _CheckAAAHit
+=== _CheckAITarget
+   2ad2:0c41/02b961: mov di, [bp+0x06]                != 2828:0c38/028eb8: mov si, [bp+0x06]
+   ERROR: Instruction mismatch in routine _CheckAITarget at 2ad2:0c41/02b961: mov di, [bp+0x06] != 2828:0c38/028e
+   2ad2:0c4f/02b96f: imul di, byte 0x30               != 2828:0c46/028ec6: imul si, byte 0x30
+=== _CheckBulletBetter
+   0d04:0a08/00da48: mov es, dx                       != 0b97:09fa/00c36a: mov ax, 0xc
+   ERROR: Instruction mismatch in routine _CheckBulletBetter at 0d04:0a08/00da48: mov es, dx != 0b97:09fa/00c36a:
+   0d04:0a0a/00da4a: mov bx, ax                       != 0b97:09fd/00c36d: cwd
+=== _CheckCAP
+   2ad2:0d21/02ba41: or ax, ax                        != 2828:324b/02b4cb: mov es, dx
+   ERROR: Instruction mismatch in routine _CheckCAP at 2ad2:0d21/02ba41: or ax, ax != 2828:324b/02b4cb: mov es, d
+   2ad2:0d23/02ba43: jz 0xd3c (0x19 down)             != 2828:324d/02b4cd: mov bx, ax
+=== _CheckDataLink
+   08de:2fa2/00bd82: mov ax, [bp-0x02]                != 07ac:2e8c/00a94c: mov ax, [0xc56e]
+   ERROR: Instruction mismatch in routine _CheckDataLink at 08de:2fa2/00bd82: mov ax, [bp-0x02] != 07ac:2e8c/00a9
+   08de:2fa5/00bd85: cmp [0xc56e], ax                 != 07ac:2e8f/00a94f: cmp [bp-0x02], ax
+=== _CheckDetection
+   21ce:5b8d/02786d: mov ax, [0x66a2]                 != 1fca:5479/025119: mov ax, [bp+0x06]
+   ERROR: Instruction mismatch in routine _CheckDetection at 21ce:5b8d/02786d: mov ax, [0x66a2] != 1fca:5479/0251
+   21ce:5b90/027870: cmp [bp+0x06], ax                != 1fca:547c/02511c: cmp [0x66a2], ax
+=== _CheckE2C
+   2fb2:0eb4/0309d4: mov ax, [bp-0x0c]                != 2d51:0dbc/02e2cc: cmp [bp-0x0c], ax
+   ERROR: Instruction mismatch in routine _CheckE2C at 2fb2:0eb4/0309d4: mov ax, [bp-0x0c] != 2d51:0dbc/02e2cc: c
+   2fb2:0eb7/0309d7: cmp [bp-0x02], ax                != 2d51:0dbf/02e2cf: jnb 0xdd4 (0x15 down)
+=== _CheckForMobileR5
+   2fb2:3b32/033652: or ax, ax                        != 2d51:3810/030d20: mov [bp-0x06], ax
+   ERROR: Instruction mismatch in routine _CheckForMobileR5 at 2fb2:3b32/033652: or ax, ax != 2d51:3810/030d20: m
+   2fb2:3b34/033654: jl 0x3b44 (0x10 down)            != 2d51:3813/030d23: or ax, ax
+=== _CheckMouseInput
+=== _CheckPlaneLand
+   2fb2:5c65/035785: mov di, 0x64                     != 2d51:580a/032d1a: mov bx, 0x64
+   ERROR: Instruction mismatch in routine _CheckPlaneLand at 2fb2:5c65/035785: mov di, 0x64 != 2d51:580a/032d1a: 
+   2fb2:5c74/035794: mov di, 0x1f4                    != 2d51:5819/032d29: mov bx, 0x1f4
+=== _CheckProximityHit
+   38b6:0bd0/039730: cmp [bx+0x2a], ax                != 35a7:0ba5/036615: cmp ax, [bx+0x2a]
+   ERROR: Instruction mismatch in routine _CheckProximityHit at 38b6:0bd0/039730: cmp [bx+0x2a], ax != 35a7:0ba5/
+   38b6:0bd3/039733: jl 0xbde (0xb down)              != 35a7:0ba8/036618: jg 0xbb3 (0xb down)
+=== _CheckTurnStuff
+   2fb2:4e51/034971: mov si, [bp+0x06]                != 2d51:4a31/031f41: mov di, [bp+0x06]
+   ERROR: Instruction mismatch in routine _CheckTurnStuff at 2fb2:4e51/034971: mov si, [bp+0x06] != 2d51:4a31/031
+=== _ChooseBehavior
+=== _ClipSprite
+   4140:10c4/0424c4: xor ah, ah                       != 3d0c:0038/03d0f8: xor ax, ax
+   ERROR: Instruction mismatch in routine _ClipSprite at 4140:10c4/0424c4: xor ah, ah != 3d0c:0038/03d0f8: xor ax
+   4140:10c6/0424c6: call 0x10ca (0x4 down)           != 3d0c:003a/03d0fa: call far 0x3d220298
+=== _Cmds
+   1081:075f/010f6f: jnz 0x764 (0x5 down)             != 0f13:07a3/00f8d3: jz 0x7cd (0x2a down)
+   ERROR: Instruction mismatch in routine _Cmds at 1081:075f/010f6f: jnz 0x764 != 0f13:07a3/00f8d3: jz 0x7cd
+   1081:0761/010f71: jmp 0xa02 (0x2a1 down)           != 0f13:07a5/00f8d5: dec ax
+=== _CoreCheckGunFiring
+   21ce:2ad9/0247b9: jnb 0x2b16 (0x3d down)           != 1fca:239c/02203c: jbe 0x23d9 (0x3d down)
+   ERROR: Instruction mismatch in routine _CoreCheckGunFiring at 21ce:2ad9/0247b9: jnb 0x2b16 != 1fca:239c/02203c
+=== _DamageAI
+   38b6:00ab/038c0b: push si                          != 2828:22ac/02a52c: push di
+   ERROR: Instruction mismatch in routine _DamageAI at 38b6:00ab/038c0b: push si != 2828:22ac/02a52c: push di
+   38b6:00ac/038c0c: mov bx, [0x61cc]                 != 2828:22ad/02a52d: push si
+=== _DESIGNATED_TrackingAI
+   21ce:6fa3/028c83: mov ax, [bx+0x69e4]              != 1fca:6723/0263c3: mov ax, bx
+   ERROR: Instruction mismatch in routine _DESIGNATED_TrackingAI at 21ce:6fa3/028c83: mov ax, [bx+0x69e4] != 1fca
+   21ce:6fa7/028c87: mov dx, [bx+0x69e6]              != 1fca:6725/0263c5: add bx, 0x69e0
+=== _DesignateTIDTarg
+=== _detect
+   36ad:0283/036d53: les si, [bp-0x18]                != 33c0:027f/033e7f: les di, [bp-0x18]
+   ERROR: Instruction mismatch in routine _detect at 36ad:0283/036d53: les si, [bp-0x18] != 33c0:027f/033e7f: les
+   36ad:0289/036d59: cmp es:[si+0x0e], ax             != 33c0:0285/033e85: cmp es:[di+0x0e], ax
+=== _DetermineShootParams
+=== _DisplayRightStuff
+   120f:0c5f/012d4f: push 0x2, 0x0                    != 1096:0cc5/011625: push si
+   ERROR: Instruction mismatch in routine _DisplayRightStuff at 120f:0c5f/012d4f: push 0x2, 0x0 != 1096:0cc5/0116
+   120f:0c63/012d53: push di                          != 1096:0cc6/011626: call far 0x3d0c00c0
+=== _DisplayRioHead
+   0017:02ff/00046f: mov di, [bp+0x06]                != 3452:0006/034526: mov word [bp-0x02], 0xffff
+   ERROR: Instruction mismatch in routine _DisplayRioHead at 0017:02ff/00046f: mov di, [bp+0x06] != 3452:0006/034
+   0017:0302/000472: mov si, [bp+0x0a]                != 3452:000b/03452b: mov word [bp-0x10], 0x13f
+=== _Do3DObject
+   072e:0020/007300: mov ax, [0x895a]                 != 060e:0022/006102: mov ax, [bp+0x0c]
+   ERROR: Instruction mismatch in routine _Do3DObject at 072e:0020/007300: mov ax, [0x895a] != 060e:0022/006102: 
+   072e:0023/007303: mov dx, [0x895c]                 != 060e:0025/006105: mov dx, [bp+0x0e]
+=== _DoAltHover
+   2fb2:4676/034196: mov [bp-0x12], bx                != 2d51:430b/03181b: mov ax, [0x669a]
+   ERROR: Instruction mismatch in routine _DoAltHover at 2fb2:4676/034196: mov [bp-0x12], bx != 2d51:430b/03181b:
+   2fb2:4679/034199: mov ax, [0x669a]                 != 2d51:430e/03181e: cmp [bx+0x69d8], ax
+=== _doboats
+   0c38:000a/00c38a: mov di, [0x666e]                 != 0acf:000c/00acfc: mov si, [0x666e]
+   ERROR: Instruction mismatch in routine _doboats at 0c38:000a/00c38a: mov di, [0x666e] != 0acf:000c/00acfc: mov
+   0c38:000e/00c38e: imul di, byte 0x28               != 0acf:0010/00ad00: imul si, byte 0x28
+=== _DoBox
+   0342:0c38/004058: cmp word [bp+0x1e], 0x2          != 0341:0c39/004049: mov es, [bp+0x08]
+   ERROR: Instruction mismatch in routine _DoBox at 0342:0c38/004058: cmp word [bp+0x1e], 0x2 != 0341:0c39/004049
+   0342:0c3c/00405c: jz 0xc4c (0x10 down)             != 0341:0c3c/00404c: mov ax, es:[di+0x04]
+=== _DoCockpitDisplays
+   120f:0662/012752: push cs                          != 1096:05a0/010f00: cmp word [0xae94], 0x0
+   ERROR: Instruction mismatch in routine _DoCockpitDisplays at 120f:0662/012752: push cs != 1096:05a0/010f00: cm
+   120f:0663/012753: call 0x8e1 (0x27e down)          != 1096:05a5/010f05: jnz 0x5f6 (0x51 down)
+=== _DoHover
+   2ad2:40e4/02ee04: mov ax, [0x906c]                 != 2828:4095/02c315: imul word [0xf46a], 0x28
+   ERROR: Instruction mismatch in routine _DoHover at 2ad2:40e4/02ee04: mov ax, [0x906c] != 2828:4095/02c315: imu
+   2ad2:40e7/02ee07: mov [0x61aa], ax                 != 2828:409a/02c31a: mov ax, [bx+0x7e78]
+=== _DoOClockCall
+=== _DoPlayerOnTheCat
+=== _DrawASurf
+   0058:0090/000610: mov bx, [0x69be]                 != 0075:056f/000cbf: mov si, [bp+0x06]
+   ERROR: Instruction mismatch in routine _DrawASurf at 0058:0090/000610: mov bx, [0x69be] != 0075:056f/000cbf: m
+   0058:0094/000614: les si, [bx]                     != 0075:0572/000cc2: mov es, [bp+0x08]
+=== _DrawCoolF14
+   072e:082e/007b0e: mov ax, [bp+0x0c]                != 060e:0814/0068f4: push [bp+0x0c]
+   ERROR: Instruction mismatch in routine _DrawCoolF14 at 072e:082e/007b0e: mov ax, [bp+0x0c] != 060e:0814/0068f4
+   072e:0831/007b11: mov [0x6e], ax                   != 060e:0817/0068f7: push 0x7d30
+=== _DrawDot
+   4140:10c4/0424c4: xor ah, ah                       != 3d0c:0048/03d108: xor ax, ax
+   ERROR: Instruction mismatch in routine _DrawDot at 4140:10c4/0424c4: xor ah, ah != 3d0c:0048/03d108: xor ax, a
+   4140:10c6/0424c6: call 0x10ca (0x4 down)           != 3d0c:004a/03d10a: call far 0x3d220298
+=== _DrawIndexer
+   120f:1229/013319: push di                          != 1096:11d3/011b33: push 0x2, 0x0
+   ERROR: Instruction mismatch in routine _DrawIndexer at 120f:1229/013319: push di != 1096:11d3/011b33: push 0x2
+   120f:122a/01331a: push si                          != 1096:11d7/011b37: mov ax, [0x6430]
+=== _DrawLine
+   4140:10c4/0424c4: xor ah, ah                       != 3d0c:0050/03d110: xor ax, ax
+   ERROR: Instruction mismatch in routine _DrawLine at 4140:10c4/0424c4: xor ah, ah != 3d0c:0050/03d110: xor ax, 
+   4140:10c6/0424c6: call 0x10ca (0x4 down)           != 3d0c:0052/03d112: call far 0x3d220298
+=== _DrawPoly
+   4140:10c4/0424c4: xor ah, ah                       != 3d0c:0058/03d118: xor ax, ax
+   ERROR: Instruction mismatch in routine _DrawPoly at 4140:10c4/0424c4: xor ah, ah != 3d0c:0058/03d118: xor ax, 
+   4140:10c6/0424c6: call 0x10ca (0x4 down)           != 3d0c:005a/03d11a: call far 0x3d220298
+=== _DrawRioMapInfo
+   0d04:01f4/00d234: mov word [bp-0x1a], 0x32         != 34ab:056e/03501e: push 0x0
+   ERROR: Instruction mismatch in routine _DrawRioMapInfo at 0d04:01f4/00d234: mov word [bp-0x1a], 0x32 != 34ab:0
+   0d04:01f9/00d239: mov word [bp-0x18], 0x19         != 34ab:0570/035020: push 0x0
+=== _DrawSweepDisplay
+   120f:238a/01447a: dec [0x1e56]                     != 1096:28ce/01322e: mov ax, [0xf440]
+   ERROR: Instruction mismatch in routine _DrawSweepDisplay at 120f:238a/01447a: dec [0x1e56] != 1096:28ce/01322e
+   120f:238e/01447e: cmp word [0x1e56], 0x0           != 1096:28d1/013231: cmp [0xabc4], ax
+=== _DrawTexPlane
+   072e:0e0e/0080ee: cmp word es:[bx], 0x8a           != 060e:0dec/006ecc: mov ax, es:[bx]
+   ERROR: Instruction mismatch in routine _DrawTexPlane at 072e:0e0e/0080ee: cmp word es:[bx], 0x8a != 060e:0dec/
+   072e:0e13/0080f3: jz 0xe3f (0x2c down)             != 060e:0def/006ecf: mov [bp-0x64], ax
+=== _DrawXploSprite
+   072e:016f/00744f: push bp                          != 3777:049e/037c0e: push 0x2, 0x0
+   ERROR: Instruction mismatch in routine _DrawXploSprite at 072e:016f/00744f: push bp != 3777:049e/037c0e: push 
+   072e:0170/007450: mov bp, sp                       != 3777:04a2/037c12: push di
+=== _EasyLanding
+   0dc3:246f/01009f: jge 0x2477 (0x8 down)            != 0c55:240f/00e95f: jl 0x2427 (0x18 down)
+   ERROR: Instruction mismatch in routine _EasyLanding at 0dc3:246f/01009f: jge 0x2477 != 0c55:240f/00e95f: jl 0x
+   0dc3:2471/0100a1: dec [0x145a]                     != 0c55:2411/00e961: cmp word [0x145a], 0x5
+=== _EndStack3D
+   1929:0be4/019e74: mov es, [0x5fca]                 != 18cd:0bc1/019891: imul ax, byte 0x12
+   ERROR: Instruction mismatch in routine _EndStack3D at 1929:0be4/019e74: mov es, [0x5fca] != 18cd:0bc1/019891: 
+   1929:0be8/019e78: imul ax, byte 0x12               != 18cd:0bc4/019894: mov [bp-0x1c], bx
+=== _farfread
+   38b6:000c/038b6c: push si                          != 3d01:0054/03d064: push 0x19c, 0x0
+   ERROR: Instruction mismatch in routine _farfread at 38b6:000c/038b6c: push si != 3d01:0054/03d064: push 0x19c,
+   38b6:000d/038b6d: sub si, si                       != 3d01:0058/03d068: push si
+=== _firemissile2
+   38b6:1461/039fc1: mov di, ax                       != 35a7:1427/036e97: mov si, ax
+   ERROR: Instruction mismatch in routine _firemissile2 at 38b6:1461/039fc1: mov di, ax != 35a7:1427/036e97: mov 
+   38b6:1471/039fd1: mov di, dx                       != 35a7:1437/036ea7: mov si, dx
+=== _FLIGHT
+   1604:01a6/0161e6: imul word [0x500e], 0xc          != 14d9:01a8/014f38: cmp word [0x500e], 0x0
+   ERROR: Instruction mismatch in routine _FLIGHT at 1604:01a6/0161e6: imul word [0x500e], 0xc != 14d9:01a8/014f3
+   1604:01ab/0161eb: mov ax, [bx+0x4fde]              != 14d9:01ad/014f3d: jnz 0x1e9 (0x3c down)
+=== _FlyTo
+   2ad2:3270/02df90: mov ax, [0x906c]                 != 2828:349a/02b71a: push 0x0
+   ERROR: Instruction mismatch in routine _FlyTo at 2ad2:3270/02df90: mov ax, [0x906c] != 2828:349a/02b71a: push 
+   2ad2:3273/02df93: mov [0x61aa], ax                 != 2828:349c/02b71c: lea ax, [bp-0x06]
+=== _FlyWayPoint
+   2ad2:37aa/02e4ca: push si                          != 2828:3796/02ba16: push di
+   ERROR: Instruction mismatch in routine _FlyWayPoint at 2ad2:37aa/02e4ca: push si != 2828:3796/02ba16: push di
+   2ad2:37ab/02e4cb: sub ax, ax                       != 2828:3797/02ba17: push si
+=== _FormationSpeedAdjustBoat
+   0c38:0a86/00ce06: les bx, [0x7e4c]                 != 0acf:0a39/00b729: mov bx, [bp-0x0c]
+   ERROR: Instruction mismatch in routine _FormationSpeedAdjustBoat at 0c38:0a86/00ce06: les bx, [0x7e4c] != 0acf
+   0c38:0a8a/00ce0a: mov ax, es:[bx+0x0a]             != 0acf:0a3c/00b72c: les di, [0x7e4c]
+=== _fourpoints
+   1b89:002e/01b8be: sub bx, si                       != 1b10:0028/01b128: sub bx, [bp+0x0c]
+   ERROR: Instruction mismatch in routine _fourpoints at 1b89:002e/01b8be: sub bx, si != 1b10:0028/01b128: sub bx
+   1b89:0030/01b8c0: mov di, [bp+0x0a]                != 1b10:002b/01b12b: mov es:[bx+si], al
+=== _FriendlyChooseBehavior
+=== _GDisplay
+   120f:08e5/0129d5: push di                          != 1096:0811/011171: push si
+   ERROR: Instruction mismatch in routine _GDisplay at 120f:08e5/0129d5: push di != 1096:0811/011171: push si
+   120f:08e6/0129d6: push si                          != 1096:0812/011172: mov bx, [0x43fe]
+=== _GenDsp
+   3e88:0066/03e8e6: jz 0xdd (0x77 down)              != 3b21:005c/03b26c: jnz 0x61 (0x5 down)
+   3e88:0068/03e8e8: call far 0x5ce03e2               != 3b21:005e/03b26e: jmp 0x10f (0xb1 down)
+   3e88:006d/03e8ed: push 0x0                         != 3b21:0061/03b271: call far 0x3d0c0120
+=== _GetInterceptPlane
+   2ad2:0a09/02b729: push si                          != 2d51:07eb/02dcfb: push di
+   ERROR: Instruction mismatch in routine _GetInterceptPlane at 2ad2:0a09/02b729: push si != 2d51:07eb/02dcfb: pu
+   2ad2:0a0a/02b72a: mov ax, [0x906c]                 != 2d51:07ec/02dcfc: push si
+=== _GetJoystickInputs
+   1081:0090/0108a0: push di                          != 0f13:0090/00f1c0: push si
+   ERROR: Instruction mismatch in routine _GetJoystickInputs at 1081:0090/0108a0: push di != 0f13:0090/00f1c0: pu
+   1081:0091/0108a1: push si                          != 0f13:0091/00f1c1: mov ax, [0xd112]
+=== _GetQHeight
+   0342:1141/004561: mov si, [bp+0x0a]                != 0341:1132/004542: mov di, [bp+0x0a]
+   ERROR: Instruction mismatch in routine _GetQHeight at 0342:1141/004561: mov si, [bp+0x0a] != 0341:1132/004542:
+   0342:1144/004564: and si, 0xfff                    != 0341:1135/004545: and di, 0xfff
+=== _GetRadarGTNum
+   2fb2:4837/034357: cmp [bx+0x7b94], ax              != 2d51:44d6/0319e6: cmp ax, [bx+0x7b94]
+   ERROR: Instruction mismatch in routine _GetRadarGTNum at 2fb2:4837/034357: cmp [bx+0x7b94], ax != 2d51:44d6/03
+=== _GetWayPointChanges
+   2fb2:2724/032244: mov cx, [bx-0x4ec4]              != 2d51:22d0/02f7e0: mov di, [bx-0x3434]
+   ERROR: Instruction mismatch in routine _GetWayPointChanges at 2fb2:2724/032244: mov cx, [bx-0x4ec4] != 2d51:22
+   2fb2:2728/032248: mov [bp-0x06], cx                != 2d51:22d4/02f7e4: or ax, ax
+=== _GetWhoCover
+   2fb2:1c58/031778: mov ax, [bx+0x69d0]              != 2d51:180f/02ed1f: imul word [bx+0x69d0], 0xe
+   ERROR: Instruction mismatch in routine _GetWhoCover at 2fb2:1c58/031778: mov ax, [bx+0x69d0] != 2d51:180f/02ed
+   2fb2:1c5c/03177c: mov [bp-0x02], ax                != 2d51:1814/02ed24: cmp word [bx-0x343c], 0x0
+=== _GiveSanitizeMessage
+   21ce:7b91/029871: jb 0x7b9f (0xe down)             != 1fca:732c/026fcc: ja 0x733a (0xe down)
+=== _GiveSortInfo
+   2ad2:271e/02d43e: mov ax, bx                       != 2828:270d/02a98d: shl bx, 1
+   ERROR: Instruction mismatch in routine _GiveSortInfo at 2ad2:271e/02d43e: mov ax, bx != 2828:270d/02a98d: shl 
+   2ad2:2720/02d440: mov bx, dx                       != 2828:270f/02a98f: mov ax, [bx+si]
+=== _HeadProject
+   3746:0594/0379f4: mov ax, [bp+0x0a]                != 3452:03ee/03490e: mov ax, [0xae26]
+   ERROR: Instruction mismatch in routine _HeadProject at 3746:0594/0379f4: mov ax, [bp+0x0a] != 3452:03ee/03490e
+   3746:0597/0379f7: mov dx, [bp+0x0c]                != 3452:03f1/034911: mov dx, [0xae28]
+=== _horiz_line
+   0000:00d0/0000d0: or al, 0x83                      != 19e7:03ed/01a25d: push 0x1a, 0x0
+   ERROR: Instruction mismatch in routine _horiz_line at 0000:00d0/0000d0: or al, 0x83 != 19e7:03ed/01a25d: push 
+   0000:00d2/0000d2: les ax, [0xc683]                 != 19e7:03f1/01a261: push si
+=== _HsdCrt
+   21ce:86ba/02a39a: mov ax, [0x66a6]                 != 1b10:08c8/01b9c8: mov word [bp-0x02], 0x1a
+   ERROR: Instruction mismatch in routine _HsdCrt at 21ce:86ba/02a39a: mov ax, [0x66a6] != 1b10:08c8/01b9c8: mov 
+   21ce:86bd/02a39d: shl ax, byte 0x2                 != 1b10:08cd/01b9cd: mov bx, [0x8994]
+=== _InitCarrier
+   0017:02ff/00046f: mov di, [bp+0x06]                != 0c55:0006/00c556: mov word [bp-0x08], 0xff94
+   ERROR: Instruction mismatch in routine _InitCarrier at 0017:02ff/00046f: mov di, [bp+0x06] != 0c55:0006/00c556
+   0017:0302/000472: mov si, [bp+0x0a]                != 0c55:000b/00c55b: mov word [bp-0x06], 0xff9a
+=== _InitSpeech
+   3a6f:00e9/03a7d9: push di                          != 374f:00e3/0375d3: push si
+   ERROR: Instruction mismatch in routine _InitSpeech at 3a6f:00e9/03a7d9: push di != 374f:00e3/0375d3: push si
+   3a6f:00ea/03a7da: push si                          != 374f:00e4/0375d4: mov word [0x4bcc], 0x0
+=== _IsLand
+   0342:12a0/0046c0: and al, 0xff                     != 0341:1297/0046a7: mov ah, al
+   ERROR: Instruction mismatch in routine _IsLand at 0342:12a0/0046c0: and al, 0xff != 0341:1297/0046a7: mov ah, 
+   0342:12a2/0046c2: push 0x0                         != 0341:1299/0046a9: sub al, al
+=== _Jink
+   2ad2:10b5/02bdd5: test byte [bx+0x7e7c], 0x4       != 2828:115d/0293dd: imul word [0xf46a], 0x30
+   ERROR: Instruction mismatch in routine _Jink at 2ad2:10b5/02bdd5: test byte [bx+0x7e7c], 0x4 != 2828:115d/0293
+   2ad2:10ba/02bdda: jz 0x10bf (0x5 down)             != 2828:1162/0293e2: mov [bp-0x1a], bx
+=== _Jink2
+   2ad2:19ac/02c6cc: imul word [0x61aa], 0x28         != 2828:1a28/029ca8: mov ax, 0x3765
+   ERROR: Instruction mismatch in routine _Jink2 at 2ad2:19ac/02c6cc: imul word [0x61aa], 0x28 != 2828:1a28/029ca
+   2ad2:19b1/02c6d1: test byte [bx+0x7e7c], 0x4       != 2828:1a2b/029cab: mov dx, 0x1fca
+=== _JoyRecal
+   1cac:00cc/01cb8c: jnz 0xd1 (0x5 down)              != 1c2d:00d2/01c3a2: jz 0x149 (0x77 down)
+   ERROR: Instruction mismatch in routine _JoyRecal at 1cac:00cc/01cb8c: jnz 0xd1 != 1c2d:00d2/01c3a2: jz 0x149
+   1cac:00ce/01cb8e: jmp 0x1d3 (0x105 down)           != 1c2d:00d4/01c3a4: cmp word [0xc974], 0x0
+=== _KeepPlaneOnCarrier
+   0017:02ff/00046f: mov di, [bp+0x06]                != 0c55:1376/00d8c6: mov word [bp-0x12], 0x10
+   ERROR: Instruction mismatch in routine _KeepPlaneOnCarrier at 0017:02ff/00046f: mov di, [bp+0x06] != 0c55:1376
+   0017:0302/000472: mov si, [bp+0x0a]                != 0c55:137b/00d8cb: mov word [bp-0x10], 0xe
+=== _LadderCircle
+   21ce:59a2/027682: mov ax, [0x619a]                 != 1fca:528b/024f2b: mov ax, [bp-0x04]
+   ERROR: Instruction mismatch in routine _LadderCircle at 21ce:59a2/027682: mov ax, [0x619a] != 1fca:528b/024f2b
+   21ce:59a5/027685: cmp [bp-0x04], ax                != 1fca:528e/024f2e: cmp [0xf45c], ax
+=== _Landing
+   21ce:1d5e/023a3e: mov [bp-0x0c], si                != 1fca:163c/0212dc: add si, 0x7e7c
+   ERROR: Instruction mismatch in routine _Landing at 21ce:1d5e/023a3e: mov [bp-0x0c], si != 1fca:163c/0212dc: ad
+   21ce:1d61/023a41: test byte [si+0x7e7d], 0x2       != 1fca:1640/0212e0: mov [bp-0x0c], si
+=== _LetNextPlaneLand
+   2fb2:5f49/035a69: push si                          != 2d51:5af0/033000: mov word [bp-0x0a], 0x64
+   ERROR: Instruction mismatch in routine _LetNextPlaneLand at 2fb2:5f49/035a69: push si != 2d51:5af0/033000: mov
+   2fb2:5f4a/035a6a: mov word [bp-0x0a], 0x64         != 2d51:5af5/033005: sub ax, ax
+=== _LGetTargADP
+   2ad2:48f7/02f617: mov ax, [bp+0x1a]                != 2828:4d88/02d008: mov ax, [0x2480]
+   ERROR: Instruction mismatch in routine _LGetTargADP at 2ad2:48f7/02f617: mov ax, [bp+0x1a] != 2828:4d88/02d008
+   2ad2:48fa/02f61a: add ax, [0x2480]                 != 2828:4d8b/02d00b: add ax, [bp+0x1a]
+=== _Load3DPlaneInfo
+   0504:01af/0051ef: mov si, ax                       != 0500:01b3/0051b3: imul word [0x501e], 0x28
+   ERROR: Instruction mismatch in routine _Load3DPlaneInfo at 0504:01af/0051ef: mov si, ax != 0500:01b3/0051b3: i
+   0504:01b1/0051f1: mov ax, [bp-0x12]                != 0500:01b8/0051b8: les bx, [0x5012]
+=== _LoadEMSObject
+   0058:0bff/00117f: jl 0xc39 (0x3a down)             != 0075:0b2a/00127a: jge 0xb2f (0x5 down)
+   ERROR: Instruction mismatch in routine _LoadEMSObject at 0058:0bff/00117f: jl 0xc39 != 0075:0b2a/00127a: jge 0
+   0058:0c01/001181: cmp si, 0xff                     != 0075:0b2c/00127c: jmp 0xbde (0xb2 down)
+=== _LoadFiles
+   18d5:02c0/019010: jmp short 0x2c5 (0x5 down)       != 187a:02b4/018a54: call far 0x13300ae ; ! / _LoadTheWorld
+   ERROR: Instruction mismatch in routine _LoadFiles at 18d5:02c0/019010: jmp short 0x2c5 != 187a:02b4/018a54: ca
+   18d5:02c2/019012: push 0x2a94                      != 187a:02b9/018a59: pop bx
+=== _LoadScottMission
+   1d56:005e/01d5be: jnz 0x67 (0x9 down)              != 1ccc:0068/01cd28: jz 0x45 (0x23 up)
+   ERROR: Instruction mismatch in routine _LoadScottMission at 1d56:005e/01d5be: jnz 0x67 != 1ccc:0068/01cd28: jz
+   1d56:0060/01d5c0: push 0x1                         != 1ccc:006a/01cd2a: mov word [0x666e], 0x46
+=== _LoadSpecialObjects
+   0017:02ff/00046f: mov di, [bp+0x06]                != 0500:0825/005825: mov word [bp-0x52], 0x504
+   ERROR: Instruction mismatch in routine _LoadSpecialObjects at 0017:02ff/00046f: mov di, [bp+0x06] != 0500:0825
+   0017:0302/000472: mov si, [bp+0x0a]                != 0500:082a/00582a: mov word [bp-0x50], 0x510
+=== _LocalCmds
+   1081:1274/011a84: push 0x3c, 0x0                   != 0f13:12bc/0103ec: sub ax, ax
+   ERROR: Instruction mismatch in routine _LocalCmds at 1081:1274/011a84: push 0x3c, 0x0 != 0f13:12bc/0103ec: sub
+   1081:1278/011a88: sub ax, ax                       != 0f13:12be/0103ee: mov [0xbdb2], ax
+=== _LocationPicture
+   2fb2:09f6/030516: push si                          != 2d51:098c/02de9c: push di
+   ERROR: Instruction mismatch in routine _LocationPicture at 2fb2:09f6/030516: push si != 2d51:098c/02de9c: push
+   2fb2:09f7/030517: mov word [bp-0x24], 0x4650       != 2d51:098d/02de9d: push si
+=== _LockDistanceCheck
+   08de:13f9/00a1d9: cwd                              != 07ac:138d/008e4d: jmp short 0x13cd (0x40 down)
+   ERROR: Instruction mismatch in routine _LockDistanceCheck at 08de:13f9/00a1d9: cwd != 07ac:138d/008e4d: jmp sh
+   08de:13fa/00a1da: jmp short 0x1402 (0x8 down)      != 07ac:138f/008e4f: mov ax, 0x51c0
+=== _LogIt
+=== _lproject
+   3e65:0012/03e662: mov ax, [bp+0x0a]                != 3ae6:0187/03afe7: mov ax, [0x895a]
+   ERROR: Instruction mismatch in routine _lproject at 3e65:0012/03e662: mov ax, [bp+0x0a] != 3ae6:0187/03afe7: m
+   3e65:0015/03e665: mov dx, [bp+0x0c]                != 3ae6:018a/03afea: mov dx, [0x895c]
+=== _MakeBoxes
+   0342:0680/003aa0: add al, [bp-0x06]                != 0341:0682/003a92: mov cx, di
+   ERROR: Instruction mismatch in routine _MakeBoxes at 0342:0680/003aa0: add al, [bp-0x06] != 0341:0682/003a92: 
+   0342:0683/003aa3: mov cl, [0xc61c]                 != 0341:0684/003a94: add al, cl
+=== _MapLoc
+   38b6:000c/038b6c: push si                          != 1dfb:00b5/01e065: push 0x2, 0x0
+   ERROR: Instruction mismatch in routine _MapLoc at 38b6:000c/038b6c: push si != 1dfb:00b5/01e065: push 0x2, 0x0
+   38b6:000d/038b6d: sub si, si                       != 1dfb:00b9/01e069: push [bp+0x06]
+=== _Message
+   21ce:8ee2/02abc2: push 0x4, 0x0                    != 1f41:0017/01f427: push bp
+   ERROR: Instruction mismatch in routine _Message at 21ce:8ee2/02abc2: push 0x4, 0x0 != 1f41:0017/01f427: push b
+   21ce:8ee6/02abc6: push si                          != 1f41:0018/01f428: mov bp, sp
+=== _Messages
+   05ce:0db8/006a98: cmp byte [0x560f], 0x0           != 1f41:000b/01f41b: cmp word [0xae94], 0x48
+   ERROR: Instruction mismatch in routine _Messages at 05ce:0db8/006a98: cmp byte [0x560f], 0x0 != 1f41:000b/01f4
+   05ce:0dbf/006a9f: mov byte [0x560f], 0x0           != 1f41:0012/01f422: push cs
+=== _MouseSHOW
+   4140:10c4/0424c4: xor ah, ah                       != 3d0c:00e0/03d1a0: xor ax, ax
+   ERROR: Instruction mismatch in routine _MouseSHOW at 4140:10c4/0424c4: xor ah, ah != 3d0c:00e0/03d1a0: xor ax,
+   4140:10c6/0424c6: call 0x10ca (0x4 down)           != 3d0c:00e2/03d1a2: call far 0x3d220298
+=== _MovePlane
+   2fb2:3b77/033697: mov si, [bp+0x06]                != 2d51:385b/030d6b: mov ax, [bp+0x08]
+   ERROR: Instruction mismatch in routine _MovePlane at 2fb2:3b77/033697: mov si, [bp+0x06] != 2d51:385b/030d6b: 
+   2fb2:3b7a/03369a: mov ax, [bp+0x08]                != 2d51:385e/030d6e: imul word [bp+0x06], 0x28
+=== _mplot
+   3a6f:00eb/03a7db: sub si, si                       != 1dfb:0040/01dff0: push [bp+0x06]
+   ERROR: Instruction mismatch in routine _mplot at 3a6f:00eb/03a7db: sub si, si != 1dfb:0040/01dff0: push [bp+0x
+   3a6f:00ed/03a7dd: mov [0x4bcc], si                 != 1dfb:0043/01dff3: push cs
+=== _MyMessages
+   1fc6:0112/01fd72: jz 0x119 (0x7 down)              != 1f41:0135/01f545: jnz 0x151 (0x1c down)
+   ERROR: Instruction mismatch in routine _MyMessages at 1fc6:0112/01fd72: jz 0x119 != 1f41:0135/01f545: jnz 0x15
+   1fc6:0114/01fd74: sub ax, ax                       != 1f41:0137/01f547: push 0x140
+=== _NDDot
+   01ac:129f/002d5f: push ss                          != 01ba:11b0/002d50: xchg dx, ax
+   ERROR: Instruction mismatch in routine _NDDot at 01ac:129f/002d5f: push ss != 01ba:11b0/002d50: xchg dx, ax
+   01ac:12a1/002d61: add [bx], cx                     != 01ba:11b2/002d52: fpu [bx], 0xf
+=== _NDLine
+   01ac:11cf/002c8f: push 0x6601                      != 01ba:10e0/002c80: rcr dh, cl
+   ERROR: Instruction mismatch in routine _NDLine at 01ac:11cf/002c8f: push 0x6601 != 01ba:10e0/002c80: rcr dh, c
+   01ac:11d2/002c92: add [0x15c], ax                  != 01ba:10e2/002c82: nop
+=== _NDraw3D
+   0017:007b/0001eb: push di                          != 0722:0004/007224: push 0x100
+   ERROR: Instruction mismatch in routine _NDraw3D at 0017:007b/0001eb: push di != 0722:0004/007224: push 0x100
+   0017:007c/0001ec: push si                          != 0722:0007/007227: push 0x1
+=== _NewLockView
+   3e88:0d86/03f606: mov di, [bp+0x06]                != 3b21:0aa0/03bcb0: cmp word [0x5534], 0xff
+   ERROR: Instruction mismatch in routine _NewLockView at 3e88:0d86/03f606: mov di, [bp+0x06] != 3b21:0aa0/03bcb0
+   3e88:0d89/03f609: cmp [0xae94], di                 != 3b21:0aa5/03bcb5: jnz 0xaad (0x8 down)
+=== _NHorz
+   1929:0065/0192f5: mov ax, [0x2afe]                 != 18cd:0094/018d64: push 0x0
+   ERROR: Instruction mismatch in routine _NHorz at 1929:0065/0192f5: mov ax, [0x2afe] != 18cd:0094/018d64: push 
+   1929:0068/0192f8: mov [bp-0x3e], ax                != 18cd:0096/018d66: push [0x2af4]
+=== _NPFFill
+   01ac:056f/00202f: pop word [bx+di-0x7efa]          != 01ba:056b/00210b: pop word bp
+   ERROR: Instruction mismatch in routine _NPFFill at 01ac:056f/00202f: pop word [bx+di-0x7efa] != 01ba:056b/0021
+=== _NPFLine
+   01ac:02cd/001d8d: push 0x6601                      != 01ba:02c9/001e69: rcr dh, cl
+   ERROR: Instruction mismatch in routine _NPFLine at 01ac:02cd/001d8d: push 0x6601 != 01ba:02c9/001e69: rcr dh, 
+   01ac:02d0/001d90: add [0x15c], ax                  != 01ba:02cb/001e6b: nop
+=== _NSCALELINE2
+   1a3c:0034/01a3f4: mov dx, [bp+0x14]                != 01ba:0ddf/00297f: mov bp, [bp+0x0a]
+   ERROR: Instruction mismatch in routine _NSCALELINE2 at 1a3c:0034/01a3f4: mov dx, [bp+0x14] != 01ba:0ddf/00297f
+   1a3c:0037/01a3f7: cmp dx, byte 0xff                != 01ba:0de2/002982: shr cx, 1
+=== _OnCarrier
+   2ad2:2c2d/02d94d: push di                          != 0c55:0f3c/00d48c: mov ax, [bp+0x06]
+   ERROR: Instruction mismatch in routine _OnCarrier at 2ad2:2c2d/02d94d: push di != 0c55:0f3c/00d48c: mov ax, [b
+   2ad2:2c2e/02d94e: push si                          != 0c55:0f3f/00d48f: mov dx, [bp+0x08]
+=== _OnTheDeck
+   0dc3:186b/00f49b: jnz 0x1898 (0x2d down)           != 0c55:1805/00dd55: jz 0x180a (0x5 down)
+   ERROR: Instruction mismatch in routine _OnTheDeck at 0dc3:186b/00f49b: jnz 0x1898 != 0c55:1805/00dd55: jz 0x18
+   0dc3:186d/00f49d: mov ax, [0x51d2]                 != 0c55:1807/00dd57: jmp 0x1acf (0x2c8 down)
+=== _Perspect3D
+   01ac:009f/001b5f: sbb al, [bx+di]                  != 01ba:009b/001c3b: xchg si, ax
+   ERROR: Instruction mismatch in routine _Perspect3D at 01ac:009f/001b5f: sbb al, [bx+di] != 01ba:009b/001c3b: x
+   01ac:00a1/001b61: nop                              != 01ba:009c/001c3c: fpu [bp+0x03], 0x66
+=== _pitchbar2
+   0dc3:08c2/00e4f2: push 0x0                         != 1b10:02dd/01b3dd: mov di, [bp+0x0e]
+   ERROR: Instruction mismatch in routine _pitchbar2 at 0dc3:08c2/00e4f2: push 0x0 != 1b10:02dd/01b3dd: mov di, [
+   0dc3:08c4/00e4f4: push 0x64                        != 1b10:02e0/01b3e0: mov si, [bp+0x0c]
+=== _Planes3D
+   072e:02d7/0075b7: mov es, dx                       != 060e:02be/00639e: mov [bp-0x0a], ax
+   ERROR: Instruction mismatch in routine _Planes3D at 072e:02d7/0075b7: mov es, dx != 060e:02be/00639e: mov [bp-
+   072e:02d9/0075b9: mov bx, ax                       != 060e:02c1/0063a1: mov [bp-0x08], dx
+=== _RadarThreats
+   3cb5:0037/03cb87: sub di, di                       != 3972:0039/039759: sub si, si
+   ERROR: Instruction mismatch in routine _RadarThreats at 3cb5:0037/03cb87: sub di, di != 3972:0039/039759: sub 
+   3cb5:0039/03cb89: mov [0x527a], di                 != 3972:003b/03975b: mov [0x527a], si
+=== _RioMap
+   37ba:0b45/0386e5: jmp short 0xb4a (0x5 down)       != 34ab:0b45/0355f5: push 0x1
+   ERROR: Instruction mismatch in routine _RioMap at 37ba:0b45/0386e5: jmp short 0xb4a != 34ab:0b45/0355f5: push 
+   37ba:0b47/0386e7: push 0x4884                      != 34ab:0b47/0355f7: call far 0x3d0c00b0
+=== _RioWpMark
+   37ba:00aa/037c4a: mov es, dx                       != 34ab:00b4/034b64: mov di, ax
+   ERROR: Instruction mismatch in routine _RioWpMark at 37ba:00aa/037c4a: mov es, dx != 34ab:00b4/034b64: mov di,
+   37ba:00ac/037c4c: mov bx, ax                       != 34ab:00b6/034b66: mov [bp-0x02], dx
+=== _RpPrint
+   4140:10c4/0424c4: xor ah, ah                       != 3d0c:0118/03d1d8: xor ax, ax
+   ERROR: Instruction mismatch in routine _RpPrint at 4140:10c4/0424c4: xor ah, ah != 3d0c:0118/03d1d8: xor ax, a
+   4140:10c6/0424c6: call 0x10ca (0x4 down)           != 3d0c:011a/03d1da: call far 0x3d220298
+=== _ScottFlight
+   1604:1021/017061: sub ax, ax                       != 14d9:1369/0160f9: mov ax, 0x1
+   ERROR: Instruction mismatch in routine _ScottFlight at 1604:1021/017061: sub ax, ax != 14d9:1369/0160f9: mov a
+   1604:1023/017063: mov [0x8990], ax                 != 14d9:136c/0160fc: jmp 0x2b2d (0x17c1 down)
+=== _search
+   21ce:2161/023e41: inc ax                           != 1fca:1a16/0216b6: cmp ax, 0x46
+   ERROR: Instruction mismatch in routine _search at 21ce:2161/023e41: inc ax != 1fca:1a16/0216b6: cmp ax, 0x46
+   21ce:2162/023e42: jnz 0x2169 (0x7 down)            != 1fca:1a19/0216b9: jge 0x1a2f (0x16 down)
+=== _SearchForTargets
+=== __setargv
+   2ad2:22b3/02cfd3: push 0xe, 0x0                    != 3d22:0f3a/03e15a: pop word [0xed74]
+   ERROR: Instruction mismatch in routine __setargv at 2ad2:22b3/02cfd3: push 0xe, 0x0 != 3d22:0f3a/03e15a: pop w
+   2ad2:22b7/02cfd7: push di                          != 3d22:0f3e/03e15e: pop word [0xed76]
+=== _SetMatsPtrsOrder
+   0058:01c4/000744: mov ax, [bp-0x0e]                != 0075:01c4/000914: mov ax, [0x69be]
+   ERROR: Instruction mismatch in routine _SetMatsPtrsOrder at 0058:01c4/000744: mov ax, [bp-0x0e] != 0075:01c4/0
+   0058:01c7/000747: add ax, [0x69be]                 != 0075:01c7/000917: add ax, [bp-0x0e]
+=== _SetUpLaunch
+   2fb2:42ec/033e0c: push [bx+0x7e7a]                 != 2d51:3fac/0314bc: test byte [di+0x69d7], 0x80
+   ERROR: Instruction mismatch in routine _SetUpLaunch at 2fb2:42ec/033e0c: push [bx+0x7e7a] != 2d51:3fac/0314bc:
+   2fb2:42f0/033e10: call far 0x5040645               != 2d51:3fb1/0314c1: jnz 0x3fbe (0xd down)
+=== _SetUpWingman
+=== _ShowAIStatus
+   08de:0d71/009b51: push si                          != 1fca:5660/025300: push di
+   ERROR: Instruction mismatch in routine _ShowAIStatus at 08de:0d71/009b51: push si != 1fca:5660/025300: push di
+   08de:0d72/009b52: cmp word [bp+0x06], 0xff         != 1fca:5661/025301: push si
+=== _ShowAIWeaponStatus
+   21ce:5d1d/0279fd: add bx, byte 0x1a                != 1fca:5608/0252a8: mov ax, es:[bx+si+0x1a]
+   ERROR: Instruction mismatch in routine _ShowAIWeaponStatus at 21ce:5d1d/0279fd: add bx, byte 0x1a != 1fca:5608
+   21ce:5d20/027a00: mov ax, es:[bx+si]               != 1fca:560c/0252ac: mov [bp-0x5a], ax
+=== _ShowFuel
+   120f:2d2a/014e1a: mov ax, [0x5028]                 != 1096:31f7/013b57: push si
+   ERROR: Instruction mismatch in routine _ShowFuel at 120f:2d2a/014e1a: mov ax, [0x5028] != 1096:31f7/013b57: pu
+   120f:2d2d/014e1d: mov [bp-0x04], ax                != 1096:31f8/013b58: mov si, [0x5028]
+=== _show_jamming
+   3cb5:07a6/03d2f6: jnz 0x7ad (0x7 down)             != 3972:0797/039eb7: jz 0x7a0 (0x9 down)
+   ERROR: Instruction mismatch in routine _show_jamming at 3cb5:07a6/03d2f6: jnz 0x7ad != 3972:0797/039eb7: jz 0x
+   3cb5:07a8/03d2f8: push 0x5286                      != 3972:0799/039eb9: cmp word [0x527a], 0x0
+=== _ShowOurWPS
+=== _show_plane
+   3cb5:0763/03d2b3: inc ax                           != 3972:0757/039e77: mov [bp-0x06], ax
+   ERROR: Instruction mismatch in routine _show_plane at 3cb5:0763/03d2b3: inc ax != 3972:0757/039e77: mov [bp-0x
+   3cb5:0764/03d2b4: inc ax                           != 3972:075a/039e7a: lea ax, [bp-0x14]
+=== _show_radar
+   3cb5:06b5/03d205: inc si                           != 3972:06ac/039dcc: lea ax, [bp-0x0a]
+   ERROR: Instruction mismatch in routine _show_radar at 3cb5:06b5/03d205: inc si != 3972:06ac/039dcc: lea ax, [b
+   3cb5:06b6/03d206: inc si                           != 3972:06af/039dcf: push ax
+=== _SndSounds
+   4140:10c4/0424c4: xor ah, ah                       != 3d0c:0150/03d210: xor ax, ax
+   ERROR: Instruction mismatch in routine _SndSounds at 4140:10c4/0424c4: xor ah, ah != 3d0c:0150/03d210: xor ax,
+   4140:10c6/0424c6: call 0x10ca (0x4 down)           != 3d0c:0152/03d212: call far 0x3d220298
+=== _Splatted
+   1604:28d0/018910: push [0x247e]                    != 14d9:2bb2/017942: push 0x2
+   ERROR: Instruction mismatch in routine _Splatted at 1604:28d0/018910: push [0x247e] != 14d9:2bb2/017942: push 
+   1604:28d4/018914: call far 0x18a7019e              != 14d9:2bb4/017944: push 0x19e1
+=== _Stack3DObject
+   1929:0ef1/01a181: mov es, [0x5fca]                 != 18cd:0ea9/019b79: imul word [0x2afa], 0x12
+   ERROR: Instruction mismatch in routine _Stack3DObject at 1929:0ef1/01a181: mov es, [0x5fca] != 18cd:0ea9/019b7
+   1929:0ef5/01a185: imul word [0x2afa], 0x12         != 18cd:0eae/019b7e: mov [bx-0x5ebe], ax
+=== _SteerAndMoveMissile
+   38b6:07b6/039316: mov bx, ax                       != 35a7:07b5/036225: mov bx, [0xf48c]
+   ERROR: Instruction mismatch in routine _SteerAndMoveMissile at 38b6:07b6/039316: mov bx, ax != 35a7:07b5/03622
+   38b6:07b8/039318: or bx, bx                        != 35a7:07b9/036229: add [bx+0x12], ax
+=== _StraightAttack
+   21ce:42fd/025fdd: jle 0x433c (0x3f down)           != 1fca:3beb/02388b: jge 0x3c27 (0x3c down)
+   21ce:42ff/025fdf: mov cx, [bp-0x36]                != 1fca:3bed/02388d: sub ax, 0xfa
+   21ce:4302/025fe2: sub cx, 0xfa                     != 1fca:3bf0/023890: cmp ax, [bp-0x12]
+=== _TakingOff
+   21ce:0b84/022864: sub di, di                       != 2828:4784/02ca04: cmp word [0x669a], 0x5
+   ERROR: Instruction mismatch in routine _TakingOff at 21ce:0b84/022864: sub di, di != 2828:4784/02ca04: cmp wor
+   21ce:0b86/022866: cmp word [0x669a], 0x5           != 2828:4789/02ca09: jge 0x478e (0x5 down)
+=== _TD_box
+   1a48:1235/01b6b5: mov si, [0xc306]                 != 19e7:1092/01af02: sub dx, dx
+   ERROR: Instruction mismatch in routine _TD_box at 1a48:1235/01b6b5: mov si, [0xc306] != 19e7:1092/01af02: sub 
+   1a48:1239/01b6b9: add si, [0x2f3a]                 != 19e7:1094/01af04: mov si, [0xc306]
+=== _TID_draw_target
+   3d7e:08a5/03e085: mov word [bp-0x0e], 0x1          != 3a32:05dc/03a8fc: imul word [si+0x1a], 0x28
+   ERROR: Instruction mismatch in routine _TID_draw_target at 3d7e:08a5/03e085: mov word [bp-0x0e], 0x1 != 3a32:0
+   3d7e:08aa/03e08a: imul word [si+0x1a], 0x28        != 3a32:05e0/03a900: add ax, 0x7e64
+=== _TIDShowRange
+   120f:13d1/0134c1: push si                          != 1096:14a3/011e03: push 0xa, 0x0
+   ERROR: Instruction mismatch in routine _TIDShowRange at 120f:13d1/0134c1: push si != 1096:14a3/011e03: push 0x
+   120f:13d2/0134c2: push 0x0                         != 1096:14a7/011e07: push di
+=== _TIDxy
+   3cb5:07e7/03d337: mov ax, [0xb726]                 != 3a32:04a3/03a7c3: mov cl, 0x7
+   ERROR: Instruction mismatch in routine _TIDxy at 3cb5:07e7/03d337: mov ax, [0xb726] != 3a32:04a3/03a7c3: mov c
+   3cb5:07ea/03d33a: sub ax, [bp+0x08]                != 3a32:04a5/03a7c5: sub cl, [0x908e]
+=== _TrackDisplayPosition
+=== _UnZoomDisplay
+   120f:29cc/014abc: jge 0x29d2 (0x6 down)            != 1096:2f4f/0138af: jle 0x2f55 (0x6 down)
+   ERROR: Instruction mismatch in routine _UnZoomDisplay at 120f:29cc/014abc: jge 0x29d2 != 1096:2f4f/0138af: jle
+   120f:29ce/014abe: inc [0x908e]                     != 1096:2f51/0138b1: dec [0x908e]
+=== _UpdateBoatSpeedAndPosition
+   0c38:02ed/00c66d: les di, [0x7e4c]                 != 0acf:02d8/00afc8: mov ax, [bx+0x69d4]
+   ERROR: Instruction mismatch in routine _UpdateBoatSpeedAndPosition at 0c38:02ed/00c66d: les di, [0x7e4c] != 0a
+   0c38:02f1/00c671: mov ax, es:[di+0x0a]             != 0acf:02dc/00afcc: cwd
+=== _UpdateHelicopterHPR_SandP
+   21ce:86c5/02a3a5: mov si, ax                       != 1fca:7e62/027b02: mov bx, [0x61a4]
+   ERROR: Instruction mismatch in routine _UpdateHelicopterHPR_SandP at 21ce:86c5/02a3a5: mov si, ax != 1fca:7e62
+   21ce:86c7/02a3a7: imul word [0x619a], 0x30         != 1fca:7e66/027b06: add [bx+0x14], ax
+=== _UpdateInterceptGroup
+   2fb2:02e3/02fe03: mov [bp-0x0a], ax                != 2d51:02a5/02d7b5: push [bp+0x06]
+   ERROR: Instruction mismatch in routine _UpdateInterceptGroup at 2fb2:02e3/02fe03: mov [bp-0x0a], ax != 2d51:02
+   2fb2:02e6/02fe06: push [bp+0x06]                   != 2d51:02a8/02d7b8: call far 0x282806e3
+=== _UpdateLights
+   120f:2be7/014cd7: call far 0x5ce0db1               != 1096:3133/013a93: pop si
+   ERROR: Instruction mismatch in routine _UpdateLights at 120f:2be7/014cd7: call far 0x5ce0db1 != 1096:3133/013a
+   120f:2bec/014cdc: cmp word [0x1d38], 0x0           != 1096:3134/013a94: retf
+=== _UpdateOurPlaneAnims
+=== _UpdateOurWPS
+   2fb2:361f/03313f: sub ax, ax                       != 2d51:3324/030834: sub di, di
+   ERROR: Instruction mismatch in routine _UpdateOurWPS at 2fb2:361f/03313f: sub ax, ax != 2d51:3324/030834: sub 
+   2fb2:3621/033141: mov [bp-0x1c], ax                != 2d51:3326/030836: mov [bp-0x08], di
+=== _UpdatePalBuf
+   08de:1b41/00a921: push di                          != 17b1:0054/017b64: push 0x2, 0x0
+   ERROR: Instruction mismatch in routine _UpdatePalBuf at 08de:1b41/00a921: push di != 17b1:0054/017b64: push 0x
+   08de:1b42/00a922: push si                          != 17b1:0058/017b68: push di
+=== _UpdateSpeedAndPosition
+   21ce:163c/02331c: push [0x619a]                    != 1fca:0f84/020c24: mov bx, [bp-0x0e]
+   ERROR: Instruction mismatch in routine _UpdateSpeedAndPosition at 21ce:163c/02331c: push [0x619a] != 1fca:0f84
+   21ce:1640/023320: call far 0x2ad206ec              != 1fca:0f87/020c27: test byte [bx+0x69d7], 0x2
+=== _UpdateTime1
+   3b61:0790/03bda0: push bp                          != 3837:078a/038afa: call far 0x3d0c0068 ; ! / _GETTIME
+   ERROR: Instruction mismatch in routine _UpdateTime1 at 3b61:0790/03bda0: push bp != 3837:078a/038afa: call far
+   3b61:0791/03bda1: mov bp, sp                       != 3837:078f/038aff: sub ax, [0xe9dc]
+=== _UpdateTime2
+   3b61:07f6/03be06: mov ax, [0x51d2]                 != 3837:07db/038b4b: cmp word [0x51d2], 0x4
+   ERROR: Instruction mismatch in routine _UpdateTime2 at 3b61:07f6/03be06: mov ax, [0x51d2] != 3837:07db/038b4b:
+   3b61:07f9/03be09: cmp [0x51e4], ax                 != 3837:07e0/038b50: jnb 0x7f4 (0x14 down)
+=== _VectorIntercept
+=== _vsprintf
+   4140:0961/041d61: sub sp, byte 0x2                 != 3d22:08cb/03daeb: push di
+   ERROR: Instruction mismatch in routine _vsprintf at 4140:0961/041d61: sub sp, byte 0x2 != 3d22:08cb/03daeb: pu
+   4140:0964/041d64: push di                          != 3d22:08cc/03daec: push si
+=== _WingmanAdd
+   08de:341a/00c1fa: mov [bp-0x02], ax                != 07ac:2fa9/00aa69: inc [0xf3d8]
+   ERROR: Instruction mismatch in routine _WingmanAdd at 08de:341a/00c1fa: mov [bp-0x02], ax != 07ac:2fa9/00aa69:
+   08de:341d/00c1fd: inc [0xbe30]                     != 07ac:2fad/00aa6d: mov si, [bp+0x06]
+=== _X2map
+   072e:0157/007437: push si                          != 1dfb:000f/01dfbf: mov ax, [bp+0x06]
+   ERROR: Instruction mismatch in routine _X2map at 072e:0157/007437: push si != 1dfb:000f/01dfbf: mov ax, [bp+0x
+   072e:0158/007438: sub si, si                       != 1dfb:0012/01dfc2: sub ax, [0x66e8]
