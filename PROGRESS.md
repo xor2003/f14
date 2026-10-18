@@ -777,3 +777,17 @@ Additional decode notes:
   in gold at 0x28b3, MODERATE at [0x1008]==1, AUTHENTIC at ==2 with
   4988/159616 and 1900/60800,4513/144416,... sig table). Residual:
   di-vs-bx pointer pin + preload hoist — regalloc class.
+- verify_full.log: 576 -> 577 MATCH / 763 pairings (AIGetBombDist MATCH)
+- MSC6 compare rule (probe lp8): unsigned<unsigned emits
+  `mov ax,[RHS]; cmp [LHS],ax; jnb` ; signed mixes emit LHS-load.
+  &&-context with trailing abs() calls forces LHS-load regardless —
+  CoreCheckGunFiring keeps residual mov ax,[tdistl] vs gold's
+  mov ax,[tdistfire] under identical source.
+- ChooseBehavior/AISanitizeCheck/CheckDataLink: the local-vs-global
+  `cmp` operand pick + eval-order is a symbol-table/descriptor tie-break
+  — identical source emits different order under different register
+  pressure. Also feeds the `push ax` vs `push [bp-X]` arg diff (ax=cnt
+  live iff tail loads cnt first).
+- Mispairings found (verify DIFF but not real routines):
+  _UpdateLights 2fb2:1759 = 4-arg position query; _ChangeColor/
+  _ClipSprite 4140:10c4 = 6-byte thunk stubs.
