@@ -5,22 +5,37 @@
 #include <sys\stat.h>
 #include <stdlib.h>
 
-FILE *tfile;
-FILE *outfile;
-char buf[15];
+extern FILE * tfile;
 
-int MissileEnumId;
-char name[12];
-int range;
-int minrange;
-int maxalt;
-int speed;
-int homing;
-int maneuver;
-int cmeffect;
-int damage;
-char filename[12];
-int type;
+extern FILE * outfile;
+
+extern char buf[15];
+
+
+extern int MissileEnumId;
+
+extern char name[12];
+
+extern int range;
+
+extern int minrange;
+
+extern int maxalt;
+
+extern int speed;
+
+extern int homing;
+
+extern int maneuver;
+
+extern int cmeffect;
+
+extern int damage;
+
+extern char filename[12];
+
+extern int type;
+
 
 struct cl {
 	int MissileEnumId;
@@ -35,13 +50,20 @@ struct cl {
 	int damage;
 	char filename[12];
 	int type;
-} missilerec;
+};
+extern struct cl missilerec;
 
-int recsize = sizeof(missilerec);
-int flstat;
-int planecnt=0;
-int i;
-long recseek=0;
+
+extern int recsize;
+
+extern int flstat;
+
+extern int planecnt;
+
+extern int i;
+
+extern long recseek;
+
 
 main()
 {

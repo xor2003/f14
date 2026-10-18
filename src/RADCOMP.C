@@ -5,18 +5,29 @@
 #include <sys\stat.h>
 #include <stdlib.h>
 
-FILE *tfile;
-FILE *outfile;
-char buf[15];
+extern FILE * tfile;
 
-int RadarEnumId;
-char name[10];
-int range;
-int detectiontype;
-int missiletype;
-int missilecount;
-int jam;
-int tewsnum;
+extern FILE * outfile;
+
+extern char buf[15];
+
+
+extern int RadarEnumId;
+
+extern char name[10];
+
+extern int range;
+
+extern int detectiontype;
+
+extern int missiletype;
+
+extern int missilecount;
+
+extern int jam;
+
+extern int tewsnum;
+
 
 struct cl {
 	int RadarEnumId;
@@ -27,13 +38,20 @@ struct cl {
 	int missilecount;
 	int jam;
 	int tewsnum;
-} radarrec;
+};
+extern struct cl radarrec;
 
-int recsize = sizeof(radarrec);
-int flstat;
-int planecnt=0;
-int i;
-long recseek=0;
+
+extern int recsize;
+
+extern int flstat;
+
+extern int planecnt;
+
+extern int i;
+
+extern long recseek;
+
 
 main()
 {

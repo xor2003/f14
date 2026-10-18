@@ -1,3 +1,20 @@
+extern char gstr114[];
+extern char gstr115[];
+extern char gstr116[];
+extern char gstr117[];
+extern char gstr118[];
+extern char gstr119[];
+extern char gstr120[];
+extern char gstr121[];
+extern char gstr122[];
+extern char gstr123[];
+extern char gstr124[];
+extern char gstr125[];
+extern char gstr126[];
+extern char gstr127[];
+extern char gstr128[];
+extern char gstr129[];
+
 //***************************************************************************
 //*
 //*    AWG9.C
@@ -65,42 +82,72 @@ static int ASE_Tbl[2][19] =
 	{100,95,89,83,77,73,69,65,55,50,46,55,63,71,75,82,85,88,91  }, // ir
 };
 
-int		 SELECTED_BAR_NUM=BAR_2;
-int		 SELECTED_AZ=DEG40;
-int		 AWG9_REALITY_LEVEL=AWG9_AUTHENTIC;
-int		 RIO_ASSIST=RIO_ASSIST_AUTHENTIC;
-unsigned AWG9_MODE=0;
-int      MAXRNG=5;
-int		 MINRNG=0;
+extern int SELECTED_BAR_NUM;
+
+extern int SELECTED_AZ;
+
+extern int AWG9_REALITY_LEVEL;
+
+extern int RIO_ASSIST;
+
+extern unsigned AWG9_MODE;
+
+extern int MAXRNG;
+
+extern int MINRNG;
+
 extern int RANGES[];
 
 extern int BRANGES[];
  // in 15-bit scale (1 bit == 4*32 ft)
-int      RANGE=5;
+extern int RANGE;
 
-int      DESIGNATED;
-int      LOCKED;
 
-unsigned PDT_ALT_1000;
-unsigned PDT_ALT_100;
-int      PDT_RNG;
-char     ASPECT_S[5];
-int      ASE_RADIUS;
-int      SHOOT;
-int      PW;
-int      PDT_PROJ_X;
-int      PDT_PROJ_Y;
-int      PDT_PROJ;
-int      STEER_DOT_X;
-int      STEER_DOT_Y;
-int      STEER_DOT;
-int      TTI;
-int      CLOSURE;
-int      AWG9_SNIFF;
+extern int DESIGNATED;
+
+extern int LOCKED;
+
+
+extern unsigned PDT_ALT_1000;
+
+extern unsigned PDT_ALT_100;
+
+extern int PDT_RNG;
+
+extern char ASPECT_S[5];
+
+extern int ASE_RADIUS;
+
+extern int SHOOT;
+
+extern int PW;
+
+extern int PDT_PROJ_X;
+
+extern int PDT_PROJ_Y;
+
+extern int PDT_PROJ;
+
+extern int STEER_DOT_X;
+
+extern int STEER_DOT_Y;
+
+extern int STEER_DOT;
+
+extern int TTI;
+
+extern int CLOSURE;
+
+extern int AWG9_SNIFF;
+
 extern int LOCKSHOOT;
 
-int      IFF_timer;
-int      proj_x, proj_y, proj_z;
+extern int IFF_timer;
+
+extern int proj_x;
+extern int proj_y;
+extern int proj_z;
+
 
 static struct {
    int   deg;
@@ -118,50 +165,78 @@ static struct {
 extern int TIDTargetCnt;
 extern TIDTarg TIDTargetList[];
 
-int DesigTargCnt=0;
-int NumInFlight=0;
-DTARGET DESIG_TARG[6];
+extern int DesigTargCnt;
 
-TARGET  DESIG_TARGF;
-TARGET  PREV_DESIG_TARGF;
+extern int NumInFlight;
 
-TARGET  TARGFILE0[MAXTARGFIL];
-TARGET	TARGFILE1[MAXTARGFIL];
-TARGET	*TARGFILE;
-TARGET	*AGEDTARGFILE;
-int		TARGFILE0CNT;
-int		TARGFILE1CNT;
-int		*TARGFILECNT;
-int		*AGEDTARGFILECNT;
+extern DTARGET DESIG_TARG[6];
 
-TARGET *ACQLIST[MAXTARGFIL*2];
-int ACQLISTCNT;
 
-TARGET *FIRINGORDERLIST[MAXTARGFIL*2];
-int FIRINGORDERCNT;
+extern TARGET DESIG_TARGF;
 
-int DETECTED_TARG[MAXPLANE];
-int DataLinkList[8];
-int DataLinkCnt=0;
+extern TARGET PREV_DESIG_TARGF;
+
+
+extern TARGET TARGFILE0[MAXTARGFIL];
+
+extern TARGET TARGFILE1[MAXTARGFIL];
+
+extern TARGET	* TARGFILE;
+
+extern TARGET	* AGEDTARGFILE;
+
+extern int TARGFILE0CNT;
+
+extern int TARGFILE1CNT;
+
+extern int		* TARGFILECNT;
+
+extern int		* AGEDTARGFILECNT;
+
+
+extern TARGET * ACQLIST[MAXTARGFIL*2];
+
+extern int ACQLISTCNT;
+
+
+extern TARGET * FIRINGORDERLIST[MAXTARGFIL*2];
+
+extern int FIRINGORDERCNT;
+
+
+extern int DETECTED_TARG[MAXPLANE];
+
+extern int DataLinkList[8];
+
+extern int DataLinkCnt;
+
 extern int whichourcarr;
 
-int     AZSWEEP;				// Azimuth sweep position
-int     AZSWEEP_DIR;			// Azimuth sweep direction
-int     CUR_BAR;				// Current bar position
-int		DataLink=0;				// DataLink - Default Off
+extern int AZSWEEP;
+				// Azimuth sweep position
+extern int AZSWEEP_DIR;
+			// Azimuth sweep direction
+extern int CUR_BAR;
+				// Current bar position
+extern int DataLink;
+				// DataLink - Default Off
 
 static int ACQ_X;
 static int ACQ_Y;
 
-int BEAM_HDG;					// Beam Heading
-int BEAM_PIT;					// Beam Pitch
-int	BEAM_ROL;					// Beal Roll
+extern int BEAM_HDG;
+					// Beam Heading
+extern int BEAM_PIT;
+					// Beam Pitch
+extern int BEAM_ROL;
+					// Beal Roll
 
 static int     STABLE_HDG;
 static int     STABLE_PIT;
 
 static int     BEAM_M[9];
-       int     PLYR_M[9];
+       extern int PLYR_M[9];
+
 
 static int     CVG_MAX;
 static int     CVG_MIN;
@@ -170,10 +245,14 @@ static int     KNOTS;
 static int     ASPDEG;
 static int     break_mode;
 
-int BAD_GUY;
-int	NumBars=0;
-int AZSweep=0;
-int ModerateMode=0;
+extern int BAD_GUY;
+
+extern int NumBars;
+
+extern int AZSweep;
+
+extern int ModerateMode;
+
 extern int InRangeFlash;
 
 
@@ -372,14 +451,14 @@ int UpdateTWSSelected()
 
 		switch (ASPDEG) {
 			case 0 :
-				strcpy(ASPECT_S,"T");
+				strcpy(ASPECT_S,gstr114);
 			break;
 			case 18:
-				strcpy(ASPECT_S,"H");
+				strcpy(ASPECT_S,gstr115);
 			break;
 			default:
 				strcpy(ASPECT_S,itoa(ASPDEG,Txt,10));
-            	strcat(ASPECT_S,(asp > 0)?"L":"R");
+            	strcat(ASPECT_S,(asp > 0)?gstr116:gstr117);
 			break;
 		}
 
@@ -404,9 +483,9 @@ int AWG9_IFF()
  			IFF_timer = FrameRate * 2;
 			Sound (N_IFFWarning, 1,0);
 			if (AWG9_REALITY_LEVEL == AWG9_EASY)
-				Message("(RIO) Friendly Aircraft", RIO_NOW_MSG);
+				Message(gstr118, RIO_NOW_MSG);
 			else
-				Message("(RIO) IFF Check Positive - Friendly Aircraft", RIO_NOW_MSG);
+				Message(gstr119, RIO_NOW_MSG);
 
 			for (i=0; i < *TARGFILECNT; i++) {
 				if (TARGFILE[i].i == SelectedTarg) {
@@ -423,9 +502,9 @@ int AWG9_IFF()
 		}
 		if (!(ps[SelectedTarg].status & (FRIENDLY|NEUTRAL))) {
 			if (AWG9_REALITY_LEVEL == AWG9_EASY)
-				Message("(RIO) Enemy Aircraft", RIO_NOW_MSG);
+				Message(gstr120, RIO_NOW_MSG);
 			else
-				Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
+				Message(gstr121, RIO_NOW_MSG);
 			BAD_GUY = FrameRate * 2;
 			for (i=0; i < *TARGFILECNT; i++) {
 				if (TARGFILE[i].i == SelectedTarg) {
@@ -442,9 +521,9 @@ int AWG9_IFF()
 		}
 		if (ps[SelectedTarg].status & CIVILIAN) {
 			if (AWG9_REALITY_LEVEL == AWG9_EASY)
-				Message("(RIO) Civilian Aircraft", RIO_NOW_MSG);
+				Message(gstr122, RIO_NOW_MSG);
 			else
-				Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
+				Message(gstr121, RIO_NOW_MSG);
 		}
 		return 0;
 	}
@@ -456,9 +535,9 @@ int AWG9_IFF()
 		IFF_timer = FrameRate * 2;
 		Sound (N_IFFWarning, 1,0);
 		if (AWG9_REALITY_LEVEL == AWG9_EASY)
-			Message("(RIO) Friendly Aircraft", RIO_NOW_MSG);
+			Message(gstr118, RIO_NOW_MSG);
 		else
-			Message("(RIO) IFF Check Positive - Friendly Aircraft", RIO_NOW_MSG);
+			Message(gstr119, RIO_NOW_MSG);
 		if ((AWG9_MODE==AWG9_STANDARD_TRACK) || (AWG9_MODE == AWG9_PDSTT)) {
 			DESIG_TARGF.id = 1;
 			if (PREV_DESIG_TARGF.i == DESIG_TARGF.i)
@@ -481,9 +560,9 @@ int AWG9_IFF()
 	if (!(ps[DESIGNATED].status & (FRIENDLY|NEUTRAL))) {
 		BAD_GUY = FrameRate * 2;
 		if (AWG9_REALITY_LEVEL == AWG9_EASY)
-			Message("(RIO) Enemy Aircraft", RIO_NOW_MSG);
+			Message(gstr120, RIO_NOW_MSG);
 		else
-			Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
+			Message(gstr121, RIO_NOW_MSG);
 		if ((AWG9_MODE==AWG9_STANDARD_TRACK) || (AWG9_MODE == AWG9_PDSTT)) {
 			DESIG_TARGF.id = 2;
 			if (PREV_DESIG_TARGF.i == DESIG_TARGF.i)
@@ -504,9 +583,9 @@ int AWG9_IFF()
 	}
 	if (ps[DESIGNATED].status & CIVILIAN) {
 		if (AWG9_REALITY_LEVEL == AWG9_EASY)
-			Message("(RIO) Civilian Aircraft", RIO_NOW_MSG);
+			Message(gstr122, RIO_NOW_MSG);
 		else
-			Message("(RIO) IFF Check Negative - Possible Hostile", RIO_NOW_MSG);
+			Message(gstr121, RIO_NOW_MSG);
 	}
 }
 
@@ -1085,9 +1164,9 @@ int AWG9_POWERUP()
 	int bh;
 
 	if (!(AWG9_SNIFF ^= 1)) {
-		Message("(RIO) Radar Active", RIO_NOW_MSG);
+		Message(gstr123, RIO_NOW_MSG);
 	} else {
-		Message("(RIO) Radar Inactive", RIO_NOW_MSG);
+		Message(gstr124, RIO_NOW_MSG);
 		return 0;
 	}
 
@@ -1375,14 +1454,14 @@ int TargetTrack()
 
 	switch (ASPDEG) {
 		case 0 :
-			strcpy(ASPECT_S,"T");
+			strcpy(ASPECT_S,gstr114);
 		break;
 		case 18:
-			strcpy(ASPECT_S,"H");
+			strcpy(ASPECT_S,gstr115);
 		break;
 		default:
 			strcpy(ASPECT_S,itoa(ASPDEG,Txt,10));
-            strcat(ASPECT_S,(asp > 0)?"L":"R");
+            strcat(ASPECT_S,(asp > 0)?gstr116:gstr117);
 		break;
 	}
 
@@ -1412,7 +1491,7 @@ int LockDistanceCheck(TARGET *t)
 	if (AWG9_REALITY_LEVEL==AWG9_EASY) {
 		rng = (t->conv) ? 4750L:152000L;	// 100 nmi
 		if ((long)t->d > rng) {
-			Message("(RIO) Target Out of Range",RIO_MSG);
+			Message(gstr125,RIO_MSG);
 			return(0);
 		} else {
 			return(1);
@@ -1422,7 +1501,7 @@ int LockDistanceCheck(TARGET *t)
 	if (AWG9_REALITY_LEVEL==AWG9_MODERATE) {
 		rng = (t->conv) ? 4988L:159616L;	// 105 nmi
 		if ((long)t->d > rng) {
-			Message("(RIO) Target Out of Range",RIO_MSG);
+			Message(gstr125,RIO_MSG);
 			return(0);
 		} else {
 			return(1);
@@ -1448,7 +1527,7 @@ int LockDistanceCheck(TARGET *t)
 		}
 
 		if ((long)t->d > rng) {
-			Message("(RIO) Target Out of Range",RIO_MSG);
+			Message(gstr125,RIO_MSG);
 			return(0);
 		} else {
 			return(1);
@@ -1512,7 +1591,7 @@ int UpdateTargetClosure(TARGET *tc)
 	if (newasp>27 && newasp<36)
 		ncl = ps[tc->i].speed-Knots;
 #ifdef YEP
-	sprintf(Txt,"Target Closure: %ld  asp: %i ncl: %i bar: %d az: %d",tc->targetclosure,newasp,ncl,SELECTED_BAR_NUM,SELECTED_AZ);
+	sprintf(Txt,gstr126,tc->targetclosure,newasp,ncl,SELECTED_BAR_NUM,SELECTED_AZ);
 	Message(Txt);
 #endif
 }
@@ -1803,7 +1882,7 @@ int InBeam(TARGET *t)
 	rng = (t->conv) ? 9500L:304000L;	// 200 nmi
 
 #ifdef YEP
-	sprintf(Txt,"Plane: %Fs RadarSig: %d",tempplane->name,tempplane->radarsig);
+	sprintf(Txt,gstr127,tempplane->name,tempplane->radarsig);
 	Message(Txt);
 #endif
 
@@ -2047,7 +2126,7 @@ int RioLockCheck()
 		return(0);
 	}
 	else {
-		Message("(RIO) Bandit Locked Up!", RIO_NOW_MSG);
+		Message(gstr128, RIO_NOW_MSG);
 	}
 
 	LOCKED =
@@ -2172,7 +2251,7 @@ int aa_acquire(int flag)
 
 	if (RIO_ASSIST == RIO_ASSIST_STANDARD) {
 		if (ps[(ACQLIST[i]->i)].status & FRIENDLY) {
-			Message("(RIO) Hey watch it! That's a Friendly!", RIO_NOW_MSG);
+			Message(gstr129, RIO_NOW_MSG);
 		}
 	}
 
@@ -2670,10 +2749,14 @@ CheckDataLink()
 }
 
 //***************************************************************************
-int ThreatTblBase=0;
-int ThreatTblCnt=0;
-int ThreatScanIdx=0;
-int ThreatTbl[64];
+extern int ThreatTblBase;
+
+extern int ThreatTblCnt;
+
+extern int ThreatScanIdx;
+
+extern int ThreatTbl[64];
+
 
 InitThreatTbl()
 {

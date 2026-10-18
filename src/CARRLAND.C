@@ -1,4 +1,4 @@
-[DESCRIPTION]
+extern [DESCRIPTION]
 Furball
 
 [WORLD]
@@ -7,10 +7,8 @@ NorthCape
 [TIME]
 08:30
 
-[WEATHER]
-HighSky
-
-;[CIELING]
+[WEATHER] HighSky;
+[CIELING]
 ;65000
 
 ;[LOADOUT]
@@ -23,35 +21,16 @@ DEFENDER.
 
 
 [PATHS]
-; Surface Ships
+; extern Surface Ships Carrier_1;
+extern U.S. Aircraft Paths Player;
+ extern Your Carrier Battlegroup
 
-Carrier_1      = ( 70,90 ) Speed = 30 Heading = 0
+khawka PATH;
+ extern U.S. Aircraft
 
-
-;U.S. Aircraft Paths
-
-Player    = ( Home_A ) Elev = 1 SPEED = 0 HEADING = 0 Launch
-
-LAUNCH_1  = ( Home_A ) FORMATION = PARADE Launch
-			( 70,50 ) Elev = 10000 SPEED = 300
-
-
-[OBJECTS]
-
-; Your Carrier Battlegroup
-
-khawka        				PATH = Carrier_1
-                              Name = Home_A
-                              Side = Friendly
-
-; U.S. Aircraft
-
-F-14FDa                       PATH = Player
-                              Name = You
-                              Type = Player
-
-;F/A-18a                       PATH = Player
-;                              Name = Wingman
-;                              Type = Wingman
+F-14FDa PATH;
+extern F/A-18a PATH;
+                              extern  Name;
+                              Type = Wingman
 
 [END]

@@ -7,7 +7,8 @@
 #include "event.h"
 
 
-int IneffectiveHit;
+extern int IneffectiveHit;
+
 
 
 //***************************************************************************

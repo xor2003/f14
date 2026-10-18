@@ -1,3 +1,22 @@
+extern char gstr114[];
+extern char gstr115[];
+extern char gstr116[];
+extern char gstr117[];
+extern char gstr216[];
+extern char gstr288[];
+extern char gstr296[];
+extern char gstr297[];
+extern char gstr298[];
+extern char gstr299[];
+extern char gstr300[];
+extern char gstr760[];
+extern char gstr761[];
+extern char gstr762[];
+extern char gstr763[];
+extern char gstr764[];
+extern char gstr765[];
+extern char gstr766[];
+
 //***************************************************************************
 // File: TID.C
 //
@@ -20,15 +39,19 @@
 #include "armt.h"
 
 
-int DesignateMode=0;
-TIDTarg TIDTargetList[24];
+extern int DesignateMode;
+
+extern TIDTarg TIDTargetList[24];
+
 extern int TIDTargetCnt;
 
 extern int DesigTargCnt;
 extern DTARGET DESIG_TARG[];
 
-int Tscale;
-int TID_MODE=TID_NAV;
+extern int Tscale;
+
+extern int TID_MODE;
+
 
 extern  struct RastPort *RpCRT;
 extern COORD    Px,Py;
@@ -37,7 +60,9 @@ extern int      OurHead;
 extern int      OurRoll;
 extern UWORD    Rtime;
 extern int		LOCKED;
-int tempx,tempy;
+extern int tempx;
+extern int tempy;
+
 extern TARGET	*TARGFILE;
 extern TARGET	*AGEDTARGFILE;
 extern int		*TARGFILECNT;
@@ -51,9 +76,12 @@ extern int	DataLinkList[];
 extern int	DataLink;
 extern int  BackSeat;
 
-int SelectedTarg;
-int HighlightTarg;
-int ClrTarg;
+extern int SelectedTarg;
+
+extern int HighlightTarg;
+
+extern int ClrTarg;
+
 
 //***************************************************************************
 DoTID(int CrtNr)
@@ -142,13 +170,13 @@ int TIDAttkInfo()
 		if (AWG9_MODE == AWG9_PDSTT) {
 			r = BIT_2_NM(PDT_RNG);
 			itoa(r,s,10);
-			RpPrint(RpCRT,40,15,"RA");
+			RpPrint(RpCRT,40,15,gstr760);
 			RpPrint(RpCRT,50,15,s);
 
-			sprintf(Txt,"TA %s",ASPECT_S);
+			sprintf(Txt,gstr761,ASPECT_S);
 			RpPrint(RpCRT,85,15,Txt);
 
-			sprintf(Txt,"ALT %d",ps[LOCKED].alt);
+			sprintf(Txt,gstr762,ps[LOCKED].alt);
 			RpPrint(RpCRT,40,22,Txt);
 			itoa(CLOSURE,t,10);
 			RpPrint(RpCRT,125,60,t);
@@ -157,13 +185,13 @@ int TIDAttkInfo()
 		if (AWG9_MODE == AWG9_PDSTT) {
 			r = BIT_2_NM(PDT_RNG);
 			itoa(r,s,10);
-			RpPrint(RpCRT,8,5,"RA");
+			RpPrint(RpCRT,8,5,gstr760);
 			RpPrint(RpCRT,18,5,s);
 
-			sprintf(Txt,"TA %s",ASPECT_S);
+			sprintf(Txt,gstr761,ASPECT_S);
 			RpPrint(RpCRT,60,5,Txt);
 
-			sprintf(Txt,"ALT %d",ps[LOCKED].alt);
+			sprintf(Txt,gstr762,ps[LOCKED].alt);
 			RpPrint(RpCRT,8,12,Txt);
 		}
 	}
@@ -178,21 +206,21 @@ int TIDAttkInfo()
 
 	switch (ASPDEG) {
 		case 0 :
-			strcpy(ASPECT_S,"T");
+			strcpy(ASPECT_S,gstr114);
 		break;
 		case 18:
-			strcpy(ASPECT_S,"H");
+			strcpy(ASPECT_S,gstr115);
 		break;
 		default:
 			strcpy(ASPECT_S,itoa(ASPDEG,Txt,10));
-            strcat(ASPECT_S,(asp > 0)?"L":"R");
+            strcat(ASPECT_S,(asp > 0)?gstr116:gstr117);
 		break;
 	}
 
-	sprintf(Txt,"TA %s",ASPECT_S);
+	sprintf(Txt,gstr761,ASPECT_S);
 	RpPrint(RpCRT,85,15,Txt);
 
-	RpPrint(RpCRT,40,22,"ALT 15000");
+	RpPrint(RpCRT,40,22,gstr763);
 
 
 	itoa(CLOSURE,t,10);
@@ -205,24 +233,24 @@ int TIDAttkInfo()
 
 	switch (MODE_AA) {
 		case AA_MRM:
-			strcpy (l, "SP");
+			strcpy (l, gstr296);
 			strcpy (t, itoa(get_count(),s,10));
 		break;
 
 		case AA_SRM:
-			strcpy (l, "SW");
+			strcpy (l, gstr297);
 			strcpy(t, itoa(get_count(),s,10));
 		break;
 
 		case AA_LRM:
-			strcpy (l,"PH");
+			strcpy (l,gstr298);
 			strcpy(t, itoa(get_count(),s,10));
 		break;
 
 		case AA_GUN:
-			strcpy (l,"G");
+			strcpy (l,gstr299);
    			if (!Rounds)
-				strcpy (t,"XXX");
+				strcpy (t,gstr300);
 	  		else
 				strcpy (t, itoa(Rounds,s,10));
 		break;
@@ -387,15 +415,15 @@ int TID_draw_target(TARGET *tc, int locked,int dl)
 	alt = tempps->alt/(1000/4);
 
 	if ((alt >5) && (alt<=15))
-		RpPrint(RpCRT,tempx-6,tempy-2,"1");
+		RpPrint(RpCRT,tempx-6,tempy-2,gstr764);
 	if ((alt >15) && (alt<=25))
-		RpPrint(RpCRT,tempx-6,tempy-2,"2");
+		RpPrint(RpCRT,tempx-6,tempy-2,gstr765);
 	if ((alt >25) && (alt<=35))
-		RpPrint(RpCRT,tempx-6,tempy-2,"3");
+		RpPrint(RpCRT,tempx-6,tempy-2,gstr288);
 	if ((alt >35) && (alt<=45))
-		RpPrint(RpCRT,tempx-6,tempy-2,"4");
+		RpPrint(RpCRT,tempx-6,tempy-2,gstr766);
 	if ((alt >45) && (alt<=55))
-		RpPrint(RpCRT,tempx-6,tempy-2,"5");
+		RpPrint(RpCRT,tempx-6,tempy-2,gstr216);
 
 
 	if (AWG9_MODE != AWG9_PDSTT) {

@@ -3,7 +3,8 @@
 #include "f15defs.h"
 #include "keycodes.h"
 
-RPS RpJoyX  =  {0, 0,0, 319,199, JAM3, WHITE, LGREY, F_3x5B};
+extern RPS RpJoyX;
+
 extern RPS * RpJoy;
 
 

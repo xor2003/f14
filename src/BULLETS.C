@@ -1,3 +1,15 @@
+extern char gstr110[];
+extern char gstr142[];
+extern char gstr143[];
+extern char gstr144[];
+extern char gstr145[];
+extern char gstr146[];
+extern char gstr147[];
+extern char gstr148[];
+extern char gstr149[];
+extern char gstr150[];
+extern char gstr151[];
+
 /*  File:   BULLETS.C                             */
 /*  Author: Sid Meier / Andy Hollis               */
 /*                                                */
@@ -37,10 +49,16 @@ extern  int 	LastCall;
 
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
 
-int     Firing;
-int     NTRACE,NTRACE2,FIRST_ENEMY_TRACE;
-int     LastRate;
-int     TSpeed;
+extern int Firing;
+
+extern int NTRACE;
+extern int NTRACE2;
+extern int FIRST_ENEMY_TRACE;
+
+extern int LastRate;
+
+extern int TSpeed;
+
 
 extern struct FPARAM{
 	long	X;
@@ -193,9 +211,9 @@ TrackBullets()
 											DamageAI(j, 2);
 											if(crashstat != (ps[j].status & CRASH)) {
 												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
-	                    	                	TXA (" destroyed by ");
-    	                    	            	if (NTRACE<=i) TXA ("wingman ");
-        	                    	        	TXA ("gunfire");
+	                    	                	TXA (gstr110);
+    	                    	            	if (NTRACE<=i) TXA (gstr142);
+        	                    	        	TXA (gstr143);
             	                    	    	Message (Txt,GAME_MSG);
                 	                    		trs[i].x = 0;
 											}
@@ -207,9 +225,9 @@ TrackBullets()
 											if(!(ps[j].status & CRASH)) {
 							        			AirKill (j);
 												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
-                    	                		TXA (" destroyed by ");
-                        	            		if (NTRACE<=i) TXA ("wingman ");
-                            	        		TXA ("gunfire");
+                    	                		TXA (gstr110);
+                        	            		if (NTRACE<=i) TXA (gstr142);
+                            	        		TXA (gstr143);
                                 	    		Message (Txt,GAME_MSG);
                                     			trs[i].x = 0;
 											}
@@ -232,7 +250,7 @@ TrackBullets()
 
                 if (n<(tsize * 2)) {
 					if(CheckBulletBetter(PxLng, 0x100000-PyLng, Alt, trs+i, -1, i)) {
-	                    TXT ("Hit by gunfire");
+	                    TXT (gstr144);
     	                Message (Txt,GAME_MSG);
 						src = trs[i].firedby;
 						// We were hit by med guns
@@ -269,12 +287,12 @@ TrackBullets()
 //													TXT("(Wingman)Splash ");
 
 													if(ps[j].status & FRIENDLY)
-														TXA("OPPS! ");
+														TXA(gstr145);
 
-													TXA("Splash ");
+													TXA(gstr146);
 													planetemp = GetPlanePtr(ps[j].type);
 										    		FTXA (planetemp->name);
-													TXA ("!");
+													TXA (gstr147);
 													Message(Txt,WINGMAN_MSG);
 												}
 											}
@@ -286,10 +304,10 @@ TrackBullets()
 											if(!(ps[j].status & CRASH)) {
 												LogIt (SLG_AIR_DESTROYED_BULLET, j, ps[j].xL, ps[j].yL, ps[j].alt, src, -999, 0L, LOG_AIR);
 												if(GetSquadLeader(trs[i].firedby) == -1) {
-													TXT("(Wingman)Splash ");
+													TXT(gstr148);
 													planetemp = GetPlanePtr(ps[j].type);
 									    			FTXA (planetemp->name);
-													TXA ("!");
+													TXA (gstr147);
 													Message(Txt,WINGMAN_MSG);
 												}
 											}
@@ -315,9 +333,9 @@ TrackBullets()
 #if 0
                 while ((TargetObj=CheckTargetHit (trs[i].x, trs[i].y, ORDNANCE+W_CANNON)) !=NULL) {
                     GroundKill ();
-                    TXA (" destroyed by ");
-                    if (i>=NTRACE) TXA (" wingman ");
-                    TXA ("gunfire");
+                    TXA (gstr110);
+                    if (i>=NTRACE) TXA (gstr149);
+                    TXA (gstr143);
                     Message (Txt,GAME_MSG);
                 }
 #endif
@@ -464,7 +482,7 @@ int CheckBulletBetter(long x, long y, int z, struct Tracer *t, int targnum, int 
 		else {
 #ifdef GUNTEST
 			if(GetSquadLeader(whofired) == -1) {
-				sprintf(Txt, "CH %ld, %ld, T %d", coneheight, dheight, targnum);
+				sprintf(Txt, gstr150, coneheight, dheight, targnum);
 				Message(Txt,DEBUG_MSG);
 			}
 #endif
@@ -474,7 +492,7 @@ int CheckBulletBetter(long x, long y, int z, struct Tracer *t, int targnum, int 
 	else {
 #ifdef GUNTEST
 		if(GetSquadLeader(whofired) == -1) {
-			sprintf(Txt, "CW %ld, %ld, T %d, a %x, d %ld", conewidth, dwidth, targnum, xyangle, xydval);
+			sprintf(Txt, gstr151, conewidth, dwidth, targnum, xyangle, xydval);
 			Message(Txt,DEBUG_MSG);
 		}
 #endif

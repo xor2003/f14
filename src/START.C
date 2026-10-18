@@ -1,9 +1,12 @@
 #include "common.h"
 
-struct setup_data _far *Setup;
-struct f15_data   _far *Setup_arming;
+extern struct setup_data _far * Setup;
 
-char   Called_from_com;
+extern struct f15_data   _far * Setup_arming;
+
+
+extern char Called_from_com;
+
 
 
 main(int argc, char **argv) {

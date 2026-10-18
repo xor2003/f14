@@ -1,5 +1,6 @@
 //***************************************************************************
-int   MissileAnims[14];
+extern int MissileAnims[14];
+
 CoolF14MissileAnims()
 {
    int   i;

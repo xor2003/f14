@@ -1,3 +1,5 @@
+extern char gstr179[];
+
 //***************************************************************************
 //* File Name: carrai.c
 //*
@@ -63,7 +65,8 @@ extern int BlastShield[MAXCATS];
 extern int CatReady[MAXCATS];
 
 
-int WingsReady=0;
+extern int WingsReady;
+
 
 extern int HookDown;
 
@@ -90,7 +93,7 @@ int RequestCat(int cat, int planenum)
 				AvailCat[2] = planenum;
 				SetUpLaunch(catplane, bv[catplane].groundt);
 #ifdef SRECATTEST
-				TXT("Player replace ");
+				TXT(gstr179);
 				TXN(catplane);
 				Message(Txt);
 #endif
@@ -111,7 +114,7 @@ int RequestCat(int cat, int planenum)
 					AvailCat[cat] = planenum;
 					SetUpLaunch(catplane, bv[catplane].groundt);
 #ifdef SRECATTEST
-					TXT("Player replace ");
+					TXT(gstr179);
 					TXN(catplane);
 					Message(Txt);
 #endif

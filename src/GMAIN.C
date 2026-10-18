@@ -1,3 +1,34 @@
+extern char gstr2[];
+extern char gstr252[];
+extern char gstr253[];
+extern char gstr254[];
+extern char gstr255[];
+extern char gstr256[];
+extern char gstr257[];
+extern char gstr258[];
+extern char gstr259[];
+extern char gstr260[];
+extern char gstr261[];
+extern char gstr262[];
+extern char gstr263[];
+extern char gstr264[];
+extern char gstr265[];
+extern char gstr266[];
+extern char gstr267[];
+extern char gstr268[];
+extern char gstr269[];
+extern char gstr270[];
+extern char gstr271[];
+extern char gstr272[];
+extern char gstr273[];
+extern char gstr274[];
+extern char gstr275[];
+extern char gstr276[];
+extern char gstr277[];
+extern char gstr278[];
+extern char gstr279[];
+extern char gstr280[];
+
 //***************************************************************************
 // FILE: GMAIN.C
 //
@@ -50,8 +81,10 @@ extern int whichourcarr;
 extern int far EMSpages(int *a, int *b);
 
 
-int WeatherType=0;
-int RIOEmsOk=0;
+extern int WeatherType;
+
+extern int RIOEmsOk;
+
 
 struct _mrec_ {
 	int		z;
@@ -62,27 +95,37 @@ struct _mrec_ {
 extern struct _mrec_ aipaths[];
 
 
-RPS     *Rp;
+extern RPS     * Rp;
+
 extern UBYTE ExitCode;
 
 extern int ExitErrorCode;
 
 extern int DisplayFrame;
 
-int     F14SNUM[2] = { 5252,18 };
-int     F14SCNUM[2] = { 2525,18 };
-char    *F14CNUM[5] = { "F14R" };
-char    *F14SNAME[30] = { "Quality Assurance" };
-char    *F14SPER[30] = { "Vaughn Thomas" };
-char	*F14VNUM[5]  = { "1.18" };
+extern int F14SNUM[2];
 
-int _training;
+extern int F14SCNUM[2];
+
+extern char    * F14CNUM[5];
+
+extern char    * F14SNAME[30];
+
+extern char    * F14SPER[30];
+
+extern char	* F14VNUM[5];
+
+
+extern int _training;
+
 extern int DifficultyLevel;
 
 
-confData ConfigData;
+extern confData ConfigData;
 
-SndDataInfo SndData;
+
+extern SndDataInfo SndData;
+
 
 
 //***************************************************************************
@@ -92,7 +135,7 @@ char    **argv;
 char    **envp;
 {
 	save_video_state();
-    InitOverlay(LoadOverlay("Mgraphic.exe","Fonts.F14"));
+    InitOverlay(LoadOverlay(gstr252,gstr253));
     TurnOnGraphicsMode(0);
 
 	InitOptions();
@@ -148,7 +191,7 @@ char    **envp;
 //***************************************************************************
 int WaitScreen()
 {
-	LoadPicture(1,"gm-load.PIC");
+	LoadPicture(1,gstr254);
 	ShowPage(1);
 	ScreenOn();
 }
@@ -204,34 +247,34 @@ int InitWeather()
 int DisplayErrorMessages()
 {
 	if (ExitErrorCode != 0) {
-		printf("\nProgram Termination:  ");
+		printf(gstr255);
 		switch(ExitErrorCode) {
 			case -60:
-				printf("3D Object Not Found.\n");
+				printf(gstr256);
 			break;
 			case -46:
-				printf("MISSION.F14 File Not Found.\n");
+				printf(gstr257);
 			break;
 			case -44:
-				printf("F14MD01.DAT File Not Found.\n");
+				printf(gstr258);
 			break;
 			case -42:
-				printf("F14RD01.DAT File Not Found.\n");
+				printf(gstr259);
 			break;
 			case -40:
-				printf("F14PD01.DAT File Not Found.\n");
+				printf(gstr260);
 			break;
 			case -16:
-				printf("Not Enough Memory to Load Radar Objects.\n");
+				printf(gstr261);
 			break;
 			case -14:
-				printf("Not Enough Memory to Load Missile Objects.\n");
+				printf(gstr262);
 			break;
 			case -12:
-				printf("Not Enough Memory to Load Planes Objects.\n");
+				printf(gstr263);
 			break;
 			case -10:
-				printf("Not Enough Memory to load objects.\n");
+				printf(gstr264);
 			break;
 		}
 	}
@@ -240,37 +283,37 @@ int DisplayErrorMessages()
 //***************************************************************************
 LoadFiles()
 {
-	if (LoadEMSPicFile("sp1ex2.pic",SPRTXPLSEG,0,20)) {
-    	LoadEMSPicFile("sp2ex2.pic",SPRTXPLSEG,1,0);
-    	LoadEMSPicFile("sp3ex2.pic",SPRTXPLSEG,2,0);
-    	LoadEMSPicFile("sp4ex2.pic",SPRTXPLSEG,3,0);
-    	LoadEMSPicFile("sp5ex2.pic",SPRTXPLSEG,4,0);
+	if (LoadEMSPicFile(gstr265,SPRTXPLSEG,0,20)) {
+    	LoadEMSPicFile(gstr266,SPRTXPLSEG,1,0);
+    	LoadEMSPicFile(gstr267,SPRTXPLSEG,2,0);
+    	LoadEMSPicFile(gstr268,SPRTXPLSEG,3,0);
+    	LoadEMSPicFile(gstr269,SPRTXPLSEG,4,0);
 	}
 
-	if (LoadEMSPicFile("cpsp1.PIC",MISCSPRTSEG,0,8)) {
-		LoadEMSPicFile("cpsp2.PIC",MISCSPRTSEG,1,0);
+	if (LoadEMSPicFile(gstr270,MISCSPRTSEG,0,8)) {
+		LoadEMSPicFile(gstr271,MISCSPRTSEG,1,0);
 	}
 
 	NewEmsFunction();
 
 	switch(ConfigData.World) {
 		case 0:
-			LoadTheWorld("NCN01.WLD");
+			LoadTheWorld(gstr272);
 		break;
 		case 1:
-			LoadTheWorld("MEDN01.WLD");
+			LoadTheWorld(gstr273);
 		break;
 		case 2:
-			LoadTheWorld("USAN01.WLD");
+			LoadTheWorld(gstr274);
 		break;
 		case 3:
-			LoadTheWorld("KOR04.WLD");
+			LoadTheWorld(gstr275);
 		break;
 		case 4:
-			LoadTheWorld("INDIA09.WLD");
+			LoadTheWorld(gstr276);
 		break;
 		default:
-			LoadTheWorld("USAN01.WLD");
+			LoadTheWorld(gstr274);
 		break;
 	}
 
@@ -296,8 +339,8 @@ InitEmsFiles()
 	LoadPlanesEms();
 	EMSpages(&free,&total);
 	if (free>8) {
-		if (LoadEMSPicFile("RIO-1.PIC",HEAD1SEG,0,8)) {
-			LoadEMSPicFile("RIO-2.PIC",HEAD1SEG,1,0);
+		if (LoadEMSPicFile(gstr277,HEAD1SEG,0,8)) {
+			LoadEMSPicFile(gstr278,HEAD1SEG,1,0);
 		}
 		RIOEmsOk=1;
 	} else {
@@ -325,7 +368,7 @@ int LoadConfig()
 {
 	FILE *f ;
 
-	f = fopen ("config.f14", "rb") ;
+	f = fopen (gstr279, gstr2) ;
 	fread(&_training,   sizeof (_training),   1, f) ;
 	fread(&ConfigData, sizeof (ConfigData), 1, f) ;
 	fclose(f);
@@ -340,7 +383,7 @@ int LoadSoundConfig()
 {
 	FILE *f ;
 
-	f = fopen("config.snd", "rb") ;
+	f = fopen(gstr280, gstr2) ;
 	fread(&SndData, sizeof(SndData), 1, f) ;
 	fclose(f);
 }

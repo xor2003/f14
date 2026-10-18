@@ -22,7 +22,8 @@
 
 #endif
 
-char ntmp[10];
+extern char ntmp[10];
+
 extern char Txt[];
 
 /* ------ All about our plane ------ */
@@ -36,13 +37,15 @@ extern int Fuel;
     extern int Rounds;
 
     extern int AutoAlt;
-int AutoHead;
+extern int AutoHead;
 
     extern int Diff;
 extern int Night;
 
-    extern int FrameRate;
-int ejected,Gtime,Direction;
+    extern int ejected;
+extern int FrameRate;
+extern int Gtime;
+extern int Direction;
 
 #else
 	extern int Damaged,Status,Fuel,Rounds;
@@ -80,44 +83,11 @@ struct Decoy {
 #define MAXDECOY 33
 
 #ifdef _include_data
-    int NDECOY = 30;
+    extern int NDECOY;
 
-struct Decoy ds[MAXDECOY] =
-{
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-      0,0,0,0,0,0,
-};
+
+extern struct Decoy ds[MAXDECOY];
+
 #else
 extern struct Decoy ds[];
 extern int NDECOY;
@@ -137,7 +107,8 @@ extern int NDECOY;
 
 #define NTRACERS 20*2
 #ifdef _include_data
-  struct Tracer trs[NTRACERS];
+  extern struct Tracer trs[NTRACERS];
+
 #else
 extern struct Tracer trs[];
 #endif
@@ -173,7 +144,8 @@ extern struct Tracer trs[];
 #define NPSAM 15
 
 #ifdef _include_data
-struct Sams ss[NSAM];
+extern struct Sams ss[NSAM];
+
 
 #else
 extern struct Sams ss[NSAM];
@@ -191,7 +163,8 @@ struct log_data {    /*  16 bytes  */
   long x, y; };
 
 #ifdef _include_data
-    struct log_data gamelog[NLOG];
+    extern struct log_data gamelog[NLOG];
+
 #else
 extern struct log_data gamelog[];
 #endif
@@ -228,7 +201,8 @@ typedef struct _logObject_ {   /*  32 bytes  */
 
 
 #ifdef _include_data
-    struct _logObject_ gamelog[NLOG];
+    extern struct _logObject_ gamelog[NLOG];
+
 #else
 extern struct _logObject_ gamelog[];
 #endif

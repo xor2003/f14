@@ -4,7 +4,8 @@
 #include <process.h>
 #include "library.h"
 
-    union REGS D;
+    extern union REGS D;
+
 
 
 typedef unsigned int UWORD;
@@ -22,7 +23,8 @@ extern   char  GroundObjectNames[32][20];
 extern   UWORD CLOUDHEIGHT;
 
 
-int   LandObjectBase=0;
+extern int LandObjectBase;
+
 
 struct	PPNT{
 	int	X;
@@ -109,16 +111,25 @@ struct	RECT3{
 
 
 
-int	WORLDXOFF;
-int	WORLDYOFF;
-int	WORLDZOFF;
-int	XBASE;
-int	ZBASE;
-int   WORLDXTRAX;
-int   WORLDXTRAY;
-int   WORLDXTRAZ;
+extern int WORLDXOFF;
+
+extern int WORLDYOFF;
+
+extern int WORLDZOFF;
+
+extern int XBASE;
+
+extern int ZBASE;
+
+extern int WORLDXTRAX;
+
+extern int WORLDXTRAY;
+
+extern int WORLDXTRAZ;
+
 extern char Txt[];
-int MikeHeight;
+extern int MikeHeight;
+
 
 extern   unsigned int GRPAGE;
 extern unsigned int GRPAGE0[];
@@ -169,9 +180,12 @@ struct   STMP{
 extern	int	    GRNDDETAIL;
 
 
-char far *ScreenAddr;
-char  far   *BitMaps[4];
-int   PLAINVAL=0;
+extern char far * ScreenAddr;
+
+extern char  far   * BitMaps[4];
+
+extern int PLAINVAL;
+
 
 
 DrawSBox(struct SBox far *B,struct PT3D far *P1,struct PT3D far *P2,
@@ -497,11 +511,14 @@ MakeBoxVis(struct SBox far *BOXBASE,struct GRDPT far *PTSBASE)
 
 }
 
-struct SBox far *BXBS;
-struct GRDPT far *PTBS;
+extern struct SBox far * BXBS;
+
+extern struct GRDPT far * PTBS;
 
 
-int   MAXLEV=5;
+
+extern int MAXLEV;
+
 
 DoBox(struct SBox far *B,struct GRDPT far *PL1,struct GRDPT far *PL2,
          struct GRDPT far *PL3,struct GRDPT far *PL4,
@@ -764,8 +781,10 @@ IsLand(long X, long Z )
 
 
 
-long  WORLDXPOS;
-long  WORLDZPOS;
+extern long WORLDXPOS;
+
+extern long WORLDZPOS;
+
 
 DrawLandObjects( int STMP, int X, int Y, int Z )
 {

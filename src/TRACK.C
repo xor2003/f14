@@ -20,7 +20,10 @@ extern  long    PxLng,PyLng, ViewX,ViewY;
 extern  int     ViewZ;
 extern  int     Panning;
 
-int sx,sy,sz;
+extern int sx;
+extern int sy;
+extern int sz;
+
 
 static  int Pdist;
 

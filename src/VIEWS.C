@@ -1,3 +1,5 @@
+extern char gstr357[];
+
 /************************************************************************
 *                                                                       *
 *       Project: Stealth Fighter(TM)                                    *
@@ -74,9 +76,18 @@ extern struct FPARAM {
 
 extern confData ConfigData;
 
-long    Povx,Povy,ViewX,ViewY;
-int     Povz,ViewZ;
-int     PovPitch,PovMisl,RPov;
+extern long Povx;
+extern long Povy;
+extern long ViewX;
+extern long ViewY;
+
+extern int Povz;
+extern int ViewZ;
+
+extern int PovPitch;
+extern int PovMisl;
+extern int RPov;
+
 extern int vScale;
 
 extern int PadHead;
@@ -116,13 +127,13 @@ GenDsp ()
 
         if (View<FRONTAL) {
 			if (LastView==DOWN) {
-				LoadPicToPal(1,"F14ORG01.PIC",PalPkt);
+				LoadPicToPal(1,gstr357,PalPkt);
 				UpdatePalBuf(PalPkt);
 			}
 			LoadNewCockpit();
         } else {
             if (LastView<FRONTAL) {
-                LoadPicToPal(1,"F14ORG01.PIC", PalPkt);
+                LoadPicToPal(1,gstr357, PalPkt);
 				UpdatePalBuf(PalPkt);
             }
 			if (View==PADLOCK || View==PILOT) {

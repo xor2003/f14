@@ -1,3 +1,7 @@
+extern char gstr109[];
+extern char gstr110[];
+extern char gstr111[];
+
 #include "library.h"
 #include "f15defs.h"
 #include "world.h"
@@ -21,8 +25,7 @@ extern  long    PxLng, PyLng;
 extern  UWORD   Px, Py;
 
 static	int	    MapX,MapZ;
-extern static  UWORD Dist2Obj;
-
+static  UWORD   Dist2Obj;
 static  UWORD   HitFlags;
 static  int     NUM, k;
 
@@ -104,7 +107,7 @@ void CheckAAAHit(int planenum, int gtnum)
 
 				LogIt (SLG_AAA_HIT, -1, PxLng, (0x100000-PyLng), Alt, src, -999, 0L, LOG_AIR);
 
-                Message("Hit by AAA",RIO_MSG);
+                Message(gstr109,RIO_MSG);
             }
 		}
 		else {
@@ -113,8 +116,8 @@ void CheckAAAHit(int planenum, int gtnum)
                 DamageAI (planenum, 3);
 				if(crashstat != (ps[planenum].status & CRASH)) {
 					LogIt (SLG_AAA_DESTROY, planenum, ps[planenum].xL, ps[planenum].yL, ps[planenum].alt, src, -999, 0L, LOG_AIR);
-	                TXA (" destroyed by ");
-        	        TXA ("AAA");
+	                TXA (gstr110);
+        	        TXA (gstr111);
             	    Message (Txt,GAME_MSG);
 				}
 				else {

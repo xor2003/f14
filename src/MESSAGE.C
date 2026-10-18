@@ -1,3 +1,8 @@
+extern char gstr335[];
+extern char gstr336[];
+extern char gstr337[];
+extern char gstr338[];
+
 #include <dos.h>
 #include "library.h"
 #include "f15defs.h"
@@ -12,10 +17,13 @@
 #define MAXMSGLEN   60
 
 char    HudMsg[MAXMESSAGES][MAXMSGLEN];
-int     MsgCount[MAXMESSAGES];
-int		MsgSrc[MAXMESSAGES];
+extern int MsgCount[MAXMESSAGES];
 
-int MsgOnScreen=0;
+extern int MsgSrc[MAXMESSAGES];
+
+
+extern int MsgOnScreen;
+
 
 extern	RPS		*Rp3D, *Rp2,*Rp1,*Rp3;
 extern  int     FrameRate;
@@ -46,7 +54,7 @@ Message(char *s,int src)
     if (ejected) return(1);
 
 	mprintf(s);
-	mprintf("\n\r");
+	mprintf(gstr335);
 
 	if (MSGDETAIL==3) return(0);
 	if ((MSGDETAIL==2) && (src==GAME_MSG)) return(0);
@@ -67,7 +75,8 @@ MsgBox (Len, StartX, StartY)
 
 
 
-RPS MSGRp={1, 0,0, 319,199, JAM3, GREEN, BLACK, 1};
+extern RPS MSGRp;
+
 extern RPS * MRp;
 
 
@@ -75,7 +84,8 @@ extern int lastmsgview;
 
 extern int LastMsgSeat;
 
-int newmsg=0;
+extern int newmsg;
+
 extern char MyMSG[120];
 
 extern int MyMSGTYP;
@@ -90,7 +100,7 @@ extern int MsgEMS;
 LoadMsgEMS()
 {
 	if (MsgEMS==0) {
-		MsgEMS=MakeEMSFileBlock("MSG.EMS",(320*16/16));
+		MsgEMS=MakeEMSFileBlock(gstr336,(320*16/16));
 	}
 }
 
@@ -105,7 +115,7 @@ MyMessages()
 
 	if (MsgEMS==0) {
 	// try to get ems for messages
-		if ((MsgEMS=MakeEMSFileBlock("MSG.EMS",(320*16/16) ))==0)
+		if ((MsgEMS=MakeEMSFileBlock(gstr336,(320*16/16) ))==0)
 			MsgEMS=-1; // cant get it no inside messages !!!!
 	}
 
@@ -352,7 +362,7 @@ OutSideHeading(RPS *Rp)
 	UWORD V;
 
    S[0]=0;
-	strcpy(S,"HEADING     ALTITUDE       AIRSPEED     ");
+	strcpy(S,gstr337);
 	V=(UWORD)OurHead/(UWORD)182;
 	itoa(V,N,10);
 	strcpy(&S[11-strlen(N)],N);
@@ -370,7 +380,7 @@ OutSideHeading(RPS *Rp)
    if (Speedy>1)
       {
       itoa(Speedy,N,10);
-      strcat(N,"X ");
+      strcat(N,gstr338);
       }
    else
       N[0]=0;

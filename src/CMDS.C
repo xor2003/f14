@@ -1,3 +1,18 @@
+extern char gstr155[];
+extern char gstr156[];
+extern char gstr180[];
+extern char gstr181[];
+extern char gstr182[];
+extern char gstr183[];
+extern char gstr184[];
+extern char gstr185[];
+extern char gstr186[];
+extern char gstr187[];
+extern char gstr188[];
+extern char gstr189[];
+extern char gstr190[];
+extern char gstr191[];
+
 /*  File:   Cmds.c                                */
 /*  Author: Sid Meier / Andy Hollis /             */
 /*  Mike McDonald								  */
@@ -10,6 +25,7 @@
 
 #include "library.h"
 #include "world.h"
+#include "setup.h"
 #include "sdata.h"
 #include "Cockpit.h"
 #include "sounds.h"
@@ -114,7 +130,8 @@ extern   int   MYLOAD;
 extern int VdiMode;
 extern int JetisonSW;
 extern int MasterArmSW;
-int mapmode=0;
+extern int mapmode;
+
 extern int RadarRepeat;
 extern int AnimCnt;
 extern int OurLoadOut;
@@ -125,7 +142,8 @@ extern int PauseHit;
 extern int TickDelay;
 extern int KbSense;
 
-int     DBlaunch=0;
+extern int DBlaunch;
+
 
 extern int ThrustChange;
 
@@ -137,19 +155,26 @@ extern int MouseDsp;
 
 extern int ShowMouse;
 
-int     MyMouseHits;
-int 	tempsound=0;
-int 	tempsound2=0;
+extern int MyMouseHits;
+
+extern int tempsound;
+
+extern int tempsound2;
+
 
 extern int SteadyHead;
 
 extern int SteadyPitch;
 
 
-UWORD KEYPRINT;
-UWORD KEYPRINT2;
+extern UWORD KEYPRINT;
 
-UBYTE  mS1n,mS2n;
+extern UWORD KEYPRINT2;
+
+
+extern UBYTE mS1n;
+extern UBYTE mS2n;
+
 extern int RUDDERVALS;
 
 
@@ -190,60 +215,20 @@ typedef struct {
 } cs;
 
 
-cs FrontTopSpots[NUM_FRONT_TOP] =
-{	90,105,104,119, SHIFTJ,   // JETTISON WEAPON
-	215,107,223,118, MKEY,
-	208,163,217,175, HUDFILTER,
-};
+extern cs FrontTopSpots[NUM_FRONT_TOP];
 
-cs FrontLeftSpots[NUM_FRONT_LEFT] =
-{
-	255,139,284,167, GKEY,
-	77,142,113,179, THROTTLE_1,
-	110,142,146,177, THROTTLE_2,
-	146,144,180,178, THROTTLE_3,
-	180,144,210,178, THROTTLE_4,
-	208,144,250,178, THROTTLE_5,
-};
 
-cs FrontRightSpots[NUM_FRONT_RIGHT] =
-{
-	11,110,46,142, HKEY,
-};
+extern cs FrontLeftSpots[NUM_FRONT_LEFT];
 
-cs BackTopSpots[NUM_BACK_TOP] =
-{	229,112,243,117, RKEY,		// RADAR ON
-	245,112,259,117, IKEY,  	// IFF
-	225,134,241,139, LKEY,
-	243,134,259,138, MOUSEPDS,
-	225,148,241,152, MOUSETWSA,
-	243,148,259,152, MOUSETWSM,
-	243,159,259,163, MOUSERWS,
-	86,105,99,114, RDR_ELVP_60,
-	86,115,99,122, RDR_ELVP_40,
-	86,122,99,130, RDR_ELVP_20,
-	86,130,100,138,RDR_ELV_0,
-	86,138,100,146,RDR_ELVN_20,
-	86,146,100,154,RDR_ELVN_40,
-	88,154,102,162,RDR_ELVN_60,
-	113,77,125,89, RDR_RNG_5,
-	130,76,142,89, RDR_RNG_10,
-	147,76,159,89, RDR_RNG_20,
-	164,76,176,89, RDR_RNG_50,
-	181,76,193,89, RDR_RNG_100,
-	198,76,210,89, RDR_RNG_200,
-};
 
-cs BackBotSpots[NUM_BACK_BOT] =
-{	229,112,243,117, RKEY,
-	243,159,259,163, DELETE,
-	114,169,128,179, DESTARG,
-	130,169,144,179, CLRTARG,
-	146,169,160,179, HIGHTARG,
-	114,181,128,191, DATALINK,
-	213,40,250,62, CHNG_WAY,
-	166,165,208,194, CHNG_RNG,
-};
+extern cs FrontRightSpots[NUM_FRONT_RIGHT];
+
+
+extern cs BackTopSpots[NUM_BACK_TOP];
+
+
+extern cs BackBotSpots[NUM_BACK_BOT];
+
 
 extern cs BackLeftSpots[NUM_BACK_LEFT];
 
@@ -620,9 +605,9 @@ Cmds()
         case BKEY:
 			Status ^= BRAKESON;
          if (Status&BRAKESON)
-            Message("Air brake on",RIO_NOW_MSG);
+            Message(gstr180,RIO_NOW_MSG);
          else
-            Message("Air brake off",RIO_NOW_MSG);
+            Message(gstr181,RIO_NOW_MSG);
 		break;
 
         case GKEY:
@@ -631,9 +616,9 @@ Cmds()
 					if (!REALFLIGHT || (Status&WHEELSUP) || !(Damaged&D_HYDRAULICS)) {
 						Status ^= WHEELSUP;
                   if (Status&WHEELSUP)
-                     Message("Landing gear raised",RIO_NOW_MSG);
+                     Message(gstr156,RIO_NOW_MSG);
                   else
-                     Message("Landing gear lowered",RIO_NOW_MSG);
+                     Message(gstr155,RIO_NOW_MSG);
 
 						AutoGearOk = FALSE;
 						//  Sound (N_GearOpenSeq, 1);
@@ -646,7 +631,7 @@ Cmds()
 		case ALTAKEY:
 			AnimCnt++;
 			if (AnimCnt>13) AnimCnt=0;
-			sprintf(Txt,"AnimCnt: %i",AnimCnt);
+			sprintf(Txt,gstr182,AnimCnt);
 			Message(Txt);
 		break;
 
@@ -682,11 +667,11 @@ Cmds()
 
         case PKEY:
 			if (AutoAlt) {
-            Message ("Autopilot off",RIO_NOW_MSG);
+            Message (gstr183,RIO_NOW_MSG);
 				AutoAlt=0;
 			} else if (!(Damaged&D_NAV)) {
 				AutoAlt = Alt>25 ?Alt:25;
-            Message ("Autopilot on",RIO_NOW_MSG);
+            Message (gstr184,RIO_NOW_MSG);
 			}
 		break;
 
@@ -1009,9 +994,9 @@ Cmds()
 		break;
 
         case ALTFKEY:
-			TXT("F/S: ");
+			TXT(gstr185);
 			TXN(FrameRate10);
-			TXA(", FTicks: ");
+			TXA(gstr186);
 			TXN(FTicks);
 			Message(Txt,DEBUG_MSG);
 		break;
@@ -1019,15 +1004,15 @@ Cmds()
         case ALTMKEY:   {
                             UWORD    free, total;
 
-                            TXT ("Conventional Memory Available: ");
+                            TXT (gstr187);
                             free = AvailSysMem ();
                             strcat (Txt, ltoa((long)free*16L, ntmp, 10));
                             Message (Txt,SYSTEM_MSG);
 
                             EMSpages (&free, &total);
-                            TXT ("EMS memory: free-");
+                            TXT (gstr188);
                             strcat (Txt, ltoa((long)free*16384L, ntmp, 10));
-                            TXA ("  total-");
+                            TXA (gstr189);
                             strcat (Txt, ltoa((long)total*16384L, ntmp, 10));
                             Message(Txt,SYSTEM_MSG);
                         }
@@ -1052,14 +1037,14 @@ Cmds()
         	case ALTMINUS:
 				if (TimeOfDay<4) TimeOfDay=23*60+55;
                 TimeOfDay -= 5;
-				sprintf(Txt,"Time Of Day: %i  SP: %d TRANS: %d\n\r",(TimeOfDay/60),SelectedPal,TransAmount);
+				sprintf(Txt,gstr190,(TimeOfDay/60),SelectedPal,TransAmount);
 				mprintf(Txt);
            	break;
 
         	case ALTPLUS:
 				TimeOfDay += 5;
                 if (TimeOfDay>=24*60) TimeOfDay -=24*60;
-				sprintf(Txt,"Time Of Day: %i  SP: %d TRANS: %d\n\r",(TimeOfDay/60),SelectedPal,TransAmount);
+				sprintf(Txt,gstr190,(TimeOfDay/60),SelectedPal,TransAmount);
 				mprintf(Txt);
 			break;
 
@@ -1129,7 +1114,7 @@ LocalCmds()
 
         case ALTPKEY:
 //			PauseMode();
-			Message("                                 ...PAUSE...", WING_MENU_MSG);
+			Message(gstr191, WING_MENU_MSG);
 			PauseHit = 1;
 		break;
 
@@ -1448,7 +1433,8 @@ NoAccel()
     }
 }
 
-UBYTE   PoliticallyCorrectNumlock;
+extern UBYTE PoliticallyCorrectNumlock;
+
 //***************************************************************************
 KBInit()
 {

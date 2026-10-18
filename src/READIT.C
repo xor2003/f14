@@ -7,19 +7,31 @@
 #include <dos.h>
 
 
-FILE *tfile;
-FILE *outfile;
-char buf[15];
+extern FILE * tfile;
 
-char name[7];
-int speed;
-int maneuver;
-int rclass;
-char filename[13];
-int miss1;
-int miss2;
-int mcount1;
-int mcount2;
+extern FILE * outfile;
+
+extern char buf[15];
+
+
+extern char name[7];
+
+extern int speed;
+
+extern int maneuver;
+
+extern int rclass;
+
+extern char filename[13];
+
+extern int miss1;
+
+extern int miss2;
+
+extern int mcount1;
+
+extern int mcount2;
+
 
 struct cl {
 	int plane_no;
@@ -35,7 +47,8 @@ struct cl {
 	int status;
 };
 
-struct cl planerec;
+extern struct cl planerec;
+
 
 struct PlaneData {
 	int plane_no;
@@ -51,28 +64,44 @@ struct PlaneData {
 };
 
 
-int recsize = sizeof(struct cl);
-int flstat;
-int planecnt=0;
-int i;
-long recseek=0;
-int planeno;
-int behav;
+extern int recsize;
 
-struct PlaneData far *MasterList;
-struct PlaneData far *templist;
+extern int flstat;
 
-unsigned newseg;
-int PlaneCnt=0;
+extern int planecnt;
+
+extern int i;
+
+extern long recseek;
+
+extern int planeno;
+
+extern int behav;
+
+
+extern struct PlaneData far * MasterList;
+
+extern struct PlaneData far * templist;
+
+
+extern unsigned newseg;
+
+extern int PlaneCnt;
+
 
 char far *fstrcpy( char far *D, char far *S);
 struct PlaneData far *GetPtr(int num);
 
-unsigned memsize = ((sizeof(struct PlaneData)>>4)+1);
-int planecount;
-unsigned int maxsize;
-unsigned maxseg;
-unsigned newmem;
+extern unsigned memsize;
+
+extern int planecount;
+
+extern unsigned int maxsize;
+
+extern unsigned maxseg;
+
+extern unsigned newmem;
+
 
 main()
 {

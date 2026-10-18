@@ -1,3 +1,8 @@
+extern char gstr248[];
+extern char gstr249[];
+extern char gstr250[];
+extern char gstr251[];
+
 #include "library.h"
 #include "world.h"
 #include "sdata.h"
@@ -7,52 +12,50 @@
 #include "speech.h"
 #include <dos.h>
 
-UBYTE far *Screen;
-UBYTE far *Source;
+extern UBYTE far * Screen;
 
-UBYTE far Palette[256*3];
-
-UBYTE far NitePal[256*3];
-UBYTE far DayPal[256*3];
-UBYTE far DawnPal[256*3];
-UBYTE far DuskPal[256*3];
+extern UBYTE far * Source;
 
 
-char WorldColor[256] = {
-	0,2,0,2,0,0,0,2,2,2,2,1,1,1,1,0,
-	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-};
+extern UBYTE far Palette[256*3];
+
+
+extern UBYTE far NitePal[256*3];
+
+extern UBYTE far DayPal[256*3];
+
+extern UBYTE far DawnPal[256*3];
+
+extern UBYTE far DuskPal[256*3];
+
+
+
+extern char WorldColor[256];
+
 
 extern int SelectedPal;
 
 
 extern int LightsOn;
 
-int OverG    = 0;
-int PaletteChanged = FALSE;
-int CLOUDAMNT;
-int HUDFilterMode=0;
+extern int OverG;
+
+extern int PaletteChanged;
+
+extern int CLOUDAMNT;
+
+extern int HUDFilterMode;
+
 
 // static  int Night60;
 static  int HudIntensity=31;
-UWORD TransAmount;
+extern UWORD TransAmount;
 
-union  REGS  D;
-struct SREGS S;
+
+extern union  REGS D;
+
+extern struct SREGS S;
+
 
 extern	int	InXPLO;
 extern UWORD GRPAGE0[];
@@ -305,7 +308,8 @@ NSetGreyPal(int TR, int TG, int TB)
 
 
 //***************************************************************************
-union REGS D;
+extern union REGS D;
+
 
 extern UBYTE BlueFlame[];
 
@@ -389,7 +393,7 @@ int InitSpecialPal()
 		DuskPal[i] = *P;
 	}
 
-	LoadPalToPal("DAYPAL.pic",PalPkt);
+	LoadPalToPal(gstr248,PalPkt);
 
 	if (PalPkt[0]=='M' && PalPkt[1]=='0') {
 		for (j=6,i=PalPkt[4]*3; i<(PalPkt[5]+1)*3; i++,j++) {
@@ -397,7 +401,7 @@ int InitSpecialPal()
 		}
 	}
 
-	LoadPalToPal("NITEPAL.pic",PalPkt);
+	LoadPalToPal(gstr249,PalPkt);
 
 	if (PalPkt[0]=='M' && PalPkt[1]=='0') {
 		for (j=6,i=PalPkt[4]*3; i<(PalPkt[5]+1)*3; i++,j++) {
@@ -405,7 +409,7 @@ int InitSpecialPal()
 		}
 	}
 
-	LoadPalToPal("DAWNPAL.pic",PalPkt);
+	LoadPalToPal(gstr250,PalPkt);
 
 	if (PalPkt[0]=='M' && PalPkt[1]=='0') {
 		for (j=6,i=PalPkt[4]*3; i<(PalPkt[5]+1)*3; i++,j++) {
@@ -413,7 +417,7 @@ int InitSpecialPal()
 		}
 	}
 
-	LoadPalToPal("DUSKPAL.pic",PalPkt);
+	LoadPalToPal(gstr251,PalPkt);
 
 	if (PalPkt[0]=='M' && PalPkt[1]=='0') {
 		for (j=6,i=PalPkt[4]*3; i<(PalPkt[5]+1)*3; i++,j++) {

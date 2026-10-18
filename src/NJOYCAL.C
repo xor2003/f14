@@ -1,3 +1,20 @@
+extern char gstr2[];
+extern char gstr223[];
+extern char gstr342[];
+extern char gstr343[];
+extern char gstr344[];
+extern char gstr345[];
+extern char gstr346[];
+extern char gstr347[];
+extern char gstr348[];
+extern char gstr349[];
+extern char gstr350[];
+extern char gstr351[];
+extern char gstr352[];
+extern char gstr353[];
+extern char gstr354[];
+extern char gstr355[];
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <bios.h>
@@ -5,10 +22,12 @@
 #include "f15defs.h"
 #include "keycodes.h"
 
-RPS RpJoyX  =  {0, 0,0, 319,199, JAM3, WHITE, LGREY, F_3x5B};
+extern RPS RpJoyX;
+
 extern RPS * RpJoy;
 
-RPS RpJoyBackX  =  {1, 0,0, 319,199, JAM3, WHITE, LGREY, F_3x5B};
+extern RPS RpJoyBackX;
+
 extern RPS * RpJoyBack;
 
 
@@ -146,38 +165,38 @@ JoyRecal (int x, int y)
 {
 	int   b;
 
-	LoadPicNoPal (1, "joypic.pic");
+	LoadPicNoPal (1, gstr342);
 
 	if (Joystick||RudderStick) {
 		DeadZone=12;
 		InitJoy2(Joystick|RudderStick); // purposely do not init the Cooly Hat or ThrottleInitJoy2(Joystick|RudderStick); // purposely do not init the Cooly Hat or Throttle
 		if (NWaitShowJoy(Joystick ? (RudderStick ?
-			"Center Stick and Pedals":
-			"Center Joystick"):
-			"Center Pedals",-1)==-1   )
+			gstr343:
+			gstr344):
+			gstr345,-1)==-1   )
 			return;
 
 		if (Joystick) {
-			if (NWaitShowJoy("Move Stick Upper Left",5)==-1)
+			if (NWaitShowJoy(gstr346,5)==-1)
 				return;
-			if (NWaitShowJoy("Move Stick Lower Right",10)==-1)
+			if (NWaitShowJoy(gstr347,10)==-1)
 				return;
 		}
 
 		if (RudderStick) {
-			if (NWaitShowJoy("Move Pedals Left",16)==-1 )
+			if (NWaitShowJoy(gstr348,16)==-1 )
 				return;
-			if (NWaitShowJoy("Move Pedals Right",32)==-1 )
+			if (NWaitShowJoy(gstr349,32)==-1 )
 				return;
 		}
 
 		if (ThrustStick) {
-			if (NWaitShowJoy("Move Throttle Down",64)==-1 )
+			if (NWaitShowJoy(gstr350,64)==-1 )
 				return;
-			if (NWaitShowJoy("Move Throttle Up",128)==-1 )
+			if (NWaitShowJoy(gstr351,128)==-1 )
 				return;
 		}
-		NWaitShowJoy("Adjust Dead Zone (+-)",0);
+		NWaitShowJoy(gstr352,0);
 	}
 }
 
@@ -235,10 +254,10 @@ NShowJoy(char *msg,struct STX j)
 
    RpJoyBack->APen= BLACK;
    CenterPrint(RpJoyBack, JBDSTXC+1, JBXDSTYL+6+1, msg);
-   CenterPrint(RpJoyBack, JBDSTXC+1, JBXDSTYL+12+1, "Then press Trigger");
+   CenterPrint(RpJoyBack, JBDSTXC+1, JBXDSTYL+12+1, gstr353);
    RpJoyBack->APen= 0x33;
    CenterPrint(RpJoyBack, JBDSTXC, JBXDSTYL+6, msg);
-   CenterPrint(RpJoyBack, JBDSTXC, JBXDSTYL+12, "Then press Trigger");
+   CenterPrint(RpJoyBack, JBDSTXC, JBXDSTYL+12, gstr353);
 
    RectCopy(RpJoyBack, JBXDSTXL, JBXDSTYL, JBXDSTXH-JBXDSTXL,JBXDSTYH-JBXDSTYL, RpJoy, JBXDSTXL, JBXDSTYL);
 }
@@ -347,7 +366,7 @@ int GetJoyConfig()
 	FILE *f ;
 	int offset;
 
-	f = fopen ("JOY.F14", "rb") ;
+	f = fopen (gstr354, gstr2) ;
 
     fread(&offset,			sizeof (int), 1, f);
     fread(&KbSense,			sizeof (int), 1, f);
@@ -385,7 +404,7 @@ int SaveJoyConfig()
 	FILE *f ;
 	int offset=16;
 
-    f = fopen ("JOY.f14", "wb");
+    f = fopen (gstr355, gstr223);
 
     fwrite(&offset,			sizeof (int), 1, f);
     fwrite(&KbSense,		sizeof (int), 1, f);

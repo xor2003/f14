@@ -1,3 +1,7 @@
+extern char gstr743[];
+extern char gstr744[];
+extern char gstr745[];
+
 #include <dos.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -16,8 +20,10 @@ extern int SndPriority;
 
 extern int CanDoSpeech;
 
-char    SoundFile[]   = "Psound.14g";
-char    SpeechDriver[]= "Digital.f14";
+extern char SoundFile[];
+
+extern char SpeechDriver[];
+
 
 extern int SNDDETAIL;
 extern  char    Txt[];
@@ -94,7 +100,7 @@ Sound(int n, int priority, int param)
 	if (SNDDETAIL==3) return(0);
     if ((priority>SndPriority) && (!ejected)) {
 #ifdef YEP
-		sprintf(Txt,"Sound: %d",n);
+		sprintf(Txt,gstr743,n);
 		mprintf(Txt);
 #endif
 		SndSounds(n, param);
@@ -121,7 +127,7 @@ InitSpeech()
 
     if (AvailSysMem()>pages) {
 		if (dig_load_overlay(SpeechDriver)==0) {
-			size = LoadBigEMSFile ("game.dgt", SPEECHSEG);
+			size = LoadBigEMSFile (gstr744, SPEECHSEG);
 				if (size!=0) {
 					if (DigSysSetup (SndData.dig_address,
 						SndData.dig_type,
@@ -168,7 +174,7 @@ UpdateJetSnd()
 AdjustSounds()
 {
     SNDDETAIL = ++SNDDETAIL&3;
-    TXT ("Sounds ");
+    TXT (gstr745);
     TXN (3-SNDDETAIL);
     Message (Txt,SYSTEM_MSG);
     UpdateJetSnd ();

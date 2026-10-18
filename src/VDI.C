@@ -1,3 +1,9 @@
+extern char gstr216[];
+extern char gstr288[];
+extern char gstr764[];
+extern char gstr765[];
+extern char gstr766[];
+
 #include <dos.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,7 +48,8 @@ TD_box ();
 /*  End static prototypes  */
 
 extern int Tscale;
-int inity=30;
+extern int inity;
+
 
 int VdiCrt (int CrtNr)
 {
@@ -495,18 +502,18 @@ int taillength=5;
    alt = t->alt/(1000/4);
 
    if ((alt >5) && (alt<=15))
-	RpPrint(RpCRT,sx-6,sy-2,"1");
+	RpPrint(RpCRT,sx-6,sy-2,gstr764);
    if ((alt >15) && (alt<=25))
-	RpPrint(RpCRT,sx-6,sy-2,"2");
+	RpPrint(RpCRT,sx-6,sy-2,gstr765);
    if ((alt >25) && (alt<=35))
-	RpPrint(RpCRT,sx-6,sy-2,"3");
+	RpPrint(RpCRT,sx-6,sy-2,gstr288);
    if ((alt >35) && (alt<=45))
-	RpPrint(RpCRT,sx-6,sy-2,"4");
+	RpPrint(RpCRT,sx-6,sy-2,gstr766);
    if ((alt >45) && (alt<=55))
-	RpPrint(RpCRT,sx-6,sy-2,"5");
+	RpPrint(RpCRT,sx-6,sy-2,gstr216);
 
 
-   RpPrint(RpCRT,sx+4,sy-2,"1");
+   RpPrint(RpCRT,sx+4,sy-2,gstr764);
    SetFont(RpCRT,font);
 
 

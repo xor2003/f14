@@ -1,3 +1,10 @@
+extern char gstr747[];
+extern char gstr748[];
+extern char gstr749[];
+extern char gstr750[];
+extern char gstr751[];
+extern char gstr752[];
+
 /*  File:   Stealth.c                             */
 /*  Author: Sid Meier                             */
 /*                                                */
@@ -49,20 +56,34 @@ extern UWORD QTimer;
 extern UWORD FrameRate10;
 extern UWORD FTicks;
 
-int     AutoGearOk=1;
+extern int AutoGearOk;
+
 extern int detected;
 extern int atarg;
 extern int gtarg;
-int ImHit;
+extern int ImHit;
 
-COORD   xlast[2],ylast[2],chuteX,chuteY;
-int     zlast[2],chuteZ,chuteDZ;
-char    Txt[80];
-int     MinAlt,CloseBase[2],OldClose=-1;
-int     CloseDist[2];
+extern COORD xlast[2];
+extern COORD ylast[2];
+extern COORD chuteX;
+extern COORD chuteY;
+
+extern int zlast[2];
+extern int chuteZ;
+extern int chuteDZ;
+
+extern char Txt[80];
+
+extern int MinAlt;
+extern int CloseBase[2];
+extern int OldClose;
+
+extern int CloseDist[2];
+
 extern UWORD Speedy;
 
-int     AutoLand=FALSE;
+extern int AutoLand;
+
 extern int nextlog;
 
 
@@ -227,9 +248,9 @@ dropdecoy(int type, int local)
         if (Stores[type]-- <= 0) {
             Stores[type] = 0;
             if (type==FLARE)
-	            Message("(RIO) Flares exhausted",RIO_MSG);
+	            Message(gstr747,RIO_MSG);
 			else
-	            Message("(RIO) Chaff exhausted",RIO_MSG);
+	            Message(gstr748,RIO_MSG);
             return 0;
         }
         Sound(N_DropChaff,2,0);
@@ -250,15 +271,15 @@ dropdecoy(int type, int local)
 			ds[j].alt = Alt;
 
             if (type==FLARE) {
-                Str = "(RIO) Flare";
+                Str = gstr749;
             } else {
-                Str = "(RIO) Chaff";
+                Str = gstr750;
             }
 
             TXT (Str);
-            TXA (" released (");
+            TXA (gstr751);
             TXN (Stores[type]);
-            TXA (" left)");
+            TXA (gstr752);
             Message(Txt,RIO_MSG);
         } else if(local){
 	        ds[j].time = (12)*FrameRate;

@@ -1,3 +1,25 @@
+extern char gstr2[];
+extern char gstr220[];
+extern char gstr221[];
+extern char gstr302[];
+extern char gstr357[];
+extern char gstr702[];
+extern char gstr703[];
+extern char gstr704[];
+extern char gstr705[];
+extern char gstr706[];
+extern char gstr707[];
+extern char gstr708[];
+extern char gstr709[];
+extern char gstr710[];
+extern char gstr711[];
+extern char gstr712[];
+extern char gstr713[];
+extern char gstr714[];
+extern char gstr715[];
+extern char gstr716[];
+extern char gstr717[];
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <bios.h>
@@ -102,8 +124,10 @@ extern   RPS   *Rp3;
 
 
 //**********************************************************************
-int NextRioTime=0;
-int   iconmode=0;
+extern int NextRioTime;
+
+extern int iconmode;
+
 BigRioDot(RPS *Rp,int x, int y, int color)
 {
    DrawLine(Rp,x,y-2,x+3,y+2,color);
@@ -116,7 +140,8 @@ extern struct _path_ aipaths[];
 extern int DoMustLive,DoMustDie,DoMustEsc;
 extern int MinTimeSet;
 extern int CheckOurAlt();
-int RioWingOK;
+extern int RioWingOK;
+
 
 RioWpMark(RPS *Rp,int num,int type)
 {
@@ -211,8 +236,8 @@ DrawRioTrack(RPS *Rp)
    cnt=UpdateOurWPS(-999,1);
    ox=(int)(PxLng>>12);
    oy=MulDiv((int)((0x100000L-PyLng)>>12),192,256);
-   RioCircle(Rp,ox,oy,7,29,"100");
-   RioCircle(Rp,ox,oy,7,58,"200");
+   RioCircle(Rp,ox,oy,7,29,gstr220);
+   RioCircle(Rp,ox,oy,7,58,gstr221);
    for (i=0;i<=cnt;i++)
       {
       x=(int)(wps[i].xL>>12);
@@ -411,8 +436,8 @@ RioMap()
          RioWingOK=1;
 
    S[0]=0;
-   strcpy (S,"No briefing information available.");
-   if ((File = fopen ("mission.f14", "rb")) != NULL)
+   strcpy (S,gstr702);
+   if ((File = fopen (gstr302, gstr2)) != NULL)
       {
       fread (&start_data, sizeof (struct _missionHeader_), 1, File);
       if (start_data.goalLoc && start_data.goalLen)
@@ -431,44 +456,44 @@ RioMap()
          fclose(File);
       }
    if (DoMustLive==1)
-      strcat (S," Escort Mission in progress. ");
+      strcat (S,gstr703);
    else if (DoMustLive==2)
-      strcat (S," Escort Goal achieved! ");
+      strcat (S,gstr704);
    if (DoMustDie==1)
-      strcat (S," Intercept Mission in progress. ");
+      strcat (S,gstr705);
    else if (DoMustDie==2)
-      strcat (S," Intercept Goal achieved! ");
+      strcat (S,gstr706);
    if (DoMustEsc==2)
-      strcat (S," Survive Goal failed! ");
+      strcat (S,gstr707);
    if (MinTimeSet==1)
-      strcat (S," Minimum time aloft not achieved. ");
+      strcat (S,gstr708);
    else if (MinTimeSet==2)
-      strcat (S," Minimum time aloft achieved! ");
+      strcat (S,gstr709);
 
    MouseSETUP(MouseSprite,0,0);
    ScreenOff();
    SndSounds(N_Pause);
 
-   LoadPicture(2,"map-sprt.PIC");
+   LoadPicture(2,gstr710);
 
    switch(ConfigData.World) {
       case 0:
-         LoadPicture(1,"map-cape.PIC");
+         LoadPicture(1,gstr711);
       break;
       case 1:
-         LoadPicture(1,"map-med.PIC");
+         LoadPicture(1,gstr712);
       break;
       case 2:
-         LoadPicture(1,"map-us.PIC");
+         LoadPicture(1,gstr713);
       break;
       case 3:
-         LoadPicture(1,"map-kor.PIC");
+         LoadPicture(1,gstr714);
       break;
       case 4:
-         LoadPicture(1,"map-ind.PIC");
+         LoadPicture(1,gstr715);
       break;
       default:
-         LoadPicture(1,"map-us.PIC");
+         LoadPicture(1,gstr713);
       break;
    }
    RioLegend();
@@ -555,7 +580,7 @@ RioMap()
                RectFill(Rp2, 0x2a,0x42,0xb1,0x61,0);
                TextInTheBox(Rtemp,S,0x28,0x40,0xdc,0xa4,0xff);
                Rtemp->APen=MSGCOLOR;
-               CenterPrint (Rtemp, 0x82,0x9a,"PRESS ANY KEY TO CONTINUE");
+               CenterPrint (Rtemp, 0x82,0x9a,gstr716);
                MouseHIDE();
                RectCopy (Rp2, 0x28,0x40,0xb5,0x65, Rp1,0x28,0x40);
                MouseHITS();
@@ -578,8 +603,8 @@ RioMap()
                   DrawRioMapInfo(Rtemp,2);
                   ofont=Rp1->FontNr;
                   Rp1->FontNr=Rtemp->FontNr;
-                  TextInTheBox(Rp1,"USE LEFT MOUSE BUTTON TO RE-POSITION YOUR PLANE",0x15,2,0xff,0x1e,0);
-                  TextInTheBox(Rp1,"USE LEFT MOUSE BUTTON TO RE-POSITION YOUR PLANE",0x14,1,0xff,0x1e,4);
+                  TextInTheBox(Rp1,gstr717,0x15,2,0xff,0x1e,0);
+                  TextInTheBox(Rp1,gstr717,0x14,1,0xff,0x1e,4);
                   Rp1->FontNr=ofont;
                   MouseSHOW();
                   while (1)
@@ -677,11 +702,15 @@ RioMap()
 
 
 
-	MapX = 0L;
-	MapY = 0L;
+	extern  MapX;
 
-	MapX = PxLng >> 12;
-	MapY = (0x100000 - PyLng) >> 12;
+	extern  MapY;
+
+
+	extern  MapX;
+
+	extern  MapY;
+
 	MapY -= (MapY/4);
 
 	if ((mseg=MapInEMSSprite(MISCSPRTSEG,1))) {
@@ -810,15 +839,18 @@ RioMap()
 							(int)MapY,0x0100,0,0,0);
 			}
 		}
-	extern }
+	}
 
 
 	MouseHIDE();
-	ScreenOff(); lastmsgview;
+	ScreenOff();
+	lastmsgview=-1;
 
+	if (View<FRONTAL) {
+    	LoadNewCockpit();
 	} else {
        	ClearPage(0, BLACK);
-		LoadPalNoPic("F14ORG01.PIC");
+		LoadPalNoPic(gstr357);
 	}
 	SndSounds(N_UnPause);
     return 1;

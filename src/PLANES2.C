@@ -1,9 +1,122 @@
+extern char gstr130[];
+extern char gstr133[];
+extern char gstr134[];
+extern char gstr136[];
+extern char gstr137[];
+extern char gstr138[];
+extern char gstr139[];
+extern char gstr140[];
+extern char gstr141[];
+extern char gstr314[];
+extern char gstr372[];
+extern char gstr389[];
+extern char gstr456[];
+extern char gstr478[];
+extern char gstr479[];
+extern char gstr480[];
+extern char gstr481[];
+extern char gstr482[];
+extern char gstr483[];
+extern char gstr484[];
+extern char gstr485[];
+extern char gstr486[];
+extern char gstr487[];
+extern char gstr488[];
+extern char gstr489[];
+extern char gstr490[];
+extern char gstr491[];
+extern char gstr492[];
+extern char gstr493[];
+extern char gstr494[];
+extern char gstr495[];
+extern char gstr496[];
+extern char gstr497[];
+extern char gstr498[];
+extern char gstr499[];
+extern char gstr500[];
+extern char gstr501[];
+extern char gstr502[];
+extern char gstr503[];
+extern char gstr504[];
+extern char gstr505[];
+extern char gstr506[];
+extern char gstr507[];
+extern char gstr508[];
+extern char gstr509[];
+extern char gstr510[];
+extern char gstr511[];
+extern char gstr512[];
+extern char gstr513[];
+extern char gstr514[];
+extern char gstr515[];
+extern char gstr516[];
+extern char gstr517[];
+extern char gstr518[];
+extern char gstr519[];
+extern char gstr520[];
+extern char gstr521[];
+extern char gstr522[];
+extern char gstr523[];
+extern char gstr524[];
+extern char gstr525[];
+extern char gstr526[];
+extern char gstr527[];
+extern char gstr528[];
+extern char gstr529[];
+extern char gstr530[];
+extern char gstr531[];
+extern char gstr532[];
+extern char gstr533[];
+extern char gstr534[];
+extern char gstr535[];
+extern char gstr536[];
+extern char gstr537[];
+extern char gstr538[];
+extern char gstr539[];
+extern char gstr540[];
+extern char gstr541[];
+extern char gstr542[];
+extern char gstr543[];
+extern char gstr544[];
+extern char gstr545[];
+extern char gstr546[];
+extern char gstr547[];
+extern char gstr548[];
+extern char gstr549[];
+extern char gstr550[];
+extern char gstr551[];
+extern char gstr552[];
+extern char gstr553[];
+extern char gstr554[];
+extern char gstr555[];
+extern char gstr556[];
+extern char gstr557[];
+extern char gstr558[];
+extern char gstr559[];
+extern char gstr560[];
+extern char gstr561[];
+extern char gstr562[];
+extern char gstr563[];
+extern char gstr564[];
+extern char gstr565[];
+extern char gstr566[];
+extern char gstr567[];
+extern char gstr568[];
+extern char gstr569[];
+extern char gstr570[];
+extern char gstr571[];
+extern char gstr572[];
+extern char gstr573[];
+extern char gstr574[];
+extern char gstr575[];
+
 /*  File:   Planes2.c                              */
 /*  Author: Scott Elson                             */
 /*                                                */
 /*  Game logic for Fleet Defender: plane behaviors          */
 
 
+extern int dummydacx;
 #include	<stdio.h>
 #include	<stdlib.h>
 #include "library.h"
@@ -22,7 +135,8 @@
 
 extern int DAMAGELITE[];
 extern int lastcatused;
-int whichdefensethreat[MAXPLANE];
+extern int whichdefensethreat[MAXPLANE];
+
 
 extern	int		DESIGNATED;
 extern	int		LOCKED;
@@ -324,9 +438,9 @@ void UpdateWing()
 		if((ps[bv[i].leader].status & CRASH) || (!((ps[bv[i].leader].status & ALIVE) && (ps[bv[i].leader].status & ACTIVE)))) {
 			bvl = bv[i].leader;
 #ifdef ELFDMSG
-			TXT("Replace Wing ");
+			TXT(gstr478);
 			TXN(bvl);
-			TXA(" with ");
+			TXA(gstr479);
 			TXN(i);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -371,9 +485,9 @@ void UpdateWing()
 	if(bv[i].wingman >= 0) {
 		if((ps[bv[i].wingman].status & CRASH) || (!((ps[bv[i].wingman].status & ALIVE) && (ps[bv[i].wingman].status & ACTIVE)))) {
 #ifdef ELFDMSG
-			TXT("Remove Wing ");
+			TXT(gstr480);
 			TXN(bv[i].wingman);
-			TXA(" From ");
+			TXA(gstr481);
 			TXN(i);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -387,9 +501,9 @@ void UpdateWing()
 		if((ps[bv[i].prevsec].status & CRASH) || (!((ps[bv[i].prevsec].status & ALIVE) && (ps[bv[i].prevsec].status & ACTIVE)))) {
 			bvl = bv[i].prevsec;
 #ifdef ELFDMSG
-			TXT("Replace Leader ");
+			TXT(gstr482);
 			TXN(bvl);
-			TXA(" with ");
+			TXA(gstr479);
 			TXN(i);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -406,9 +520,9 @@ void UpdateWing()
 	if((bv[i].nextsec >= 0) && (bv[bv[i].nextsec].wingman < 0)) {
 		if((ps[bv[i].nextsec].status & CRASH) || (!((ps[bv[i].nextsec].status & ALIVE) && (ps[bv[i].nextsec].status & ACTIVE)))) {
 #ifdef ELFDMSG
-			TXT("Remove Follow ");
+			TXT(gstr483);
 			TXN(bv[i].nextsec);
-			TXA(" From ");
+			TXA(gstr481);
 			TXN(i);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -530,7 +644,7 @@ void CloseInFight(int tanglel, int wingnum, int leadernum)
 				if(wingnum > -1) {
 					if(bv[wingnum].Behavior == FreeFighter) {
 #ifdef ELFDMSG
-						TXT("Wingman Attack ");
+						TXT(gstr484);
 						TXN(wingnum);
 						Message(Txt,DEBUG_MSG);
 #endif
@@ -540,7 +654,7 @@ void CloseInFight(int tanglel, int wingnum, int leadernum)
 				if(leadernum > -1) {
 					if(bv[leadernum].Behavior == FreeFighter) {
 #ifdef ELFDMSG
-						TXT("Leader Attack ");
+						TXT(gstr485);
 						TXN(leadernum);
 						Message(Txt,DEBUG_MSG);
 #endif
@@ -552,7 +666,7 @@ void CloseInFight(int tanglel, int wingnum, int leadernum)
 				if(wingnum > -1) {
 					if(bv[wingnum].Behavior == StraightAttack) {
 #ifdef ELFDMSG
-						TXT("Wingman Free ");
+						TXT(gstr486);
 						TXN(wingnum);
 						Message(Txt,DEBUG_MSG);
 #endif
@@ -562,7 +676,7 @@ void CloseInFight(int tanglel, int wingnum, int leadernum)
 				if(leadernum > -1) {
 					if(bv[leadernum].Behavior == StraightAttack) {
 #ifdef ELFDMSG
-						TXT("Leader Free ");
+						TXT(gstr487);
 						TXN(leadernum);
 						Message(Txt,DEBUG_MSG);
 #endif
@@ -654,7 +768,7 @@ int CheckWingmanSix(int wingnum)
 		if((!(bv[i].behaveflag & NO_SWITCH_TARGET)) && (bv[i].leader == -1) &&
 				(bv[i].target != targetnum)) {
 			GetWingName(i, Txt);
-			TXA("Engaging Rear Bogey ");
+			TXA(gstr488);
 //			TXN(tdist);
 			Message(Txt,WINGMAN_MSG);
 		}
@@ -713,15 +827,15 @@ void CheckAITarget(int ainum)
 
 		if(preorgt != prenewt) {
 			ps[prenewt].color = ainum;
-			TXT("Target Change ");
+			TXT(gstr489);
 			TXN(ainum);
-			TXA(" from ");
+			TXA(gstr490);
 			TXN(orgt);
-			TXA(" to ");
+			TXA(gstr491);
 			TXN(bv[ainum].target);
-			TXA(" po ");
+			TXA(gstr492);
 			TXN(preorgt);
-			TXA(" pn ");
+			TXA(gstr493);
 			TXN(prenewt);
 			Message(Txt,DEBUG_MSG);
 		}
@@ -839,17 +953,17 @@ void FormationSpeedAdjustUS(int prespeed, int relangle, int tdist, int prewing)
 //	if((tempvar) && ((i == 17) || (i == 18)))
 	if((tempvar) && (i == 62))
 	{
-		TXT(" ");
+		TXT(gstr130);
 		TXN(i);
-		TXA(" Speed ");
+		TXA(gstr494);
 		TXN(bv[i].basespeed);
-		TXA(" prespeed ");
+		TXA(gstr495);
 		TXN(prespeed);
-		TXA(", tdist ");
+		TXA(gstr133);
 		TXN(tdist);
-		TXA(", ra ");
+		TXA(gstr134);
 		TXN(relangle);
-		TXA(", PE ");
+		TXA(gstr496);
 		TXN(ptype->PlaneEnumId);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1020,13 +1134,13 @@ void Jink()
 
 #ifdef ELFBMSG
 	if(tempvar) {
-		TXT("JK ");
+		TXT(gstr497);
 		TXN(i);
-		TXA(" bs ");
+		TXA(gstr372);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
-		TXA(" nm ");
+		TXA(gstr498);
 		TXN(tdistnm);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1227,18 +1341,18 @@ void Formation() {
 #if 0 /* AAA  */
 //#ifdef ELFBMSG
 	if((tempvar) && (i == 3)) {
-		TXT("FM ");
+		TXT(gstr136);
 		TXN(i);
-		TXA(" pw ");
+		TXA(gstr137);
 		TXN(prewing);
-		TXA(", ps ");
+		TXA(gstr138);
 		TXN(bv[prewing].basespeed);
-		TXA(", os ");
+		TXA(gstr139);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
-		sprintf(Txt, "1h %x, lh %x, th %x, ti %d", ps[1].head, ps[tempwing].head, temphead, tempwing);
+		sprintf(Txt, gstr141, ps[1].head, ps[tempwing].head, temphead, tempwing);
 		Message(Txt,DEBUG_MSG);
 /*		sprintf(Txt, "PW sx %d, lx %ld, nx %ld, sy %d, ly %ld, ny %ld", ps[tempwing].x, ailoc[tempwing].xloc, dx, ps[tempwing].y, ailoc[tempwing].yloc, dy);
 		Message(Txt,DEBUG_MSG);
@@ -1359,9 +1473,9 @@ void FormationUS()
 
 #ifdef ELFBMSG
 	if(tempvar) {
-		TXT("FM ");
+		TXT(gstr136);
 		TXN(i);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1502,13 +1616,13 @@ void Jink2() {
 
 #if ELFBMSG
 	if(tempvar) {
-		TXT("JK2 ");
+		TXT(gstr499);
 		TXN(i);
-		TXA(" ra ");
+		TXA(gstr500);
 		TXN(relangle);
-		TXA(" rra ");
+		TXA(gstr501);
 		TXN(rrelangle);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1526,9 +1640,9 @@ void Jink2() {
 		if(missileinair == 0) {
 #ifdef ELFBMSG
 			if(tempvar) {
-				TXT("JK2 ");
+				TXT(gstr499);
 				TXN(i);
-				TXA(", No Missile");
+				TXA(gstr502);
 				Message(Txt,DEBUG_MSG);
 			}
 #endif
@@ -1555,13 +1669,13 @@ void Jink2() {
 		pdest = 0x3000;
 #if ELFBMSG
 		if(tempvar) {
-			TXT("JKS ");
+			TXT(gstr503);
 			TXN(i);
-			TXA(" ra ");
+			TXA(gstr500);
 			TXN(relangle);
-			TXA(" rra ");
+			TXA(gstr501);
 			TXN(rrelangle);
-			TXA(", d ");
+			TXA(gstr140);
 			TXN(tdist);
 			Message(Txt,DEBUG_MSG);
 		}
@@ -1635,11 +1749,11 @@ void Jink2() {
 
 #ifdef ELFBMSG
 	if(tempvar) {
-		TXT("JK2 ");
+		TXT(gstr499);
 		TXN(i);
-		TXA(" bs ");
+		TXA(gstr372);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1688,11 +1802,11 @@ void PostHole()
 		pdest = 0;
 #ifdef ELFBMSG
 	if(tempvar) {
-		TXT("PH ");
+		TXT(gstr504);
 		TXN(i);
-		TXA(" bs ");
+		TXA(gstr372);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1800,12 +1914,12 @@ void BaseBracket(int angleinc, int angleevade)
 
 #ifdef ELFDMSG
 	if(tempvar)  {
-		TXT("BB ");
+		TXT(gstr505);
 		TXN(i);
-		TXA(" ta1 ");
+		TXA(gstr506);
 		tangle1 = TrgMul (tangle1>>1, 360);
 		TXN(tangle1);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1827,7 +1941,7 @@ void DoAICounters(int ainum, int distnm, struct Sams *enemymissile)
 				|| ((FriendMatchType(ainum, FRIENDLY)) && (distnm == 2)))) {
 			if(bv[ainum].leader == -1) {
 				GetWingName(ainum, Txt);
-				TXA("Dropping Flare");
+				TXA(gstr507);
 				Message(Txt,WINGMAN_MSG);
 			}
 			dropdecoy(FLARE, ainum);
@@ -1838,7 +1952,7 @@ void DoAICounters(int ainum, int distnm, struct Sams *enemymissile)
 				|| ((distnm == 2) && (FriendMatchType(ainum, FRIENDLY))))) {
 			if((bv[ainum].leader == -1) && (distnm == 2)) {
 				GetWingName(ainum, Txt);
-				TXA("Dropping Chaff");
+				TXA(gstr508);
 				Message(Txt,WINGMAN_MSG);
 			}
 			dropdecoy(CHAFF, ainum);
@@ -1854,8 +1968,9 @@ void DoAICounters(int ainum, int distnm, struct Sams *enemymissile)
 void DoAICounters(int ainum, int distnm, struct Sams *enemymissile)
 {
 //	struct sam *emsltype;
-	struct MissileData far *emsltype;
 	UWORD difftime;
+	struct MissileData far *emsltype;
+	extern int GtimeDAC;
 
 	difftime = 0x008;  /*  Might Want to tweek this  */
 	if(bv[ainum].winglevel <= 1)
@@ -1869,22 +1984,22 @@ void DoAICounters(int ainum, int distnm, struct Sams *enemymissile)
 		emsltype = GetMissilePtr(enemymissile->type);
 //    	emsltype = s+ enemymissile->type;
 		if (((emsltype->homing == IR_1) || (emsltype->homing == IR_2))
-				&& (((!(difftime & Gtime)) && (distnm == 1) && (bv[ainum].leader != -1))
+				&& (((!(difftime & GtimeDAC)) && (distnm == 1) && (bv[ainum].leader != -1))
 				|| ((bv[ainum].leader == -1) && (distnm == 2)))) {
 			if(bv[ainum].leader == -1) {
 				GetWingName(ainum, Txt);
-				TXA("Dropping Flare");
+				TXA(gstr507);
 				Message(Txt,WINGMAN_MSG);
 			}
 			dropdecoy(FLARE, ainum);
 			bv[ainum].behaveflag |= CFDROPPED;
 		}
 		else if (((emsltype->homing == RDR_1) || (emsltype->homing == RDR_2))
-				&& (((distnm == 3) && (!(difftime & Gtime)) && (bv[ainum].leader != -1))
+				&& (((distnm == 3) && (!(difftime & GtimeDAC)) && (bv[ainum].leader != -1))
 				|| ((distnm == 2) && (bv[ainum].leader == -1)))) {
 			if((bv[ainum].leader == -1) && (distnm == 2)) {
 				GetWingName(ainum, Txt);
-				TXA("Dropping Chaff");
+				TXA(gstr508);
 				Message(Txt,WINGMAN_MSG);
 			}
 			dropdecoy(CHAFF, ainum);
@@ -2066,7 +2181,7 @@ next:
 		}
 		tempplane = GetPlanePtr(ps[planenum].type);
     	FTXT (tempplane->name);
-		TXA (" ");
+		TXA (gstr130);
 	}
 }
 
@@ -2087,7 +2202,7 @@ void GetSortInfo(int ainum)
 	int tempsort, tempother, tempme;
 
 	if(bv[ainum].target == -1) {
-		TXA("none");
+		TXA(gstr509);
 		Message(Txt,WINGMAN_MSG);
 		return;
 	}
@@ -2099,14 +2214,14 @@ void GetSortInfo(int ainum)
 	dy = ps[targetnum].y - y;
 	GetTargADP(ainum, dx, dy, &tdist1, &tpitch, &tangle, &tdistnm, &enemyalt, 0);
 	if(tdistnm <= 5) {
-		TXA("unknown");
+		TXA(gstr510);
 		Message(Txt,WINGMAN_MSG);
 		return;
 	}
 	rangle = tangle - aihead;
 	if(((abs(rangle) > 0x3800) && (tdistnm > 20)) || (tdistnm > 80) ||
 			(!((ps[targetnum].status & ALIVE) && (ps[targetnum].status&ACTIVE) && (ps[targetnum].speed)))) {
-		TXA("none");
+		TXA(gstr509);
 		Message(Txt,WINGMAN_MSG);
 		return;
 	}
@@ -2138,7 +2253,7 @@ void GetSortInfo(int ainum)
 		wingcnt = prewing;
 	}
 	if(cnt <= 1) {
-		TXA("locked");
+		TXA(gstr511);
 		Message(Txt,WINGMAN_MSG);
 		return;
 	}
@@ -2169,12 +2284,12 @@ void GiveSortInfo(int rangarray[], int numarray[], int distarray[], int targetnu
 	if(numarray[2] == -1) {
 		if(abs(distarray[0] - distarray[1]) < 10) {
 			if(targetnum == numarray[0]) {
-				TXA("Left");
+				TXA(gstr512);
 				Message(Txt,WINGMAN_MSG);
 				return;
 			}
 			else {
-				TXA("Right");
+				TXA(gstr513);
 				Message(Txt,WINGMAN_MSG);
 				return;
 			}
@@ -2189,12 +2304,12 @@ void GiveSortInfo(int rangarray[], int numarray[], int distarray[], int targetnu
 				tempother =0;
 			}
 			if(distarray[tempme] < distarray[tempother]) {
-				TXA("Lead");
+				TXA(gstr514);
 				Message(Txt,WINGMAN_MSG);
 				return;
 			}
 			else {
-				TXA("Trail");
+				TXA(gstr515);
 				Message(Txt,WINGMAN_MSG);
 				return;
 			}
@@ -2207,19 +2322,19 @@ void GiveSortInfo(int rangarray[], int numarray[], int distarray[], int targetnu
 			tempsort = 1;
 		if(targetnum != numarray[1]) {
 			if(targetnum == numarray[0]) {
-				TXA("Left ");
+				TXA(gstr516);
 				tempme = 0;
 			}
 			else {
-				TXA("Right ");
+				TXA(gstr517);
 				tempme = 2;
 			}
 			if(!tempsort) {
 				if(distarray[tempme] < distarray[1]) {
-					TXA("Lead");
+					TXA(gstr514);
 				}
 				else {
-					TXA("Trail");
+					TXA(gstr515);
 				}
 			}
 			Message(Txt,WINGMAN_MSG);
@@ -2227,18 +2342,18 @@ void GiveSortInfo(int rangarray[], int numarray[], int distarray[], int targetnu
 		}
 		else {
 			if(tempsort) {
-				TXA("Left ");
+				TXA(gstr516);
 				tempother = 0;
 			}
 			else {
-				TXA("Right ");
+				TXA(gstr517);
 				tempother = 1;
 			}
 			if(distarray[1] < distarray[tempother]) {
-				TXA("Lead");
+				TXA(gstr514);
 			}
 			else {
-				TXA("Trail");
+				TXA(gstr515);
 			}
 			Message(Txt,WINGMAN_MSG);
 			return;
@@ -2248,35 +2363,35 @@ void GiveSortInfo(int rangarray[], int numarray[], int distarray[], int targetnu
 		if(targetnum == numarray[0]) {
 			tempme = 0;
 			tempother = 1;
-			TXA("Left ");
+			TXA(gstr516);
 		}
 		else if(targetnum == numarray[1]) {
 			tempme = 1;
 			tempother = 0;
-			TXA("Left ");
+			TXA(gstr516);
 		}
 		else if(targetnum == numarray[2]) {
 			tempme = 2;
 			tempother = 3;
-			TXA("Right ");
+			TXA(gstr517);
 		}
 		else if(targetnum == numarray[3]) {
 			tempme = 3;
 			tempother = 2;
-			TXA("Right ");
+			TXA(gstr517);
 		}
 		if(distarray[tempme] < distarray[tempother]) {
-			TXA("Lead");
+			TXA(gstr514);
 			Message(Txt,WINGMAN_MSG);
 			return;
 		}
 		else {
-			TXA("Trail");
+			TXA(gstr515);
 			Message(Txt,WINGMAN_MSG);
 			return;
 		}
 	}
-	TXA("?");
+	TXA(gstr518);
 	Message(Txt,WINGMAN_MSG);
 	return;
 }
@@ -2372,7 +2487,7 @@ int SetUpOval1(int ovalheight, int ovalwidth, int ovallength)
 //#ifdef ELFBMSG
 //	if((tempvar) && (i < 9)) {
 	if(tempvar) {
-		TXT("SetUPOVAL1 ");
+		TXT(gstr519);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -2402,7 +2517,7 @@ void SetUpCAP2()
 		if(GetSquadLeader(i) == -1) {
   			bv[i].Behavior = SetUpCAP3;
 			GetWingName(i, Txt);
-			TXA("Going Cold");
+			TXA(gstr520);
 			Message(Txt,WINGMAN_MSG);
 		}
 		bv[i].basespeed = 300;
@@ -2452,7 +2567,7 @@ int SetUpOval2(int ovalheight, int ovalwidth, int ovallength)
 //#ifdef ELFBMSG
 //	if((tempvar) && (i < 9)) {
 	if(tempvar) {
-		TXT("SetUPOVAL2 ");
+		TXT(gstr521);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -2509,7 +2624,7 @@ int SetUpOval3(int ovalheight, int ovalwidth, int ovallength)
 //#ifdef ELFBMSG
 //	if((tempvar) && (i < 9)) {
 	if(tempvar) {
-		TXT("SetUPCAP3 ");
+		TXT(gstr522);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -2579,7 +2694,7 @@ int OvalTurn1(int ovalheight, int ovalwidth, int ovallength)
 //#ifdef ELFBMSG
 //	if((tempvar) && (i < 9)) {
 	if(tempvar) {
-		TXT("CAPTurn1 ");
+		TXT(gstr523);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -2624,7 +2739,7 @@ void CAPTurn2()
 
 		if(GetSquadLeader(i) == -1) {
 			GetWingName(i, Txt);
-			TXA("Going Hot");
+			TXA(gstr524);
 			Message(Txt,WINGMAN_MSG);
 		}
 	}
@@ -2670,7 +2785,7 @@ int OvalTurn2(int ovalheight, int ovalwidth, int ovallength)
 //#ifdef ELFBMSG
 //	if((tempvar) && (i < 9)) {
 	if(tempvar) {
-		TXT("CAPTurn2 ");
+		TXT(gstr525);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -2703,7 +2818,7 @@ void CAPLeg1()
 		}
 		if(GetSquadLeader(i) == -1) {
 			GetWingName(i, Txt);
-			TXA("Going Cold");
+			TXA(gstr520);
 			Message(Txt,WINGMAN_MSG);
 		}
 	}
@@ -2711,7 +2826,7 @@ void CAPLeg1()
 //#ifdef ELFBMSG
 //	if((tempvar) && (i < 9)) {
 	if(tempvar) {
-		TXT("CAPLeg1 ");
+		TXT(gstr526);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -2733,7 +2848,7 @@ void CAPLeg2()
 //#ifdef ELFBMSG
 //	if((tempvar) && (i < 9)) {
 	if(tempvar) {
-		TXT("CAPLeg2 ");
+		TXT(gstr527);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -2772,7 +2887,7 @@ void CheckCAP()
 			TXN(bv[i].target);
 			Message(Txt,DEBUG_MSG);  */
 			if((GetSquadLeader(bv[i].target) == -1) && (targetplayer < 0) && (timetargetplayer < Gtime)) {
-				Message("(Bandit)Unidentified Aircraft Turn Back Now!!!",GAME_MSG);
+				Message(gstr528,GAME_MSG);
 //				Message("(Bandit)Turn Back Now!!!",GAME_MSG);
 				timetargetplayer = Gtime + 8;
 			}
@@ -2923,9 +3038,9 @@ int FlyTo(int xdim, int ydim, int altdim, int ignoredist)
 
 #if 1
 	if((tempvar) && (bv[i].Behavior == AIGoHome)) {
-		TXT("FT ");
+		TXT(gstr529);
 		TXN(i);
-		TXA(" d ");
+		TXA(gstr389);
 		TXN(tdist);
 //		TXA(" b ");
 //		TXN(ps[i].base);
@@ -2952,7 +3067,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 				bv[planenum].behaveflag &= ~RADARON;
 				bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-				Message("PARADE",DEBUG_MSG);
+				Message(gstr530,DEBUG_MSG);
 #endif
 				break;
 
@@ -2963,7 +3078,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 				bv[planenum].behaveflag &= ~RADARON;
 				bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-				Message("CRUISE",DEBUG_MSG);
+				Message(gstr531,DEBUG_MSG);
 #endif
 				break;
 
@@ -2974,7 +3089,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 				bv[planenum].behaveflag &= ~RADARON;
 				bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-				Message("COMBAT_SPREAD",DEBUG_MSG);
+				Message(gstr532,DEBUG_MSG);
 #endif
 				break;
 
@@ -2985,7 +3100,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 				bv[planenum].behaveflag &= ~RADARON;
 				bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-				Message("BOMBER_FORMATION",DEBUG_MSG);
+				Message(gstr533,DEBUG_MSG);
 #endif
 				break;
 
@@ -2994,7 +3109,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 				bv[planenum].behaveflag &= ~RADARON;
 				bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-				Message("LADDER",DEBUG_MSG);
+				Message(gstr534,DEBUG_MSG);
 #endif
 				break;
 
@@ -3003,7 +3118,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 				bv[planenum].behaveflag &= ~RADARON;
 				bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-				Message("BOX",DEBUG_MSG);
+				Message(gstr535,DEBUG_MSG);
 #endif
 				break;
 
@@ -3012,7 +3127,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 				bv[planenum].behaveflag &= ~RADARON;
 				bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-				Message("WALL",DEBUG_MSG);
+				Message(gstr536,DEBUG_MSG);
 #endif
 				break;
 
@@ -3021,7 +3136,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 				bv[planenum].behaveflag &= ~RADARON;
 				bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-				Message("STRIKE",DEBUG_MSG);
+				Message(gstr537,DEBUG_MSG);
 #endif
 				break;
 
@@ -3032,7 +3147,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 				bv[planenum].behaveflag &= ~RADARON;
 				bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-				Message("DEFAULT FORM ",DEBUG_MSG);
+				Message(gstr538,DEBUG_MSG);
 #endif
 				break;
 
@@ -3044,7 +3159,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 			bv[planenum].behaveflag &= ~RADARON;
 			bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-			Message("CAP",DEBUG_MSG);
+			Message(gstr539,DEBUG_MSG);
 #endif
 			break;
 
@@ -3054,14 +3169,14 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 			bv[planenum].behaveflag &= ~RADARON;
 			bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-			Message("WAYPOINT",DEBUG_MSG);
+			Message(gstr540,DEBUG_MSG);
 #endif
 			break;
 
 		case SA_GORILLABOMB:
 			bv[planenum].Behavior = AIBombTarget;
 #ifdef SHOWBEHAVE
-			Message("GORILLABOMB",DEBUG_MSG);
+			Message(gstr541,DEBUG_MSG);
 #endif
 			break;
 
@@ -3072,7 +3187,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 //			bv[planenum].behaveflag &= ~RADARON;
 //			bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-			Message("Refuel",DEBUG_MSG);
+			Message(gstr542,DEBUG_MSG);
 #endif
 			break;
 #endif
@@ -3083,7 +3198,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 			bv[planenum].behaveflag &= ~RADARON;
 			bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-			Message("Cruise",DEBUG_MSG);
+			Message(gstr543,DEBUG_MSG);
 #endif
 			break;
 
@@ -3093,7 +3208,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 			bv[planenum].behaveflag &= ~RADARON;
 			bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-			Message("WAYPOINT",DEBUG_MSG);
+			Message(gstr540,DEBUG_MSG);
 #endif
 			break;
 
@@ -3103,7 +3218,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 			bv[planenum].behaveflag &= ~RADARON;
 			bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-			Message("Gorilla Cover",DEBUG_MSG);
+			Message(gstr544,DEBUG_MSG);
 #endif
 			break;
 
@@ -3112,7 +3227,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 			bv[planenum].behaveflag &= ~RADARON;
 			bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-			Message("SARCAP ",DEBUG_MSG);
+			Message(gstr545,DEBUG_MSG);
 #endif
 			break;
 
@@ -3122,7 +3237,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 			bv[planenum].behaveflag &= ~RADARON;
 			bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-			Message("FlyE2C ",DEBUG_MSG);
+			Message(gstr546,DEBUG_MSG);
 #endif
 			break;
 
@@ -3135,7 +3250,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 			bv[planenum].threathead = 5;
 			ps[planenum].status &= ~TAKEOFF;
 #ifdef SHOWBEHAVE
-			Message("SARCAP ",DEBUG_MSG);
+			Message(gstr545,DEBUG_MSG);
 #endif
 			break;
 
@@ -3144,7 +3259,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 			bv[planenum].behaveflag &= ~RADARON;
 			bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-			Message("Engage Train ",DEBUG_MSG);
+			Message(gstr547,DEBUG_MSG);
 #endif
 			break;
 
@@ -3153,7 +3268,7 @@ int TranslateBehavior(int planenum, int behavenum, int formnum)
 			bv[planenum].behaveflag &= ~RADARON;
 			bv[planenum].behaveflag |= ENEMYNOFIRE;
 #ifdef SHOWBEHAVE
-			Message("DEFAULT ",DEBUG_MSG);
+			Message(gstr548,DEBUG_MSG);
 #endif
 			break;
 
@@ -3184,11 +3299,11 @@ void FlyRefuel()
 	if(tdist < 30) {
 #if 0
 		if(tempvar) {
-			TXT("N ");
+			TXT(gstr549);
 			TXN(i);
-			TXA(" d ");
+			TXA(gstr389);
 			TXN(tdist);
-			TXA(", r ");
+			TXA(gstr456);
 			TXN(tangle);
 			Message(Txt,DEBUG_MSG);
 		}
@@ -3233,7 +3348,7 @@ void FlyRefuel()
 		TXN(distnm);
 		TXA(", r ");
 		TXN(relangle);  */
-		sprintf(Txt, "RFL %x d %d, r %x, dr %x", i, distnm, relangle, droll);
+		sprintf(Txt, gstr550, i, distnm, relangle, droll);
 		Message(Txt,DEBUG_MSG);
 	}
 #endif
@@ -3286,11 +3401,11 @@ void HelpPlayerRefuel(int pdist, int pangle)
 
 #if 0
 	if(tempvar) {
-		TXT("HPR ");
+		TXT(gstr551);
 		TXN(i);
-		TXA(" d ");
+		TXA(gstr389);
 		TXN(pdist);
-		TXA(", r ");
+		TXA(gstr456);
 		TXN(relangle);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3332,11 +3447,11 @@ void HoldSpeedRefuel()
 
 #if 0
 	if(tempvar) {
-		TXT("HSR ");
+		TXT(gstr552);
 		TXN(i);
-		TXA(" d ");
+		TXA(gstr389);
 		TXN(tdist);
-		TXA(", r ");
+		TXA(gstr456);
 		TXN(relangle);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3371,7 +3486,7 @@ void HelpAIRefuel()
 
 #if 0
 	if(tempvar) {
-		TXT("HAI ");
+		TXT(gstr553);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3655,17 +3770,17 @@ void ShowJettison(int planenum)
 		bv[planenum].behaveflag &= ~ENEMYNOFIRE;
 		GetEnemyTarget(planenum);
 		if(ps[planenum].status & FRIENDLY) {
-			TXT("(");
+			TXT(gstr314);
 			FTXA(ptargettype->name);
-			TXA(") I AM UNDER ATTACK.  BREAKING TO ENGAGE ENEMY.");
+			TXA(gstr554);
 			Message(Txt,7);
 		}
 	}
 	else {
 		if(ps[planenum].status & FRIENDLY) {
-			TXT("(");
+			TXT(gstr314);
 			FTXA(ptargettype->name);
-			TXA(") THINGS ARE GETTING TOO HOT FOR ME!  RETURNING TO BASE!");
+			TXA(gstr555);
 			Message(Txt,7);
 		}
 		ps[planenum].status |= BACKTOBASE;
@@ -3812,7 +3927,7 @@ void AIRefuel()
 //		TXN(i);
 //		TXA(" d ");
 //		TXN(tdist);
-		sprintf(Txt, "AIR %d, d %d, droll %x, bs %d", i, tdist, droll, bv[i].basespeed);
+		sprintf(Txt, gstr556, i, tdist, droll, bv[i].basespeed);
 		Message(Txt,DEBUG_MSG);
 	}
 #endif
@@ -3862,9 +3977,9 @@ void AIWaitRefuel()
 
 #if 0
 	if(tempvar) {
-		TXT("RW ");
+		TXT(gstr557);
 		TXN(i);
-		TXA(" d ");
+		TXA(gstr389);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3911,7 +4026,7 @@ void AILockedRefuel()
 		bv[i].Behavior = ReleaseRefuel;
 #if 0
 	if(tempvar) {
-		TXT("LR ");
+		TXT(gstr558);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3971,7 +4086,7 @@ void AILockedRefuel()
 	}
 #if 0
 	if(tempvar) {
-		TXT("LR ");
+		TXT(gstr558);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -4023,9 +4138,9 @@ void ReleaseRefuel()
 
 #if 0
 	if(tempvar) {
-		TXT("RR ");
+		TXT(gstr559);
 		TXN(i);
-		TXA(" d ");
+		TXA(gstr389);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -4122,9 +4237,9 @@ void AIGoHome()
 	if(FlyTo(dx, dy, dalt, 0)) {
 		if(ps[planecnt].base == ((whichourcarr + 1) * -1)) {
 #ifdef AILANDDEBUG
-			TXT("Requesting Landing ");
+			TXT(gstr560);
 			TXN(i);
-			TXA(" ");
+			TXA(gstr130);
 			TXN(Gtime);
 			Message(Txt, DEBUG_MSG);
 #endif
@@ -4223,7 +4338,7 @@ void CheckAISix(int wingnum)
 		if(whichdefensethreat[wingnum] != targetnum) {
 			whichdefensethreat[wingnum] = targetnum;
 			GetWingName(wingnum, Str);
-			strcat (Str, "Engaged Defensive");
+			strcat (Str, gstr561);
 			Message(Str,WINGMAN_MSG);
 			Speech(ENGAGE_DEF);
 		}
@@ -4373,15 +4488,15 @@ void GorillaBomb()
 #if 0
 //    #ifdef ELFBMSG
 	if(tempvar) {
-		TXT("GB ");
+		TXT(gstr562);
 		TXN(i);
-		TXA(" pw ");
+		TXA(gstr137);
 		TXN(tempwing);
-		TXA(", ps ");
+		TXA(gstr138);
 		TXN(bv[prewing].basespeed);
-		TXA(", os ");
+		TXA(gstr139);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -4583,11 +4698,11 @@ void LGetTargADP(int planenum, long dx, long dy, COORD *tdist, int *tpitch, int 
 	*tdistnm = (*tdist * 2) / 95;
 #if 0
 	if((tempvar) && (GetSquadLeader(planenum) == -1)) {
-		sprintf(Txt, "LGT a %x, la %x, d %d, ld %ld", junkangle2, junkangle, holddist, holddist2);
+		sprintf(Txt, gstr563, junkangle2, junkangle, holddist, holddist2);
 		Message(Txt,DEBUG_MSG);
-		sprintf(Txt, "tx %d lx %ld, ty %d ly %ld", tdx, dx, tdy, dy);
+		sprintf(Txt, gstr564, tdx, dx, tdy, dy);
 		Message(Txt,DEBUG_MSG);
-		sprintf(Txt, "%d x %ld, y %ld", planenum, ailoc[planenum].xloc, ailoc[planenum].xloc);
+		sprintf(Txt, gstr565, planenum, ailoc[planenum].xloc, ailoc[planenum].xloc);
 		Message(Txt,DEBUG_MSG);
 //		sprintf(Txt, "LGTs tx %d, dx %ld, ty %d, dy %ld", tdx, dx, tdy, dy);
 //		Message(Txt,DEBUG_MSG);
@@ -4679,7 +4794,7 @@ void LFlyTo(long xdim, long ydim, int altdim, int prewing, int prespeed)
 			}
 #if 0 /* AAA */
 			if((tempvar) && (prewing == -1)) {
-				sprintf(Txt, "i %d, rax %x, ld %d, dy %d", i, relangle, ldist, tdist2);
+				sprintf(Txt, gstr566, i, relangle, ldist, tdist2);
 				Message(Txt,DEBUG_MSG);
 			}
 #endif
@@ -4713,7 +4828,7 @@ void LFlyTo(long xdim, long ydim, int altdim, int prewing, int prespeed)
 		TXN(tdist);
 		TXA(" b ");
 		TXN(ps[i].base);  */
-		sprintf(Txt, "LFT i %d, d %d, ta %x, ra %x, rra %x", i, tdist, tangle, relangle, rrelangle);
+		sprintf(Txt, gstr567, i, tdist, tangle, relangle, rrelangle);
 //		sprintf(Txt, "LFT i %d, at %d, ad %d, A %d, pd %x", i, alttemp, altdim, Alt, pdest);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -4748,7 +4863,7 @@ long LDist2D(long x, long y)
 
 #if 0
 	if((tempvar) && (i == 3)) {
-		sprintf(Txt, "HHH x %ld %ld, y %ld %ld, rv %ld", x, ox, y, oy, returnval);
+		sprintf(Txt, gstr568, x, ox, y, oy, returnval);
 		Message(Txt,DEBUG_MSG);
 	}
 #endif
@@ -4776,7 +4891,7 @@ long sinXL(int tangle, long idist)
 	tdist = idist;
 	if(idist < 0) {
 //		Message("Sin Goof",DEBUG_MSG);
-		sprintf(Txt, "%d Sin Goof d %ld, a %x", planecnt, idist, tangle);
+		sprintf(Txt, gstr569, planecnt, idist, tangle);
 		Message(Txt,DEBUG_MSG);
 	}
 	while(tdist > 16000L) {
@@ -4789,9 +4904,9 @@ long sinXL(int tangle, long idist)
 //	if((i == 2) && tempvar) {
 	shwnum = Rtime & 0x7F;
 	if(i == shwnum) {
-		TXT("Sin ");
+		TXT(gstr570);
 		TXN(planecnt);
-		TXA(" cnt ");
+		TXA(gstr571);
 		TXN(cnt);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -4812,7 +4927,7 @@ long cosXL(int tangle, long idist)
 
 	if(idist < 0) {
 //		Message("Cos Goof",DEBUG_MSG);
-		sprintf(Txt, "%d Cos Goof d %ld, a %x", planecnt, idist, tangle);
+		sprintf(Txt, gstr572, planecnt, idist, tangle);
 		Message(Txt,DEBUG_MSG);
 	}
 
@@ -4827,15 +4942,15 @@ long cosXL(int tangle, long idist)
 //		TXT("HereC ");
 //		TXN(cnt);
 //		Message(Txt,DEBUG_MSG);
-		sprintf(Txt, "c %d ta %x, id %ld, td %ld, hv %ld", cnt, tangle, idist, tdist, holdval);
+		sprintf(Txt, gstr573, cnt, tangle, idist, tdist, holdval);
 		Message(Txt,DEBUG_MSG);
 	}
 #endif
 #if 0
 	if(cnt > 1) {
-		TXT("Cos ");
+		TXT(gstr574);
 		TXN(planecnt);
-		TXA(" cnt ");
+		TXA(gstr571);
 		TXN(cnt);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -4862,7 +4977,7 @@ long sinXL(int tangle, long idist)
 	holdval += sinX(tangle, (int)tdist);
 #if 0
 	if((i == 2) && tempvar) {
-		TXT("Here2 ");
+		TXT(gstr575);
 		TXN(cnt);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -4891,7 +5006,7 @@ long cosXL(int tangle, long idist)
 //		TXT("HereC ");
 //		TXN(cnt);
 //		Message(Txt,DEBUG_MSG);
-		sprintf(Txt, "c %d ta %x, id %ld, td %ld, hv %ld", cnt, tangle, idist, tdist, holdval);
+		sprintf(Txt, gstr573, cnt, tangle, idist, tdist, holdval);
 		Message(Txt,DEBUG_MSG);
 	}
 #endif
@@ -4996,7 +5111,7 @@ void RefuelLeg1()
 //#ifdef ELFBMSG
 //	if((tempvar) && (i < 9)) {
 	if(tempvar) {
-		TXT("CAPLeg1 ");
+		TXT(gstr526);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -5019,7 +5134,7 @@ void RefuelLeg2()
 //#ifdef ELFBMSG
 //	if((tempvar) && (i < 9)) {
 	if(tempvar) {
-		TXT("CAPLeg2 ");
+		TXT(gstr527);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -5073,15 +5188,15 @@ void CheckHelpPlayer()
 
 #if 0
 	if(tempvar) {
-		TXT("HPR ");
+		TXT(gstr551);
 		TXN(i);
-		TXA(" d ");
+		TXA(gstr389);
 		TXN((int)(ldist/AILOCDIV));
-		TXA(", r ");
+		TXA(gstr456);
 		TXN(relangle);
-		TXA(" ");
+		TXA(gstr130);
 		TXN(bv[i].basespeed);
-		TXA(" ");
+		TXA(gstr130);
 		TXN(Knots);
 		Message(Txt,DEBUG_MSG);
 	}

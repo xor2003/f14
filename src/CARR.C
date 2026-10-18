@@ -1,3 +1,31 @@
+extern char gstr152[];
+extern char gstr153[];
+extern char gstr154[];
+extern char gstr155[];
+extern char gstr156[];
+extern char gstr157[];
+extern char gstr158[];
+extern char gstr159[];
+extern char gstr160[];
+extern char gstr161[];
+extern char gstr162[];
+extern char gstr163[];
+extern char gstr164[];
+extern char gstr165[];
+extern char gstr166[];
+extern char gstr167[];
+extern char gstr168[];
+extern char gstr169[];
+extern char gstr170[];
+extern char gstr171[];
+extern char gstr172[];
+extern char gstr173[];
+extern char gstr174[];
+extern char gstr175[];
+extern char gstr176[];
+extern char gstr177[];
+extern char gstr178[];
+
 //***************************************************************************
 //* File Name: carr.c
 //*
@@ -67,18 +95,25 @@ extern struct FPARAM{
 
 /* Carrier specific var's */
 
-int CarrierAnimVals[48];
+extern int CarrierAnimVals[48];
+
 extern int CarrierScale;
 
-int	CARRIERSCALEKLUDGE=0;
-int PlaneScale=40;
-int MeatBall;
+extern int CARRIERSCALEKLUDGE;
+
+extern int PlaneScale;
+
+extern int MeatBall;
+
 extern int StormLevel;
 
-int WaveHeight;
-int WaveSpeed;
+extern int WaveHeight;
 
-carriers far carrier;
+extern int WaveSpeed;
+
+
+extern carriers far carrier;
+
 
 extern int WireCaught;
 
@@ -93,7 +128,8 @@ extern long labs(long X);
 extern SlopeCheck(long X,long Y,long Z,int *HD,int *PTCH,int *DELHT,int *DST);
 extern DisplayBall();
 
-int BelowDeck;
+extern int BelowDeck;
+
 extern   int   TRIM;
 extern   int   DirectLiftControl;
 extern   int   HookDown;
@@ -297,14 +333,14 @@ int InitPlaneOnCarrier(int reqcat)
 //	PlayerCat = cat;
 
 #ifdef SRECATTEST
-	TXT("Player Cat ");
+	TXT(gstr152);
 	TXN(PlayerCat);
 	Message(Txt);
 #endif
 
 	if (cat==NOCATSAVAIL) {
 		cat=0;
-		Message("No Cats Available",DEBUG_MSG);
+		Message(gstr153,DEBUG_MSG);
 	}
 
 	AirSpeed=0;
@@ -411,10 +447,14 @@ Carrier3D()
 
 
 //***************************************************************************
-int bogusx;
-int bogusy;
-int bogusz;
-int	lodetailcqr;
+extern int bogusx;
+
+extern int bogusy;
+
+extern int bogusz;
+
+extern int lodetailcqr;
+
 DrawCarrier(int X, int Y, int Z,int heading, int SHFT, int objtype)
 {
     int M[9];
@@ -610,7 +650,7 @@ int GlideScopeCheck(long PX, long PZ, long PY)
 	x = Dist2D(V[0],V[2]);
 	xoff = ARCTAN(V[0],x);
 
-	sprintf(Txt,"V[0]: %d V[2]: %d x: %d xoff: %d",V[0],V[2],x,xoff);
+	sprintf(Txt,gstr154,V[0],V[2],x,xoff);
 	Message(Txt);
 #endif
 	return(y);
@@ -1023,7 +1063,8 @@ extern int Heaving;
 
 extern int HeavAngle;
 
-int   HeaveDir=1;
+extern int HeaveDir;
+
 extern int CATVEL;
 
 
@@ -1125,16 +1166,22 @@ DoPlayerOnTheCat()
    DEBUG1= ONTHECAT; //OnTheDeck( FPARAMS.X, FPARAMS.Y, FPARAMS.Z );
 }
 
-int   LandingAngle;
-int   LandingVel;
+extern int LandingAngle;
+
+extern int LandingVel;
+
 extern int TimeOnHook;
 
-long   XSpot;
-long   ZSpot;
+extern long XSpot;
+
+extern long ZSpot;
+
 extern int WavedOff;
 
-int   BallCalled=0;
-int   LSOMSGTIME=0;
+extern int BallCalled;
+
+extern int LSOMSGTIME;
+
 
 
 
@@ -1264,13 +1311,13 @@ SetGear(int G)
          if (!(Status&WHEELSUP) ) return;
          if (Knots>350) return;
          Status &= (~WHEELSUP);
-         Message ("Landing gear lowered",RIO_MSG);
+         Message (gstr155,RIO_MSG);
          break;
       case 0:     // raise gear
          if ((Status&WHEELSUP) ) return;
          if ( (Alt==MinAlt)||(Damaged&D_HYDRAULICS)  ) return;
          Status |= WHEELSUP;
-         Message ("Landing gear raised",RIO_MSG);
+         Message (gstr156,RIO_MSG);
          break;
       }
 }
@@ -1287,12 +1334,13 @@ SetHook(int Hook)
 
 	HookDown= Hook;
    if (Hook)
-      Message ("Hook Lowered",RIO_NOW_MSG);
+      Message (gstr157,RIO_NOW_MSG);
    else
-      Message ("Hook Raised",RIO_NOW_MSG);
+      Message (gstr158,RIO_NOW_MSG);
 }
 
-char debugstr[120]= {0};
+extern char debugstr[120];
+
 extern	int	RUDDERVALS;
 
 //#define MAXPAT 21
@@ -1311,47 +1359,9 @@ struct landpt{
    int   DLC;
    int   HOOK;
    int   TRIM;
-   } LandPat[MAXPAT]={
+   };
+extern struct landpt LandPat[MAXPAT];
 
-          26,    110, 96,   10*DEG, -3*DEG,      0,   135,  40,1,1,1,100,
-         214,   1104,354,  8*DEG+(DEG/2),-3*DEG+(DEG/4),0, 135,50,1,1,1,100,
-
-//         0/4, 6150/4,360,    0*DEG,  0*DEG,  0*DEG,   135,  50,0,0,1,64,
-      -450/4, 7350/4,400,  -20*DEG,  0*DEG, 20*DEG,   140,  50,0,0,1,64,
-     -1500/4,10150/4,400,  -40*DEG,  0*DEG, 25*DEG,   150,  50,0,0,1,64,
-     -3000/4,10300/4,450,  -90*DEG,  0*DEG, 25*DEG,   150,  50,0,0,1,64,
-     -4650/4,10150/4,450, -100*DEG,  0*DEG, 25*DEG,   150,  50,0,0,1,64,
-     -6200/4, 9300/4,500, -135*DEG,  0*DEG, 25*DEG,   170,  50,0,0,1,64,
-     -7350/4, 7350/4,550, -150*DEG,  0*DEG, 25*DEG,   190,  50,0,0,1,64,
-     -7650/4, 6150/4,600, -165*DEG,  0*DEG,  0*DEG,   200,  50,0,0,1,64,
-     -7650/4, 4500/4,600, -180*DEG,  0*DEG,  0*DEG,   220,  50,0,0,1,64,
-     -7650/4, 2850/4,600, -180*DEG,  0*DEG,  0*DEG,   250,  50,0,0,1,64,
-     -7650/4,  600/4,600, -180*DEG,  0*DEG,  0*DEG,   260,  50,0,0,1,64,
-     -7650/4, -450/4,600, -180*DEG,  0*DEG,  0*DEG,   280,  50,0,0,1,64,
-     -7150/4,-2300/4,650, -200*DEG,  0*DEG, 30*DEG,   300,  50,0,0,1,64,
-     -6000/4,-3750/4,650, -220*DEG,  0*DEG, 30*DEG,   325,  50,0,0,1,64,
-     -4400/4,-4400/4,700, -240*DEG,  0*DEG, 30*DEG,   350,  50,0,0,1,64,
-     -2500/4,-4650/4,700, -270*DEG,  0*DEG, 40*DEG,   375,  50,0,0,1,64,
-     -1000/4,-4350/4,800, -300*DEG,  0*DEG, 45*DEG,   375,  50,0,0,1,64,
-       100/4,-2850/4,800, -325*DEG,  0*DEG, 45*DEG,   400,  50,0,0,1,64,
-       500/4, -800/4,800,    0*DEG,  0*DEG, 45*DEG,   400,  50,0,0,1,64,
-       500/4,    0/4,800,    0*DEG,  0*DEG,  0*DEG,   400,  50,0,0,1,64
-
-
-
-//           26,110,96,   10*DEG,-3*DEG,0, 135,40,1,1,1,100,
-//        214,1104,354,    8*DEG+(DEG/2),-3*DEG+(DEG/4),0, 135,50,1,1,1,100,
-//       -257+214,1104+257,450,  -90*DEG,-3*DEG,45*DEG, 130,50,1,1,1,100,
-//      -1075,1112,525, -170*DEG,0,10*DEG, 130,50,1,1,1,100,
-//         -1325,0,600,       180*DEG,0,0, 130,50,1,1,1,100,
-//     -1325,-1500,800,       180*DEG,0,0, 220,50,1,0,1, 60,
-//      -600,-2350,800,   90*DEG,0,45*DEG, 275,50,1,0,1, 40,
-//       375,-1500,800,        0,0,45*DEG, 300,50,0,0,1, 30,
-//        500,1350,800,         2*DEG,0,0, 325,50,0,0,1, 25,
-//
-
-
-      };
 
 extern struct landpt NiteLandPat[MAXNITEPAT];
 
@@ -1449,27 +1459,21 @@ EasyLanding()
 
 
 }
-char  Coursestr[30]={0};
-char  Slopestr[30]={0};
-char  Rangestr[30]={0};
-char  Decentstr[40]={0};
+extern char Coursestr[30];
 
-int   lastlso=0;
+extern char Slopestr[30];
+
+extern char Rangestr[30];
+
+extern char Decentstr[40];
 
 
-char *lsomsgptrs[11]={
-      "",
-      "COME RIGHT",
-      "COME LEFT",
-      "REDUCE POWER",
-      "ADD POWER",
-      "YOU'RE FAST",
-      "YOU'RE SLOW",
-      "DROP YOUR GEAR",
-      "DROP YOUR FLAPS",
-      "DROP YOUR HOOK",
-      "LEFT THE PATTERN-SEE YA"
-};
+extern int lastlso;
+
+
+
+extern char * lsomsgptrs[11];
+
 
 
 DoLSO()
@@ -1542,7 +1546,7 @@ DoLSO()
 //			   Speech(L_PADDLES);
 //               Message("PADDLES CONTACT",RIO_MSG);
 			   Speech(L_CALL_BALL);
-               Message("CALL THE BALL",RIO_MSG);
+               Message(gstr159,RIO_MSG);
 
 			}
             BallCalled=1;
@@ -1559,7 +1563,7 @@ DoLSO()
 
          if (WavedOff==0)
             {
-            strcpy(str,"WAVEOFF");
+            strcpy(str,gstr160);
             strcat(str,lsomsgptrs[WVOFF]);
 			Speech(L_WAVE_OFF);
             Message(str,RIO_NOW_MSG);
@@ -1602,11 +1606,11 @@ DoLSO()
                   {
                   case 1:
                   case 2:
-                     Message("ON CENTERLINE",RIO_MSG);
+                     Message(gstr161,RIO_MSG);
                      break;
                   case 3:
                   case 4:
-                     Message("ON GLIDESLOPE",RIO_MSG);
+                     Message(gstr162,RIO_MSG);
                      break;
                   }
                lastlso=0;
@@ -1623,16 +1627,16 @@ DoLSO()
    if (BallCalled)
       {
 // print the realtime telemetry from carrier outside view only
-      sprintf(Rangestr,"%i FT OUT",4*DST);
+      sprintf(Rangestr,gstr163,4*DST);
       if (LFT>=0)
-         sprintf(Coursestr,"COME LEFT %i FT",LFT);
+         sprintf(Coursestr,gstr164,LFT);
       else
-         sprintf(Coursestr,"COME RIGHT %i FT",-LFT);
+         sprintf(Coursestr,gstr165,-LFT);
       if (DELHT>=0)
-         sprintf(Slopestr,"%i FT TOO HIGH",DELHT);
+         sprintf(Slopestr,gstr166,DELHT);
       else
-         sprintf(Slopestr,"%i FT TOO LOW",-DELHT);
-      sprintf(Decentstr,"DESCENT %i",-CLMBRATE*6);
+         sprintf(Slopestr,gstr167,-DELHT);
+      sprintf(Decentstr,gstr168,-CLMBRATE*6);
       }
    else
       {
@@ -1682,7 +1686,7 @@ DoLSO()
                {
                WavedOff=0;
                if (BallCalled==0)
-                  Message("PADDLES CONTACT",RIO_MSG);
+                  Message(gstr169,RIO_MSG);
                BallCalled=1;
                }
             }
@@ -1691,7 +1695,7 @@ DoLSO()
          {
          if ( (WavedOff==0)&&BallCalled )
             {
-            Message("WAVEOFF",RIO_MSG);
+            Message(gstr160,RIO_MSG);
             }
          WavedOff=1;
          BallCalled=0;
@@ -1710,30 +1714,30 @@ DoLSO()
          strptr=NULL;
 // print the advice from lso
 
-         if (DirectLiftControl==0) strptr="DLC";
+         if (DirectLiftControl==0) strptr=gstr170;
          if (Knots>140)
-            strptr="YOU'RE FAST";
+            strptr=gstr171;
          if (Knots<125)
-            strptr="YOU'RE SLOW";
+            strptr=gstr172;
          if ( (abs(DHEAD)>(DEG))&&(abs(LFT)>15))
             {
             if (DHEAD<0)
-               strptr="RIGHT FOR LINEUP";
+               strptr=gstr173;
             else
-               strptr="COME LEFT";
+               strptr=gstr174;
             lastlso=1;
             }
          if (abs(DPTCH)>(DEG))
             {
             if (DPTCH>0)
-               strptr="YOU'RE HIGH";
+               strptr=gstr175;
             else
-               strptr="YOU'RE LOW";
+               strptr=gstr176;
             lastlso=2;
             }
-         if ((Status&WHEELSUP)) strptr="DROP YOUR GEAR";
+         if ((Status&WHEELSUP)) strptr=gstr177;
 //         if (flaps==0) strptr="DROP YOUR FLAPS";
-         if (HookDown==0) strptr="DROP YOUR HOOK";
+         if (HookDown==0) strptr=gstr178;
 
          if (strptr)
             {
@@ -1748,10 +1752,10 @@ DoLSO()
                switch (lastlso)
                   {
                   case 1:
-                     Message("ON CENTERLINE",RIO_MSG);
+                     Message(gstr161,RIO_MSG);
                      break;
                   case 2:
-                     Message("ON GLIDESLOPE",RIO_MSG);
+                     Message(gstr162,RIO_MSG);
                      break;
                   }
                lastlso=0;
@@ -1759,16 +1763,16 @@ DoLSO()
             }
          }
 // print the realtime telemetry from carrier outside view only
-      sprintf(Rangestr,"%i FT OUT",4*DST);
+      sprintf(Rangestr,gstr163,4*DST);
       if (LFT>=0)
-         sprintf(Coursestr,"COME LEFT %i FT",LFT);
+         sprintf(Coursestr,gstr164,LFT);
       else
-         sprintf(Coursestr,"COME RIGHT %i FT",-LFT);
+         sprintf(Coursestr,gstr165,-LFT);
       if (DELHT>=0)
-         sprintf(Slopestr,"%i FT TOO HIGH",DELHT);
+         sprintf(Slopestr,gstr166,DELHT);
       else
-         sprintf(Slopestr,"%i FT TOO LOW",-DELHT);
-      sprintf(Decentstr,"DESCENT %i",-CLMBRATE*6);
+         sprintf(Slopestr,gstr167,-DELHT);
+      sprintf(Decentstr,gstr168,-CLMBRATE*6);
       }
    else
       {

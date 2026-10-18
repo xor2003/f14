@@ -35,15 +35,19 @@ extern char  *HRM_RANGES[];
 extern struct OBJ3D far OBJECTS[96][16];
 extern char	        far MAPBUF[256][256];
 
-       int   HRMscale   =  1;      // range of values is 0-7
-       int   HRMChanged =  0;
-       int   HRMTime    =  0;
-       int   MapRangeBad=  0;
-       int   CheckingHRMLimits=1;
+       extern int HRMscale;
+      // range of values is 0-7
+       extern int HRMChanged;
+
+       extern int HRMTime;
+
+       extern int MapRangeBad;
+
+       extern int CheckingHRMLimits;
+
 
 static int   Mapx       = -1;
-extern static int Mapy;
-
+static int   Mapy       = -1;
 static int   MapHead    =  0;
 static int   MapScale   =  0;
 static int   MapTime    =  0;

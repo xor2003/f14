@@ -1,3 +1,7 @@
+extern char gstr339[];
+extern char gstr340[];
+extern char gstr341[];
+
 #include "stdio.h"
 #include <stdlib.h>
 #include <dos.h>
@@ -16,8 +20,10 @@ extern int FrameRate;
 
 extern	long labs(long V);
 
-UWORD	GREYSEG =0xA000;
-UWORD   CLOUDSEG=0xA000;
+extern UWORD GREYSEG;
+
+extern UWORD CLOUDSEG;
+
 
 extern   int   NGXLO;
 extern   int   NGYLO;
@@ -47,19 +53,23 @@ extern	int	Nviewmat[];
 extern  int     CLOUDAMNT;
 extern  int     ViewZ;
 
-int GrndAnimVals[32];
+extern int GrndAnimVals[32];
+
 
 extern int BelowDeck;
 
 extern   char far GRTBLSEG[];
 
 
-UWORD	CLOUDHEIGHT=8150;
+extern UWORD CLOUDHEIGHT;
+
 // UWORD	CLOUDHEIGHT=125;
-int		CLOUDTHICK=500;
+extern int CLOUDTHICK;
+
 
 struct OBJ3D far OBJECTS[96][16];
-int   GroundObjectScale[200];
+extern int GroundObjectScale[200];
+
 char  GroundObjectNames[32][20];
 
 
@@ -74,7 +84,9 @@ struct STK3D{
 	UWORD DST;
 	int TYPE;
 	int SCL;
-} far STACK3D[52];
+};
+extern struct STK3D STACK3D[52];
+
 
 extern  LASTSTACK;
 
@@ -86,19 +98,25 @@ extern int ABOVECLOUDS;
 
 extern int GRNDDETAIL;
 
-int	OVERCAST=0;
+extern int OVERCAST;
+
 extern int SKYDETAIL;
 
-int WORLDDETAIL=0;
+extern int WORLDDETAIL;
+
 
 #define Width2 160
 
 #define MTNTILE 95
 
-int	MTNRAD= 6;
-int	STKWID= 2;
-int	FLSHXOFF;
-int	FLSHZOFF;
+extern int MTNRAD;
+
+extern int STKWID;
+
+extern int FLSHXOFF;
+
+extern int FLSHZOFF;
+
 extern int GFLSH;
 
 struct	SNRM{
@@ -108,9 +126,11 @@ struct	SNRM{
 	long	D;
 };
 
-UWORD ADDRESS[320];
+extern UWORD ADDRESS[320];
 
-int	MYWID=208;
+
+extern int MYWID;
+
 #define MYHT	304
 
 //***************************************************************************
@@ -135,8 +155,8 @@ LoadClouds()
 	int	DHNDL;
 	unsigned 	len;
 
-	cldhndl=ReadEMSPCXSize("cldwtr5.pcx",0,256,256);
-	if(_dos_open("wld.gry",O_RDONLY,&DHNDL)==0) {
+	cldhndl=ReadEMSPCXSize(gstr339,0,256,256);
+	if(_dos_open(gstr340,O_RDONLY,&DHNDL)==0) {
 		_dos_read(DHNDL,GRTBLSEG,16*256,&len);
 		_dos_close(DHNDL);
 	}
@@ -534,7 +554,7 @@ EndStack3D()
 				DrawRegBoat(STACK3D[i].OBJ, X, Y, Z, STACK3D[i].ID,SHFT);
 			break;
 			default:
-				Message("Error",DEBUG_MSG);
+				Message(gstr341,DEBUG_MSG);
 			break;
 		}
 		i=STACK3D[i].NXT;

@@ -6,46 +6,56 @@
 #include <stdlib.h>
 #include "setup.h"
 
-struct _logObject_ {   /*  32 bytes  */
+struct _logObject_ {                   
 
 
-        int             objectNum ;     // index into object array passed
-                                        // negative object # was added after
-                                        //              game started
+        int             objectNum ;                                      
+                                                                            
+                                                                    
 
-        int             objectType ;    // index into basedef list
+        int             objectType ;                              
 
-        int             side ;          // who do they fly for
+        int             side ;                                
         long            x ;
         long            y ;
         long            z ;
-        int             speed ;         // in knots
+        int             speed ;                    
 
-        long            dramaticEvent ; // what happened to him
-                                        // negative # is config change
+        long            dramaticEvent ;                        
+                                                                      
 
-        int             missileOwner ;  // # of object that shot missile,
-                                        //      dropped bomb, etc that hit this
-                                        //      object
+        int             missileOwner ;                                   
+                                                                               
+                                                      
 
-		int             missileType;    //   Holds type of missile shot
+		int             missileType;                                   
 
-        int             time ;          // time of dramatic event
+        int             time ;                                   
 
-		int 			damageLevel;	//  Holds damage of object above 0-7
+		int 			damageLevel;	                                    
 
 
-        } _logObject ;
+        };
+extern struct _logObject_ _logObject;
 
-FILE *tfile;
-FILE *outfile;
-char buf[15];
 
-int recsize = sizeof(_logObject);
-int flstat;
-int planecnt=0;
-int i;
-long recseek=0;
+extern FILE * tfile;
+
+extern FILE * outfile;
+
+extern char buf[15];
+
+
+extern int recsize;
+
+extern int flstat;
+
+extern int planecnt;
+
+extern int i;
+
+extern long recseek;
+
 
 main()
 {

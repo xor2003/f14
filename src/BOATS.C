@@ -1,3 +1,16 @@
+extern char gstr130[];
+extern char gstr131[];
+extern char gstr132[];
+extern char gstr133[];
+extern char gstr134[];
+extern char gstr135[];
+extern char gstr136[];
+extern char gstr137[];
+extern char gstr138[];
+extern char gstr139[];
+extern char gstr140[];
+extern char gstr141[];
+
 /*  File:   boats.c                                 */
 /*  Author: Scott Elson                             */
 /*                                                  */
@@ -23,10 +36,14 @@
 
 #define CHECKBASES	75
 
-int whichourcarr;     // holds value for which boat our carrier
-int ourcarrierdead;     // set when our carrier is killed
-int boatnum;          // index of this boat in "ps" array
-int     junktime = -999;
+extern int whichourcarr;
+     // holds value for which boat our carrier
+extern int ourcarrierdead;
+     // set when our carrier is killed
+extern int boatnum;
+          // index of this boat in "ps" array
+extern int junktime;
+
 
 extern  int		friendfire;
 extern  int 	enemyfire;
@@ -497,17 +514,17 @@ void FormationSpeedAdjustBoat(int prespeed, int relangle, int tdist, int prewing
 #if 0
 	if(tempvar)
 	{
-		TXT(" ");
+		TXT(gstr130);
 		TXN(i);
-		TXA(" Spd ");
+		TXA(gstr131);
 		TXN(bv[i].basespeed);
-		TXA(" pspd ");
+		TXA(gstr132);
 		TXN(prespeed);
-		TXA(", tdist ");
+		TXA(gstr133);
 		TXN(tdist);
-		TXA(", ra ");
+		TXA(gstr134);
 		TXN(relangle);
-		TXA(" s ");
+		TXA(gstr135);
 		TXN((bv[i].behaveflag & 15));
 		Message(Txt,DEBUG_MSG);
 	}
@@ -614,18 +631,18 @@ void FormationBoat() {
 #if 0 /* AAA  */
 //#ifdef ELFBMSG
 	if((tempvar) && (i == 3)) {
-		TXT("FM ");
+		TXT(gstr136);
 		TXN(i);
-		TXA(" pw ");
+		TXA(gstr137);
 		TXN(prewing);
-		TXA(", ps ");
+		TXA(gstr138);
 		TXN(bv[prewing].basespeed);
-		TXA(", os ");
+		TXA(gstr139);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
-		sprintf(Txt, "1h %x, lh %x, th %x, ti %d", ps[1].head, ps[prewing].head, temphead, prewing);
+		sprintf(Txt, gstr141, ps[1].head, ps[prewing].head, temphead, prewing);
 		Message(Txt,DEBUG_MSG);
 /*		sprintf(Txt, "PW sx %d, lx %ld, nx %ld, sy %d, ly %ld, ny %ld", ps[prewing].x, ailoc[prewing].xloc, dx, ps[prewing].y, ailoc[prewing].yloc, dy);
 		Message(Txt,DEBUG_MSG);

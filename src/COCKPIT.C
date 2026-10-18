@@ -1,3 +1,34 @@
+extern char gstr192[];
+extern char gstr193[];
+extern char gstr194[];
+extern char gstr195[];
+extern char gstr196[];
+extern char gstr197[];
+extern char gstr198[];
+extern char gstr199[];
+extern char gstr200[];
+extern char gstr201[];
+extern char gstr202[];
+extern char gstr203[];
+extern char gstr204[];
+extern char gstr205[];
+extern char gstr206[];
+extern char gstr207[];
+extern char gstr208[];
+extern char gstr209[];
+extern char gstr210[];
+extern char gstr211[];
+extern char gstr212[];
+extern char gstr213[];
+extern char gstr214[];
+extern char gstr215[];
+extern char gstr216[];
+extern char gstr217[];
+extern char gstr218[];
+extern char gstr219[];
+extern char gstr220[];
+extern char gstr221[];
+
 //***************************************************************************
 // File:	Cockpit.c
 //
@@ -78,20 +109,16 @@ extern   int DifficultyLevel;
 extern int Speedy;
 extern int SNDDETAIL;
 
-char    *CockpitFiles[2][6] = {
-            "cpft2.pic","f14lft6.pic","f14rt8.pic","cpfd2.pic","BG-c2.pic","BG-c1.pic",
-			"f14bac6.pic","f14bl6.pic","f14brt8.pic","f14bac5b.pic","RB-2L.PIC","RB-2R.PIC"
-        };
+extern char    * CockpitFiles[2][6];
+
 
 #ifdef YEP
-char    *CockpitFiles[2][6] = {
-            "f14cpit7.pic","f14lft6.pic","f14rt8.pic","f14pit4b.pic","BG-c2.pic","BG-c1.pic",
-			"f14bac6.pic","f14bl6.pic","f14brt8.pic","f14bac5b.pic","RB-2L.PIC","RB-2R.PIC"
-        };
+extern char    * CockpitFiles[2][6];
+
 #endif
 
-int     Lengths[2][6] = {SIZE3D,     110,110,50,162, 162,
-                         139, 		 110,110,10,140, 140};
+extern int Lengths[2][6];
+
 
 typedef struct {
 	int x;
@@ -101,74 +128,46 @@ typedef struct {
 	int fromcolor;
 	int tocolor;
 } clights;
-clights far CockpitLights[40] =
-{
-		80,	63,	22,	6,	31,	17,	/* L STALL */
-		88,	73,	12,	4,	18,	17,	/* WHEELS(GEAR) */
-		89,	78,	11,	4,	18,	17,	/* BRAKES */
-		90, 83,	11,	4,  18,	17,	/* HOOK */
-		219,63,	21,	6,	31,	17,	/* R STALL */
-		220,73,	12,	4,	18,	17,	/* SAM */
-		220,78,	12,	4,	18,	17,	/* AAA */
-		219,83,	12,	4,	18,	17,	/* AI */
-		119,112,11,	3,	18, 17,	/* SEAM LOCK */
-		119,116,11,	3,	18,	17,	/* COLLISION */
-		119,120,11,	3,	18,	16,	/* HOT TRIG */
-		91,	139,19,	5,	29,	16,	/* LEFT FIRE */
-		99, 150,12,	2,	18,	17,	/* ADJ A/C */
-		99, 153,12, 2,	18,	17,	/* LANDING CHK */
-		99,	156,12,	2,	18,	17,	/* ACL READY */
-		99,	159,12,	2,	18,	17,	/* A/P CPLR */
-		99,	162,12,	2,	18, 17,	/* CMD CONTROL */
-		100,165,12,	2,	18,	17,	/* 10 SECONDS */
-		100,168,12,	2,	18,	17,	/* TILT */
-		210,139,19,	5,	29,	16,	/* RIGHT FIRE */
-		209,150,12,	5,	18,	17,	/* WAVE OFF */
-		209,153,12,	5,	18,	17,	/* WING SWEEP */
-		209,156,12,	5,	18,	17,	/* REDUCE SPEED */
-		209,159,12,	5,	18,	17,	/* ALT LOW */
-		142,106,10, 3,	18,	17,	/* GUN RATE - HIGH */
-		142,111,10,	3,	18,	17,	/* GUN RATE - LOW */
-		155,106,10,	3,	18,	17,	/* SW COOL - ON */
-		155,111,10,	3,	18,	17,	/* SW COOL - OFF */
-		168,106,10,	3,	18,	17,	/* MSL PREP - ON */
-		168,111,10,	3,	18,	17,	/* MSL PREP - OFF */
-		192,115,10,	3,	18,	17,	/* MSL MODE - NORM */
-		192,120,10,	3,	18,	17,	/* MSL MODE - BRSIT */
-		96, 127, 6, 2,  27,	 1, /* STORES 1 */
-		107,127, 6,	2,	27, 	 1,	/* STORES 2 */
-		118,127, 6, 2,	27, 	 1,	/* STORES 3 */
-		129,127, 6, 2,	27, 	 1,	/* STORES 4 */
-		185,127, 6, 2,	27,	 1,	/* STORES 5 */
-		196,127, 6, 2,	27, 	 1,	/* STORES 6 */
-		207,127, 6, 2,	27,	 1,	/* STORES 7 */
-		218,127, 6,	2,	27,	 1,	/* STORES 8 */
-};
+extern clights far CockpitLights[40];
 
 
 
 
-UWORD   far VdiMask[250];
-UWORD   far AdiMask[170];
-UWORD	far LookDownLMask[130];
-UWORD	far LookDownRMask[105];
-UWORD	far	RawMask[185];
-UWORD	far TopCockpitMask[2400];
-UWORD	far HsdMask[300];
-UWORD	far DDDMask[888];
-UWORD	far TIDMask[480];
-UWORD	far ElevMask[600];
+
+extern UWORD   far VdiMask[250];
+
+extern UWORD   far AdiMask[170];
+
+extern UWORD	far LookDownLMask[130];
+
+extern UWORD	far LookDownRMask[105];
+
+extern UWORD	far RawMask[185];
+
+extern UWORD	far TopCockpitMask[2400];
+
+extern UWORD	far HsdMask[300];
+
+extern UWORD	far DDDMask[888];
+
+extern UWORD	far TIDMask[480];
+
+extern UWORD	far ElevMask[600];
+
 
 extern SWORD PitchAngle;
 extern UWORD DialSprite[];
 
 extern int MASTER_CAUTION;
 
-int     DAMAGELITE[16];
-int     RadarRepeat=0;
+extern int DAMAGELITE[16];
+
+extern int RadarRepeat;
+
 extern int BackSeat;
 
-int     Panning     = 0;
+extern int Panning;
+
 // int     LookingDown = 0;
 extern int DeClutter;
 
@@ -185,49 +184,69 @@ extern UWORD OutsideLength;
 
 // UWORD   OutsideLength = 199;
 
-RPS     RpCX1  =  {1, 119,138,	82,57, JAM3, GREEN, BLACK, 1};
+extern RPS RpCX1;
+
 extern RPS     * RpCRT1;
 
 
-RPS     RpCX2  =  {1, 226,136, 	30,44, JAM3, GREEN, BLACK, 1};
+extern RPS RpCX2;
+
 extern RPS     * RpCRT2;
 
 
-RPS     RpCX3  =  {1, 118,100, 	83,68, JAM3, GREEN, BLACK, 1};
-RPS     *RpCRT3  = &RpCX3;
+extern RPS RpCX3;
 
-RPS     RpCX4  =  {1, 260,150,	42,41, JAM3, GREEN, BLACK, 1};
+extern RPS     * RpCRT3;
+
+
+extern RPS RpCX4;
+
 extern RPS     * RpCRT4;
 
 
-RPS     RpCX5  =  {1, 119,106,	83,59, JAM3, GREEN, BLACK, 1};
-RPS     *RpCRT5  = &RpCX5;
+extern RPS RpCX5;
 
-RPS     RpCX6  =  {1, 88,33,146,117, JAM3, GREEN, BLACK, 1};
-RPS     *RpCRT6  = &RpCX6;
+extern RPS     * RpCRT5;
 
-RPS     RpCX7  =  {1, RGTBAKCOLRCRTX-BAKCOLRCRTPAN,RGTBAKCOLRCRTY, CRTXSIZ-1, CRTYSIZ-1, JAM3, GREEN, BLACK, 1};
-RPS     *RpCRT7  = &RpCX7;
 
-RPS     *RpCRT;
+extern RPS RpCX6;
+
+extern RPS     * RpCRT6;
+
+
+extern RPS RpCX7;
+
+extern RPS     * RpCRT7;
+
+
+extern RPS     * RpCRT;
+
 
 extern RPS     * CrtRps[];
 
-int     CrtDisplays [8];
-int     CrtUpdate   [8];
+extern int CrtDisplays[8];
 
-int     CrtConfig[8] = {VDI,ADI,HSD,TEWS,DDD,TID,TSD,HUDCRT };
+extern int CrtUpdate[8];
 
-int     CurCRT=2;
+
+extern int CrtConfig[8];
+
+
+extern int CurCRT;
+
 
 extern int MasterArmSW;
 
 extern int JetisonSW;
 
-int Lightemup=0;
-int lighton=0;
-int VdiMode=1;
-int msiz=0;
+extern int Lightemup;
+
+extern int lighton;
+
+extern int VdiMode;
+
+extern int msiz;
+
 
 static  int OLDMM;
 static  int OldFuel;
@@ -435,10 +454,10 @@ Flip ()
 		break;
 		case FRONT:
 			if (!BackSeat) {
-				if (Status&TRAINING) RpPrint (Rp3D, 0,2, "TRNG" );
+				if (Status&TRAINING) RpPrint (Rp3D, 0,2, gstr192 );
 				if (Speedy>1) {
 					SetFont (Rp3D, F_3x4);
-					RpPrint (Rp3D, 5,8, "x");
+					RpPrint (Rp3D, 5,8, gstr193);
 					RpPrint (Rp3D, 0,8, itoa(Speedy,s,10));
 				}
 				MaskCopy(TopCockpitMask);
@@ -605,77 +624,77 @@ DrawRadarStatus()
 		// PD Search
 
 		case AWG9_SRCH_WIDE:
-			strcpy(s,"PDSRCH - WIDE");
+			strcpy(s,gstr194);
 		break;
 		case AWG9_SRCH_MEDIUM:
-			strcpy(s,"PDSRCH - MED");
+			strcpy(s,gstr195);
 		break;
 		case AWG9_SRCH_NARROW:
-			strcpy(s,"PDSRCH - NRW");
+			strcpy(s,gstr196);
 		break;
 		case AWG9_SRCH_AUTHENTIC:
-			strcpy(s,"PDSRCH");
+			strcpy(s,gstr197);
 		break;
 
 
 		// RWS
 		case AWG9_RWS_WIDE:
-			strcpy(s,"RWS - WIDE");
+			strcpy(s,gstr198);
 		break;
 		case AWG9_RWS_MEDIUM:
-			strcpy(s,"RWS - MED");
+			strcpy(s,gstr199);
 		break;
 		case AWG9_RWS_NARROW:
-			strcpy(s,"RWS - NRW");
+			strcpy(s,gstr200);
 		break;
 		case AWG9_RWS_AUTHENTIC:
-			strcpy(s,"RWS");
+			strcpy(s,gstr201);
 		break;
 
 		// TWSA
 		case AWG9_TWSA_MEDIUM:
-			strcpy(s,"TWSA - MED");
+			strcpy(s,gstr202);
 		break;
 		case AWG9_TWSA_NARROW:
-			strcpy(s,"TWSA - NRW");
+			strcpy(s,gstr203);
 		break;
 		case AWG9_TWSA_AUTHENTIC:
-			strcpy(s,"TWSA");
+			strcpy(s,gstr204);
 		break;
 
 		// TWSM
 		case AWG9_TWSM_MEDIUM:
-			strcpy(s,"TWSM - MED");
+			strcpy(s,gstr205);
 		break;
 		case AWG9_TWSM_NARROW:
-			strcpy(s,"TWSM - NRW");
+			strcpy(s,gstr206);
 		break;
 		case AWG9_TWSM_AUTHENTIC:
-			strcpy(s,"TWSM");
+			strcpy(s,gstr207);
 		break;
 
 		// Easy Mode
 		case AWG9_STANDARD_SRCH:
-			strcpy(s,"SEARCH");
+			strcpy(s,gstr208);
 		break;
 		case AWG9_STANDARD_TRACK:
-			strcpy(s,"TRACK");
+			strcpy(s,gstr209);
 		break;
 
 		// PD Single Target Track
 		case AWG9_PDSTT:
-			strcpy(s,"PDSTT");
+			strcpy(s,gstr210);
 		break;
 
 		// Special Modes
 		case AWG9_BORESIGHT:
-			strcpy(s,"BRST");
+			strcpy(s,gstr211);
 		break;
 		case AWG9_VSL:
-			strcpy(s,"VSL");
+			strcpy(s,gstr212);
 		break;
 		default:
-			strcpy(s,"BAD MODE");
+			strcpy(s,gstr213);
 		break;
 	}
 
@@ -703,9 +722,9 @@ int GDisplay()
 	RectFill(Rp2,267,140,20,5,63);
 	N=abs(Gees+1);
 	txt[0]=0;
-	if (Gees<-1) strcpy(txt,"-");
+	if (Gees<-1) strcpy(txt,gstr214);
 	strcat(txt, itoa(N/16,s,10));
-	strcat (txt, ".");
+	strcat (txt, gstr215);
 	strcat(txt, itoa((10*(N&15))/16,s,10));
 	RpPrint(Rp2,269,140,txt);
 	RectCopy(Rp2,267,140,20,5,Rp1,267,140);
@@ -1181,27 +1200,27 @@ int DDDSwitchRefresh()
 	switch(RadarRange) {
 		case 0:
 			ChangeColor(Rp1,113,77,11,10,34,16);
-			RpPrint(Rp2,150,92,"5");
+			RpPrint(Rp2,150,92,gstr216);
 		break;
 		case 1:
 			ChangeColor(Rp1,130,77,11,10,34,16);
-			RpPrint(Rp1,150,92,"10");
+			RpPrint(Rp1,150,92,gstr217);
 		break;
 		case 2:
 			ChangeColor(Rp1,147,77,11,10,34,16);
-			RpPrint(Rp1,150,92,"20");
+			RpPrint(Rp1,150,92,gstr218);
 		break;
 		case 3:
 			ChangeColor(Rp1,164,77,11,10,34,16);
-			RpPrint(Rp1,150,92,"50");
+			RpPrint(Rp1,150,92,gstr219);
 		break;
 		case 4:
 			ChangeColor(Rp1,181,77,11,10,34,16);
-			RpPrint(Rp1,150,92,"100");
+			RpPrint(Rp1,150,92,gstr220);
 		break;
 		case 5:
 			ChangeColor(Rp1,198,77,12,10,34,16);
-			RpPrint(Rp1,150,92,"200");
+			RpPrint(Rp1,150,92,gstr221);
 		break;
 		RectCopy(Rp2,150,92,23,9,Rp1,160,92);
 	}
@@ -1287,27 +1306,27 @@ int DDDSwitches()
 		switch(RadarRange) {
 			case 0:
 				ChangeColor(Rp1,113,77,11,10,34,16);
-				RpPrint(Rp2,150,92,"5");
+				RpPrint(Rp2,150,92,gstr216);
 			break;
 			case 1:
 				ChangeColor(Rp1,130,77,11,10,34,16);
-				RpPrint(Rp1,150,92,"10");
+				RpPrint(Rp1,150,92,gstr217);
 			break;
 			case 2:
 				ChangeColor(Rp1,147,77,11,10,34,16);
-				RpPrint(Rp1,150,92,"20");
+				RpPrint(Rp1,150,92,gstr218);
 			break;
 			case 3:
 				ChangeColor(Rp1,164,77,11,10,34,16);
-				RpPrint(Rp1,150,92,"50");
+				RpPrint(Rp1,150,92,gstr219);
 			break;
 			case 4:
 				ChangeColor(Rp1,181,77,11,10,34,16);
-				RpPrint(Rp1,150,92,"100");
+				RpPrint(Rp1,150,92,gstr220);
 			break;
 			case 5:
 				ChangeColor(Rp1,198,77,12,10,34,16);
-				RpPrint(Rp1,150,92,"200");
+				RpPrint(Rp1,150,92,gstr221);
 			break;
 			RectCopy(Rp2,150,92,23,9,Rp1,160,92);
 		}

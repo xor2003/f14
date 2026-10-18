@@ -1,3 +1,7 @@
+extern char gstr223[];
+extern char gstr767[];
+extern char gstr768[];
+
 #include <dos.h>
 #include <stdio.h>
 
@@ -16,7 +20,7 @@ InitLogFile()
 {
     FILE    *File;
 
-	File = fopen ("log.f14", "wb");
+	File = fopen (gstr767, gstr223);
 	fclose(File);
 }
 
@@ -25,7 +29,7 @@ DumpLogFile()
 {
     FILE    *File;
 
-	File = fopen ("log.f14", "ab");
+	File = fopen (gstr767, gstr768);
 
 	fwrite (gamelog, sizeof(struct _logObject_), nextlog, File);
 	fclose (File);

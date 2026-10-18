@@ -1,5 +1,41 @@
+extern char gstr130[];
+extern char gstr2[];
+extern char gstr302[];
+extern char gstr303[];
+extern char gstr304[];
+extern char gstr305[];
+extern char gstr306[];
+extern char gstr307[];
+extern char gstr308[];
+extern char gstr309[];
+extern char gstr310[];
+extern char gstr311[];
+extern char gstr312[];
+extern char gstr313[];
+extern char gstr314[];
+extern char gstr315[];
+extern char gstr316[];
+extern char gstr317[];
+extern char gstr318[];
+extern char gstr319[];
+extern char gstr320[];
+extern char gstr321[];
+extern char gstr322[];
+extern char gstr323[];
+extern char gstr324[];
+extern char gstr325[];
+extern char gstr326[];
+extern char gstr327[];
+extern char gstr328[];
+extern char gstr329[];
+extern char gstr330[];
+extern char gstr331[];
+extern char gstr332[];
+extern char gstr333[];
+extern char gstr334[];
+
 /*
-ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     File Name:          loadmiss.c
 
@@ -24,7 +60,7 @@
 
 
 
-ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 
 
@@ -44,21 +80,32 @@
 #include <stdio.h>
 #include <process.h>
 
-UBYTE lastadded;
-int orgPlayernum;
+extern UBYTE lastadded;
+
+extern int orgPlayernum;
+
 
 extern int OurLoadOut;
 extern int ourplanetype;
 extern confData ConfigData;
-int MissionWeather;
-int CloudCeiling;
+extern int MissionWeather;
 
-FILE *MisFile;
-int  DoMustLive, DoMustDie, DoMustEsc;
+extern int CloudCeiling;
+
+
+extern FILE * MisFile;
+
+extern int DoMustLive;
+extern int DoMustDie;
+extern int DoMustEsc;
+
 struct _mrec_ { int type; int ids[10]; } MustX[3][5];
-int  MustGroups[10];
-int  MinTimeSet;
-int  MissionStat;
+extern int MustGroups[10];
+
+extern int MinTimeSet;
+
+extern int MissionStat;
+
 
 extern char OurWingName[];
 extern int whichourcarr;     // holds value for which boat our carrier
@@ -66,11 +113,14 @@ extern UWORD GRPAGE0[];
 
 extern RPS *Rp1;
 #define NUM_AI_PATHS 40   /*  was 15  */
-struct _path_ aipaths[NUM_AI_PATHS];
+extern struct _path_ aipaths[NUM_AI_PATHS];
+
 #define NUM_AI_WAYPTS 85  /*  was 70 30 40 */
-struct _wayPoint_ aiwaypoints[NUM_AI_WAYPTS];
+extern struct _wayPoint_ aiwaypoints[NUM_AI_WAYPTS];
+
 #define NUM_AI_ACTIONS 130  /*  was 120 100  */
-struct _action_ aiactions[NUM_AI_ACTIONS];
+extern struct _action_ aiactions[NUM_AI_ACTIONS];
+
 extern  long    PxLng, PyLng;
 extern  int     OurHead,OurRoll, OurPitch;
 extern  UWORD   OurAlt;
@@ -83,7 +133,8 @@ extern   int   ONTHECAT;
 extern   int   ONTHEHOOK;
 extern   int   TRIM;
 
-int World;
+extern int World;
+
 
 void AddGroundTarget(struct _object_ one_object, int cnt);
 extern struct RadarData far *GetRadarPtr(int RadarNo);
@@ -134,13 +185,13 @@ int LoadScottMission()
 	whichourcarr = -999;     // holds value for which boat our carrier
 	PlayerCat = -999;
 
-    if ((MisFile = fopen ("mission.f14", "rb")) == NULL) {
-		Message("No Mission Data",SYSTEM_MSG);
+    if ((MisFile = fopen (gstr302, gstr2)) == NULL) {
+		Message(gstr303,SYSTEM_MSG);
         return 0;
     }
 
-    if ((File = fopen ("mission.f14", "rb")) == NULL) {
-		Message("No Mission Data",SYSTEM_MSG);
+    if ((File = fopen (gstr302, gstr2)) == NULL) {
+		Message(gstr303,SYSTEM_MSG);
         return 0;
     }
 
@@ -179,30 +230,30 @@ int LoadScottMission()
 	numpaths = start_data.numPaths;
 
 	if(numpaths >= NUM_AI_PATHS) {
-		sprintf(Txt,"More paths %d than allocated space: %d",numpaths,NUM_AI_PATHS);
+		sprintf(Txt,gstr304,numpaths,NUM_AI_PATHS);
 		Message(Txt,SYSTEM_MSG);
 		numpaths = NUM_AI_PATHS;
 	}
 
 	if(numwaypoints >= NUM_AI_WAYPTS) {
-		sprintf(Txt,"More waypoints %d than allocated space: %d",numwaypoints,NUM_AI_WAYPTS);
+		sprintf(Txt,gstr305,numwaypoints,NUM_AI_WAYPTS);
 		Message(Txt,SYSTEM_MSG);
 		numwaypoints = NUM_AI_WAYPTS;
 	}
 
 	if(numactions >= NUM_AI_ACTIONS) {
-		sprintf(Txt,"More actions %d than allocated space: %d",numactions,NUM_AI_ACTIONS);
+		sprintf(Txt,gstr306,numactions,NUM_AI_ACTIONS);
 		Message(Txt,SYSTEM_MSG);
 		numactions = NUM_AI_ACTIONS;
 	}
 
 #ifdef YEP
 	if(numpaths >= NUM_AI_PATHS)
-		Message("More paths than allocated space",SYSTEM_MSG);
+		Message(gstr307,SYSTEM_MSG);
 	if(numwaypoints >= NUM_AI_WAYPTS)
-		Message("More waypoints than allocated space",SYSTEM_MSG);
+		Message(gstr308,SYSTEM_MSG);
 	if(numactions >= NUM_AI_ACTIONS)
-		Message("More actions than allocated space",SYSTEM_MSG);
+		Message(gstr309,SYSTEM_MSG);
 #endif
 
     fseek  (File, start_data.pathLoc, SEEK_SET) ;
@@ -450,11 +501,11 @@ zfixdone:
 			orgPlayernum = cnt;
 			OurPath = path;
 
-			if(strcmp(one_object.callSign, "                ")) {
+			if(strcmp(one_object.callSign, gstr310)) {
 				strcpy (OurCallSign, one_object.callSign);
 			}
 			else
-				strcpy (OurCallSign, " ");
+				strcpy (OurCallSign, gstr130);
 
 //			sprintf(Txt, "%d Player x %ld, y %ld, alt %d, head %x", cnt, PxLng, PyLng, OurAlt, OurHead);
 //			Message(Txt);
@@ -462,25 +513,25 @@ zfixdone:
 		else {
 			lastwp = aipaths[path].numWPs + firstwp - 1;
 			if(path > NUM_AI_PATHS) {
-				Message("Plane with bad path",0);
+				Message(gstr311,0);
 				continue;
 			}
 			if(lastwp > NUM_AI_WAYPTS) {
-				Message("Plane with bad waypoints",0);
+				Message(gstr312,0);
 				continue;
 			}
 			if(aiwaypoints[lastwp].actionIndex + aiwaypoints[lastwp].numActions > NUM_AI_ACTIONS) {
-				Message("Plane with bad actions",0);
+				Message(gstr313,0);
 				continue;
 			}
 			if(one_object.type == ST_WINGMAN) {
-				if(strcmp(one_object.callSign, "                ")) {
-					strcpy (OurWingName, "(");
+				if(strcmp(one_object.callSign, gstr310)) {
+					strcpy (OurWingName, gstr314);
 					strcat (OurWingName, one_object.callSign);
-					strcat (OurWingName, ")");
+					strcat (OurWingName, gstr315);
 				}
 				else {
-					strcpy (OurWingName, "(Wingman)");
+					strcpy (OurWingName, gstr316);
 				}
 			}
 			if(!setediff) {
@@ -505,7 +556,7 @@ zfixdone:
 				}
 			}
 			else {
-				Message("To many objects",0);
+				Message(gstr317,0);
 			}
 		}
     }
@@ -679,7 +730,8 @@ zfixdone:
 }
 
 #ifdef SHOWSCOTT
-int pathshow = 0;
+extern int pathshow;
+
 int ShowScottMission()
 {
 
@@ -702,8 +754,8 @@ int ShowScottMission()
 	int whatside, howgood;
 	int wpflag;
 
-    if ((File = fopen ("mission.f14", "rb")) == NULL) {
-		Message("No Mission Data",SYSTEM_MSG);
+    if ((File = fopen (gstr302, gstr2)) == NULL) {
+		Message(gstr303,SYSTEM_MSG);
         return 0;
     }
 
@@ -727,19 +779,19 @@ int ShowScottMission()
 
 
 #if 0
-	TXT(" ");
+	TXT(gstr130);
 	TXN(numobjects);
-	TXA(" ");
+	TXA(gstr130);
 	TXN(numpaths);
-	TXA(" ");
+	TXA(gstr130);
 	TXN(numwaypoints);
-	TXA(" ");
+	TXA(gstr130);
 	TXN(numactions);
-	TXA(" ");
+	TXA(gstr130);
 	TXN(start_data.time);
-	TXA(" ");
+	TXA(gstr130);
 	TXN(start_data.weather);
-	TXA(" ");
+	TXA(gstr130);
 	Message(Txt);
 #endif
 
@@ -808,7 +860,7 @@ int ShowScottMission()
 			}
 			OurHead = one_object.heading;   */
 
-			sprintf(Txt, "%d Player x %ld, y %ld, alt %d, head %x", cnt, PxLng, PyLng, OurAlt, OurHead);
+			sprintf(Txt, gstr318, cnt, PxLng, PyLng, OurAlt, OurHead);
 			Message(Txt);
 		}
 		else {
@@ -823,9 +875,9 @@ int ShowScottMission()
 			path = one_object.path;
 			speedval = one_object.speed;  */
 			if((cnt >= pathshow) && (cnt < pathshow + 2)) {
-				sprintf(Txt, "%d NP id %d, t %d, bn %d, wa %d, q %d", cnt, planeid, objtype, one_object.formation, numwingadd, howgood);
+				sprintf(Txt, gstr319, cnt, planeid, objtype, one_object.formation, numwingadd, howgood);
 				Message(Txt);
-				sprintf(Txt, "%d xv %ld, yv %ld, zv %d, h %x, p %d, s %d", cnt, xval, yval, altval, headval, path, speedval);
+				sprintf(Txt, gstr320, cnt, xval, yval, altval, headval, path, speedval);
 				Message(Txt);
 			}
 		}
@@ -838,7 +890,7 @@ int ShowScottMission()
 #if 1
     for (cnt=0; cnt<numpaths; cnt++) {
 		if((cnt >= pathshow) && (cnt < pathshow + 4)) {
-			sprintf(Txt, "%d path wp0 %d, numpts %d", cnt, aipaths[cnt].wp0, aipaths[cnt].numWPs);
+			sprintf(Txt, gstr321, cnt, aipaths[cnt].wp0, aipaths[cnt].numWPs);
 			Message(Txt);
 		}
 	}
@@ -850,7 +902,7 @@ int ShowScottMission()
 #if 0
     for (cnt=0; cnt<numwaypoints; cnt++) {
 		if((cnt >= pathshow) && (cnt < pathshow + 4)) {
-			sprintf(Txt, "%d way x %ld, y %ld, z %d, t %d, d %d", cnt, aiwaypoints[cnt].x, aiwaypoints[cnt].y, aiwaypoints[cnt].z, aiwaypoints[cnt].actionIndex, aiwaypoints[cnt].numActions);
+			sprintf(Txt, gstr322, cnt, aiwaypoints[cnt].x, aiwaypoints[cnt].y, aiwaypoints[cnt].z, aiwaypoints[cnt].actionIndex, aiwaypoints[cnt].numActions);
 			Message(Txt);
 		}
 	}
@@ -862,7 +914,7 @@ int ShowScottMission()
 #if 0
     for (cnt=0; cnt<numactions; cnt++) {
 		if((cnt >= pathshow) && (cnt < pathshow + 4)) {
-			sprintf(Txt, "%d actions action %d, value %d", cnt, aiactions[cnt].action, aiactions[cnt].value);
+			sprintf(Txt, gstr323, cnt, aiactions[cnt].action, aiactions[cnt].value);
 			Message(Txt);
 		}
 	}
@@ -885,9 +937,9 @@ void AddGroundTarget(struct _object_ one_object, int cnt)
 	struct RadarData far *tempradar;
 
 	if(NGTARGETS >= MAXGROUNDTARGET) {
-		TXT("More ground targets ");
+		TXT(gstr324);
 		TXN(NGTARGETS);
-		TXT(" than allocated space: ");
+		TXT(gstr325);
 		TXN(MAXGROUNDTARGET);
 		Message(Txt,SYSTEM_MSG);
 		return;
@@ -904,21 +956,21 @@ void AddGroundTarget(struct _object_ one_object, int cnt)
 		gt[NGTARGETS].gflags |= NEUTRAL;
 	}
 
-	if((!strcmp("SA-2", one_object.name)) || (one_object.type == ST_SA_2))
+	if((!strcmp(gstr326, one_object.name)) || (one_object.type == ST_SA_2))
 		radarnum = 1;
-	else if((!strcmp("SA-3", one_object.name)) || (one_object.type == ST_SA_3))
+	else if((!strcmp(gstr327, one_object.name)) || (one_object.type == ST_SA_3))
 		radarnum = 2;
-	else if((!strcmp("SA-5", one_object.name)) || (one_object.type == ST_SA_5))
+	else if((!strcmp(gstr328, one_object.name)) || (one_object.type == ST_SA_5))
 		radarnum = 3;
-	else if((!strcmp("SA-6", one_object.name)) || (one_object.type == ST_SA_6))
+	else if((!strcmp(gstr329, one_object.name)) || (one_object.type == ST_SA_6))
 		radarnum = 4;
-	else if((!strcmp("Crotale", one_object.name)) || (one_object.type == ST_CROTALE))
+	else if((!strcmp(gstr330, one_object.name)) || (one_object.type == ST_CROTALE))
 		radarnum = 12;
-	else if((!strcmp("Hawk", one_object.name)) || (one_object.type == ST_HAWK))
+	else if((!strcmp(gstr331, one_object.name)) || (one_object.type == ST_HAWK))
 		radarnum = 13;
-	else if((!strcmp("Nike-Herc", one_object.name)) || (one_object.type == ST_NIKE_HERCULES))
+	else if((!strcmp(gstr332, one_object.name)) || (one_object.type == ST_NIKE_HERCULES))
 		radarnum = 47;
-	else if((!strcmp("Patriot", one_object.name)) || (one_object.type == ST_PATRIOT))
+	else if((!strcmp(gstr333, one_object.name)) || (one_object.type == ST_PATRIOT))
 		radarnum = 48;
 	else if(one_object.type == ST_AIRPORT)
 		radarnum = 27;
@@ -935,9 +987,9 @@ void AddGroundTarget(struct _object_ one_object, int cnt)
 		return;
 
 	if(NRADAR >= MAXRADAR) {
-		TXT("More radars ");
+		TXT(gstr334);
 		TXN(NRADAR);
-		TXA(" than allocated space: ");
+		TXA(gstr325);
 		TXN(MAXGROUNDTARGET);
 		Message(Txt,SYSTEM_MSG);
 		return;

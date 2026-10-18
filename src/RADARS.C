@@ -1,3 +1,7 @@
+extern char gstr699[];
+extern char gstr700[];
+extern char gstr701[];
+
 /*  File:   Radars.c                              */
 /*  Author: Sid Meier                             */
 /*                                                */
@@ -32,11 +36,15 @@ extern  UWORD   Rtime;
 extern  int     JAMMER[];
 extern  int     FTicks;
 
-        int     CloseGuy;
-        int     DMAX9;
+        extern int CloseGuy;
 
-		int     LastSpike;
-		int     LastMud;
+        extern int DMAX9;
+
+
+		extern int LastSpike;
+
+		extern int LastMud;
+
 
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
 extern struct MissileData far *GetMissilePtr(int MissileNo);
@@ -131,7 +139,7 @@ detect(int i)
 					if(targetnum == MAXPLANE)
                     	Sound(N_RadarSearch, 1,0);
                     if (CloseGuy==0 && !LastMud) {
-                        Message("Singer!",RIO_MSG);
+                        Message(gstr699,RIO_MSG);
 						Speech(SINGER);
                         LastMud = 8*60;
                     }
@@ -147,7 +155,7 @@ detect(int i)
                 if (CloseGuy==0) {
                     TEWS_SPOTTED (i);                   // set TEWS display
                     if (!(Rdrs[i].status&RSEEN) && !LastSpike) {
-                        Message("Spike!",RIO_MSG);
+                        Message(gstr700,RIO_MSG);
 						Speech(SPIKE);
                         LastSpike=8*60;
                     }
@@ -219,7 +227,7 @@ detect(int i)
 
         if (CloseGuy==0) {
             Sound(N_RadarLock, 1,0);
-            Message("Singer Launch!",RIO_MSG);
+            Message(gstr701,RIO_MSG);
 			Speech(SINGERLAUNCH);
         }
 

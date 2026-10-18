@@ -1,3 +1,7 @@
+extern char gstr356[];
+extern char gstr357[];
+extern char gstr358[];
+
 //***************************************************************************
 //
 //  File:  NMENUS.C
@@ -48,7 +52,8 @@ extern int MSGDETAIL;
 
 extern int SNDDETAIL;
 
-int RudderType;
+extern int RudderType;
+
 extern  int     StickType;
 extern  UWORD   MinStick[];
 extern  UWORD   MaxStick[];
@@ -116,7 +121,8 @@ typedef struct {
 extern hs menuhotspots[];
 
 
-UWORD mseg;
+extern UWORD mseg;
+
 
 static RPS  MenuRX = { 0, 0, 0, 319, 199, JAM3, GREEN, BLACK, 1 };
 static RPS *MenuRp = &MenuRX;
@@ -148,7 +154,7 @@ MainMenu()
    MouseHIDE();
 
 
-	LoadPicture(1,"CFG-bac2.PIC");
+	LoadPicture(1,gstr356);
 
 	// Draw Settings
 
@@ -390,7 +396,7 @@ MainMenu()
     	LoadNewCockpit();
 	} else {
        	ClearPage(0, BLACK);
-		LoadPalToPal("F14ORG01.PIC",PalPkt);
+		LoadPalToPal(gstr357,PalPkt);
 		UpdatePalBuf(PalPkt);
 	}
 
@@ -414,7 +420,7 @@ int DrawSettings()
 	MouseHIDE();
 
 	RectFill(MenuRp,223,8,85,35,18);
-	RpPrint(MenuRp,225,10,"Quality Assurance");
+	RpPrint(MenuRp,225,10,gstr358);
 
 	// Draw Stick
 	ScaleRotate(mseg,185,104,6,6,MenuRp,(menuhotspots[StickType].x1+5),
@@ -496,7 +502,7 @@ MikesJoyStickRecal(int x, int y)
 {
 	MouseHIDE();
    JoyRecal (x,y);
-	LoadPicture(1,"CFG-bac2.PIC");
+	LoadPicture(1,gstr356);
    RedrawJoyBox();
 	DrawSettings();
 	MouseSHOW();

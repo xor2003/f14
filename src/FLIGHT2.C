@@ -1,3 +1,30 @@
+extern char gstr156[];
+extern char gstr183[];
+extern char gstr224[];
+extern char gstr225[];
+extern char gstr226[];
+extern char gstr227[];
+extern char gstr228[];
+extern char gstr229[];
+extern char gstr230[];
+extern char gstr231[];
+extern char gstr232[];
+extern char gstr233[];
+extern char gstr234[];
+extern char gstr235[];
+extern char gstr236[];
+extern char gstr237[];
+extern char gstr238[];
+extern char gstr239[];
+extern char gstr240[];
+extern char gstr241[];
+extern char gstr242[];
+extern char gstr243[];
+extern char gstr244[];
+extern char gstr245[];
+extern char gstr246[];
+extern char gstr247[];
+
 /************************************************************************
 *                                                                       *
 *       Project: Stealth Fighter(TM)                                    *
@@ -52,62 +79,92 @@ extern  int		RLowFuelWarn;
 extern  int		BingoFuelWarn;
 extern  int MikeHeight;
 
-union REGS D;
+extern union REGS D;
 
-    UBYTE   ReqdGees [128] =   /* Required G force for specific roll angle */
-             { 16,16,16,16,16,16,17,17,17,17,17,17,17,17,18,18,
-               18,18,18,18,18,19,19,20,20,21,22,22,23,24,25,25,
-               26,27,27,28,29,29,30,31,31,32,34,36,37,39,41,43,
-               44,46,48,52,56,60,64,72,80,96,112,128,144,160,176,192,
-               208,192,176,160,144,128,112,96,80,72,64,60,56,52,48,46,
-               44,43,41,39,37,36,34,32,31,31,30,29,29,28,27,27,
-               26,25,25,24,23,22,22,21,20,20,19,19,18,18,18,18,
-               18,18,18,17,17,17,17,17,17,17,17,16,16,16,16,16,
-             };
 
-    long    PxLng;
-    long    PyLng;
-    COORD   Px,Py;
-    UWORD   AirSpeed;
-    SWORD   Weight = 8;
-    extern SWORD FM[3];
+    extern UBYTE ReqdGees[128];
 
-    SWORD   HC[3][3] = { {0,0,0},{0,0X7FFF,0},{0,0,0}};
-    SWORD   PC[3][3] = { {0X7FFF,0,0},{0,0,0},{0,0,0}};
-    SWORD   RC[3][3] = { {0,0,0},{0,0,0},{0,0,0X7FFF}};
-    SWORD   TM[3][3] = { {0,0,0},{0,0,0},{0,0,0}};
+
+    extern long PxLng;
+
+    extern long PyLng;
+
+    extern COORD Px;
+extern COORD Py;
+
+    extern UWORD AirSpeed;
+
+    extern SWORD Weight;
+
+    extern SWORD FM[3][3];
+
+    extern SWORD HC[3][3];
+
+    extern SWORD PC[3][3];
+
+    extern SWORD RC[3][3];
+
+    extern SWORD TM[3][3];
+
     extern UWORD OurHead;
 
     extern SWORD OurPitch;
 extern SWORD OurRoll;
 
-    SWORD   Gees;
+    extern SWORD Gees;
+
     extern UWORD Alt;
 extern UWORD OurAlt;
 extern UWORD OldAlt;
 
     extern long RadarAlt;
 
-    UBYTE   TrimAOA = 12;
-    ULONG   FrameCnt = 0;
+    extern UBYTE TrimAOA;
+
+    extern ULONG FrameCnt;
+
     SWORD   TrgMul(),IntDiv(),Itan();
     UWORD   Iasin(),Iacos();
-    SWORD   Accel,VVI;
-    SBYTE   PrevRoll = 0, PrevAOA = 0, AOARepCnt = 1;
-    SBYTE   PrevROLLRATE = 0,RollRepCnt = 0;
-    SWORD   ThrustI,PitchAngle,MinSpd,MinKnots,ROLLRATE,AOARATE,Knots;
-    UWORD   AOAttack;
+    extern SWORD Accel;
+extern SWORD VVI;
+
+    extern SBYTE PrevRoll;
+extern SBYTE PrevAOA;
+extern SBYTE AOARepCnt;
+
+    extern SBYTE PrevROLLRATE;
+extern SBYTE RollRepCnt;
+
+    extern SWORD ThrustI;
+extern SWORD PitchAngle;
+extern SWORD MinSpd;
+extern SWORD MinKnots;
+extern SWORD ROLLRATE;
+extern SWORD AOARATE;
+extern SWORD Knots;
+
+    extern UWORD AOAttack;
+
     int     vHead,vPitch,vRoll, VM[3][3];
-    char    DoPitchLines;
-    int     ejectX,ejectY,ejectZ;
+    extern char DoPitchLines;
+
+    extern int ejectX;
+extern int ejectY;
+extern int ejectZ;
+
     extern int REALFLIGHT;
 
-    char    BEND;
+    extern char BEND;
+
     extern int THRUST;
 
-    int     sightX,sightY;
-    int     BingoFuel;
-    long    FuelFlow;
+    extern int sightX;
+extern int sightY;
+
+    extern int BingoFuel;
+
+    extern long FuelFlow;
+
     extern int GAMNT;
 
 
@@ -118,7 +175,8 @@ struct  chase {
 };
 
 #define NCHASE 16
-struct chase chs[NCHASE];
+extern struct chase chs[NCHASE];
+
 
 #define THRUSTtoWEIGHT 1
 #define MaxSPEED 800    /* at sea level */
@@ -144,7 +202,7 @@ InitFlightModel()
 	if (Alt > 20) {			// Air Start
 		MasterArmSW=1;
 	} else {
-		Message("(Tower) Cleared for Takeoff",GAME_MSG);
+		Message(gstr224,GAME_MSG);
 		Speech(L_CLRD_TAKEOFF,2);
 	}
 
@@ -198,13 +256,13 @@ FLIGHT ()
     if (!REALFLIGHT && OurAlt>=100 && !(Status&WHEELSUP) && AutoGearOk) {
         AutoGearOk = FALSE;
         Status |= WHEELSUP;
-        Message("Landing gear raised",RIO_MSG);
+        Message(gstr156,RIO_MSG);
         Sound (N_GearOpenSeq, 1,0);
     }
 
     if (!REALFLIGHT && Alt==MinAlt && THRUST==0 && !(Status&BRAKESON)) {
         Status |= BRAKESON;
-        Message ("Brakes on",RIO_MSG);
+        Message (gstr225,RIO_MSG);
     }
 
 	/* AutoPilot logic */
@@ -215,7 +273,7 @@ FLIGHT ()
     if (AutoAlt && (!REALFLIGHT)) {
         if (ROLLRATE || AOARATE) {
             AutoAlt = 0;
-            Message ("Autopilot off",RIO_MSG);
+            Message (gstr183,RIO_MSG);
         }
 
 		dH = 0;
@@ -658,34 +716,23 @@ extern int W_WEIGHTS[];
 struct load{
    int   WT;
    int   DRG;
-   } loadout[7]={
-   6270, 56,          // 6 pho 2 side           3C5
-   3420, 31,         // 6 sparr 2 side         2B3
-   5320, 34,         // 4 pho 2 spar 2 side    3B3
-   3200, 34,         // 2 pho 1 spar 4 side    SPC
-   4660, 34,         // 4 pho 4 side           3B1
-   2760, 31,         // 4 spar 4 side          2B1
-   0, 27         // 4 spar 4 side          2B1
+   };
+extern struct load loadout[7];
 
-};
 
-char  *loadstrs[]={
-      "3C5 FLEET DEFENSE BRAVO",
-      "2B3 MIG CAP BRAVO",
-      "3B3 FLEET DEFENSE ALPHA",
-      "SPC FLEET DEFENSE CHARLIE",
-      "3B1 MIG CAP CHARLIE",
-      "2B1 MIG CAP ALPHA",
-      "CLEAN clcd=27",
-      };
+extern char  * loadstrs[];
 
-int   MYLOAD=0;
 
-int   LOADDRAG=100;
+extern int MYLOAD;
+
+
+extern int LOADDRAG;
+
 
 extern   int F14_STATION[12];
 
-int   loadoutweight=0;
+extern int loadoutweight;
+
 
 int   PlaneDrag()
 {
@@ -732,9 +779,12 @@ long PlaneWeight()
 
 
 
-int	DEBG1=0;
-int	DEBG2=0;
-int   AUTOCARLAND=0;
+extern int DEBG1;
+
+extern int DEBG2;
+
+extern int AUTOCARLAND;
+
 
 extern	int	ARCTAN( int Y, int X);
 
@@ -744,7 +794,9 @@ struct	FPARAM{
 	long	Z;
 	long	VEL[3];
 	int	MAT[9];
-} FPARAMS;
+};
+extern struct FPARAM FPARAMS;
+
 extern int ONTHECAT;
 
 extern int ONTHEHOOK;
@@ -752,8 +804,10 @@ extern int ONTHEHOOK;
 
 
 
-int   ScottFlightMode=0;
-int   ScottLandingMode=0;
+extern int ScottFlightMode;
+
+extern int ScottLandingMode;
+
 extern int LSORating;
 
 extern int tchdwnrating;
@@ -824,8 +878,10 @@ int	Density( UWORD ALT )
 }
 
 
-int	MAXENGAIR[]={ 100, 100, 85, 75, 65, 50, 10, 5, 0,0,0};
-int	MILENGAIR[]={ 100, 87, 70, 60, 52, 45, 10, 5, 0,0,0};
+extern int MAXENGAIR[];
+
+extern int MILENGAIR[];
+
 int	EngineBreathe( UWORD ALT )
 {
 
@@ -836,36 +892,46 @@ int	EngineBreathe( UWORD ALT )
 
 }
 
-int	STTBL[33]={ 0,0,0,0,0,0,0,1,
-						1,2,2,3,3,4,4,5,
-						6,7,8,9,10,11,12,13,
-						14,15,16,20,24,28,32,32, 32 };
+extern int STTBL[33];
+
 
 extern  UWORD   RudderStick;
 extern	int	RUDDERVALS;
 
-int	GEFFECT=0;
-int	PRESSUREBLACK=0;
+extern int GEFFECT;
 
-int	FASTROLL=1;
+extern int PRESSUREBLACK;
 
-UWORD	OldAutoAlt=0;
-int	OLDAOA=0;
-int	OLDSLEW=0;
-int	SLEW=0;
-UWORD TFAS[32]={ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-						0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
-int	TFAPTR=0;
-int	TFAPTRCNT=0;
 
-long   ROLLINERTIA=0;
+extern int FASTROLL;
+
+
+extern UWORD OldAutoAlt;
+
+extern int OLDAOA;
+
+extern int OLDSLEW;
+
+extern int SLEW;
+
+extern UWORD TFAS[32];
+
+extern int TFAPTR;
+
+extern int TFAPTRCNT;
+
+
+extern long ROLLINERTIA;
+
 extern int DirectLiftControl;
 
-int   DIRECTLIFTSPEED=210;
+extern int DIRECTLIFTSPEED;
+
 
 extern int DEBUG1;
 
-int   DEBUG2=0;
+extern int DEBUG2;
+
 
 
 
@@ -894,7 +960,8 @@ Get1GTrim(int AirSpeed)
    return((int)(STICKGS));
 }
 
-int   AutoTrim=0;
+extern int AutoTrim;
+
 ToggleAutoTrim()
 {
    AutoTrim^=1;
@@ -902,16 +969,16 @@ ToggleAutoTrim()
       {
       if (AutoTrim)
          {
-         Message("Auto trim ON",RIO_NOW_MSG);
+         Message(gstr226,RIO_NOW_MSG);
          }
       else
          {
-         Message("Auto trim OFF",RIO_NOW_MSG);
+         Message(gstr227,RIO_NOW_MSG);
          }
       }
    else
       {
-      Message("Trim disabled",RIO_NOW_MSG);
+      Message(gstr228,RIO_NOW_MSG);
       }
 }
 
@@ -923,7 +990,7 @@ TrimIt(int amnt)
 
    if (ConfigData.FightModel!=2)
       {
-      Message("Trim disabled",RIO_NOW_MSG);
+      Message(gstr228,RIO_NOW_MSG);
       return;
       }
 
@@ -932,18 +999,22 @@ TrimIt(int amnt)
 
    if (TRIM>126) TRIM=126;
    if (TRIM<-126) TRIM=-126;
-   sprintf(str,"Trim = %i",TRIM);
+   sprintf(str,gstr229,TRIM);
    Message(str,RIO_NOW_MSG);
 }
 
 
 extern int fueltime;
 
-long MilFuelTBLperhour[]= {10000,8000,6000,4000,3000,2000,1000,1000};
-long MaxFuelTBLperhour[]= {63000L,42000L,31500L,25200L,22900L,21000L,21000L};
+extern long MilFuelTBLperhour[];
+
+extern long MaxFuelTBLperhour[];
+
 // next tables are 1 minute intervals per engine !!!!!!!!
-int MilFuelTBL[]= {167,133,100,67,50,33,17,17};
-int MaxFuelTBL[]= {1050,700,525,420,381,350,350};
+extern int MilFuelTBL[];
+
+extern int MaxFuelTBL[];
+
 DoFuel()
 {
    int   T;
@@ -965,13 +1036,13 @@ DoFuel()
 
       if ((Fuel>=1500)&&((Fuel-T)<1500))
          {
-         Message("Warning, Low Fuel",RIO_MSG);
+         Message(gstr230,RIO_MSG);
 			LLowFuelWarn=1;
 			RLowFuelWarn=1;
          }
       if ((Fuel>=BingoFuel)&&((Fuel-T)<BingoFuel))
          {
-         Message("Bingo Fuel",RIO_MSG);
+         Message(gstr231,RIO_MSG);
 			BingoFuelWarn=1;
          }
 
@@ -980,9 +1051,12 @@ DoFuel()
       }
 }
 
-int   MYCLCD=35;
-int   MYCP= 34;
-int   MYTFACT=100;
+extern int MYCLCD;
+
+extern int MYCP;
+
+extern int MYTFACT;
+
 
 ScottFlight()
 {
@@ -1037,9 +1111,9 @@ ScottFlight()
 				LSORating=tchdwnrating;
 				if ((i==3)||(i==4)) LSORating+=10;
 				if (LSORating<0) LSORating=0;
-				sprintf(str,"Got The %i Wire",ONTHEHOOK);
+				sprintf(str,gstr232,ONTHEHOOK);
 				Message(str,RIO_MSG);
-				sprintf(str,"LSO rating: %i",LSORating);
+				sprintf(str,gstr233,LSORating);
 				Message(str,RIO_MSG);
 				LogIt (SLG_AIR_LAND, -1, PxLng, (0x100000 - PyLng), Alt, -LSORating, ONTHEHOOK, 0L, LOG_AIR);
 				Speech(L_CUT_POWER);
@@ -1059,7 +1133,7 @@ ScottFlight()
     if (Knots>350 && !(Status&WHEELSUP) && !(Damaged&D_HYDRAULICS)) {
 		AutoGearOk = FALSE;
         Status |= WHEELSUP;
-        Message ("Landing gear raised",RIO_MSG);
+        Message (gstr156,RIO_MSG);
         Sound(N_GearOpenSeq, 1,0);
     }
 
@@ -1211,7 +1285,7 @@ ScottFlight()
 			  ( (OurRoll<(-45*DEG)) || (OurRoll>(45*DEG)) )  )
 			{
 			AutoAlt=0;
-			Message ("Autopilot off",RIO_MSG);
+			Message (gstr183,RIO_MSG);
 			}
 		}
    if (ConfigData.FightModel==2)
@@ -1563,7 +1637,7 @@ ScottFlight()
    if (NEWAOA>1270)   //5.5*182
       {
 		Sound(N_StallHorn, 1,0);
-		Message("STALL WARNING",RIO_MSG);
+		Message(gstr234,RIO_MSG);
       }
 
 
@@ -1620,11 +1694,11 @@ ScottFlight()
       if (Gees>(8*16))
          {
          Damaged|=D_HYDRAULICS;
-         Message("STRUCTURAL DAMAGE !!",RIO_MSG);
+         Message(gstr235,RIO_MSG);
          }
       else
          {
-         Message("OVER G !!",RIO_MSG);
+         Message(gstr236,RIO_MSG);
          }
       }
 
@@ -1689,19 +1763,19 @@ Splatted(struct FPARAM *F, int spltcode)
       if (F->VEL[1]> VVILIMIT )
          {
          tchdwnrating+=10;
-         Message("Good VVi",RIO_MSG);
+         Message(gstr237,RIO_MSG);
          }
       if ( abs(OurRoll) < ROLLLIMIT  )
          {
          tchdwnrating+=5;
-         Message("Good Roll",RIO_MSG);
+         Message(gstr238,RIO_MSG);
          }
       if (abs(Knots-135)<SPDLIMIT)
          {
          tchdwnrating+=5;
-         Message("Good Speed",RIO_MSG);
+         Message(gstr239,RIO_MSG);
          }
-      sprintf(str,"Touch rating: %i",tchdwnrating);
+      sprintf(str,gstr240,tchdwnrating);
       Message(str,RIO_MSG);
 	  Sound(N_CarrierLanding, 1,0);
       }
@@ -1746,25 +1820,25 @@ Splatted(struct FPARAM *F, int spltcode)
       switch (ouch)
          {
          case 1:
-            Message("BAD VVI",RIO_MSG);
+            Message(gstr241,RIO_MSG);
             break;
          case 2:
-            Message("SPLAT!!!",RIO_MSG);
+            Message(gstr242,RIO_MSG);
             break;
          case 3:
-            Message("THRU THE DECK",RIO_MSG);
+            Message(gstr243,RIO_MSG);
             break;
          case 4:
-            Message("BAD ROLL",RIO_MSG);
+            Message(gstr244,RIO_MSG);
             break;
          case 5:
-            Message("TOO NOSE DOWN",RIO_MSG);
+            Message(gstr245,RIO_MSG);
             break;
          case 6:
-            Message("NOSE TOO HIGH",RIO_MSG);
+            Message(gstr246,RIO_MSG);
             break;
          case 7:
-            Message("HIT THE TOWER",RIO_MSG);
+            Message(gstr247,RIO_MSG);
             break;
          }
 //      Message("OUCH",RIO_MSG);

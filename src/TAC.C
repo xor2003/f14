@@ -35,8 +35,10 @@ extern struct PlaneData far *GetPlanePtr(int PlaneNo);
 extern struct MissileData far *GetMissilePtr(int MissileNo);
 extern struct RadarData far *GetRadarPtr(int RadarNo);
 
-int tacx=0;
-int tacy=0;
+extern int tacx;
+
+extern int tacy;
+
 extern int tacz;
 
 

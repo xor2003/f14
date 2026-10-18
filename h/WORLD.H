@@ -44,8 +44,10 @@ struct WayPoint {
 
   extern int NextWayPoint;
 
-  int ChangeWayPoint=0;
-  int WPMode;
+  extern int ChangeWayPoint;
+
+  extern int WPMode;
+
 #else
   extern struct WayPoint wps[];
   extern int NextWayPoint,ChangeWayPoint,WPMode;
@@ -463,10 +465,17 @@ struct Mission {  /*  14 bytes  */
 };
 
 #ifdef _include_data
-int  NRADAR,NERADAR,NTARGET,NPLANES;
-struct Mission ms[3];
-struct Radars Rdrs[MAXRADAR];
-struct Planes ps[MAXPLANE];
+extern int NRADAR;
+extern int NERADAR;
+extern int NTARGET;
+extern int NPLANES;
+
+extern struct Mission ms[3];
+
+extern struct Radars Rdrs[MAXRADAR];
+
+extern struct Planes ps[MAXPLANE];
+
 #else
 extern int  NRADAR,NERADAR,NTARGET,NPLANES;
 extern struct Radars Rdrs[];

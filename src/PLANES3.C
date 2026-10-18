@@ -1,3 +1,140 @@
+extern char gstr130[];
+extern char gstr135[];
+extern char gstr136[];
+extern char gstr140[];
+extern char gstr290[];
+extern char gstr389[];
+extern char gstr402[];
+extern char gstr465[];
+extern char gstr466[];
+extern char gstr467[];
+extern char gstr468[];
+extern char gstr493[];
+extern char gstr519[];
+extern char gstr576[];
+extern char gstr577[];
+extern char gstr578[];
+extern char gstr579[];
+extern char gstr580[];
+extern char gstr581[];
+extern char gstr582[];
+extern char gstr583[];
+extern char gstr584[];
+extern char gstr585[];
+extern char gstr586[];
+extern char gstr587[];
+extern char gstr588[];
+extern char gstr589[];
+extern char gstr590[];
+extern char gstr591[];
+extern char gstr592[];
+extern char gstr593[];
+extern char gstr594[];
+extern char gstr595[];
+extern char gstr596[];
+extern char gstr597[];
+extern char gstr598[];
+extern char gstr599[];
+extern char gstr600[];
+extern char gstr601[];
+extern char gstr602[];
+extern char gstr603[];
+extern char gstr604[];
+extern char gstr605[];
+extern char gstr606[];
+extern char gstr607[];
+extern char gstr608[];
+extern char gstr609[];
+extern char gstr610[];
+extern char gstr611[];
+extern char gstr612[];
+extern char gstr613[];
+extern char gstr614[];
+extern char gstr615[];
+extern char gstr616[];
+extern char gstr617[];
+extern char gstr618[];
+extern char gstr619[];
+extern char gstr620[];
+extern char gstr621[];
+extern char gstr622[];
+extern char gstr623[];
+extern char gstr624[];
+extern char gstr625[];
+extern char gstr626[];
+extern char gstr627[];
+extern char gstr628[];
+extern char gstr629[];
+extern char gstr630[];
+extern char gstr631[];
+extern char gstr632[];
+extern char gstr633[];
+extern char gstr634[];
+extern char gstr635[];
+extern char gstr636[];
+extern char gstr637[];
+extern char gstr638[];
+extern char gstr639[];
+extern char gstr640[];
+extern char gstr641[];
+extern char gstr642[];
+extern char gstr643[];
+extern char gstr644[];
+extern char gstr645[];
+extern char gstr646[];
+extern char gstr647[];
+extern char gstr648[];
+extern char gstr649[];
+extern char gstr650[];
+extern char gstr651[];
+extern char gstr652[];
+extern char gstr653[];
+extern char gstr654[];
+extern char gstr655[];
+extern char gstr656[];
+extern char gstr657[];
+extern char gstr658[];
+extern char gstr659[];
+extern char gstr660[];
+extern char gstr661[];
+extern char gstr662[];
+extern char gstr663[];
+extern char gstr664[];
+extern char gstr665[];
+extern char gstr666[];
+extern char gstr667[];
+extern char gstr668[];
+extern char gstr669[];
+extern char gstr670[];
+extern char gstr671[];
+extern char gstr672[];
+extern char gstr673[];
+extern char gstr674[];
+extern char gstr675[];
+extern char gstr676[];
+extern char gstr677[];
+extern char gstr678[];
+extern char gstr679[];
+extern char gstr680[];
+extern char gstr681[];
+extern char gstr682[];
+extern char gstr683[];
+extern char gstr684[];
+extern char gstr685[];
+extern char gstr686[];
+extern char gstr687[];
+extern char gstr688[];
+extern char gstr689[];
+extern char gstr690[];
+extern char gstr691[];
+extern char gstr692[];
+extern char gstr693[];
+extern char gstr694[];
+extern char gstr695[];
+extern char gstr696[];
+extern char gstr697[];
+extern char gstr698[];
+
 //***************************************************************************
 //*  File:   Planes3.c                              */
 //*  Author: Scott Elson                             */
@@ -30,7 +167,8 @@ extern int targetplayer;
 
 extern int timetargetplayer;
 
-char spotflags[MAXPLANE + 1];
+extern char spotflags[MAXPLANE + 1];
+
 
 extern  int 	MissionWeather;
 extern int     orgPlayernum;
@@ -123,7 +261,8 @@ extern struct FPARAM {
 	int	MAT[9];
 } FPARAMS;
 
-carriers far carrier;
+extern carriers far carrier;
+
 
 struct landpt{
    int   X;
@@ -462,9 +601,9 @@ void VectorIntercept(int planenum, int targetnum)
 
 #if 0
 	if(targetnum == -1) {
-		TXT("Plane ");
+		TXT(gstr576);
 		TXN(planenum);
-		TXA(" AFTER PLAYER");
+		TXA(gstr577);
 		Message(Txt,DEBUG_MSG);
 	}
 #endif
@@ -483,18 +622,18 @@ void VectorIntercept(int planenum, int targetnum)
 		LocationPicture (AWACSSRC, ENEMYSRC, bogeyangle, bogeydist, targetnum, 0);
 #if 0
 		if(ps[targetnum].status & FRIENDLY)
-			TXT("FRIENDLY ");
+			TXT(gstr578);
 		else if(ps[targetnum].status & NEUTRAL)
-			TXT("NEUTRAL ");
+			TXT(gstr579);
 		else
-			TXT("ENEMY ");
+			TXT(gstr580);
 		TXN(targetnum);
-		TXA(" ON ");
+		TXA(gstr581);
 		TXN((int)bv[targetnum].orgnum);
-		TXA(" STAT ");
+		TXA(gstr582);
 		TXN(ps[targetnum].status);
 		Message(Txt, DEBUG_MSG);
-		sprintf(Txt, "P2 ORG D %d, D %ld LD %ld", bogeydist, LDist2D((long)dx, (long)dy), LDist2D((long)(ps[targetnum].xL - PxLng), (long)(ps[targetnum].yL - (0x100000-PyLng))));
+		sprintf(Txt, gstr583, bogeydist, LDist2D((long)dx, (long)dy), LDist2D((long)(ps[targetnum].xL - PxLng), (long)(ps[targetnum].yL - (0x100000-PyLng))));
 		Message(Txt, DEBUG_MSG);
 #endif
 		return;
@@ -735,7 +874,7 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 			whotold = CARRIERSRC;
 		}
 		else {
-    		TXT ("(HAWKEYE) ");
+    		TXT (gstr584);
 			eyex = ps[cnt].x;
 			eyey = ps[cnt].y;
 		}
@@ -746,9 +885,9 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 		}
 		else if((ps[whichourcarr].status & ALIVE) && (ps[whichourcarr].status & ACTIVE)) {
 			if(whotold == TOWERSRC)
-				TXT("(TOWER) ");
+				TXT(gstr585);
 			else
-				TXT("(CARRIER) ");
+				TXT(gstr586);
 			eyex = ps[whichourcarr].x;
 			eyey = ps[whichourcarr].y;
 		}
@@ -776,10 +915,10 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 
 
 	TXA(OurCallSign);
-	TXA(" ");
+	TXA(gstr130);
 
     if (nochange) {
-        TXA ("Status unchanged");
+        TXA (gstr587);
     } else {
 		bogeyi = planedetect;
 		MinDist = whatdist;
@@ -795,37 +934,37 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 		}
 
         if ((MinDist==11250) && (eyedist >= 11250)) {
-            TXA ("Clean ");
+            TXA (gstr588);
             Speech (A_CLEAN);
 
         } else {
-			TXA("Contacts ");
+			TXA(gstr589);
             Speech (A_CONTACT_BRG);
 
             BearingToText (MinAngl,1);
 
-            TXA (", ");
+            TXA (gstr402);
 //	            Speech (V_EMPTY);
 
             MinDist = MinDist*2/95; // convert 15-bit COORD to nm
 
             if (MinDist>=160) {
-                TXA ("160");
+                TXA (gstr465);
                 Speech (A_160);
             } else if (MinDist>=120) {
-                TXA ("120");
+                TXA (gstr466);
                 Speech (A_120);
             } else if (MinDist>=80) {
-                TXA ("80");
+                TXA (gstr467);
                 Speech (A_80);
             } else if (MinDist>=40) {
-                TXA ("40");
+                TXA (gstr468);
                 Speech (A_40);
             } else {
                 NSpeech (MinDist, 1);
             }
 			if(warstatus == 1) {
-				TXA(" Red and Free ");
+				TXA(gstr590);
             	Speech (A_RED_FREE);
 			}
 			else if(warstatus == 0) {
@@ -848,15 +987,15 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 					is_target = CheckIsWayTarget(bogeyi);
 
 					if(is_target) {
-						TXA(" Red and Free ");
+						TXA(gstr590);
         		    	Speech (A_RED_FREE);
 					}
 					else if(do_id) {
-						TXA(" V.I.D ");
+						TXA(gstr591);
             			Speech (A_VID);
 					}
 					else {
-						TXA(" Investigate ");
+						TXA(gstr592);
             			Speech (A_INVESTIGATE);
 					}
 				}
@@ -865,11 +1004,11 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 					is_target = CheckIsWayTarget(bogeyi);
 
 					if(is_target) {
-						TXA(" Red and Free ");
+						TXA(gstr590);
         		    	Speech (A_RED_FREE);
 					}
 					else {
-						TXA(" No Factor");
+						TXA(gstr593);
     	        		Speech (A_NOFACTOR);
 					}
 				}
@@ -1025,7 +1164,7 @@ void LaunchCruise(int planenum)
 		tempmissile = GetMissilePtr(tptype->misl[aistation]);
 		if((ps[planenum].mcnt[aistation] > 0) && (tempmissile->type < 0)) {
 			if(planenum >= 0) {
-				TXT(" ");
+				TXT(gstr130);
 /*				TXN(planenum);
 				TXA(" Cruise Launch ");
 				TXN(bv[planenum].groundt);
@@ -1240,9 +1379,9 @@ void FlyWPFollowPlayer()
 	if((tdistnm < 20) && (abs(OurAlt - ps[planecnt].alt) < 25)
 			&& (abs(OurHead - ps[planecnt].head) < 0x800)) {
 		tempplane = GetPlanePtr(ps[planecnt].type);
-		TXT("(RIO) ");
+		TXT(gstr594);
 		FTXA (tempplane->name);
-		TXA (" Forming On Wing");
+		TXA (gstr595);
 		Message(Txt,RIO_MSG);
 		bv[planecnt].Behavior = FollowPlayer;
 		bv[planecnt].varcnt = Gtime + 300;
@@ -1250,7 +1389,7 @@ void FlyWPFollowPlayer()
 	}
 #if 0
 	if(tempvar) {
-		TXT("FlyWP ");
+		TXT(gstr596);
 		TXN(tdistnm);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1301,9 +1440,9 @@ void FollowPlayer()
 	if(bv[planecnt].varcnt) {
 		if((bv[planecnt].varcnt - Gtime) < 2 && bv[planecnt].varcnt > Gtime) {
 			tempplane = GetPlanePtr(ps[planecnt].type);
-			TXT ("(RIO) ");
+			TXT (gstr594);
 			FTXA (tempplane->name);
-			TXA (" Heading Home");
+			TXA (gstr597);
 			Message(Txt,RIO_MSG);
 			bv[planecnt].varcnt = Gtime - 1;
 		}
@@ -1311,7 +1450,7 @@ void FollowPlayer()
 
 #if 0
 	if(tempvar) {
-		TXT("Follow ");
+		TXT(gstr598);
 		TXN((bv[planecnt].varcnt - Gtime));
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1319,9 +1458,9 @@ void FollowPlayer()
 
 #ifdef ELFBMSG
 	if(tempvar) {
-		TXT("FM ");
+		TXT(gstr136);
 		TXN(i);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1503,13 +1642,13 @@ void GorillaCover()
 		dx = dx / AILOCDIV;
 		dx = dx >> HTOV;
 		tdist = (int)dx;
-		TXT("GCOV ");
+		TXT(gstr599);
 		TXN(planecnt);
-		TXA(" d ");
+		TXA(gstr389);
 		TXN(tdist);
-		TXA(" s ");
+		TXA(gstr135);
 		TXN(bv[planecnt].basespeed);
-		TXA(" ps ");
+		TXA(gstr600);
 		TXN(prespeed);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -1557,7 +1696,7 @@ void RearCover()
 			}
 			else {
 #if 0
-				Message("Move Up Front",DEBUG_MSG);
+				Message(gstr601,DEBUG_MSG);
 #endif
 				bv[planecnt].Behavior = GorillaCover;
 				if(bv[planecnt].wingman >= 0) {
@@ -1773,7 +1912,7 @@ int SARCAP0(int whatangle, long whatdist, int whatalt)
 //#ifdef ELFBMSG
 //	if((tempvar) && (i < 9)) {
 	if(tempvar) {
-		TXT("SetUPOVAL1 ");
+		TXT(gstr519);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -2003,7 +2142,7 @@ int DoNextWayPt(int planenum, int waypt)
 		returnval = 1;
 	}
 	if(wpflag & DOWPHAWKEYE) {
-		Message("Recieved New Waypoints",RIO_MSG);
+		Message(gstr602,RIO_MSG);
 	}
 	if(wpflag & DOWPDAMAGE) {
 		ps[planenum].mcnt[0] = ps[planenum].mcnt[1] = ps[planenum].mcnt[2] = 0;
@@ -2102,11 +2241,11 @@ wp_accum:
 			*xval = 200000;
 			*yval = 200000;
 			*zval = 66;
-			TXT("No find loc for ");
+			TXT(gstr603);
 			TXN(otherplane);
-			TXA(" pn ");
+			TXA(gstr493);
 			TXN(planenum);
-			TXA(" pc ");
+			TXA(gstr604);
 			TXN(planecnt);
 			Message(Txt,DEBUG_MSG);
 			return;
@@ -2165,90 +2304,90 @@ int ReturnBaseInfo(int basenum, COORD *xloc, COORD *yloc, UWORD *zloc, int *base
 #ifdef SHOWBEHAVIORS
 void ShowWhichBehave(int planenum)
 {
-	TXT(" ");
+	TXT(gstr130);
 	TXN(planenum);
 	if(bv[planenum].Behavior == Box)
-		TXA(" Box");
+		TXA(gstr605);
 	else if(bv[planenum].Behavior == FlyWayPoint)
-		TXA(" FlyWayPoint");
+		TXA(gstr606);
 	else if(bv[planenum].Behavior == Champagne)
-		TXA(" Champagne");
+		TXA(gstr607);
 	else if(bv[planenum].Behavior == Wall)
-		TXA(" Wall");
+		TXA(gstr608);
 	else if(bv[planenum].Behavior == Wall2)
-		TXA(" Wall2");
+		TXA(gstr609);
 	else if(bv[planenum].Behavior == Ladder)
-		TXA(" Ladder");
+		TXA(gstr610);
 	else if(bv[planenum].Behavior == Ladder2)
-		TXA(" Ladder2");
+		TXA(gstr611);
 	else if(bv[planenum].Behavior == LadderCircle)
-		TXA(" LadderCircle");
+		TXA(gstr612);
 	else if(bv[planenum].Behavior == Formation)
-		TXA(" Formation");
+		TXA(gstr613);
 	else if(bv[planenum].Behavior == StraightAttack)
-		TXA(" Straight Attack");
+		TXA(gstr614);
 	else if(bv[planenum].Behavior == Jink)
-		TXA(" Jinking");
+		TXA(gstr615);
 	else if(bv[planenum].Behavior == Jink2)
-		TXA(" Jinking2");
+		TXA(gstr616);
 #if ELFREFUEL
 	else if(IsRefueling(planenum))
-		TXA(" Refueling");
+		TXA(gstr617);
 #endif
 	else if(IsCAPFlier(planenum))
-		TXA(" CAP");
+		TXA(gstr618);
 	else if(bv[planenum].Behavior == AIBombTarget)
-		TXA(" Bomber");
+		TXA(gstr619);
 	else if(bv[planenum].Behavior == GorillaBomb)
-		TXA(" GorillaBomb");
+		TXA(gstr620);
 	else if(bv[planenum].Behavior == AIGoHome) {
-		TXA(" Going Home");
+		TXA(gstr621);
 		if(ps[planenum].status & LANDING)
-			TXA(" Landing");
+			TXA(gstr622);
 	}
 	else if(bv[planenum].Behavior == AIBombTarget)
-		TXA(" Bomb Target");
+		TXA(gstr623);
 	else if(bv[planenum].Behavior == AIGetBombDist)
-		TXA(" Get Bomb Dist");
+		TXA(gstr624);
 	else if(bv[planenum].Behavior == LowBombTarget)
-		TXA(" Low Bomb");
+		TXA(gstr625);
 	else if(bv[planenum].Behavior == DoHover)
-		TXA(" Do Hover");
+		TXA(gstr626);
 	else if(bv[planenum].Behavior == BracketLeft)
-		TXA(" Bracket Left");
+		TXA(gstr627);
 	else if(bv[planenum].Behavior == BracketRight)
-		TXA(" BracketRight");
+		TXA(gstr628);
 	else
 		ShowWhichBehave2(planenum);
 
-	TXA(" ");
+	TXA(gstr130);
 	TXN(bv[planenum].target);
 /*	TXA(" x ");
 	TXN(ps[planenum].x);
 	TXA(" y ");
 	TXN(ps[planenum].y);  */
-	TXA(" on ");
+	TXA(gstr629);
 	TXN((int)bv[planenum].orgnum);
-	TXA(" spd ");
+	TXA(gstr630);
 	TXN(bv[planenum].basespeed);
-	TXA(" pn ");
+	TXA(gstr493);
 	TXN((bv[planenum].behaveflag & 15));
 	if(bv[planenum].behaveflag & ENEMYNOFIRE) {
-		TXA(" NOFIRE");
+		TXA(gstr631);
 	}
 	else {
-		TXA(" FIRE");
+		TXA(gstr632);
 	}
-	TXA(" ");
+	TXA(gstr130);
 	TXN(bv[planenum].groundt);
-	TXA(" ");
+	TXA(gstr130);
 	TXN(bv[planenum].varcnt);
-	TXA(" ");
+	TXA(gstr130);
 	TXN(ps[planenum].speed);
-	TXA(" ");
+	TXA(gstr130);
 	TXN(bv[planenum].horizontalsep);
 	if(ps[planenum].status & TAKEOFF)
-		TXA(" TAKEOFF");
+		TXA(gstr633);
 
 	Message(Txt,DEBUG_MSG);
 }
@@ -2256,31 +2395,31 @@ void ShowWhichBehave(int planenum)
 void ShowWhichBehave2(int planenum)
 {
 	if(bv[planenum].Behavior == FlyStraight)
-		TXA(" Fly Straight");
+		TXA(gstr634);
 	else if(bv[planenum].Behavior == FreeFighter)
-		TXA(" FreeFighter");
+		TXA(gstr635);
 	else if(bv[planenum].Behavior == SAR)
-		TXA(" SAR");
+		TXA(gstr636);
 	else if(bv[planenum].Behavior == SARWait)
-		TXA(" SAR Wait");
+		TXA(gstr637);
 	else if(bv[planenum].Behavior == GorillaCover)
-		TXA(" GorillaCover");
+		TXA(gstr638);
 	else if(bv[planenum].Behavior == RearCover)
-		TXA(" RearCover");
+		TXA(gstr639);
 	else if(bv[planenum].Behavior == FlyCruise)
-		TXA(" Fly Cruise");
+		TXA(gstr640);
 #if 0
 	else if(bv[planenum].Behavior == FlySanitize)
-		TXA(" Fly Sanitize");
+		TXA(gstr641);
 	else if(bv[planenum].Behavior == FlyWPFollowPlayer)
-		TXA(" FlyWPFollowPlayer");
+		TXA(gstr642);
 	else if(bv[planenum].Behavior == FollowPlayer)
-		TXA(" FollowPlayer");
+		TXA(gstr643);
 //	else if(bv[planenum].Behavior == FlyE2C)
 //		TXA(" FlyE2C");
 #endif
 	else
-		TXA(" Other");
+		TXA(gstr644);
 }
 
 #endif
@@ -2344,10 +2483,10 @@ void ProcessOtherComm()
 				}
 				bv[helpai].Behavior = FollowPlayer;
 				bv[helpai].verticlesep = maxv;
-				TXA("(Carrier)Vectoring Assistance ");
+				TXA(gstr645);
 			}
 			else {
-				TXA("(Carrier)No Assistance Available");
+				TXA(gstr646);
 			}
 			Message(Txt,GAME_MSG);
 		break;
@@ -2438,7 +2577,7 @@ void SAR()
 								bv[covernum].groundt = aipaths[bv[covernum].path].wp0;
 							}
 #if 0
-							TXT("Cover SAR ");
+							TXT(gstr647);
 							TXN(covernum);
 							Message(Txt,DEBUG_MSG);
 #endif
@@ -2470,7 +2609,7 @@ void SAR()
 #if 0
 		if(tempvar) {
 			tdist = Dist2D((ps[planecnt].x - dx), (ps[planecnt].y - dy));
-			TXT("SAR Dist MOVE ");
+			TXT(gstr648);
 			TXN(tdist);
 			Message(Txt,DEBUG_MSG);
 		}
@@ -2567,7 +2706,7 @@ void RestoreCover(int planenum)
 				tdist = Dist2D((ps[cnt].x - ps[planenum].x), (ps[cnt].y - ps[planenum].y));
 				if(tdist < cdist) {
 #if 0
-					TXT("Returning to Cover ");
+					TXT(gstr649);
 					TXN(cnt);
 					Message(Txt,DEBUG_MSG);
 #endif
@@ -2713,7 +2852,7 @@ void UpdateOurWPS(int lastwp, int updateall)
 
 #if 0
 	if(tempvar) {
-		sprintf(Txt, "WAY %d, x %ld, y %ld", waynum, xval, yval);
+		sprintf(Txt, gstr650, waynum, xval, yval);
 		Message(Txt);
 	}
 #endif
@@ -2772,9 +2911,9 @@ int FormOnWP(int planenum)
 	if(aiwaypoints[waynum].x > (long)-1) {
 #if 0
 	if((aiwaypoints[waynum].x > (long)-1) || (planeorg == orgPlayernum)) {
-		TXT("Can't Form On WP ");
+		TXT(gstr651);
 		TXN(planenum);
-		TXA(" org ");
+		TXA(gstr652);
 		TXN((int)bv[planenum].orgnum);
 		Message(Txt,DEBUG_MSG);
 #endif
@@ -2784,9 +2923,9 @@ int FormOnWP(int planenum)
 	}
 #if 0
 	else {
-		TXT("Form ");
+		TXT(gstr653);
 		TXN(orgprewing);
-		TXA(" on ");
+		TXA(gstr629);
 		TXN(planeorg);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -2917,7 +3056,7 @@ int CheckForMobileR5(int basenum, int isfriend)
 		wingcnt = bv[wingcnt].nextsec;
 	}
 #if 0
-	Message("Planes Moved",DEBUG_MSG);
+	Message(gstr654,DEBUG_MSG);
 #endif
 	return(returnval);
 }
@@ -2961,17 +3100,17 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
 	        DamageMe(13);
     	    Txt[0]=0;
 	    	StartASmoke (PxLng, Alt, 0x100000-PyLng, AIRXPLO, 10);
-			TXT("Damaged By ");
+			TXT(gstr655);
 			if(iscruise > -1) {
     			FTXA (ptype->name);
 				LogIt (SLG_AIR_CRUISE_HIT, -1, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_AIR);
 			}
 			else if(missiletype == 0x39) {
-				TXA("TORPEDO");
+				TXA(gstr656);
 				LogIt (50, -1, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_AIR);
 			}
 			else {
-				TXA("BOMB");
+				TXA(gstr657);
 				LogIt (SLG_AIR_BOMB_HIT, -1, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_AIR);
 			}
 			Message(Txt,RIO_MSG);
@@ -3018,17 +3157,17 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
 	    				StartASmoke (ps[cnt].xL, ps[cnt].alt, ps[cnt].yL, AIRXPLO, 10);
 						tempplane = GetPlanePtr(ps[cnt].type);
 			    		FTXT (tempplane->name);
-						TXA (" Hit By ");
+						TXA (gstr658);
 						if(iscruise > -1) {
     						FTXA (ptype->name);
 							LogIt (SLG_BOAT_CRUISE_HIT, cnt, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_BOAT);
 						}
 						else if(missiletype == 0x39) {
-							TXA("TORPEDO");
+							TXA(gstr656);
 							LogIt (50, cnt, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_BOAT);
 						}
 						else {
-							TXA("BOMB");
+							TXA(gstr657);
 							LogIt (SLG_BOAT_BOMB_HIT, cnt, lxval, lyval, zval, camefrom, missiletype, 0L, LOG_BOAT);
 						}
 						Message(Txt,GAME_MSG);
@@ -3045,7 +3184,7 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
 	        				AirKill (cnt);
 							doKill = 1;
 						}
-				    	TXA ("Hit by ");
+				    	TXA (gstr659);
 						if(iscruise > -1) {
    							FTXA (ptype->name);
 							if(doKill)
@@ -3055,9 +3194,9 @@ void CheckPlaneBlast(int xval, int yval, UWORD zval, int blastrad, int iscruise,
 						}
 						else {
 							if(missiletype == 0x39)
-								TXA("TORPEDO");
+								TXA(gstr656);
 							else
-								TXA("BOMB");
+								TXA(gstr657);
 							if(doKill)
 								LogIt (destroymsg, cnt, lxval, lyval, zval, camefrom, missiletype, 0L, logtype);
 							else
@@ -3131,7 +3270,7 @@ void SetUpLaunch(int planenum, int waypt)
 		return;
 	if((aiwaypoints[waypt].x <= (long)-1) && (ps[planenum].status & FRIENDLY)) {
 #if 0
-		TXT("LAST CAT USED ");
+		TXT(gstr660);
 		TXN(lastcatused);
 		Message(Txt,DEBUG_MSG);
 #endif
@@ -3153,9 +3292,9 @@ void SetUpLaunch(int planenum, int waypt)
 			else
 				bv[planenum].varcnt = Gtime + 10 + (catval * 5);
 #ifdef SRECATTEST
-			TXT("PLANE ");
+			TXT(gstr661);
 			TXN(planenum);
-			TXA(" CAT ");
+			TXA(gstr662);
 			TXN(catval);
 			Message(Txt);
 #endif
@@ -3171,9 +3310,9 @@ void SetUpLaunch(int planenum, int waypt)
 				else
 					ailoc[planenum].yloc = ((long)yplacerear[whichcarr] + (lastcatused * 14)) * AILOCDIV;
 #ifdef SRECATTEST
-				TXT("ON DECK ");
+				TXT(gstr663);
 				TXN(planenum);
-				TXA(" slot ");
+				TXA(gstr664);
 				TXN(lastcatused);
 				Message(Txt);
 #endif
@@ -3188,7 +3327,7 @@ void SetUpLaunch(int planenum, int waypt)
 
 				bv[planenum].behaveflag |= AI_INVISIBLE;
 #ifdef SRECATTEST
-				TXT("INVISIBLE!!!!!!!! ");
+				TXT(gstr665);
 				TXN(planenum);
 				Message(Txt);
 #endif
@@ -3250,9 +3389,9 @@ void GetNextLaunch(int planenum) {
         	if ((ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE)) {
 				if((ps[cnt].status & TAKEOFF) && (ps[cnt].base == basenum) && (bv[cnt].threathead == -5) && ((bv[cnt].Behavior != Ready5) || ((cnt2 == 1) && (catval > 1)))) {
 #ifdef SRECATTEST
-					TXT("ACTIVATE ");
+					TXT(gstr666);
 					TXN(cnt);
-					TXA(" CAT ");
+					TXA(gstr662);
 					TXN(catval);
 					Message(Txt);
 #endif
@@ -3479,40 +3618,40 @@ void ShowOurWPS()
 
 	GetWayPointChanges(waynum, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 
-    TXT ("Next Sequence Point: ");
+    TXT (gstr667);
 
 	if(NextWayPoint == 0) {
 		if(landingstatus & LANDPLAYERWAIT)
-			TXA ("Landing Marshall Point ");
+			TXA (gstr668);
 		else
-			TXA ("Carrier ");
+			TXA (gstr669);
 	}
 	else if(behavenum == SA_CAP) {
-		TXA("Center of CAP area");
+		TXA(gstr670);
 	}
 	else if(aiwaypoints[waynum].x >= 0L) {
-		TXA("Way Point ");
+		TXA(gstr671);
 		TXN(NextWayPoint);
 	}
 	else {
 		TXN(NextWayPoint);
 		if(aiwaypoints[waynum].x == -2L)
-			TXA(" Near");
+			TXA(gstr672);
 		wayobj = GetPlaneOrgNum((int)aiwaypoints[waynum].y);
 		if(wayobj < NPLANES) {
-			TXA(" Plane ");
+			TXA(gstr673);
 		}
 		else if(wayobj == MAXPLANE) {
-			TXA(" Ground Target ");
+			TXA(gstr674);
 		}
 		else if(wayobj == -1) {
-			TXA(" US ");
+			TXA(gstr675);
 		}
 		else if(wayobj == whichourcarr) {
-			TXA(" Carrier ");
+			TXA(gstr676);
 		}
 		else {
-			TXA(" BOAT ");
+			TXA(gstr677);
 		}
 	}
 
@@ -4070,9 +4209,9 @@ void CheckPlaneLand(int planenum)
 		bv[planenum].verticlesep = altplus;
 #ifdef AILANDDEBUG
 		if(startval == 100) {
-			TXT("I can Land ");
+			TXT(gstr678);
 			TXN(planenum);
-			TXA(" ");
+			TXA(gstr130);
 			TXN(Gtime);
 			Message(Txt, DEBUG_MSG);
 		}
@@ -4080,10 +4219,10 @@ void CheckPlaneLand(int planenum)
 	}
 	else {
 		planelanding = -1;
-		TXT("(CARRIER) ");
+		TXT(gstr586);
 		TXA(OurCallSign);
 		if(startval == 100) {
-			TXA(" Cleared To Land");
+			TXA(gstr679);
 			landingstatus |= LANDPLAYERNOW;
 			Speech(L_CLRD_LAND);
 		}
@@ -4094,25 +4233,25 @@ void CheckPlaneLand(int planenum)
 			rearhead = carrier.heading + 0x8000;
 			dx = carrier.x + sinXL(rearhead, ((long)DBEHINDCARR * AILOCDIV));
 			dy = carrier.z - cosXL(rearhead, ((long)DBEHINDCARR * AILOCDIV));
-			TXA(" Go To Marshall Point ");
+			TXA(gstr680);
 			if(startval == 700) {
 				rearhead = bv[planecnt].threathead = rearhead + 0x2000;
-				TXA("CHARLIE, Angels ");
+				TXA(gstr681);
 			}
 			else if(startval == 600) {
 				rearhead = bv[planecnt].threathead = rearhead;
 				if(!(Night || (MissionWeather == 0)))
-					TXA("BRAVO, Angels ");
+					TXA(gstr682);
 				else
-					TXA(", Angels ");
+					TXA(gstr683);
 			}
 			else {
 				rearhead = bv[planecnt].threathead = rearhead - 0x2000;
-				TXA("ALPHA, Angels ");
+				TXA(gstr684);
 			}
 			TXN(angels);
 			Message(Txt, GAME_MSG);
-			TXT("(RIO) Waypoint Updated");
+			TXT(gstr685);
 			dx = dx + sinXL(rearhead, ((long)DBEHINDCARR * AILOCDIV));
 			dy = dy - cosXL(rearhead, ((long)DBEHINDCARR * AILOCDIV));
 			NextWayPoint = 0;
@@ -4124,14 +4263,14 @@ void CheckPlaneLand(int planenum)
 		Message(Txt, GAME_MSG);
 	}
 #ifdef AILANDDEBUG
-	TXT("Plane ");
+	TXT(gstr576);
 	TXN(planenum);
-	TXA(" sv ");
+	TXA(gstr686);
 	TXN(startval);
-	TXA(" ap ");
+	TXA(gstr687);
 	TXN(altplus);
 	if(!SHOWFIRST) {
-		TXA(" F1 ");
+		TXA(gstr688);
 		TXN(firstone);
 	}
 	Message(Txt, DEBUG_MSG);
@@ -4168,7 +4307,7 @@ void LetNextPlaneLand()
 			if((bv[cnt].Behavior == AICarrierLand) && (bv[cnt].threathead == 100)) {
 				bv[cnt].basespeed = 700;
 #ifdef AILANDDEBUG
-				TXT("Plane At 100 ");
+				TXT(gstr689);
 				TXN(cnt);
 				Message(Txt, DEBUG_MSG);
 #endif
@@ -4178,9 +4317,9 @@ void LetNextPlaneLand()
 	}
 	if(letland >= 0) {
 		if(landingstatus & LANDPLAYERWAIT) {
-			TXT("(CARRIER) ");
+			TXT(gstr586);
 			TXA(OurCallSign);
-			TXA(" Cleared To Land");
+			TXA(gstr679);
 			Message(Txt, GAME_MSG);
 			Speech(L_CLRD_LAND);
 			landingstatus &= ~LANDPLAYERWAIT;
@@ -4193,9 +4332,9 @@ void LetNextPlaneLand()
 		bv[letland].threathead = 100;
 		bv[letland].verticlesep = 0;
 #ifdef AILANDDEBUG
-		TXT("LET LAND ");
+		TXT(gstr690);
 		TXN(letland);
-		TXA(" at ");
+		TXA(gstr691);
 		TXN(Gtime);
 		Message(Txt, DEBUG_MSG);
 #endif
@@ -4399,15 +4538,15 @@ void UpdateMissionData(int typeid, int match)
 show:
 	switch(typeid) {
 	case 0:
-		ReadEMSPCX("wpend0.pcx", 7);
+		ReadEMSPCX(gstr692, 7);
 		MDStat0 = 2;
 		break;
 	case 1:
-		ReadEMSPCX("wpend1.pcx", 7);
+		ReadEMSPCX(gstr693, 7);
 		MDStat1 = 2;
 		break;
 	case 2:
-		ReadEMSPCX("wpend2.pcx", 7);
+		ReadEMSPCX(gstr694, 7);
 		MDStat2 = 2;
 		break;
 	}
@@ -4500,17 +4639,17 @@ void DoOClockCall()
 	aoclock = aoclock + 2730;
 	noclock = aoclock / 5461;
 	tpitch = GetAltPitch(Alt, ps[closeplane].alt, (int)(ldist>>HTOV));
-	TXT("(RIO) BANDIT ");
+	TXT(gstr695);
 	if(noclock == 0)
-		TXA("12");
+		TXA(gstr290);
 	else
 		TXN(noclock);
-	TXA(" O'clock ");
+	TXA(gstr696);
 	if(tpitch > 0x1200){
-		TXA("HIGH");
+		TXA(gstr697);
 	}
 	else if(tpitch < -0x1200){
-		TXA("LOW");
+		TXA(gstr698);
 	}
 	Message(Txt, RIO_MSG);
 }

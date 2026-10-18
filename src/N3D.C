@@ -3,7 +3,8 @@
 #include	"stdlib.h"
 #include <dos.h>
 
-    union REGS D;
+    extern union REGS D;
+
 
 
 struct   intvec{
@@ -123,10 +124,11 @@ struct   obj3d {
 #define  GPANIM   0x80
 
 
-int   IdentInvMat[18]={ 0x7fff,0,0, 0,0x7fff,0, 0,0,0x7fff,
-                        0x7fff,0,0, 0,0x7fff,0, 0,0,0x7fff };
+extern int IdentInvMat[18];
 
-int   Scale3d=1;
+
+extern int Scale3d;
+
 
 extern   int   Nviewmat[];
 
@@ -156,11 +158,14 @@ struct   anm{
    unsigned char  VALUE;
    };
 
-struct	PT3D far POINTS[380];
-struct	PT3D far *POINTBUF=POINTS;
+extern struct	PT3D far POINTS[380];
+
+extern struct	PT3D far * POINTBUF;
 
 
-struct objptrs *OBJ;
+
+extern struct objptrs * OBJ;
+
 
 
 struct bspnode{
@@ -168,19 +173,24 @@ struct bspnode{
    unsigned char B;
    };
 
-struct bspnode far *BSPBASE;
-unsigned char *FBPTR;
-unsigned char *DRAWPTR;
+extern struct bspnode far * BSPBASE;
+
+extern unsigned char * FBPTR;
+
+extern unsigned char * DRAWPTR;
+
 
 struct emsobjhndl{
    int   objhndl;
    int   txtrhndl;
    };
-struct emsobjhndl far objhndls[256];
+extern struct emsobjhndl far objhndls[256];
 
 
 
-char far *NPDEST;
+
+extern char far * NPDEST;
+
 
 
 DrawN3dObject( struct   obj3d *OBJPTR,int *VMAT,struct intvec *OFFS );
@@ -452,7 +462,8 @@ struct	PT3D far *CheckPointRot(unsigned int Pt )
 }
 #endif
 
-int   LEV=0;
+extern int LEV;
+
 DrawASurf( char far *P )
 {
    struct	PT3D far *PT;
@@ -659,7 +670,8 @@ DrawN3dObject( struct   obj3d *OBJPTR,int *VMAT, struct intvec *OFFS )
 
 }
 
-struct   obj3d OB[3];
+extern struct   obj3d OB[3];
+
 
 NDraw3DObject( int N,int XOFF, int YOFF, int ZOFF, int *MAT, int *ANIM, int BGS )
 {

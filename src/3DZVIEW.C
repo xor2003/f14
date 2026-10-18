@@ -3,19 +3,26 @@
 #include <dos.h>
 #include "mouse.h"
 #include "keys.h"
-    union REGS D;
+    extern union REGS D;
 
 
-unsigned int EMSSEG=0;
-unsigned int EMSHANDLE=0;
+
+extern unsigned int EMSSEG;
+
+extern unsigned int EMSHANDLE;
+
 
 typedef unsigned int UWORD;
 
 
-int	KeyCode	=0;
-char	KeyASCII=0;
-int	KeyFlags=0;
-int	Key=0;
+extern int KeyCode;
+
+extern char KeyASCII;
+
+extern int KeyFlags;
+
+extern int Key;
+
 
 
 struct   obj3d{
@@ -142,10 +149,12 @@ KeyBoard()
 extern   char far *PDEST;
 extern   int   *PalPtr3D;
 
-int   xtbl[256];
+extern int xtbl[256];
 
 
-int   GRPAGE0[3]= {0xa000,0xa000,0xa000};
+
+extern int GRPAGE0[3];
+
 
 extern   int   NGXLO;
 extern   int   NGYLO;
@@ -155,7 +164,8 @@ extern   int   NGXMID;
 extern   int   NGYMID;
 
 
-int   WTR2=0;
+extern int WTR2;
+
 
 Horz( long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER, int HRES);
 
@@ -356,13 +366,19 @@ DrawMultiObject(char far *DST,int argc,char **argv)
 
 extern int cldhndl;
 
-int   wtrhndl=0;
-int   wtr2hndl=0;
-int   CLOUDSEG=0;
-int   WATERSEG=0;
-UWORD   GREYSEG=0;
+extern int wtrhndl;
 
-char  far GREYBUF[512];
+extern int wtr2hndl;
+
+extern int CLOUDSEG;
+
+extern int WATERSEG;
+
+extern UWORD GREYSEG;
+
+
+extern char  far GREYBUF[512];
+
 
 SmoothWater()
 {
@@ -425,17 +441,22 @@ LoadClouds()
 }
 
 
-UWORD ADDRESS[320];
+extern UWORD ADDRESS[320];
 
-int	MYWID=208;
+
+extern int MYWID;
+
 #define MYHT	304
 
 
 extern int ABOVECLOUDS;
 
-int   CLOUDAMNT=0;
-UWORD CLOUDHEIGHT=6800;
-int   OVERCAST=1;
+extern int CLOUDAMNT;
+
+extern UWORD CLOUDHEIGHT;
+
+extern int OVERCAST;
+
 extern int SKYDETAIL;
 
 

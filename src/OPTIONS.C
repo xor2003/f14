@@ -8,13 +8,20 @@
 #include <dos.h>
 #include <string.h>
 
-UWORD   RealLandings;
-UWORD   Joystick;
-UWORD   ThrustStick;
-UWORD   CoolyStick;
-UWORD   RudderStick;
-UWORD   StickType;
-UWORD   TimeOfDay;
+extern UWORD RealLandings;
+
+extern UWORD Joystick;
+
+extern UWORD ThrustStick;
+
+extern UWORD CoolyStick;
+
+extern UWORD RudderStick;
+
+extern UWORD StickType;
+
+extern UWORD TimeOfDay;
+
 
 extern UBYTE JoyVals[];
 extern UBYTE DeadZone;

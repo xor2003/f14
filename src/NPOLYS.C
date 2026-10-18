@@ -1,7 +1,8 @@
 #include	"stdio.h"
 #include	"stdlib.h"
 #include <dos.h>
-    union REGS D;
+    extern union REGS D;
+
 
 
 struct	PPNT{
@@ -82,7 +83,8 @@ struct	RECT3{
 	};
 
 
-long	CLIPZ=0x20000L;
+extern long CLIPZ;
+
 
 
 

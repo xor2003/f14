@@ -37,10 +37,13 @@ extern   int         OurRoll;
 extern   UWORD	LastSlotNMount;
 extern   int		 MasterArmSW;
 
-UWORD   LastSlotNMount;
+extern UWORD LastSlotNMount;
 
-int      MODE_MASTER    = MASTER_NAV;
-int      MODE_NAV       = NAV_NAV;
+
+extern int MODE_MASTER;
+
+extern int MODE_NAV;
+
 extern int MODE_AA;
 
 
@@ -48,12 +51,14 @@ extern int MODE_AA;
 extern int F14_STATION[F14_STATION_NUM];
 
 
-int OurLoadOut=0;
+extern int OurLoadOut;
+
 
 extern WEAPON ORDNANCE[W_TYPES];
 
 
-LAUNCHPOS   LP;
+extern LAUNCHPOS LP;
+
 
 //***************************************************************************
 ARMT_MODE(int MODE)

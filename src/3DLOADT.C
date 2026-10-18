@@ -17,11 +17,15 @@ extern char Txt[];
 extern UWORD Seg3D, EMSseg;
 extern UWORD GRPAGE0[];
 
-FILE    *File;
+extern FILE    * File;
 
-UWORD   ObjHands[NrEMSHandles];
-UWORD   ObjSegs[NrEMSHandles];
-int OldHandle = -1;
+
+extern UWORD ObjHands[NrEMSHandles];
+
+extern UWORD ObjSegs[NrEMSHandles];
+
+extern int OldHandle;
+
 
 
 //***************************************************************************

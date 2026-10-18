@@ -8,14 +8,22 @@
 #include "proto.h"
 
 extern  struct RastPort *RpCRT;
-int BEAM_HDG;			/* Beam Heading */
-int BEAM_PIT;			/* Beam Pitch */
-int	BEAM_ROL;			/* Beal Roll */
-int AZSWEEP;			/* Azimuth sweep position */
-int AZSWEEP_DIR;		/* Azimuth sweep direction */
-int CUR_BAR;			/* Current bar position */
-int	BAD_GUY;
-int CLOSURE;
+extern int BEAM_HDG;
+			/* Beam Heading */
+extern int BEAM_PIT;
+			/* Beam Pitch */
+extern int BEAM_ROL;
+			/* Beal Roll */
+extern int AZSWEEP;
+			/* Azimuth sweep position */
+extern int AZSWEEP_DIR;
+		/* Azimuth sweep direction */
+extern int CUR_BAR;
+			/* Current bar position */
+extern int BAD_GUY;
+
+extern int CLOSURE;
+
 
 extern int		OurHead;
 extern int		OurPitch;

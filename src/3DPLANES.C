@@ -61,17 +61,24 @@ Shift3X3(int *M, int SHFT);
 
 #define	DEG		182
 
-int PlaneAnimVals[32];
-int LIGHTS = 0;
-int	PLANEDETAIL=2;
-int WingRot=(48*DEG);
+extern int PlaneAnimVals[32];
+
+extern int LIGHTS;
+
+extern int PLANEDETAIL;
+
+extern int WingRot;
+
 extern int WingsReady;
 extern int PreparePlaneWings;
-int HookDown=0;
+extern int HookDown;
+
 extern int HookRot;
 
-int slposx=0;
-int slposy=0;
+extern int slposx;
+
+extern int slposy;
+
 
 extern	int	GFLSH;
 extern int pflashtbl[4];
@@ -380,7 +387,8 @@ extern struct obj3d {
 
 //***************************************************************************
 extern	int   IdentInvMat[];
-int   MissileAnimVals[16];
+extern int MissileAnimVals[16];
+
 
 extern struct obj3d CoolObj[16];
 

@@ -3,18 +3,25 @@
 #include <bios.h>
 
 
-int offset;
+extern int offset;
+
 
 extern int KbSense;
 
-unsigned int Joystick;
-unsigned int ThrustStick;
-unsigned int CoolyStick;
-unsigned int RudderStick;
-unsigned int MouseSprite;
+extern unsigned int Joystick;
+
+extern unsigned int ThrustStick;
+
+extern unsigned int CoolyStick;
+
+extern unsigned int RudderStick;
+
+extern unsigned int MouseSprite;
+
 extern int GRNDDETAIL;
 
-int	    PLANEDETAIL;
+extern int PLANEDETAIL;
+
 extern int SKYDETAIL;
 
 extern int MISSILETRAIL;
@@ -23,10 +30,14 @@ extern int MSGDETAIL;
 
 extern int SNDDETAIL;
 
-int 	RudderType;
-int     StickType;
-unsigned char  DeadZone;
-unsigned char  JoyVals[52];
+extern int RudderType;
+
+extern int StickType;
+
+extern unsigned char DeadZone;
+
+extern unsigned char JoyVals[52];
+
 
 
 main()

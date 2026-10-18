@@ -1,3 +1,20 @@
+extern char gstr113[];
+extern char gstr281[];
+extern char gstr282[];
+extern char gstr283[];
+extern char gstr284[];
+extern char gstr285[];
+extern char gstr286[];
+extern char gstr287[];
+extern char gstr288[];
+extern char gstr289[];
+extern char gstr290[];
+extern char gstr291[];
+extern char gstr292[];
+extern char gstr293[];
+extern char gstr294[];
+extern char gstr295[];
+
 #include "library.h"
 
 #include "world.h"
@@ -21,7 +38,8 @@ extern  UWORD     Rtime;
 
 extern RPS *Rp1;
 
-int	hsdmode=0;
+extern int hsdmode;
+
 
 scaley(y)
 {
@@ -88,7 +106,7 @@ pitchnum(int w,int pitch,int dist,int off,int ox,int oy) { // draw numbers on a 
    Rotate2D( w,dist+off,OurRoll,&x,&y);
    x=x*22/30;
    y=y*22/30;  // rotate 0 into position, dist+off is distance from center of pitch bar
-   RpPrint(RpCRT,ox+x-1,oy+scaley(y)-1,"0");
+   RpPrint(RpCRT,ox+x-1,oy+scaley(y)-1,gstr113);
    Rotate2D(-w,dist+off,OurRoll,&x,&y);
    x=x*22/30;
    y=y*22/30;  // rotate 0 to 8 into position
@@ -289,34 +307,34 @@ HsdCrt(int CrtNr)
 
 	SetFont(RpCRT,F_3x5B);
 	RpCRT->APen=WHITE;
-	sprintf(s,"WPD %d",SteerRange());
+	sprintf(s,gstr281,SteerRange());
 	RpPrint(RpCRT,(RpCRT->Width1/2)-12,(RpCRT->Length1/2)-6,s);
 
-	sprintf(s,"TAS%d",Knots);
+	sprintf(s,gstr282,Knots);
 	RpPrint (RpCRT, (RpCRT->Width1/2)-10,(RpCRT->Length1/2)+2,s);
-	sprintf(s,"GS%d",TAStoIAS(Knots));
+	sprintf(s,gstr283,TAStoIAS(Knots));
 	RpPrint (RpCRT, (RpCRT->Width1/2)-9,(RpCRT->Length1/2)+10,s);
 
 	/* Put labels/Numbers on */
 	SetFont(RpCRT,F_3x5B);
 	RpCRT->APen=WHITE;
 	Rotate2D(0,-radius-1,OurHead,&x,&y);
-	RpPrint(RpCRT, x+(RpCRT->Width1/2)-2, scaley(y)+(RpCRT->Length1/2)-2,"N");
-	RpPrint(RpCRT,-y+(RpCRT->Width1/2)-2, scaley(x)+(RpCRT->Length1/2)-2,"E");
-	RpPrint(RpCRT, y+(RpCRT->Width1/2)-2,-scaley(x)+(RpCRT->Length1/2)-2,"W");
-	RpPrint(RpCRT,-x+(RpCRT->Width1/2)-2,-scaley(y)+(RpCRT->Length1/2)-2,"S");
+	RpPrint(RpCRT, x+(RpCRT->Width1/2)-2, scaley(y)+(RpCRT->Length1/2)-2,gstr284);
+	RpPrint(RpCRT,-y+(RpCRT->Width1/2)-2, scaley(x)+(RpCRT->Length1/2)-2,gstr285);
+	RpPrint(RpCRT, y+(RpCRT->Width1/2)-2,-scaley(x)+(RpCRT->Length1/2)-2,gstr286);
+	RpPrint(RpCRT,-x+(RpCRT->Width1/2)-2,-scaley(y)+(RpCRT->Length1/2)-2,gstr287);
 	SetFont(RpCRT,F_3x4);
 	RpCRT->APen=LGREY;
 	Rotate2D(0,-radius-1,OurHead-0x1555,&x,&y);
-	RpPrint(RpCRT, x+(RpCRT->Width1/2)  , scaley(y)+(RpCRT->Length1/2)-1,"3");
-	RpPrint(RpCRT, y+(RpCRT->Width1/2)-3,-scaley(x)+(RpCRT->Length1/2)-1,"30");
-	RpPrint(RpCRT,-y+(RpCRT->Width1/2)-2, scaley(x)+(RpCRT->Length1/2)-1,"12");
-	RpPrint(RpCRT,-x+(RpCRT->Width1/2)-2,-scaley(y)+(RpCRT->Length1/2)-1,"21");
+	RpPrint(RpCRT, x+(RpCRT->Width1/2)  , scaley(y)+(RpCRT->Length1/2)-1,gstr288);
+	RpPrint(RpCRT, y+(RpCRT->Width1/2)-3,-scaley(x)+(RpCRT->Length1/2)-1,gstr289);
+	RpPrint(RpCRT,-y+(RpCRT->Width1/2)-2, scaley(x)+(RpCRT->Length1/2)-1,gstr290);
+	RpPrint(RpCRT,-x+(RpCRT->Width1/2)-2,-scaley(y)+(RpCRT->Length1/2)-1,gstr291);
 	Rotate2D(0,-radius-1,OurHead-0x2aaa,&x,&y);
-	RpPrint(RpCRT, x+(RpCRT->Width1/2)  , scaley(y)+(RpCRT->Length1/2)-1,"6");
-	RpPrint(RpCRT, y+(RpCRT->Width1/2)-3,-scaley(x)+(RpCRT->Length1/2)-1,"33");
-	RpPrint(RpCRT,-y+(RpCRT->Width1/2)-2, scaley(x)+(RpCRT->Length1/2)-1,"15");
-	RpPrint(RpCRT,-x+(RpCRT->Width1/2)-3,-scaley(y)+(RpCRT->Length1/2)-1,"24");
+	RpPrint(RpCRT, x+(RpCRT->Width1/2)  , scaley(y)+(RpCRT->Length1/2)-1,gstr292);
+	RpPrint(RpCRT, y+(RpCRT->Width1/2)-3,-scaley(x)+(RpCRT->Length1/2)-1,gstr293);
+	RpPrint(RpCRT,-y+(RpCRT->Width1/2)-2, scaley(x)+(RpCRT->Length1/2)-1,gstr294);
+	RpPrint(RpCRT,-x+(RpCRT->Width1/2)-3,-scaley(y)+(RpCRT->Length1/2)-1,gstr295);
 
 	/* Draw heading indicator */
 	i=OurHead-angle(wps[NextWayPoint].x-Px,-(wps[NextWayPoint].y-Py)); // airport arrow indicator

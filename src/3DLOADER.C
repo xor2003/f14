@@ -1,3 +1,113 @@
+extern char gstr0[];
+extern char gstr1[];
+extern char gstr10[];
+extern char gstr100[];
+extern char gstr101[];
+extern char gstr102[];
+extern char gstr103[];
+extern char gstr104[];
+extern char gstr105[];
+extern char gstr106[];
+extern char gstr107[];
+extern char gstr108[];
+extern char gstr11[];
+extern char gstr12[];
+extern char gstr13[];
+extern char gstr14[];
+extern char gstr15[];
+extern char gstr16[];
+extern char gstr17[];
+extern char gstr18[];
+extern char gstr19[];
+extern char gstr2[];
+extern char gstr20[];
+extern char gstr21[];
+extern char gstr22[];
+extern char gstr23[];
+extern char gstr24[];
+extern char gstr25[];
+extern char gstr26[];
+extern char gstr27[];
+extern char gstr28[];
+extern char gstr29[];
+extern char gstr3[];
+extern char gstr30[];
+extern char gstr31[];
+extern char gstr32[];
+extern char gstr33[];
+extern char gstr34[];
+extern char gstr35[];
+extern char gstr36[];
+extern char gstr37[];
+extern char gstr38[];
+extern char gstr39[];
+extern char gstr4[];
+extern char gstr40[];
+extern char gstr41[];
+extern char gstr42[];
+extern char gstr43[];
+extern char gstr44[];
+extern char gstr45[];
+extern char gstr46[];
+extern char gstr47[];
+extern char gstr48[];
+extern char gstr49[];
+extern char gstr5[];
+extern char gstr50[];
+extern char gstr51[];
+extern char gstr52[];
+extern char gstr53[];
+extern char gstr54[];
+extern char gstr55[];
+extern char gstr56[];
+extern char gstr57[];
+extern char gstr58[];
+extern char gstr59[];
+extern char gstr6[];
+extern char gstr60[];
+extern char gstr61[];
+extern char gstr62[];
+extern char gstr63[];
+extern char gstr64[];
+extern char gstr65[];
+extern char gstr66[];
+extern char gstr67[];
+extern char gstr68[];
+extern char gstr69[];
+extern char gstr7[];
+extern char gstr70[];
+extern char gstr71[];
+extern char gstr72[];
+extern char gstr73[];
+extern char gstr74[];
+extern char gstr75[];
+extern char gstr76[];
+extern char gstr77[];
+extern char gstr78[];
+extern char gstr79[];
+extern char gstr8[];
+extern char gstr80[];
+extern char gstr81[];
+extern char gstr82[];
+extern char gstr83[];
+extern char gstr84[];
+extern char gstr85[];
+extern char gstr86[];
+extern char gstr87[];
+extern char gstr88[];
+extern char gstr89[];
+extern char gstr9[];
+extern char gstr90[];
+extern char gstr91[];
+extern char gstr92[];
+extern char gstr93[];
+extern char gstr94[];
+extern char gstr95[];
+extern char gstr96[];
+extern char gstr97[];
+extern char gstr98[];
+extern char gstr99[];
+
 //***************************************************************************
 //	FILE: 3DLOADER.C
 //
@@ -72,19 +182,28 @@ struct prec {
 #define MAX_RADAR_LIST_CNT		30
 #define MAX_MISSILE_LIST_CNT	30
 
-int PlaneDataSize = (sizeof(struct PlaneData) >> 4) + 1;
-int MissileDataSize = (sizeof(struct MissileData) >> 4) + 1;
-int RadarDataSize = (sizeof(struct RadarData) >> 4) + 1;
+extern int PlaneDataSize;
 
-int planerecsize = sizeof(struct prec);
-int missilerecsize = sizeof(struct mrec);
-int radarrecsize = sizeof(struct rrec);
+extern int MissileDataSize;
+
+extern int RadarDataSize;
+
+
+extern int planerecsize;
+
+extern int missilerecsize;
+
+extern int radarrecsize;
+
 
 extern int EMS3DObjectSlot;
 
-unsigned int PlaneListSeg;
-unsigned int RadarListSeg;
-unsigned int MissileListSeg;
+extern unsigned int PlaneListSeg;
+
+extern unsigned int RadarListSeg;
+
+extern unsigned int MissileListSeg;
+
 
 extern int EMSHANDLE;
 extern int NEMSSEG;
@@ -112,7 +231,7 @@ int Load3DPlaneInfo(int PlaneEnumId)
 	// CHANGE THIS YOU LOOSER!!!
 
 	if ((PlaneDataListCnt+1)>MAX_PLANE_LIST_CNT) {
-		sprintf(Txt,"PlaneData List exceeds MAX_PLANE: %d %d",PlaneDataListCnt,
+		sprintf(Txt,gstr0,PlaneDataListCnt,
 				MAX_PLANE_LIST_CNT);
 		Message(Txt,DEBUG_MSG);
 		return(-1);
@@ -122,11 +241,11 @@ int Load3DPlaneInfo(int PlaneEnumId)
 
 	if (PlaneId != -1) return PlaneId;
 
-	PlaneDataFile = fopen("F14PD01.DAT","rb");
+	PlaneDataFile = fopen(gstr1,gstr2);
 
 	// Make Sure this NEVER happens - This should be a FATAL_ERROR
 	if (PlaneDataFile==NULL) {
-		Message("Plane Data File Not Found",DEBUG_MSG);
+		Message(gstr3,DEBUG_MSG);
 		exit(-1);
 	}
 
@@ -138,7 +257,7 @@ int Load3DPlaneInfo(int PlaneEnumId)
 
 	// Make Sure this NEVER happens - This should be a FATAL_ERROR
 	if (!LoadEMSObject(planerec.filename,EMS3DObjectSlot)) {
-		sprintf(Txt,"Plane Object %d Not Found: %s\n",planerec.PlaneEnumId,planerec.filename);
+		sprintf(Txt,gstr4,planerec.PlaneEnumId,planerec.filename);
 		Message(Txt,DEBUG_MSG);
 	}
 	PlaneDataList[PlaneDataListCnt].objslot = EMS3DObjectSlot;
@@ -223,7 +342,7 @@ int RadarAdd(int RadarEnumId)
 	// If a radar is not found in the file, then return false
 
 	if ((RadarDataListCnt+1) > MAX_RADAR_LIST_CNT) {
-		Message("RadarData List exceeded MAX_RADAR_LIST_CNT",DEBUG_MSG);
+		Message(gstr5,DEBUG_MSG);
 		return(-1);
 	}
 
@@ -237,10 +356,10 @@ int RadarAdd(int RadarEnumId)
 	if (cnt != -1) return(1);
 
 	// Search file for Radar Entry
-	RadarDataFile = fopen("F14RD01.DAT","rb");
+	RadarDataFile = fopen(gstr6,gstr2);
 
 	if (RadarDataFile==NULL) {
-		Message("Radar Data File Not Found",DEBUG_MSG);
+		Message(gstr7,DEBUG_MSG);
 		exit(-1);
 	}
 
@@ -248,7 +367,7 @@ int RadarAdd(int RadarEnumId)
 	fseek(RadarDataFile,radarrecseek,SEEK_SET);
 	// If EOF, then we have a problem, invalid ID, return error
 	if (feof(RadarDataFile)) {
-		Message("Radar Data File Read Error",DEBUG_MSG);
+		Message(gstr8,DEBUG_MSG);
 		fclose(RadarDataFile);
 		return (0);
 	}
@@ -283,7 +402,7 @@ int MissileAdd(int MissileEnumId)
 	struct mrec missilerec;
 
 	if ((MissileDataListCnt+1) > MAX_MISSILE_LIST_CNT) {
-		Message("MissileData List exceeded MAX_MISSILE_LIST_CNT",DEBUG_MSG);
+		Message(gstr9,DEBUG_MSG);
 		return(-1);
 	}
 
@@ -298,10 +417,10 @@ int MissileAdd(int MissileEnumId)
 	if (cnt != -1) return(1);
 
 	// Search file for Missile Entry
-	MissileDataFile = fopen("F14MD01.DAT","rb");
+	MissileDataFile = fopen(gstr10,gstr2);
 
 	if (MissileDataFile==NULL) {
-		Message("Missile Data File Not Found",DEBUG_MSG);
+		Message(gstr11,DEBUG_MSG);
 		exit(-1);
 	}
 
@@ -329,7 +448,7 @@ int MissileAdd(int MissileEnumId)
 
 	// Make Sure this NEVER happens - This should be a FATAL_ERROR
 	if (!LoadEMSObject(missilerec.filename,EMS3DObjectSlot)) {
-		sprintf(Txt,"Missile Object %d Not Found: %s\n",missilerec.MissileEnumId,missilerec.filename);
+		sprintf(Txt,gstr12,missilerec.MissileEnumId,missilerec.filename);
 		Message(Txt,DEBUG_MSG);
 	}
 
@@ -349,14 +468,14 @@ int MissileAdd(int MissileEnumId)
 int GetPicType(int PlaneNo)
 {
 	if (PlaneNo <0) {
-		TXT("Bad Plane Pic Type < 0");
+		TXT(gstr13);
 		TXN(PlaneNo);
 		Message(Txt,DEBUG_MSG);
 		return -1;
 	}
 
 	if (PlaneNo > PlaneDataListCnt) {
-		Message("Bad Plane Pic Type > PDLC",DEBUG_MSG);
+		Message(gstr14,DEBUG_MSG);
 		return -1;
 	}
 
@@ -368,14 +487,14 @@ struct PlaneData far *GetPlanePtr(int PlaneNo)
 {
 
 	if (PlaneNo <0) {
-		TXT("Bad Plane Pic Type < 0: ");
+		TXT(gstr15);
 		TXN(PlaneNo);
 		Message(Txt,DEBUG_MSG);
 		return (NULL);
 	}
 
 	if (PlaneNo > PlaneDataListCnt) {
-		TXT("Bad Plane Ptr type > PDLC");
+		TXT(gstr16);
 		TXN(PlaneNo);
 		Message(Txt,DEBUG_MSG);
 		return (NULL);
@@ -390,7 +509,7 @@ struct MissileData far *GetMissilePtr(int MissileNo)
 	int FoundNo=-1;
 
 	if (MissileNo <0) {
-		TXT("Bad Missile Type < 0: ");
+		TXT(gstr17);
 		TXN(MissileNo);
 		Message(Txt,DEBUG_MSG);
 		return (NULL);
@@ -404,7 +523,7 @@ struct MissileData far *GetMissilePtr(int MissileNo)
 	}
 
 	if (FoundNo == -1) {
-		TXT("Bad Missile ID - Missile ID Not Found: ");
+		TXT(gstr18);
 		TXN(MissileNo);
 		Message(Txt,DEBUG_MSG);
 		return (NULL);
@@ -419,7 +538,7 @@ struct RadarData far *GetRadarPtr(int RadarNo)
 	int FoundNo=-1;
 
 	if (RadarNo <0) {
-		TXT("Bad Radar Type < 0: ");
+		TXT(gstr19);
 		TXN(RadarNo);
 		Message(Txt,DEBUG_MSG);
 		return (NULL);
@@ -433,7 +552,7 @@ struct RadarData far *GetRadarPtr(int RadarNo)
 	}
 
 	if (FoundNo == -1) {
-		TXT("Bad Radar ID - Radar ID Not Found: ");
+		TXT(gstr20);
 		TXN(RadarNo);
 		Message(Txt,DEBUG_MSG);
 		return (NULL);
@@ -481,113 +600,113 @@ int LoadSpecialObjects()
 	int i,j,squad;
 
 	char *CarrierAmerica[14] = {
-		"AMERB14.3DZ",		// Base - Level 1
-		"AMERT9.3DZ",		// Tower - Level 1 & 2
-		"AMERT108.3DZ",		// Deck - Level 1 & 2
-		"AMERWIR.3DZ",		// Wires
-		"AMERLIT.3DZ",		// Ball
-		"ABL1.3DZ",	  		// Blast Door 1
-		"ABL2.3DZ",	   		// Blast Door 2
-		"ABL3.3DZ",	   		// Blast Door 3
-		"ABL4.3DZ",			// Blast Door 4
-		"AMERTMB5.3DZ",		// Base - Level 2
-		"AMERTSB2.3DZ",		// Base - Level 3
-		"AMERTST1.3DZ",		// Tower - Level 3
-		"AMERTSS4.3DZ",		// Carrier - Level 4
-		"AMERWAKE.3DZ"		// Wake
+		gstr21,		// Base - Level 1
+		gstr22,		// Tower - Level 1 & 2
+		gstr23,		// Deck - Level 1 & 2
+		gstr24,		// Wires
+		gstr25,		// Ball
+		gstr26,	  		// Blast Door 1
+		gstr27,	   		// Blast Door 2
+		gstr28,	   		// Blast Door 3
+		gstr29,			// Blast Door 4
+		gstr30,		// Base - Level 2
+		gstr31,		// Base - Level 3
+		gstr32,		// Tower - Level 3
+		gstr33,		// Carrier - Level 4
+		gstr34		// Wake
 	};
 
 	char *CarrierNimitz[14] = {
-		"NIMB08.3DZ",		// Base - Level 1
-		"NIMNT06.3DZ",		// Tower - Level 1 & 2
-		"NIMT109.3DZ",		// Deck - Level 1 & 2
-		"WIREN.3DZ",		// Wires
-		"LIGHTN.3DZ",		// Ball
-		"NBL1.3DZ",			// Blast Door 1
-		"NBL2.3DZ",			// Blast Door 2
-		"NBL3.3DZ",			// Blast Door 3
-		"NBL4.3DZ",	 		// Blast Door 4
-		"NIMBM02.3DZ",		// Base - Level 2
-		"NIMBS02.3DZ",		// Base - Level 3
-		"NIMST02.3DZ",		// Tower - Level 3
-		"NIMBSS01.3DZ",		// Carrier - Level 4
-		"NIMWAKE.3DZ"		// Wake
+		gstr35,		// Base - Level 1
+		gstr36,		// Tower - Level 1 & 2
+		gstr37,		// Deck - Level 1 & 2
+		gstr38,		// Wires
+		gstr39,		// Ball
+		gstr40,			// Blast Door 1
+		gstr41,			// Blast Door 2
+		gstr42,			// Blast Door 3
+		gstr43,	 		// Blast Door 4
+		gstr44,		// Base - Level 2
+		gstr45,		// Base - Level 3
+		gstr46,		// Tower - Level 3
+		gstr47,		// Carrier - Level 4
+		gstr48		// Wake
 	};
 
 	char *CarrierSaratoga[14] = {
-		"SARAB09.3DZ",		// Base - Level 1
-		"SARATOW.3DZ",		// Tower - Level 1 & 2
-		"SARAT108.3DZ",		// Deck - Level 1 & 2
-		"WIRESR.3DZ",		// Wires
-		"LIGHTSR.3DZ",		// Ball
-		"SBL1.3DZ",			// Blast Door 1
-		"SBL2.3DZ",			// Blast Door 2
-		"SBL3.3DZ",			// Blast Door 3
-		"SBL4.3DZ",			// Blast Door 4
-		"SARABM03.3DZ",		// Base - Level 2
-		"SARABS02.3DZ",		// Base - Level 3
-		"SARATS01.3DZ",		// Tower - Level 3
-		"SARABSS1.3DZ",		// Carrier - Level 4
-		"SARAWAKE.3DZ"		// Wake
+		gstr49,		// Base - Level 1
+		gstr50,		// Tower - Level 1 & 2
+		gstr51,		// Deck - Level 1 & 2
+		gstr52,		// Wires
+		gstr53,		// Ball
+		gstr54,			// Blast Door 1
+		gstr55,			// Blast Door 2
+		gstr56,			// Blast Door 3
+		gstr57,			// Blast Door 4
+		gstr58,		// Base - Level 2
+		gstr59,		// Base - Level 3
+		gstr60,		// Tower - Level 3
+		gstr61,		// Carrier - Level 4
+		gstr62		// Wake
 	};
 
 	char *CoolF14Objects[9] = {
-		"F14L09B.3DZ",
-		"F14MNS1H.3DZ",
-		"F14MPS1H.3DZ",
-		"F14R09B.3DZ",
-		"F14SMLO2.3DZ",
-		"F14SMC01.3DZ",
-		"F14SMR01.3DZ",
-		"F14SMM03.3DZ",
-		"F14SMX01.3DZ",
+		gstr63,
+		gstr64,
+		gstr65,
+		gstr66,
+		gstr67,
+		gstr68,
+		gstr69,
+		gstr70,
+		gstr71,
 	};
 
 	char *CoolF14Tails[22] = {
 //		"F14LTSAN.3DZ",
 //		"F14RTSAN.3DZ",
-		"F14LT014.3DZ",	// Tophatters VF-14
-		"F14RT014.3DZ",
-		"F14LT032.3DZ", // Swordsman  VF-32
-		"F14RT032.3DZ",
-		"F14LT033.3DZ",	// Starfighters VF-33
-		"F14RT033.3DZ",
-		"F14LT041.3DZ",	// Black Aces	VF-41
-		"F14RT041.3DZ",
-		"F14LT074.3DZ",	// Be-Devilers	VF-74
-		"F14RT074.3DZ",
-		"F14LT084.3DZ",	// Jolly Rogers VF-84
-		"F14RT084.3DZ",
-		"F14LT102.3DZ",	// Diamondbacks	VF-102
-		"F14RT102.3DZ",
-		"F14LT103.3DZ",	// Sluggers VF-103
-		"F14RT103.3DZ",
-		"F14LT142.3DZ",	// Ghostriders VF-142
-		"F14RT142.3DZ",
-		"F14LT143.3DZ",	// Pukin' Dogs VF-143
-		"F14RT143.3DZ",
-		"F14LT101.3DZ",
-		"F14RT101.3DZ"
+		gstr72,	// Tophatters VF-14
+		gstr73,
+		gstr74, // Swordsman  VF-32
+		gstr75,
+		gstr76,	// Starfighters VF-33
+		gstr77,
+		gstr78,	// Black Aces	VF-41
+		gstr79,
+		gstr80,	// Be-Devilers	VF-74
+		gstr81,
+		gstr82,	// Jolly Rogers VF-84
+		gstr83,
+		gstr84,	// Diamondbacks	VF-102
+		gstr85,
+		gstr86,	// Sluggers VF-103
+		gstr87,
+		gstr88,	// Ghostriders VF-142
+		gstr89,
+		gstr90,	// Pukin' Dogs VF-143
+		gstr91,
+		gstr92,
+		gstr93
 	};
 
 	char *Missiles[7] = {
-		"SDWNDR3.3DZ",
-		"SPARROW3.3DZ",
-		"PHOENIX.3DZ",
-		"FUELTANK.3DZ",
-		"HARPOON.3DZ",
-		"SDWNDR.3DZ",
-		"MK82.3DZ"
+		gstr94,
+		gstr95,
+		gstr96,
+		gstr97,
+		gstr98,
+		gstr99,
+		gstr100
 	};
 
 	char *MiscSpecial[9] = {
-		"SHADOW.3DZ",
-		"AMERCHUT.3DZ",
-		"RAMP02.3DZ",
-		"TRPLAAA.3DZ",
-		"CANOPY06.3DZ",
-		"CHAFF.3DZ",
-		"FLARE.3DZ"
+		gstr101,
+		gstr102,
+		gstr103,
+		gstr104,
+		gstr105,
+		gstr106,
+		gstr107
 	};
 
 	// Load Carrier
@@ -595,25 +714,25 @@ int LoadSpecialObjects()
 		switch(ConfigData.Carrier) {
 			case 0:
 				if (!LoadEMSObject(CarrierAmerica[i],i)) {
-					sprintf(Txt,"Special Object Not Found: %s\n",CarrierAmerica[i]);
+					sprintf(Txt,gstr108,CarrierAmerica[i]);
 					Message(Txt,DEBUG_MSG);
 				}
 			break;
 			case 1:
 		   		if (!LoadEMSObject(CarrierNimitz[i],i)) {
-					sprintf(Txt,"Special Object Not Found: %s\n",CarrierNimitz[i]);
+					sprintf(Txt,gstr108,CarrierNimitz[i]);
 					Message(Txt,DEBUG_MSG);
 				}
 			break;
 			case 2:
 				if (!LoadEMSObject(CarrierSaratoga[i],i)) {
-					sprintf(Txt,"Special Object Not Found: %s\n",CarrierSaratoga[i]);
+					sprintf(Txt,gstr108,CarrierSaratoga[i]);
 					Message(Txt,DEBUG_MSG);
 				}
 			break;
 			default:
    				if (!LoadEMSObject(CarrierAmerica[i],i)) {
-					sprintf(Txt,"Special Object Not Found: %s\n",CarrierAmerica[i]);
+					sprintf(Txt,gstr108,CarrierAmerica[i]);
 					Message(Txt,DEBUG_MSG);
 				}
 			break;
@@ -624,7 +743,7 @@ int LoadSpecialObjects()
 
 	for (j=0,i=14; i<23; j++,i++) {
    		if (!LoadEMSObject(CoolF14Objects[j],i)) {
-			sprintf(Txt,"Special Object Not Found: %s\n",CoolF14Objects[j]);
+			sprintf(Txt,gstr108,CoolF14Objects[j]);
 			Message(Txt,DEBUG_MSG);
 		}
 	}
@@ -637,13 +756,13 @@ int LoadSpecialObjects()
 	squad = squad * 2;
 
    	if (!LoadEMSObject(CoolF14Tails[squad],23)) {
-		sprintf(Txt,"Special Object Not Found: %s\n",CoolF14Tails[squad]);
+		sprintf(Txt,gstr108,CoolF14Tails[squad]);
 		Message(Txt,DEBUG_MSG);
 	}
 
 
    	if (!LoadEMSObject(CoolF14Tails[squad+1],24)) {
-		sprintf(Txt,"Special Object Not Found: %s\n",CoolF14Tails[squad+1]);
+		sprintf(Txt,gstr108,CoolF14Tails[squad+1]);
 		Message(Txt,DEBUG_MSG);
 	}
 
@@ -651,7 +770,7 @@ int LoadSpecialObjects()
 
 	for (j=0,i=25; i<32; j++,i++) {
    		if (!LoadEMSObject(Missiles[j],i)) {
-			sprintf(Txt,"Special Object Not Found: %s\n",Missiles[j]);
+			sprintf(Txt,gstr108,Missiles[j]);
 			Message(Txt,DEBUG_MSG);
 		}
 	}
@@ -660,7 +779,7 @@ int LoadSpecialObjects()
 
 	for (j=0,i=32; i<39; j++,i++) {
    		if (!LoadEMSObject(MiscSpecial[j],i)) {
-			sprintf(Txt,"Special Object Not Found: %s\n",MiscSpecial[j]);
+			sprintf(Txt,gstr108,MiscSpecial[j]);
 			Message(Txt,DEBUG_MSG);
 		}
 	}

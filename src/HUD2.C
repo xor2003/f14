@@ -1,3 +1,13 @@
+extern char gstr113[];
+extern char gstr214[];
+extern char gstr217[];
+extern char gstr296[];
+extern char gstr297[];
+extern char gstr298[];
+extern char gstr299[];
+extern char gstr300[];
+extern char gstr301[];
+
 //************************************************************************
 //*
 //*    HUD2.C
@@ -138,7 +148,8 @@ static RPS  RBRpX  = { 1,RB_WINX,RB_WINY,RB_WINL-1,RB_WINW+7,JAM1,HUD_COLOR,BLAC
        extern RPS * RBRp;
 
 
-RPS  TDBRpX = { 1,TB_WINX,TB_WINY,TB_WINL-1,TB_WINW-1,JAM1,HUD_COLOR,BLACK,1};
+extern RPS TDBRpX;
+
 extern RPS * TDBRp;
 
 
@@ -284,7 +295,7 @@ char *deg_prt(int deg)
 	t[0] = '\0';
 
 	if (strlen (itoa (deg,s,10)) == 1)
-		strcat (t,"0");
+		strcat (t,gstr113);
 	strcat (t,s);
 	return t;
 }
@@ -577,24 +588,24 @@ int missile_cnt ()
 
 	switch (MODE_AA) {
 		case AA_MRM:
-			strcpy (l, "SP");
+			strcpy (l, gstr296);
 			strcpy (t, itoa(get_count(),s,10));
 		break;
 
 		case AA_SRM:
-			strcpy (l, "SW");
+			strcpy (l, gstr297);
 			strcpy(t, itoa(get_count(),s,10));
 		break;
 
 		case AA_LRM:
-			strcpy (l,"PH");
+			strcpy (l,gstr298);
 			strcpy(t, itoa(get_count(),s,10));
 		break;
 
 		case AA_GUN:
-			strcpy (l,"G");
+			strcpy (l,gstr299);
    			if (!Rounds)
-				strcpy (t,"XXX");
+				strcpy (t,gstr300);
 	  		else
 				strcpy (t, itoa(Rounds,s,10));
 		break;
@@ -700,9 +711,9 @@ int PDT_closure()
 		DrawLine(Rp2,114,30+y1,115,30+y1,HUD_COLOR);
 		DrawLine(Rp2,114,31+y1,115,31+y1,HUD_COLOR);
 	}
-	RpPrint(Rp2,106,31,"10");
-	RpPrint(Rp2,110,56,"0");
-	RpPrint(Rp2,106,65,"-2");
+	RpPrint(Rp2,106,31,gstr217);
+	RpPrint(Rp2,110,56,gstr113);
+	RpPrint(Rp2,106,65,gstr301);
 
 	y1 = abs((1000-CLOSURE))/35;
 	y1+=31;
@@ -754,7 +765,7 @@ static PDT_alt()
 	l = pstrlen (Rp2,itoa(PDT_ALT_1000,s,10));
 
 	RpPrint (Rp2,PDT_ALT_X+7-l, PDT_ALT_Y, s);
-	RpPrint (Rp2,PDT_ALT_X+8  , PDT_ALT_Y, "-");
+	RpPrint (Rp2,PDT_ALT_X+8  , PDT_ALT_Y, gstr214);
 	RpPrint (Rp2,PDT_ALT_X+12 , PDT_ALT_Y, itoa(PDT_ALT_100 ,s,10));
 }
 

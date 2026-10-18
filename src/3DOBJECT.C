@@ -35,7 +35,10 @@
 
             extern UWORD Object;
 
-            long    XEB, YEB, ZEB;
+            extern long XEB;
+extern long YEB;
+extern long ZEB;
+
 
             extern int OX;
 extern int OY;
@@ -46,25 +49,42 @@ extern int OZ;
 
     static  int     Dx=0, Dy=0, Dz=0;
             extern int Dist2Obj;
-int Class=0;
+extern int Class;
 
 
-            int     VX=0, VY=0, VZ=0;           /* Viewer location */
-            int     HCent, VCent;               /* screen center */
+            extern int VX;
+extern int VY;
+extern int VZ;
+           /* Viewer location */
+            extern int HCent;
+extern int VCent;
+               /* screen center */
 
-            int     SinHead=0, CosHead=0;
-            int     SinPitch=0, CosPitch=0;
-            int     SinRoll=0, CosRoll=0;
+            extern int SinHead;
+extern int CosHead;
 
-            int     V [3][3]={0};               /* Viewer matrix */
-            int     O [3][3]={0};               /* Object Matrix */
-            int     C [3][3]={0};               /* Concatenation of V & O */
+            extern int SinPitch;
+extern int CosPitch;
+
+            extern int SinRoll;
+extern int CosRoll;
+
+
+            extern int V[3][3];
+               /* Viewer matrix */
+            extern int O[3][3];
+               /* Object Matrix */
+            extern int C[3][3];
+               /* Concatenation of V & O */
 
 /***************** Stuff for Scott's 3D ************************/
 
-SWORD AnimVals [32];
-SWORD HitMe;
-UWORD CRASHED;
+extern SWORD AnimVals[32];
+
+extern SWORD HitMe;
+
+extern UWORD CRASHED;
+
 
 extern int GXLO, GYLO, GXHI, GYHI, GXMID, GYMID, LightX, LightY, LightZ;
 extern int NGXLO, NGYLO, NGXHI, NGYHI, NGXMID, NGYMID;

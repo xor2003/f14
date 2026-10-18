@@ -1,3 +1,6 @@
+extern char gstr758[];
+extern char gstr759[];
+
 #include "library.h"
 #include "world.h"
 #include "sdata.h"
@@ -33,7 +36,8 @@ extern int   vHead,vPitch,vRoll;
 extern int ABOVECLOUDS;
 extern int NEMSSEG;
 
-RPS GunRp={ 1, 119,138,82,57,JAM3,GREEN,BLACK,1};
+extern RPS GunRp;
+
 
 struct	FPARAM{
 	long	X;
@@ -85,7 +89,7 @@ int DrawGunCameraView()
 
 		if (ViewZ<9) ViewZ = 9;
 		NDraw3D(-vHead,vPitch,vRoll, ViewX,ViewY, (long) ViewZ);
-		RpPrint(Rp3D,8,48,"NO LOCK 1X");
+		RpPrint(Rp3D,8,48,gstr758);
 	} else {
 		ViewX=ps[DESIGNATED].xL;
 		ViewY=(0x100000-ps[DESIGNATED].yL);
@@ -140,7 +144,7 @@ int DrawGunCameraView()
 		RpPrint(Rp3D,8,40,Txt);
 
 		itoa(GunZoom,str,10);
-		strcat(str,"X");
+		strcat(str,gstr759);
 		RpPrint(Rp3D,8,48,str);
 	}
 	Rp3D = Rtmp;

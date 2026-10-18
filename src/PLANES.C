@@ -1,3 +1,129 @@
+extern char gstr130[];
+extern char gstr134[];
+extern char gstr135[];
+extern char gstr137[];
+extern char gstr138[];
+extern char gstr140[];
+extern char gstr359[];
+extern char gstr360[];
+extern char gstr361[];
+extern char gstr362[];
+extern char gstr363[];
+extern char gstr364[];
+extern char gstr365[];
+extern char gstr366[];
+extern char gstr367[];
+extern char gstr368[];
+extern char gstr369[];
+extern char gstr370[];
+extern char gstr371[];
+extern char gstr372[];
+extern char gstr373[];
+extern char gstr374[];
+extern char gstr375[];
+extern char gstr376[];
+extern char gstr377[];
+extern char gstr378[];
+extern char gstr379[];
+extern char gstr380[];
+extern char gstr381[];
+extern char gstr382[];
+extern char gstr383[];
+extern char gstr384[];
+extern char gstr385[];
+extern char gstr386[];
+extern char gstr387[];
+extern char gstr388[];
+extern char gstr389[];
+extern char gstr390[];
+extern char gstr391[];
+extern char gstr392[];
+extern char gstr393[];
+extern char gstr394[];
+extern char gstr395[];
+extern char gstr396[];
+extern char gstr397[];
+extern char gstr398[];
+extern char gstr399[];
+extern char gstr400[];
+extern char gstr401[];
+extern char gstr402[];
+extern char gstr403[];
+extern char gstr404[];
+extern char gstr405[];
+extern char gstr406[];
+extern char gstr407[];
+extern char gstr408[];
+extern char gstr409[];
+extern char gstr410[];
+extern char gstr411[];
+extern char gstr412[];
+extern char gstr413[];
+extern char gstr414[];
+extern char gstr415[];
+extern char gstr416[];
+extern char gstr417[];
+extern char gstr418[];
+extern char gstr419[];
+extern char gstr420[];
+extern char gstr421[];
+extern char gstr422[];
+extern char gstr423[];
+extern char gstr424[];
+extern char gstr425[];
+extern char gstr426[];
+extern char gstr427[];
+extern char gstr428[];
+extern char gstr429[];
+extern char gstr430[];
+extern char gstr431[];
+extern char gstr432[];
+extern char gstr433[];
+extern char gstr434[];
+extern char gstr435[];
+extern char gstr436[];
+extern char gstr437[];
+extern char gstr438[];
+extern char gstr439[];
+extern char gstr440[];
+extern char gstr441[];
+extern char gstr442[];
+extern char gstr443[];
+extern char gstr444[];
+extern char gstr445[];
+extern char gstr446[];
+extern char gstr447[];
+extern char gstr448[];
+extern char gstr449[];
+extern char gstr450[];
+extern char gstr451[];
+extern char gstr452[];
+extern char gstr453[];
+extern char gstr454[];
+extern char gstr455[];
+extern char gstr456[];
+extern char gstr457[];
+extern char gstr458[];
+extern char gstr459[];
+extern char gstr460[];
+extern char gstr461[];
+extern char gstr462[];
+extern char gstr463[];
+extern char gstr464[];
+extern char gstr465[];
+extern char gstr466[];
+extern char gstr467[];
+extern char gstr468[];
+extern char gstr469[];
+extern char gstr470[];
+extern char gstr471[];
+extern char gstr472[];
+extern char gstr473[];
+extern char gstr474[];
+extern char gstr475[];
+extern char gstr476[];
+extern char gstr477[];
+
 /*  File:   Planes.c                              */
 /*  Author: Sid Meier                             */
 /*                                                */
@@ -22,17 +148,28 @@
 #include "proto.h"
 #include "setup.h"
 
-long lfpx, lfpy, lox, loy;
+extern long lfpx;
+extern long lfpy;
+extern long lox;
+extern long loy;
 
-int lastcatused = 4;
-int sotnum = -999;
+
+extern int lastcatused;
+
+extern int sotnum;
+
 extern int friendfire;
 
-int enemyfire = 0;
-long oldFPX;
-long oldFPZ;
-UWORD oldAltval;
-char OurWingName[20];
+extern int enemyfire;
+
+extern long oldFPX;
+
+extern long oldFPZ;
+
+extern UWORD oldAltval;
+
+extern char OurWingName[20];
+
 extern  UBYTE   ExitCode;
 extern	int		DESIGNATED;
 extern	int		LOCKED;
@@ -72,13 +209,16 @@ extern int OurLoadOut;
 extern int  MyMSGTYP;
 extern int msgtime;
 
-int     olddog;
+extern int olddog;
 
-struct Planes *psi;  // pointer into "ps" structure array for this plane
+
+extern struct Planes * psi;
+  // pointer into "ps" structure array for this plane
 
 static    int   i;          // index of this plane in "ps" array
 
-int		  planecnt;			// used since somebody desided to make i static
+extern int planecnt;
+			// used since somebody desided to make i static
 							// and after the planes file grew to more than
 							// 5000 lines I got sick of it and desided to
 							// kludge something so I could split the file.
@@ -91,30 +231,40 @@ static    COORD dist;       // distance to plane's destination
 static    int   angl;       // angle to plane's destination
 #endif
 
-int   pdest;      // pitch angle to plane's destination
+extern int pdest;
+      // pitch angle to plane's destination
 
 static    int   dpitch;     // delta pitch this frame
-int   droll;      // delta roll this frame
+extern int droll;
+      // delta roll this frame
 
 extern int PlanesLaunched;
 
 extern int AIWingMan;
 
 
-int tempvar = 1;
-int tempbehavevar = 0;
-long     AIBOMBX;     // 20-bit Scott-style X position of predicted Bomb impact
-long     AIBOMBY;     // 20-bit Scott-style Y position of predicted Bomb impact
-UWORD    AITTGT;      // 2 * Time to target in seconds
-UWORD    AITREL;      // 2 * Time to target intercept (bomb release) in seconds
-UWORD    AIRTGT;      // ground range to target in tenths of nautical miles
+extern int tempvar;
+
+extern int tempbehavevar;
+
+extern long AIBOMBX;
+     // 20-bit Scott-style X position of predicted Bomb impact
+extern long AIBOMBY;
+     // 20-bit Scott-style Y position of predicted Bomb impact
+extern UWORD AITTGT;
+      // 2 * Time to target in seconds
+extern UWORD AITREL;
+      // 2 * Time to target intercept (bomb release) in seconds
+extern UWORD AIRTGT;
+      // ground range to target in tenths of nautical miles
 extern int MyWingy;
 
 extern int OtherAIDo;
 
 extern int OtherAITime;
 
-int		 WingID[3];
+extern int WingID[3];
+
 extern int AIWingMenu;
 
 extern int AIWingMenuTime;
@@ -129,8 +279,10 @@ extern struct MissileData far *GetMissilePtr(int MissileNo);
 extern struct RadarData far *GetRadarPtr(int RadarNo);
 
 
-struct PlaneData far *ptype;
-int ourplanetype;	/* enum id of our plane type */
+extern struct PlaneData far * ptype;
+
+extern int ourplanetype;
+	/* enum id of our plane type */
 
 
 extern struct FPARAM{
@@ -141,7 +293,8 @@ extern struct FPARAM{
 	int	MAT[9];
 } FPARAMS;
 
-int firstbehaveshow;
+extern int firstbehaveshow;
+
 
 // The Strategy:
 //
@@ -234,7 +387,7 @@ doplanes () {
 	if(minTimeAloft) {
 		minpassed = (int)(TotalGameTicks/3600L);
 		if(minpassed >= minTimeAloft) {
-			Message("(RIO)Cleared To Return", RIO_MSG);
+			Message(gstr359, RIO_MSG);
 			Speech(RTB);
 			LogIt (SLG_MIN_TIME_REACHED, -1, PxLng, (0x100000 - PyLng), Alt, -999, -999, 0L, LOG_AIR);
 			minTimeAloft = 0;
@@ -242,7 +395,7 @@ doplanes () {
 	}
 
 	if((Alt < KnockItOffStatus) && (KnockItOffStatus > 1)) {
-		Message("(CARRIER) Knock It Off", DEBUG_MSG);
+		Message(gstr360, DEBUG_MSG);
         Speech (L_KNOCK_IT_OFF);
 		KnockItOffStatus = 1;
 	}
@@ -476,7 +629,7 @@ doplanes () {
 
 #if 0 /* AAA  */
 				if(tempvar && (i == 3)) {
-					sprintf(Txt, "dr 1 %x, 2 %x, 3 %x, r %x, pt %d", droll1, droll2, droll, psi->roll, ptype->maneuver);
+					sprintf(Txt, gstr361, droll1, droll2, droll, psi->roll, ptype->maneuver);
 					Message(Txt,DEBUG_MSG);
 				}
 #endif
@@ -532,12 +685,12 @@ doplanes () {
 	UpdateOurWPS(-999, 0);
 #if 0
 	if(tempvar) {
-		TXT("LDR ");
+		TXT(gstr362);
 		TXN(numldroll);
-		TXA(" ");
+		TXA(gstr130);
 		TXN(numnldroll);
 		if(Night)
-			TXA(" NIGHT ");
+			TXA(gstr363);
 		Message(Txt,DEBUG_MSG);
 //		sprintf(Txt, "X %ld, Y %ld", PxLng, (0x100000-PyLng));
 //		Message(Txt,DEBUG_MSG);
@@ -662,13 +815,13 @@ GetDestinationAngles () {   // set dist, angl, and pdest
 	if((tempvar) && (i == 1)) {
 		if(ps[i].status & LANDING) {
 			if(ps[i].status & BACKTOBASE)
-				sprintf(Txt, "%d LANDING d %d a %x pd %x", i, dist, angl- psi->head, pdest);
+				sprintf(Txt, gstr364, i, dist, angl- psi->head, pdest);
 			else
-				sprintf(Txt, "%d OPPS d %d a %x pd %x", i, dist, angl- psi->head, pdest);
+				sprintf(Txt, gstr365, i, dist, angl- psi->head, pdest);
 			Message(Txt,DEBUG_MSG);
 		}
 		else if(ps[i].status & BACKTOBASE) {
-			sprintf(Txt, "%d Back to base d %d a %x, pd %x", i, dist, angl- psi->head, pdest);
+			sprintf(Txt, gstr366, i, dist, angl- psi->head, pdest);
 			Message(Txt,DEBUG_MSG);
 		}
 	}
@@ -1015,7 +1168,7 @@ UpdateSpeedAndPosition ()
     }
 
 	if((ps[i].alt < KnockItOffStatus) && (KnockItOffStatus > 1) && (!(ps[i].status & (TAKEOFF|LANDING|LANDED|CRASH)))) {
-		Message("(CARRIER) Knock It Off", DEBUG_MSG);
+		Message(gstr360, DEBUG_MSG);
         Speech (L_KNOCK_IT_OFF);
 		KnockItOffStatus = 1;
 		bv[i].Behavior = AIGoHome;
@@ -1108,9 +1261,9 @@ Landing ()
 //	if((tempvar) && (i == 1)) {
 		if(ps[i].status & LANDING) {
 			if(ps[i].status & BACKTOBASE)
-				sprintf(Txt, "%d LANDING2 d %d a %x pd %x, %d h %x", i, dist, angl- psi->head, pdest, 1<<(BT2KM-2), psi->head);
+				sprintf(Txt, gstr367, i, dist, angl- psi->head, pdest, 1<<(BT2KM-2), psi->head);
 			else
-				sprintf(Txt, "%d OPPS2 d %d a %x pd %x, %d", i, dist, angl- psi->head, pdest, 1<<(BT2KM-2));
+				sprintf(Txt, gstr368, i, dist, angl- psi->head, pdest, 1<<(BT2KM-2));
 			Message(Txt,DEBUG_MSG);
 		}
 //	}
@@ -1265,22 +1418,22 @@ search ()
     ps[i].status&=~LOCK;
 #ifdef ELFMMSG
 	if((tempvar) && (!(bv[i].behaveflag & ENEMYNOFIRE)) && (GetSquadLeader(i) == -1)) {
-		TXT("Bog ");
+		TXT(gstr369);
 		TXN(i);
-		TXA(", sig ");
+		TXA(gstr370);
 		TXN(signal);
-		TXA(", dist ");
+		TXA(gstr371);
 		TXN(dist);
 //		TXA(", angl ");
 //		TXN(angl);
-		TXA(" bs ");
+		TXA(gstr372);
 		TXN(ps[i].status & BACKTOBASE);
-		TXA(", alert ");
+		TXA(gstr373);
 		TXN(ps[i].alert);
 		if(ps[i].status & FRIENDLY)
-			TXA(" F");
+			TXA(gstr374);
 		else
-			TXA(" E");
+			TXA(gstr375);
 		Message(Txt,DEBUG_MSG);
 	}
 #endif
@@ -1440,7 +1593,7 @@ search ()
                                 if ((!imaboat) && (ps[i].mcnt[0]==0 && ps[i].mcnt[1]==0)) {
 									if(GetSquadLeader(i) == -1) {
 										GetWingName(i, Txt);
-										TXA("Gone Winchester");
+										TXA(gstr376);
 										Message(Txt,WINGMAN_MSG);
 										Speech(WINCHESTER);
 									}
@@ -1727,7 +1880,7 @@ void CoreCheckGunFiring(COORD tdistl, int tanglel, int tpitchl, int turretangle,
 										 //  using this as a delay so he doesn't go " GUNS GUNS GUNS..."
 										 //  Trust me it will happen if I didn't do this.  SRE
 				GetWingName(i, Txt);
-				TXA("Guns");
+				TXA(gstr377);
 				Message(Txt,WINGMAN_MSG);
 				Speech(GUNS);
 			}
@@ -1868,7 +2021,7 @@ void GetEnemyTarget(int ainum)
 	if(distnm > 200) {
 		if(GetSquadLeader(ainum) != -1) {
 #ifdef SHOWHOME
-			TXT("Going Home ");
+			TXT(gstr378);
 			TXN(ainum);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -1922,7 +2075,7 @@ void GetEnemyTarget(int ainum)
 				}
 			}
 #if 0
-			TXT("Enemy Formation ");
+			TXT(gstr379);
 			TXN(ainum);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -1934,7 +2087,7 @@ void GetEnemyTarget(int ainum)
 			if(GetSquadLeader(ainum) == -1) {
 				Speech(NOJOY);
 				GetWingName(ainum, Txt);
-				TXA("Reforming on wing");
+				TXA(gstr380);
 				Message(Txt,WINGMAN_MSG);
 				GetWingName(ainum, Txt);
 			}
@@ -2091,11 +2244,11 @@ void FriendlyChooseBehavior()
 
 #if 0
 	if(tempvar) {
-		TXT("ANGLE ");
+		TXT(gstr381);
 		TXN(i);
-		TXA(" ");
+		TXA(gstr130);
 		TXN(tanglel);
-		TXA(" ");
+		TXA(gstr130);
 		TXN(ltangle);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -2289,7 +2442,7 @@ void ChooseBehavior() {
 						ps[i].status |= BACKTOBASE;
 						bv[i].Behavior = AIGoHome;
 #ifdef SHOWHOME
-						TXT("Jettison Bombs, Going Home ");
+						TXT(gstr382);
 						TXN(i);
 						Message(Txt,DEBUG_MSG);
 #endif
@@ -2320,7 +2473,7 @@ void ChooseBehavior() {
 		 			I.E. DON'T TRY TO CATCH UP WITH A PLANE THAT IS RUNNING AWAY  */
 
 #ifdef SHOWHOME
-		TXT("Out of Time, Going Home ");
+		TXT(gstr383);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 #endif
@@ -2383,7 +2536,7 @@ void ChooseBehavior() {
 			if(bv[i].Behavior != Box) {
 				bv[i].Behavior = Box;
 #ifdef ELFDMSG
-				TXT("Box ");
+				TXT(gstr384);
 				TXN(i);
 				Message(Txt,DEBUG_MSG);
 #endif
@@ -2410,7 +2563,7 @@ void ChooseBehavior() {
 	else if(tdistnm > 10){
 		if((bv[i].Behavior == Box) && (tdistnm < 33)) {
 #ifdef ELFDMSG
-			TXT("Champagne ");
+			TXT(gstr385);
 			TXN(i);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -2426,7 +2579,7 @@ void ChooseBehavior() {
 			while (prewing >= 0) {
 				while (wingcnt >= 0) {
 #ifdef ELFDMSG
-					TXT("Straight Attack ");
+					TXT(gstr386);
 					TXN(i);
 					Message(Txt,DEBUG_MSG);
 #endif
@@ -2696,19 +2849,19 @@ void StraightAttack() {
 //#ifdef ELFBMSG
 #if 0
 	if(tempvar) {
-		TXT("St At ");
+		TXT(gstr387);
 		TXN(i);
-		TXA(" targ ");
+		TXA(gstr388);
 		TXN(bv[i].target);
-		TXA(" d ");
+		TXA(gstr389);
 		TXN(tdist);
 //		TXA(" a ");
 //		TXN(relangle);
-		TXA(" s ");
+		TXA(gstr135);
 		TXN(bv[i].basespeed);
-		TXA(" ");
+		TXA(gstr130);
 		TXN(targetspeed);
-		sprintf(Txt, "ST AT %d targ %d d %d a %x oa %x s %d ts %d", i, bv[i].target, tdist, relangle, orgrelangle, bv[i].basespeed, targetspeed);
+		sprintf(Txt, gstr390, i, bv[i].target, tdist, relangle, orgrelangle, bv[i].basespeed, targetspeed);
 		Message(Txt,DEBUG_MSG);
 	}
 #endif
@@ -2843,7 +2996,7 @@ void Ladder() {
 			wingcnt = prewing;
 			prewing2 = prewing;
 #if 0
-			TXT("Switch to Ladder 2 ");
+			TXT(gstr391);
 			TXN(i);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -2915,13 +3068,13 @@ void Ladder() {
 #if 0
 //  #ifdef ELFBMSG
 	if(tempvar) {
-		TXT("LD ");
+		TXT(gstr392);
 		TXN(i);
-		TXA(" targ ");
+		TXA(gstr388);
 		TXN(bv[i].target);
-		TXA(", bs ");
+		TXA(gstr393);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3111,15 +3264,15 @@ void Box() {
 	if(tempvar) {
 		tanglel = angle((Px - psi->x), -(Py - psi->y));
 		tanglel -= psi->head;
-		TXT("Box ");
+		TXT(gstr384);
 		TXN(i);
-		TXA(" pw ");
+		TXA(gstr137);
 		TXN(prewing);
-		TXA(", ps ");
+		TXA(gstr138);
 		TXN(prespeed);
-		TXA(", bs ");
+		TXA(gstr393);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3222,17 +3375,17 @@ void Champagne() {
 	if(tempvar) {
 		tanglel = angle((Px - psi->x), -(Py - psi->y));
 		tanglel -= psi->head;
-		TXT("CP ");
+		TXT(gstr394);
 		TXN(i);
 /*		TXA(" pw ");
 		TXN(prewing);
 		TXA(" ps ");
 		TXN(prespeed);  */
-		TXA(", ra ");
+		TXA(gstr134);
 		TXN(relangle);
-		TXA(", bs ");
+		TXA(gstr393);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3433,11 +3586,11 @@ void Wall() {
 	}
 #ifdef ELFBMSG
 	if(tempvar) {
-		TXT("Wall ");
+		TXT(gstr395);
 		TXN(i);
-		TXA(" bs ");
+		TXA(gstr372);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3500,11 +3653,11 @@ void FreeFighter() {
 
 #ifdef ELFBMSG
 	if(tempvar) {
-		TXT("FF At ");
+		TXT(gstr396);
 		TXN(i);
-		TXA(" bs ");
+		TXA(gstr372);
 		TXN(bv[i].basespeed);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3748,7 +3901,7 @@ void LadderCircle ()
 			ps[i].status |= BACKTOBASE;
 			bv[i].Behavior = AIGoHome;
 #ifdef SHOWHOME
-			TXT("LadderCircle, Going Home ");
+			TXT(gstr397);
 			TXN(i);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -3807,13 +3960,13 @@ void LadderCircle ()
 	}
 #ifdef ELFBMSG
 	if(tempvar) {
-		TXT("LC ");
+		TXT(gstr398);
 		TXN(i);
-		TXA(" wf ");
+		TXA(gstr399);
 		TXN(whofollow);
-		TXA(", d ");
+		TXA(gstr140);
 		TXN(tdist);
-		TXA(", ra ");
+		TXA(gstr134);
 		TXN(relangle);
 		Message(Txt,DEBUG_MSG);
 	}
@@ -3822,6 +3975,7 @@ void LadderCircle ()
 
 int CheckDetection(int planenum)
 {
+	extern int LOCKED;
 	int cnt;
 	COORD tdist, tdist1;
 	int returnval = -999;
@@ -3830,7 +3984,7 @@ int CheckDetection(int planenum)
 	x = ps[planenum].x;
 	y = ps[planenum].y;
 
-	if((LOCKED == planenum) && (!FriendMatchType(planenum, FRIENDLY))) {
+	if((planenum == LOCKED) && (!FriendMatchType(planenum, FRIENDLY))) {
     	dx = Px-x;
     	dy = Py-y;
     	tdist = xydist(dx,dy);
@@ -3892,30 +4046,30 @@ void ShowAIWeaponStatus(int ainum)
 	GetWingName(ainum, Str);
 	TXT(Str);
 	if(OurLoadOut == SL_GUNS) {
-		TXA("Guns Only!");
+		TXA(gstr400);
 	}
 	else if(CheckAIMissiles(ainum) == -1) {
-		TXA("Out of missiles!");
+		TXA(gstr401);
 	}
 	else {
-		TXA(" ");
+		TXA(gstr130);
 		for(cnt = 0; cnt < 3; cnt++) {
 			if(ps[ainum].mcnt[cnt] == 0)
 				continue;
 			if((cnt > 0) && flag)
-				TXA(", ");
+				TXA(gstr402);
 			flag = 1;
 			TXN(ps[ainum].mcnt[cnt]);
 			if(aiptype->misl[cnt] == ML_AIM7M)
-				TXA(" Sparrows");
+				TXA(gstr403);
 			else if(aiptype->misl[cnt] == ML_AIM9M)
-				TXA(" Sidewinders");
+				TXA(gstr404);
 			else if(aiptype->misl[cnt] == ML_AIM120)
-				TXA(" AMRAAMs");
+				TXA(gstr405);
 			else if(aiptype->misl[cnt] == ML_AIM54C)
-				TXA(" Phoenixs");
+				TXA(gstr406);
 			else
-				TXA(" Bombs");
+				TXA(gstr407);
 		}
 	}
 	Message(Txt,WINGMAN_MSG);
@@ -3934,7 +4088,7 @@ void ShowAIStatus(int ainum, int otherai, int effects)
 
 	if(effects) {
 		eff = effects;
-		TXA (" I'm Hit, ");
+		TXA (gstr408);
 	}
 	else {
 		eff = bv[ainum].behaveflag & 0xe0;
@@ -3942,7 +4096,7 @@ void ShowAIStatus(int ainum, int otherai, int effects)
 
 	if(eff & DAMAGERADAR) {
 		eff &= ~DAMAGERADAR;
-    	TXA ("Radar");
+    	TXA (gstr409);
 		flag = 1;
 		gotone = 1;
 	}
@@ -3950,11 +4104,11 @@ void ShowAIStatus(int ainum, int otherai, int effects)
 		eff &= ~DAMAGEENGINE;
 		if(gotone) {
 			if(eff)
-				TXA(", ");
+				TXA(gstr402);
 			else
-				TXA(" and ");
+				TXA(gstr410);
 		}
-		TXA ("Engine");
+		TXA (gstr411);
 		flag = 1;
 		gotone = 1;
 	}
@@ -3962,36 +4116,36 @@ void ShowAIStatus(int ainum, int otherai, int effects)
 		eff &= ~DAMAGECONTROLSURFACE;
 		if(gotone) {
 			if(eff)
-				TXA(", ");
+				TXA(gstr402);
 			else
-				TXA(" and ");
+				TXA(gstr410);
 		}
 		if(effects)
-			TXA ("Control Surfaces");
+			TXA (gstr412);
 		else
-			TXA ("Controls");
+			TXA (gstr413);
 		gotone = 1;
 	}
 	if((eff & DAMAGEMUNITIONS) && (effects != 0)) {
 		if(gotone)
-			TXA(", ");
-		TXA ("Missiles");
+			TXA(gstr402);
+		TXA (gstr414);
 		gotone = 1;
 	}
 
 	if(gotone) {
-		TXA (" Damaged!");
+		TXA (gstr415);
 	}
 	else {
 		rtemp = (Rtime + otherai) & 3;
 		if(rtemp == 0)
-			TXA ("A.O.K");
+			TXA (gstr416);
 		else if(rtemp == 1)
-			TXA ("Doing Fine");
+			TXA (gstr417);
 		else if(rtemp == 2)
-			TXA ("Systems Nominal");
+			TXA (gstr418);
 		else
-			TXA ("Good");
+			TXA (gstr419);
 	}
 	Message(Txt,WINGMAN_MSG);
 	if(effects == 0)
@@ -4004,31 +4158,31 @@ void ShowMenuStuff(int MenuID)
 		case GETWINGBRACKET:
 //		    MsgBox (316, 2, 2);
 //    	    RpPrint (Rp3D, 2,     2, "1 Bracket Left, 2 Bracket Right, 3 High, 4 Low, 5 Straight");
-    	    Message("1 Bracket Left, 2 Bracket Right, 3 High, 4 Low, 5 Straight", WING_MENU_MSG);
+    	    Message(gstr420, WING_MENU_MSG);
 		break;
 
 		case GETWINGFORMATION:
 //		    MsgBox (316, 2, 2);
 //    	    RpPrint (Rp3D, 2,     2, "1 Parade, 2 Cruise, 3 Combat Spread");
-    	    Message("1 Parade, 2 Cruise, 3 Combat Spread", WING_MENU_MSG);
+    	    Message(gstr421, WING_MENU_MSG);
 		break;
 
 		case GETWINGSANITIZE:
 //		    MsgBox (316, 2, 2);
 //    	    RpPrint (Rp3D, 2,     2, "Sanitize 1 Left, 2 Right, 3 Front, 4 Back");
-    	    Message("Sanitize 1 Left, 2 Right, 3 Front, 4 Back", WING_MENU_MSG);
+    	    Message(gstr422, WING_MENU_MSG);
 		break;
 
 		case GETNEGVSEPERATION:
 //		    MsgBox (316, 2, 2);
 //    	    RpPrint (Rp3D, 2,     2, "Negative 1 1000, 2 2000, ... , 9 9000, 0 10000 Ft Verticle Seperation");
-    	    Message("Negative 1 1000, 2 2000, ... , 9 9000, 0 10000 Ft Verticle Seperation", WING_MENU_MSG);
+    	    Message(gstr423, WING_MENU_MSG);
 		break;
 
 		case GETPOSVSEPERATION:
 //		    MsgBox (316, 2, 2);
 //    	    RpPrint (Rp3D, 2,     2, "Positive 1 1000, 2 2000, ... , 9 9000, 0 10000 Ft Verticle Seperation");
-    	    Message("Positive 1 1000, 2 2000, ... , 9 9000, 0 10000 Ft Verticle Seperation", WING_MENU_MSG);
+    	    Message(gstr424, WING_MENU_MSG);
 		break;
 	}
 }
@@ -4113,18 +4267,18 @@ int ProcessAICommunications(int ainum)
 						bv[ainum].behaveflag |= RADARON;
 					bv[ainum].behaveflag &= ~ENEMYNOFIRE;
 					if(CheckAIMissiles(ainum) != -1) {
-						TXA("Weapons Armed");
+						TXA(gstr425);
 						Message(Txt,WINGMAN_MSG);
 					}
 					else {
-						TXA("No Missiles",WINGMAN_MSG);
+						TXA(gstr426,WINGMAN_MSG);
 						Message(Txt);
 					}
 				}
 				else {
 					bv[ainum].behaveflag &= ~RADARON;
 					bv[ainum].behaveflag |= ENEMYNOFIRE;
-					TXA("Weapons Disarmed");
+					TXA(gstr427);
 					Message(Txt,WINGMAN_MSG);
 				}
 			break;
@@ -4137,7 +4291,7 @@ int ProcessAICommunications(int ainum)
 				bv[ainum].behaveflag &= ~ENEMYNOFIRE;
 				bv[ainum].behaveflag &= ~NO_SWITCH_TARGET;
 				GetEnemyTarget(ainum);
-				TXA("Engaging ");
+				TXA(gstr428);
 //				TXN(bv[ainum].target);
 //				Message(Txt,WINGMAN_MSG);
 				Speech(ROGER);
@@ -4149,17 +4303,17 @@ int ProcessAICommunications(int ainum)
 			case AIATTACKTARGET:    /*  ALT F2 KEY  */
 				if(DESIGNATED != -1) {                        /*  ATTACK MY TARGET  */
 					if(ps[DESIGNATED].status & FRIENDLY) {
-						TXA("But Sir, That's a Friendly");
+						TXA(gstr429);
 						Message(Txt,WINGMAN_MSG);
 					}
 					else {
-						TXA("Bogey Targeted.");
+						TXA(gstr430);
 						Message(Txt,WINGMAN_MSG);
 						Speech(ROGER);
 						Speech(TARGETING);
 						if(bv[ainum].behaveflag & ENEMYNOFIRE) {
 							TXT(Str);
-							TXA("Requesting Permission to Fire");
+							TXA(gstr431);
 							Message(Txt,WINGMAN_MSG);
 						}
 						bv[ainum].behaveflag |= NO_SWITCH_TARGET;
@@ -4189,18 +4343,18 @@ int ProcessAICommunications(int ainum)
 			case AIHELPME:  /*  ALT F5  */
 				Speech(ROGER);
 				if(CheckWingmanSix(-1)) {
-					TXA("I'm on him.");    /*  Wingmen help us  */
+					TXA(gstr432);    /*  Wingmen help us  */
 					Message(Txt,WINGMAN_MSG);
 				}
 				else if(NearWingTarget(-1)) {
-					TXA("Here I come.");    /*  Wingmen help us  */
+					TXA(gstr433);    /*  Wingmen help us  */
 					Message(Txt,WINGMAN_MSG);
 				}
 			break;
 
 			case AISANITIZE:  /*  ALT F6  */
 				if(bv[ainum].behaveflag & DAMAGERADAR) {
-					TXA("My radar's out");
+					TXA(gstr434);
 					Message(Txt,WINGMAN_MSG);
 				}
 				else {
@@ -4215,7 +4369,7 @@ int ProcessAICommunications(int ainum)
 
 			case AISORTAI:  /*  ALT F7  */
 					Speech(ROGER);
-					TXA("Sorted ");    /*  Wingmen id targets  */
+					TXA(gstr435);    /*  Wingmen id targets  */
 					GetSortInfo(ainum);
 			break;
 
@@ -4229,7 +4383,7 @@ int ProcessAICommunications(int ainum)
 				bv[ainum].behaveflag &= ~RADARON;
 				bv[ainum].behaveflag |= ENEMYNOFIRE;
 				bv[ainum].verticlesep = 0;
-				TXA("Rejoining Wing");
+				TXA(gstr436);
 				Message(Txt,WINGMAN_MSG);
 				Speech(ROGER);
 				return(1);
@@ -4239,14 +4393,14 @@ int ProcessAICommunications(int ainum)
 				if(ps[ainum].status & BACKTOBASE) {  /*  UNDO RETURN TO BASE  */
 					ps[ainum].status &= ~BACKTOBASE;
 					bv[ainum].Behavior = Formation;
-					TXA("Roger ");
+					TXA(gstr437);
 					Message(Txt,WINGMAN_MSG);
 					Speech(ROGER);
 					return(0);
 				}
 				ps[ainum].status |= BACKTOBASE;
 				bv[ainum].Behavior = AIGoHome;
-				TXA("Returning To Base");
+				TXA(gstr438);
 				Message(Txt,WINGMAN_MSG);
 				Speech(ROGER);
 //				Speech(RTB);
@@ -4256,12 +4410,12 @@ int ProcessAICommunications(int ainum)
 						|| ((ps[ainum].mcnt[0] == 0) && (ps[ainum].mcnt[1] == 0))) {
 					ps[ainum].status |= BACKTOBASE;
 					bv[ainum].Behavior = AIGoHome;
-					TXA("Returning To Base");
+					TXA(gstr438);
 					Message(Txt,WINGMAN_MSG);
 					return(1);
 				}
 				else {
-					TXA("I'm Fine ");  /*  Plane Is FINE  */
+					TXA(gstr439);  /*  Plane Is FINE  */
 					Message(Txt,WINGMAN_MSG);
 /*					bv[ainum].Behavior = AICarrierLand;
 					bv[ainum].threathead = 100;
@@ -4276,7 +4430,7 @@ int ProcessAICommunications(int ainum)
 			case AIDOREFUEL:     /*   SHIFT F5 KEY  */
 				GetRefuelPlane();
 				bv[ainum].fueltank = 10000;
-				TXA("Going To Refuel");
+				TXA(gstr440);
 				Message(Txt,WINGMAN_MSG);
 			break;
 #endif
@@ -4315,7 +4469,7 @@ int ProcessAICommMenu(int ainum)
 				bv[ainum].finhead = OurHead;
 			}
 
-			TXA("Bracketing Left.");
+			TXA(gstr441);
 			Message(Txt,WINGMAN_MSG);
 			Speech(ROGER);
 			AIWingMenu = 0;
@@ -4338,7 +4492,7 @@ int ProcessAICommMenu(int ainum)
 				bv[ainum].finhead = OurHead;
 			}
 
-			TXA("Bracketing Right.");
+			TXA(gstr442);
 			Message(Txt,WINGMAN_MSG);
 			Speech(ROGER);
 			AIWingMenu = 0;
@@ -4361,7 +4515,7 @@ int ProcessAICommMenu(int ainum)
 				bv[ainum].finhead = OurHead;
 			}
 
-			TXA("Heading Forward.");
+			TXA(gstr443);
 			Message(Txt,WINGMAN_MSG);
 			Speech(ROGER);
 			AIWingMenu = 0;
@@ -4393,7 +4547,7 @@ int ProcessAICommMenu(int ainum)
 			bv[ainum].behaveflag |= ENEMYNOFIRE;
 			bv[ainum].behaveflag &= ~COMBAT_SPREAD;
 			bv[ainum].horizontalsep = PARADEDIST;
-			TXA("Parade Formation");
+			TXA(gstr444);
 			Message(Txt,WINGMAN_MSG);
 			Speech(ROGER);
 			AIWingMenu = 0;
@@ -4412,7 +4566,7 @@ int ProcessAICommMenu(int ainum)
 				bv[ainum].behaveflag |= RADARON;
 			bv[ainum].behaveflag &= ~ENEMYNOFIRE;
 			bv[ainum].horizontalsep = COMBATSPREADDIST;
-			TXA("Combat Spread");
+			TXA(gstr445);
 			Message(Txt,WINGMAN_MSG);
 			Speech(ROGER);
 			AIWingMenu = 0;
@@ -4430,7 +4584,7 @@ int ProcessAICommMenu(int ainum)
 			bv[ainum].behaveflag |= ENEMYNOFIRE;
 			bv[ainum].behaveflag &= ~COMBAT_SPREAD;
 			bv[ainum].horizontalsep = CRUISEDIST;
-			TXA("Cruise Formation.");
+			TXA(gstr446);
 			AIWingMenu = 0;
 			bv[ainum].verticlesep = 0;
 			Message(Txt,WINGMAN_MSG);
@@ -4447,7 +4601,7 @@ int ProcessAICommMenu(int ainum)
 				bv[ainum].behaveflag |= RADARON;
 			bv[ainum].finhead = OurHead - 0x4000;
 			bv[ainum].Behavior = FlySanitize;
-			TXA("Sanitizing Left.");    /*  SANITIZE DIRECTION  */
+			TXA(gstr447);    /*  SANITIZE DIRECTION  */
 			Message(Txt,WINGMAN_MSG);
 			Speech(ROGER);
 			if(MyMSGTYP == WING_MENU_MSG) {
@@ -4462,7 +4616,7 @@ int ProcessAICommMenu(int ainum)
 				bv[ainum].behaveflag |= RADARON;
 			bv[ainum].finhead = OurHead + 0x4000;
 			bv[ainum].Behavior = FlySanitize;
-			TXA("Sanitizing Right.");    /*  SANITIZE DIRECTION  */
+			TXA(gstr448);    /*  SANITIZE DIRECTION  */
 			Message(Txt,WINGMAN_MSG);
 			Speech(ROGER);
 			if(MyMSGTYP == WING_MENU_MSG) {
@@ -4477,7 +4631,7 @@ int ProcessAICommMenu(int ainum)
 				bv[ainum].behaveflag |= RADARON;
 			bv[ainum].finhead = OurHead;
 			bv[ainum].Behavior = FlySanitize;
-			TXA("Sanitizing Front.");    /*  SANITIZE DIRECTION  */
+			TXA(gstr449);    /*  SANITIZE DIRECTION  */
 			Message(Txt,WINGMAN_MSG);
 			Speech(ROGER);
 			if(MyMSGTYP == WING_MENU_MSG) {
@@ -4492,7 +4646,7 @@ int ProcessAICommMenu(int ainum)
 				bv[ainum].behaveflag |= RADARON;
 			bv[ainum].finhead = OurHead + 0x8000;
 			bv[ainum].Behavior = FlySanitize;
-			TXA("Sanitizing Back.");    /*  SANITIZE DIRECTION  */
+			TXA(gstr450);    /*  SANITIZE DIRECTION  */
 			Message(Txt,WINGMAN_MSG);
 			Speech(ROGER);
 			if(MyMSGTYP == WING_MENU_MSG) {
@@ -4520,15 +4674,15 @@ void DoVSeperation(int ainum)
 	if(behavecommands < 61) {
 		bv[ainum].verticlesep = -250 * (behavecommands - 50);
 		htemp = abs(bv[i].verticlesep)* 4;
-		TXA("Neg. ");
+		TXA(gstr451);
 	}
 	else {
 		bv[ainum].verticlesep = 250 * (behavecommands - 60);
 		htemp = abs(bv[i].verticlesep)* 4;
-		TXA("Pos. ");
+		TXA(gstr452);
 	}
 	TXN(htemp);
-	TXA(" Ft. Verticle Seperation");
+	TXA(gstr453);
 	Message(Txt,WINGMAN_MSG);
 	Speech(ROGER);
 }
@@ -4567,7 +4721,7 @@ void AIGetBombDist()
 		ps[i].status |= BACKTOBASE;
 		bv[i].Behavior = AIGoHome;
 #ifdef SHOWHOME
-		TXT("No Bomb Target, Going Home ");
+		TXT(gstr454);
 		TXN(i);
 		Message(Txt,DEBUG_MSG);
 #endif
@@ -4605,11 +4759,11 @@ void AIGetBombDist()
 
 #if ELFBMSG
 	if(tempvar) {
-		TXT("GBD ");
+		TXT(gstr455);
 		TXN(i);
-		TXA(" d ");
+		TXA(gstr389);
 		TXN(tdist);
-		TXA(", r ");
+		TXA(gstr456);
 		TXN(relangle);
 //		TXA(", x ");
 //		TXN(aiwaypoints[bv[i].groundt].x);
@@ -4656,7 +4810,7 @@ void AIBombTarget()
 			else {
 				ps[i].status |= BACKTOBASE;
 #if 0
-				TXT("No Bomb Target2, Going Home ");
+				TXT(gstr457);
 				TXN(i);
 				Message(Txt,DEBUG_MSG);
 #endif
@@ -4673,7 +4827,7 @@ void AIBombTarget()
 			ps[i].status |= BACKTOBASE;
 			bv[i].Behavior = AIGoHome;
 #ifdef SHOWHOME
-			TXT("No Bomb Target 3, Going Home ");
+			TXT(gstr458);
 			TXN(i);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -4764,11 +4918,11 @@ void AIBombTarget()
 
 #if ELFBMSG
 	if(tempvar) {
-		TXT("BAI ");
+		TXT(gstr459);
 		TXN(i);
-		TXA(" d ");
+		TXA(gstr389);
 		TXN(tdist);
-		TXA(", r ");
+		TXA(gstr456);
 		TXN(relangle);
 //		TXA(", x ");
 //		TXN(aiwaypoints[bv[i].groundt].x);
@@ -4859,7 +5013,7 @@ void DESIGNATED_TrackingAI (int relangle)
 		if(DropAIBomb()) {
 			if(GetSquadLeader(i) == -1) {
 				GetWingName(i, Txt);
-				TXA("Bombs Away!");
+				TXA(gstr460);
 				Message(Txt,WINGMAN_MSG);
 			}
 			GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
@@ -4929,7 +5083,7 @@ int DropAIBomb()
 			ps[i].status |= BACKTOBASE;
 			bv[i].Behavior = AIGoHome;
 #ifdef SHOWHOME
-			TXT("Out of Bombs, Going Home ");
+			TXT(gstr461);
 			TXN(i);
 			Message(Txt,DEBUG_MSG);
 #endif
@@ -5034,7 +5188,7 @@ void TurnAIPlaneBy(int ainum, int relangle)
 
 #if 0
 	if((tempvar) && (GetSquadLeader(ainum) == -1)) {
-		sprintf(Txt, "i %d, ra %x, dr %x", ainum, relangle, droll);
+		sprintf(Txt, gstr462, ainum, relangle, droll);
 		Message(Txt,DEBUG_MSG);
 	}
 #endif
@@ -5320,9 +5474,9 @@ int AICoreRadarCheck(int wingnum, int showinfo, int otherrange, int lessangle, i
 		}
 
 		if(showinfo) {
-			TXA("Bogeys ");
+			TXA(gstr463);
 			TXN(degreetmp);
-			TXA(", ");
+			TXA(gstr402);
 			TXN(tdistnm1);
 			Message(Txt,GAME_MSG);
 		}
@@ -5331,7 +5485,7 @@ int AICoreRadarCheck(int wingnum, int showinfo, int otherrange, int lessangle, i
 	else {
 		if(showinfo) {
 			Speech(A_CLEAN);
-			TXA("Clean");
+			TXA(gstr464);
 			Message(Txt,GAME_MSG);
 		}
 	}
@@ -5398,16 +5552,16 @@ void GiveSanitizeMessage(int wingnum, int groupcheck[])
 //        BearingToText (dangle,0);
 		Speech(TARGET_RANGE);
         if (tdistnm1>=160) {
-            TXA ("160");
+            TXA (gstr465);
             Speech (C_160);
         } else if (tdistnm1>=120) {
-            TXA ("120");
+            TXA (gstr466);
             Speech (C_120);
         } else if (tdistnm1>=80) {
-            TXA ("80");
+            TXA (gstr467);
             Speech (C_80);
         } else if (tdistnm1>=40) {
-            TXA ("40");
+            TXA (gstr468);
             Speech (C_40);
         } else {
             NSpeech (tdistnm1, 0);
@@ -5417,27 +5571,27 @@ void GiveSanitizeMessage(int wingnum, int groupcheck[])
 
 		GetWingName(wingnum, Txt);
 		if(groupcnt > 1)
-			TXA("Contacts, ");
+			TXA(gstr469);
 		else
-			TXA("Contact, ");
+			TXA(gstr470);
 		TXN(groupcnt);
-		TXA(", ");
+		TXA(gstr402);
 //		TXN(degreetmp);
 //		TXA(", ");
 		TXN(tdistnm1);
-		TXA(", ");
+		TXA(gstr402);
 		if(groupalt) {
 			TXN(groupalt);
 		}
 		else {
-			TXA("in the weeds");
+			TXA(gstr471);
 		}
 		Message(Txt,WINGMAN_MSG);
 	}
 	else {
 		Speech(A_CLEAN);
 		GetWingName(wingnum, Txt);
-		TXA("Clean,");
+		TXA(gstr472);
 		Message(Txt,WINGMAN_MSG);
 	}
 }
@@ -5538,7 +5692,7 @@ void AISanitizeCheck(int wingnum)
 	if(founddist == 0) {
 		Speech(A_CLEAN);
 		GetWingName(i, Txt);
-		TXA("Clean");
+		TXA(gstr464);
 		Message(Txt,WINGMAN_MSG);
 	}
 }
@@ -5574,13 +5728,13 @@ AIFoxCall (weapon)
 {
     switch (weapon) {
         case ML_AIM7M:
-			TXA ("Fox 1!");  Speech (FOX1);         break;
+			TXA (gstr473);  Speech (FOX1);         break;
         case ML_AIM9M:
-			TXA ("Fox 2!");  Speech (FOX2);         break;
+			TXA (gstr474);  Speech (FOX2);         break;
         case ML_AIM120:
-			TXA ("Fox 3!");  Speech (FOX3);         break;
+			TXA (gstr475);  Speech (FOX3);         break;
         case ML_AIM54C:
-			TXA ("Fox 3!");  Speech (FOX3);         break;
+			TXA (gstr475);  Speech (FOX3);         break;
     }
     Message(Txt,WINGMAN_MSG);
 }
@@ -5593,10 +5747,10 @@ void GetWingName(int ainum, char *Str)
 		return;
 	}
 	if(WingID[1] == ainum) {
-		strcpy(Str,"(Elf)");
+		strcpy(Str,gstr476);
 	}
 	else if(WingID[2] == ainum) {
-		strcpy(Str,"(Bigmac)");
+		strcpy(Str,gstr477);
 	}
 }
 

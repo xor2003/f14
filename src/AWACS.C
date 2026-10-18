@@ -1,3 +1,6 @@
+extern char gstr112[];
+extern char gstr113[];
+
 #include "library.h"
 #include "world.h"
 #include "sdata.h"
@@ -14,7 +17,8 @@ extern  int     whichourcarr;
 
 static  int     JstarTimer;
 static  int     JstarX;
-		int     LastCall = -4*60;
+		extern int LastCall;
+
 
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
 extern struct _wayPoint_ aiwaypoints[];
@@ -70,11 +74,11 @@ BearingToText (UWORD angl, int isawac)
     angl = TrgMul (angl>>1, 360);
 
     if (angl<10) {
-        TXA ("00");
+        TXA (gstr112);
         Speech (ZERO);
         Speech (ZERO);
     } else if (angl<100) {
-        TXA ("0");
+        TXA (gstr113);
         Speech (ZERO);
     }
 

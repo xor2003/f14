@@ -3,7 +3,8 @@
     Constants for Cockpit display
                                  */
 #ifdef _include_code
-	int View;
+	extern int View;
+
 #else
 	extern int View;
 #endif
@@ -44,28 +45,8 @@ struct light {
 
 #ifdef _include_code
 
-struct light ls[] = {
-	163,191, 169,197, CYAN,
-	180,191, 186,197, CYAN,
-	214,191, 220,197, CYAN,
-	197,191, 203,197, CYAN,
-	2,133,  16,138, BLACK,
-	287,133, 297,138, BLACK,
-	287,144, 297,149, BLACK,
-	287,155, 297,160, BLACK,
-	152,114, 168,117, CYAN,
-	152,180, 168,183, CYAN,
+extern struct light ls[];
 
-	10,116,  16,120, LGREEN,
-	19,116,  25,120, LGREEN,
-	28,116,  35,120, LGREEN,
-	10,121,  16,124, LGREEN,
-	19,121,  25,124, LGREEN,
-	28,121,  35,124, LGREEN,
-	10,125,  16,128, LGREEN,
-	19,125,  25,128, LGREEN,
-	28,125,  35,128, LGREEN,
-};
 
 #else
 extern struct light ls[];

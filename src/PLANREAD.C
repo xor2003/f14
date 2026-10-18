@@ -5,19 +5,31 @@
 #include <sys\stat.h>
 #include <stdlib.h>
 
-FILE *tfile;
-FILE *outfile;
-char buf[15];
+extern FILE * tfile;
 
-char name[7];
-int speed;
-int maneuver;
-int rclass;
-char filename[12];
-int miss1;
-int miss2;
-int mcount1;
-int mcount2;
+extern FILE * outfile;
+
+extern char buf[15];
+
+
+extern char name[7];
+
+extern int speed;
+
+extern int maneuver;
+
+extern int rclass;
+
+extern char filename[12];
+
+extern int miss1;
+
+extern int miss2;
+
+extern int mcount1;
+
+extern int mcount2;
+
 
 struct cl {
 	char name[7];
@@ -27,9 +39,12 @@ struct cl {
 	char filename[12];
 	int misl[2];
 	int mcnt[2];
-} planerec;
+};
+extern struct cl planerec;
 
-int recsize = sizeof(planerec);
+
+extern int recsize;
+
 
 main()
 {

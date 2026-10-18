@@ -1,3 +1,9 @@
+extern char gstr753[];
+extern char gstr754[];
+extern char gstr755[];
+extern char gstr756[];
+extern char gstr757[];
+
 //************************************************************************
 //*
 //*    TEWS.C
@@ -67,8 +73,10 @@ typedef struct
 	int index;
 } thr;
 
-thr far THREATS[MAXTHREATS];
-thr far SYMBOLS[MAXSYMBOLS];
+extern thr far THREATS[MAXTHREATS];
+
+extern thr far SYMBOLS[MAXSYMBOLS];
+
 
 static int  MTHREATS[MAXMISSILE];
 static int  QUADLITE[4] = { 0, 0, 0, 0 };
@@ -83,8 +91,10 @@ static int  TEWS_RNG = TRNG40;
 // static int TEWS_RNG = TRNG10;
 static int  flash_off=0;
 
-int    MLAUNCH;
-int    AIDETECT;
+extern int MLAUNCH;
+
+extern int AIDETECT;
+
 extern int JAMMER_ACTIVE;
 
 extern int JAMMER[2];
@@ -316,10 +326,10 @@ static arrows()
 {
 	int x,y,color;
 #ifdef YEP
-	if (QUADLITE[0]) Message("QUAD 1");
-	if (QUADLITE[1]) Message("QUAD 2");
-	if (QUADLITE[2]) Message("QUAD 3");
-	if (QUADLITE[3]) Message("QUAD 4");
+	if (QUADLITE[0]) Message(gstr753);
+	if (QUADLITE[1]) Message(gstr754);
+	if (QUADLITE[2]) Message(gstr755);
+	if (QUADLITE[3]) Message(gstr756);
 #endif
 
 	if (QUADLITE[0]) {
@@ -454,9 +464,9 @@ int show_jamming()
 	RpCRT->APen = 0x54;
 	if (JAMMER[0]) {
 		if (JAMMER_ACTIVE && !off)
-			RpPrint (RpCRT,8,8,"JAMMER");
+			RpPrint (RpCRT,8,8,gstr757);
 		else if (!JAMMER_ACTIVE)
-			RpPrint (RpCRT,8,8,"JAMMER");
+			RpPrint (RpCRT,8,8,gstr757);
 	}
 
 	ticks += FTicks;

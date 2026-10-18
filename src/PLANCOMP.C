@@ -5,24 +5,41 @@
 #include <sys\stat.h>
 #include <stdlib.h>
 
-FILE *tfile;
-FILE *outfile;
-char buf[15];
+extern FILE * tfile;
 
-char name[7];
-int speed;
-int maneuver;
-int rclass;
-char filename[13];
-int miss1;
-int miss2;
-int miss3;
-int mcount1;
-int mcount2;
-int mcount3;
-int radarsig;
-int gun;
-int alignment;
+extern FILE * outfile;
+
+extern char buf[15];
+
+
+extern char name[7];
+
+extern int speed;
+
+extern int maneuver;
+
+extern int rclass;
+
+extern char filename[13];
+
+extern int miss1;
+
+extern int miss2;
+
+extern int miss3;
+
+extern int mcount1;
+
+extern int mcount2;
+
+extern int mcount3;
+
+extern int radarsig;
+
+extern int gun;
+
+extern int alignment;
+
 
 struct cl {
 	int plane_no;
@@ -38,17 +55,28 @@ struct cl {
 	int misl[3];
 	int mcnt[3];
 	int behav;
-} planerec;
+};
+extern struct cl planerec;
 
-int recsize = sizeof(planerec);
-int flstat;
-int planecnt=0;
-int i;
-long recseek=0;
-int planeno;
-int behav;
-int ecm;
-int status;
+
+extern int recsize;
+
+extern int flstat;
+
+extern int planecnt;
+
+extern int i;
+
+extern long recseek;
+
+extern int planeno;
+
+extern int behav;
+
+extern int ecm;
+
+extern int status;
+
 
 main()
 {

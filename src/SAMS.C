@@ -1,3 +1,34 @@
+extern char gstr130[];
+extern char gstr473[];
+extern char gstr474[];
+extern char gstr475[];
+extern char gstr659[];
+extern char gstr718[];
+extern char gstr719[];
+extern char gstr720[];
+extern char gstr721[];
+extern char gstr722[];
+extern char gstr723[];
+extern char gstr724[];
+extern char gstr725[];
+extern char gstr726[];
+extern char gstr727[];
+extern char gstr728[];
+extern char gstr729[];
+extern char gstr730[];
+extern char gstr731[];
+extern char gstr732[];
+extern char gstr733[];
+extern char gstr734[];
+extern char gstr735[];
+extern char gstr736[];
+extern char gstr737[];
+extern char gstr738[];
+extern char gstr739[];
+extern char gstr740[];
+extern char gstr741[];
+extern char gstr742[];
+
 /*  File:   Sams.c                                */
 /*  Author: Sid Meier                             */
 /*                                                */
@@ -30,9 +61,11 @@ extern	int		 RIO_ASSIST;
 
 void CheckProximityHit ();
 
-int LastMisl;
+extern int LastMisl;
 
-struct CloseObj *TargetObj;
+
+extern struct CloseObj * TargetObj;
+
 extern struct CloseObj *CheckTargetHit();
 extern struct RastPort *Rp1, RpX1;
 
@@ -167,12 +200,12 @@ All2AirHoming()
 					if(homing) {
 						if(((homer == IR_1) || (homer == IR_2)) && (homedist < 50)) {
 							lastCounter = Gtime + 3;
-							Message("(RIO) Dropping FLARE", RIO_MSG);
+							Message(gstr718, RIO_MSG);
 							dropdecoy(FLARE, MAXPLANE);
 						}
 						else if(((homer == RDR_1) || (homer == RDR_2)) && (homedist < 100)){
 							lastCounter = Gtime + 3;
-							Message("(RIO) Dropping CHAFF", RIO_MSG);
+							Message(gstr719, RIO_MSG);
 							dropdecoy(CHAFF, MAXPLANE);
 						}
 					}
@@ -547,7 +580,7 @@ CheckGroundHit ()
 /* Did we hit a ground object ? */
         if (ssi->tgttype!=0) {
 			if(!EnemySam) {
-            	Message("Ground Impact",GAME_MSG);
+            	Message(gstr720,GAME_MSG);
 			}
         } else {
 			LogIt (SLG_GROUND_BOMB_HIT, -999, ssi->x, ssi->y, 1, ssi->source, ssi->type, 0L, LOG_GRND);
@@ -557,7 +590,7 @@ CheckGroundHit ()
             if (NTargetHit==0 &&!PrintedMiss) {
                 PrintedMiss=1;
 				if(!EnemySam) {
-    	            Message(IneffectiveHit?"Ineffective Hit": "Target missed",GAME_MSG);
+    	            Message(IneffectiveHit?gstr721: gstr722,GAME_MSG);
 				}
 				if(CloseEnoughFor(SNDSTUFF, (int)(ssi->x>>HTOV), (int)(ssi->y>>HTOV)))
                 	Sound (N_FarExplo, 2,0);
@@ -653,14 +686,14 @@ void CheckProximityHit()
 			LogIt (SLG_AIR_MISSILE_HIT, killed, ps[killed].xL, ps[killed].yL, ps[killed].alt, src, ssi->type, 0L, LOG_AIR);
 			tempplane = GetPlanePtr(ps[killed].type);
 		    FTXT (tempplane->name);
-			TXA (" ");
+			TXA (gstr130);
 		}
     }
 
 	if(CloseEnoughFor(SNDSTUFF, ps[killed].x, ps[killed].y))
 	    Sound (N_FarExplo, 2,0);
 
-    TXA ("Hit by ");
+    TXA (gstr659);
 	FTXA (sst->name);
     Message(Txt,GAME_MSG);
 
@@ -736,7 +769,7 @@ AirKill (int killed)
 		UpdateMissionData(2, tempplane->PlaneEnumId);
 	}
     FTXT (tempplane->name);
-	TXA (" ");
+	TXA (gstr130);
 
 	if(CloseEnoughFor(SNDSTUFF, ps[killed].x, ps[killed].y))
     	Sound (N_FarExplo, 2,0);
@@ -746,13 +779,13 @@ AirKill (int killed)
 		arghtmp = Rtime & 0xf;
 		GetWingName(killed, Str);
 		if(arghtmp == 0xf)
-			strcat(Str, "GOING IN!!!!!");
+			strcat(Str, gstr723);
 		else if(bv[killed].winglevel < arghtmp)
-			strcat(Str, "ARRRRRRRGGGGHHHHHHH!!!!!");
+			strcat(Str, gstr724);
 		else if(arghtmp & 1)
-			strcat(Str, "EJECT...EJECT...EJECT!!!!!");
+			strcat(Str, gstr725);
 		else
-			strcat(Str, "BAILING OUT!!!!!");
+			strcat(Str, gstr726);
 		Message(Str,WINGMAN_MSG);
 	}
 
@@ -839,56 +872,56 @@ DamageIt(x)
 {
     switch (x) {
         case D_LEFTENGINE:
-			Message("(RIO) Left Engine is on Fire!",RIO_MSG);
+			Message(gstr727,RIO_MSG);
         break;
 
         case D_RIGHTENGINE:
-			Message("(RIO) Right Engine is on Fire!",RIO_MSG);
+			Message(gstr728,RIO_MSG);
 		break;
 
 		case D_HYDRAULICS:
-			Message("(RIO) Hydraulics are damaged",RIO_MSG);
+			Message(gstr729,RIO_MSG);
 		break;
 
 
 		case D_AFTERBURNER:
-			Message("(RIO) Afterburner is damaged",RIO_MSG);
+			Message(gstr730,RIO_MSG);
 		break;
 
 		case D_LFUELSYSTEM:
-			Message("(RIO) Left fuel system is damaged",RIO_MSG);
+			Message(gstr731,RIO_MSG);
 		break;
 
 		case D_RFUELSYSTEM:
-			Message("(RIO) Right fuel system is damaged",RIO_MSG);
+			Message(gstr732,RIO_MSG);
 		break;
 
 		case D_FIRECONTROL:
-			Message("(RIO) AWG-15 (Weapon Control) is damaged",RIO_MSG);
+			Message(gstr733,RIO_MSG);
 		break;
 
 		case D_AWG9:
-			Message("(RIO) AWG-9 (Radar System) is damaged",RIO_MSG);
+			Message(gstr734,RIO_MSG);
 		break;
 
 		case D_HUD:
-			Message("(RIO) HUD damaged",RIO_MSG);
+			Message(gstr735,RIO_MSG);
 		break;
 
 		case D_WINGSWEEP:
-			Message("(RIO) Wing Sweep is damaged",RIO_MSG);
+			Message(gstr736,RIO_MSG);
 		break;
 
 		case D_ECM:
-			Message("(RIO) ECM systems are damaged",RIO_MSG);
+			Message(gstr737,RIO_MSG);
 		break;
 
 		case D_GEAR:
-			Message("(RIO) Landing Gear is damaged",RIO_MSG);
+			Message(gstr738,RIO_MSG);
 		break;
 
 		case D_NAV:
-			Message("(RIO) Navigation systems are damaged",RIO_MSG);
+			Message(gstr739,RIO_MSG);
 		break;
     }
 
@@ -1153,19 +1186,19 @@ MissilesInAir ()
 //***************************************************************************
 FoxCall(weapon)
 {
-    TXT ("(WingMan) ");
+    TXT (gstr740);
     switch (weapon) {
         case W_AIM_7:
-			TXA ("Fox 1!");
+			TXA (gstr473);
 			Speech (FOX1);
 		break;
         case W_AIM_9:
-			TXA ("Fox 2!");
+			TXA (gstr474);
 			Speech (FOX2);
 		break;
         case W_AIM_120:
 		case W_AIM_54:
-			TXA ("Fox 3!");
+			TXA (gstr475);
 			Speech (FOX3);
 		break;
     }
@@ -1175,7 +1208,7 @@ FoxCall(weapon)
 //***************************************************************************
 LaunchCall()
 {
-	Message("Launch, Launch!",RIO_NOW_MSG);
+	Message(gstr741,RIO_NOW_MSG);
 	Speech(LAUNCH);
 	Sound(N_RadarLock, 1,0);
 }
@@ -1196,7 +1229,7 @@ int CheckBlastArea(long xval, long yval, int weapon, int cruise)
 			gdx = labs(gt[cnt].x - xval);
 			gdy = labs(gt[cnt].y - yval);
 			if((gdx < (long)2048) && (gdy < (long)2048)) {
-				Message("Ground Target Destroyed", RIO_MSG);
+				Message(gstr742, RIO_MSG);
 				gt[cnt].gflags = 0;
 				StartASmoke( xval, 120, yval, GRNDXPLO, 30 );
 

@@ -1,3 +1,7 @@
+extern char gstr2[];
+extern char gstr222[];
+extern char gstr223[];
+
 #include <io.h>
 #include <fcntl.h>
 #include "stdio.h"
@@ -40,10 +44,12 @@ struct emsfile{
    int   Seg;
    unsigned int paras;
    };
-struct emsfile far emsfiles[513];
+extern struct emsfile far emsfiles[513];
 
 
-int   far emspageuse[513];
+
+extern int   far emspageuse[513];
+
 
 char far *fstrcpy( char far *D, char far *S)
 {
@@ -61,11 +67,15 @@ fstrcmp(char far *D, char far *S)
    return( strcmp(str,str2) );
 }
 
-unsigned int NEMSSEG=0;
-unsigned int EMSHANDLE=0;
-int   EMSPagesFree=0;
+extern unsigned int NEMSSEG;
 
-int   NOTEXTURE=0;
+extern unsigned int EMSHANDLE;
+
+extern int EMSPagesFree;
+
+
+extern int NOTEXTURE;
+
 
 //***************************************************************************
 NewEmsFunction()
@@ -362,7 +372,7 @@ LoadEmsFile(char *Name)
    if ( (i=GetNextEMSfile()) ==0) return(0);
 
 //open file and return if open problem
-	if ( (stream=fopen(Name,"r+b")) ==0 ) return(0);
+	if ( (stream=fopen(Name,gstr222)) ==0 ) return(0);
 //get the file size
 	fsize=filelength(fileno(stream));
   	fclose( stream);
@@ -388,28 +398,24 @@ LoadEmsFile(char *Name)
 
 
 struct Zsheader
-	{    char Mfg;           /* ID for ZSoft files, 0A hex */
-        char Ver;           /* Version, 5 */
-        char Encode;        /* Encoded pic data if 1 */
-        char Bpp;           /* Bits/pixel */
-        int  X1;            /* Left col */
-        int  Y1;            /* Top row */
-        int  X2;            /* Right col */
-        int  Y2;            /* Bottom row */
-        int  Xres;          /* Horiz size of screen */
-        int  Yres;          /* Vert size of screen */
-        char zpal[48];      /* 3 bytes/palette reg */
-        char Vmode;         /* Video mode, ignored */
-        char Planes;        /* # color planes in pic */
-        int  Bpl;           /* Bytes/line in pic */
+	{    char Mfg;                                           
+        char Ver;                           
+        char Encode;                                   
+        char Bpp;                           
+        int  X1;                          
+        int  Y1;                         
+        int  X2;                           
+        int  Y2;                            
+        int  Xres;                                    
+        int  Yres;                                   
+        char zpal[48];                               
+        char Vmode;                                  
+        char Planes;                                   
+        int  Bpl;                                  
 			char pad[60];
-}ZHEAD={
-	0xa,5,1,8,0,0,640,480,640,480,
-		0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0,
-		0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0,
-	0,1,640
-
 };
+extern struct Zsheader ZHEAD;
+
 ReadPCX( char *name, char far *DST, int SETPAL)
 {
    return(ReadPCXSize( name, DST, SETPAL, 320, 200 ));
@@ -437,7 +443,7 @@ ReadPCXSize( char *name, char far *DST, int SETPAL, int XCLP, int YCLP)
 
 
 
-		if( (Handle=fopen(name,"rb"))!=NULL)
+		if( (Handle=fopen(name,gstr2))!=NULL)
 			{
 
 
@@ -524,7 +530,7 @@ ReadPCXSize( char *name, char far *DST, int SETPAL, int XCLP, int YCLP)
 
 
 
-		if( (Handle=fopen(name,"rb"))!=NULL)
+		if( (Handle=fopen(name,gstr2))!=NULL)
 			{
 
 
@@ -602,7 +608,7 @@ WritePCX(char *name,char far *map,int hs,int vs )
 	unsigned int k,m;
 	unsigned int d;
 
-	if( (Handle=fopen(name,"wb"))!=NULL)
+	if( (Handle=fopen(name,gstr223))!=NULL)
 		{
 
 
@@ -691,5 +697,6 @@ SetPallet( Block )
 	int86x(0x10, &R, &R, &SR );
 }
 
-int EMSPagesGrabbed=0;
+extern int EMSPagesGrabbed;
+
 
