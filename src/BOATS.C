@@ -369,6 +369,8 @@ void UpdateAIsOnCarrier(int boatnum, long cdx, long cdy)
 	}
 }
 
+extern int _pq0;
+extern int _pq1;
 void CheckBoatGunFiring()
 {
 	int dbulpitch, dbulhead;

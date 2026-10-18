@@ -753,6 +753,7 @@ GetQHeight(long X, long Z )
         return(CLOUDHEIGHT*2);
 }
 
+extern int _pq0;
 IsLand(long X, long Z )
 {
 
