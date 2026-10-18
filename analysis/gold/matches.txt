@@ -1,3 +1,4 @@
+48b6:0b6e n= 294 -> _CheckProximityHit               dev@40fb:0dce jac=0.68 lcs=0.60
 3ad2:0718 n=  99 -> _GetBehaviorLeader               dev@0000:0000 jac=0.00 lcs=0.00
 4a6f:0008 n=  99 -> _InitSound                       dev@0000:0000 jac=0.00 lcs=0.00
 2081:0005 n=  99 -> _LaunchAircraft                  dev@0000:0000 jac=0.00 lcs=0.00
@@ -12,7 +13,6 @@
 3ad2:0d08 n=  99 -> _CheckCAP                        dev@0000:0000 jac=0.00 lcs=0.00
 31ce:2cc5 n=  99 -> _CheckDetection                  dev@0000:0000 jac=0.00 lcs=0.00
 31ce:2cc5 n=  99 -> _CheckForMobileR5                dev@0000:0000 jac=0.00 lcs=0.00
-3ad2:0728 n=  99 -> _CheckProximityHit               dev@0000:0000 jac=0.00 lcs=0.00
 1017:02f9 n=  99 -> _CheckTurnStuff                  dev@0000:0000 jac=0.00 lcs=0.00
 1017:02f9 n=  99 -> _DisplayRioHead                  dev@0000:0000 jac=0.00 lcs=0.00
 3ad2:1fcc n=  99 -> _DoAltHover                      dev@0000:0000 jac=0.00 lcs=0.00
@@ -897,7 +897,6 @@
 2b89:0758 n=  32 -> _TAStoIAS                           dev@1952:1102 jac=0.61 lcs=0.51
 2b89:0047 n=  40 -> _DrawXploSprite                     dev@4341:0594 jac=0.58 lcs=0.51
 18de:0c6a n=  35 -> _AWG9_LOCK                          dev@0901:102e jac=0.58 lcs=0.51
-3ad2:0728 n=  86 -> _CheckAIBombs                       dev@25e2:8bae jac=0.60 lcs=0.50
 18de:21ec n= 113 -> _UpdateConsoleXY                    dev@0901:20fd jac=0.73 lcs=0.50
 172e:04c5 n=  29 -> _DrawShadow                         dev@06ca:06b0 jac=0.82 lcs=0.50
 18de:006c n=  34 -> _InitTWSData                        dev@0901:006c jac=0.73 lcs=0.50
