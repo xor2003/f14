@@ -904,3 +904,17 @@ Additional decode notes:
   source comparison flip (flip changed frame 6->0xa, worse). Parked.
 - First-diff table for all 160 DIFFs captured (build/ + /tmp): biggest
   cluster is 82 =~-only (data layout), rest are per-function codegen.
+- NQFLY.C fixes committed: SBox struct VIS2@6/VIS1@7 (retail layout —
+  proven by DoBox emitting +7-first under MSC6's offset-ascending leaf
+  canonicalization while DrawSBox tests VIS1 at +6); DrawSBox use-sites
+  retargeted (VIS2@184/211, VIS1@242); MakeBoxes `t>5/t=5` (was 6).
+- _DrawSBox stays MATCH after retarget; _DoBox residual = es save/reload
+  codegen for far-ptr field copies (parked); _MakeBoxes residual =
+  regalloc order (parked).
+- MSC6 leaf-order rules so far: '|' leaves emit by ascending field offset;
+  cmp/arith operand pick = later-bound symbol first; block then/else
+  placement invariant to source spelling; register residency (si/di/bx)
+  driven by use-count, not decl order or 'register' keyword.
+- _SearchForTargets/_CheckDataLink/_UpdateAIsOnCarrier: ours reads global
+  [0xa476] where gold reads local — likely file-scope var that retail
+  made function-local (needs deeper context diff).
