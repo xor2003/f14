@@ -1220,3 +1220,25 @@ Pending work queues:
 - lanes: padmod2 sweeps continue on PLANES3,N3D,SAMS,MESSAGE,MAP,HSD
   with corrected anchors; /tmp/pm2b_*.log; queues in /tmp/q_lane5,6.sh.
 - Orphaned kvikdos/C2.EXE procs killed (old t5 deadlock leftovers).
+
+## Session state: ~606/760 (46c958f, df61d19)
+
+Verified/committed this session:
+- TakingOff moved PLANES2.C->PLANES.C (retail seg 21ce). Function
+  symbols perturb symtable for all fns below insertion; downstream
+  pads must be re-swept after any move. di2=0 hoisted to fn top
+  (retail emits sub di,di before Gtime check; still needs di bind).
+- MESSAGE.C: Messages() merged from MyMessages + ejected/MSGDETAIL/
+  MsgEMS guards; Message() mprintfs removed (_Message MATCH at
+  1fc6:0009); _LoadMsgEMS MATCH at 1fc6:00ef; MsgBox uses DrawLine
+  (0bdc) not RectFill (07cc) for borders — 1 operand-order diff left.
+- DrawSweepDisplay: static timer throttle + RectFill bars — codegen
+  identical; residual diff = MPS-lib stub call target (layout class).
+- WingmanAdd: WING_PTR[WING_CNT++]=*t -> MATCH at 08de:3404.
+- fourpoints: 4 pads before def -> byte-identical (si=y,di=x bind).
+- Gold inlines View==PADLOCK/PILOT checks inside big MyMessages;
+  no standalone Messages wrapper exists in retail.
+
+In-flight: padmod2 lanes PLANES, PLANES2, PLANES3, MESSAGE, HUD2
+(resweeping TakingOff-move regressions: _Wall, _CheckTailAspect,
+_CoreCheckGunFiring, _GiveSanitizeMessage, _GetTargADP, _LGetTargADP).
