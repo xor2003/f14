@@ -1000,7 +1000,6 @@
 46ad:04cb n= 213 -> _CheckWingmanSix                    dev@3091:0cb8 jac=0.73 lcs=0.32
 3ad2:3df1 n= 245 -> _CheckBulletBetter                  dev@0dc6:0b96 jac=0.63 lcs=0.32
 15ce:1332 n=  71 -> _MapEmsFile                         dev@016c:0366 jac=0.61 lcs=0.31
-3fb2:6a38 n=  97 -> _DoPlayerOnTheCat                   dev@0eb6:1fbe jac=0.55 lcs=0.31
 220f:0aa6 n= 163 -> _DrawSweepDisplay                   dev@13ba:380c jac=0.54 lcs=0.31
 48b6:1121 n= 195 -> _ScottFlight                        dev@1952:16b8 jac=0.74 lcs=0.31
 2cac:0077 n= 146 -> _JoyRecal                           dev@2201:0082 jac=0.52 lcs=0.31
@@ -1034,7 +1033,6 @@
 2081:1274 n= 338 -> _LocalCmds                          dev@11df:1792 jac=0.49 lcs=0.21
 31ce:0006 n= 772 -> _ChooseBehavior                     dev@25e2:3f4e jac=0.59 lcs=0.21
 2cac:07d3 n= 112 -> _LoadSprites                        dev@4341:000c jac=0.61 lcs=0.20
-18de:2ad4 n=  91 -> _DoPlayerOnTheCat                   dev@0eb6:1fbe jac=0.65 lcs=0.19
 2f37:0004 n= 579 -> _RioMap                             dev@3fce:0c3c jac=0.51 lcs=0.17
 31ce:86b4 n= 690 -> _TrackBullets                       dev@0dc6:0278 jac=0.74 lcs=0.16
 220f:2c73 n= 448 -> _HsdCrt                             dev@20c2:09e4 jac=0.66 lcs=0.15

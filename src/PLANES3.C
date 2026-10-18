@@ -350,13 +350,17 @@ int CheckIfCanIntercept(int planenum, int tdist)
 int GetCloseAirBase(int ainum, int friend, COORD *distval)
 {
     int     b, r, j;
-    COORD   d, tdist;
+    COORD   tdist;
+    volatile COORD   d;
 
     tdist = 0x7fff;
     for (j=0; j<NRADAR; j++) {
-        if (((Rdrs[j].status&(AIRBASE+NEUTRAL+DESTROYED))==AIRBASE)
+        if (((Rdrs[j].status&(AIRBASE+DESTROYED))==AIRBASE)
 				&& ((Rdrs[j].status & (FRIENDLY|NEUTRAL)) != (friend))){
-            d =xydist (ps[ainum].x-Rdrs[j].x, ps[ainum].y-Rdrs[j].y);
+			if (ainum == -1)
+				d =xydist (Px-Rdrs[j].x, Py-Rdrs[j].y);
+			else
+				d =xydist (ps[ainum].x-Rdrs[j].x, ps[ainum].y-Rdrs[j].y);
 
             if (d<tdist) {
                 tdist = d;
