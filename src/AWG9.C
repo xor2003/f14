@@ -185,7 +185,6 @@ int AWG9()
 	setjmp(resetmark);
 	InitMode();
 
-	set_acq();
 	CheckAZELChange();
 	UpdateBeam();
 	TargetTrack();

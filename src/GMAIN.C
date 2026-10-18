@@ -10,7 +10,6 @@
 //***************************************************************************
 #include <stdio.h>
 #include <fcntl.h>
-#include <dos.h>
 #include "types.h"
 #include "io.h"
 #include "library.h"

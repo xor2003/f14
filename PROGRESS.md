@@ -547,3 +547,47 @@ Gold-only scheduler port pending: AWG9() tail calls FUN_08de_306c
 (counter-gated: [0x12d0]++ >0xa -> call 0x3431 + reset; then calls
 0x30d8, 0x31b2, 0x308e) gated by [0xae9c]==0x12. Gold lacks our
 SearchForTargets() call in AWG9() head.
+
+=== AWG9 tail scheduler decode (for next port pass) ===
+Gold AWG9() head has NO set_acq() call (removed from ours — head now
+byte-matches through DetermineShootParams). Gold tail before Aim9Sound:
+    cmp word [0xae9c], 0x12   ; behavecommands == OTHERWINGAI (18, SHIFT-F8)
+    jnz skip; call 0x306c
+Mapping evidence: gold [0xae9c]==0x12 appears 3x (AWG9 + 2 wingman-cmd
+sites); ours cmp [0x9d04]=_behavecommands ==0x12 3x. [0x1052] pairs to
+our _DataLink@0xf08.
+
+GOLD-ONLY helpers to port (AWG9_TEXT, before/after ~0x306c):
+- FUN_306c (22B): ctr[0x12d0]++; if(ctr>10){F3431();ctr=0;} F30d8();F31b2();F308e();
+- FUN_3431 (1fB): [0x104e]=0xbb2e; [0xbe30]=0; for(i<numplanes)w[0x76ec+i]=0
+- FUN_308e (4aB): flag fixup — [0x906e]=0; if([0xc564]==0 && [0x1054]!=0){
+    if([0x6972]){[0x906e]=1;[0x102c]=[0x66a2];ret}
+    if([0x102c]==-1){[0x906e]=0;[0x102c]=-1;ret} [0x906e]=1; ret}
+    else if([0x102c]!=-1)[0x906e]=1;
+- FUN_30d8 (daB): TARGFILE filler — for(i<numplanes){ bx=rec(0x7e7c+0x28i);
+    if(!(bx->f0&2)||bx->f2==0||TBL[0x76ec+i]!=0)continue;
+    F325a(i,&T@bp-34); if(T.f@-28<0)continue;
+    lobound=(T.f@-34==0?0xee:0x1dc0); hibound=(…?0xa:0x1d6);
+    skip if (dx:ax)<lobound or >hibound on [bp-20] (32-bit cmp);
+    x=math1e8c:5f([bp-28],[bp-2c]); y=math1e8c:5f([bp-28],[bp-2a]);
+    az=angle18a7:19e(x); if(az>[0x103a])continue;
+    el=angle18a7:19e(-y);if(el>[0x1036])continue;
+    F3404(&T); TBL[i]++; }
+- FUN_31b2 (a8B): sel fixup — if([0xbe30]==0){[0x102c]=-1;[0x906e]=0;ret}
+    if([0x1054]){ if([0x102c]==-1)goto adopt; scan recs@si=[0x104e]
+      stride0x32 dx<[0xbe30]: rec->f1a=[0x102c]; if(rec->f1a!=0){cx=1;break}
+      if(!cx)adopt: [0x102c]=[0x104e]->f1a }
+    if([0x102c]==-1)ret; AWG9_project(5 pushes rec@0x7e6a+sel*0x28);
+    if(ax==-1){[0x102c]=-1;ret}
+    [0x7df8]=[0x7e52]-[0x2f3a]; [0x7e0a]=[0x8960]-[0x2f3c]; [0x906e]=1;
+- FUN_325a (178B) called by 30d8: fill TARGET(si,&T) — likely pairs our
+  _SetupNewTarget (ours 0xec) or gold-only larger variant — CHECK.
+- FUN_3404 (2dB) called by 30d8 tail: add-to-TARGFILE-ish.
+Global identity work needed: [0xbe30]=?count(AGEDTARGFILECNT?),
+[0x104e]=?ptr->0x32-stride recs (DESIG_TARG? sizeof check),
+[0x102c]=?selected(SelectedTarg=ours@0x9c96, region differs — verify),
+[0x906e]=?flag, [0x1054]=?(_InRangeFlash@0xf10 by -0x144),
+[0x76ec]=int-per-plane tbl, [0x7e7c]=ps[]-ish 0x28-stride recs,
+[0x12d0]=?junktime-adjacent counter(ours 0x118c region),
+[0x66a2],[0x6972],[0xc564],[0x103a],[0x1036],[0x7e52],[0x8960],
+[0x2f3a],[0x2f3c],[0x7df8],[0x7e0a],[0x104e]->0xbb2e = TBD.
