@@ -1260,3 +1260,34 @@ _CoreCheckGunFiring, _GiveSanitizeMessage, _GetTargADP, _LGetTargADP).
 - PLANES2 lane applied: _SetUpWingman p=10, _CheckWingmanSix p=5.
 - DGROUP: gold i@0x619a vs mine 0xf45c -> my DGROUP much smaller;
   gstr/global ordering needs retail-order reconstruction in GDSEG.
+
+## 614/761
+- Inner-extern global alias = THE leaf-order lever for param-vs-global:
+  declaring `extern UWORD Altx;` INSIDE the fn binds the global AFTER
+  params -> deltalt evaluated first = gold order (LGetTargADP ndiff 0).
+- objfn.py unreliable on big objs (pub/extent) - use linked exe + map.
+- _DoHover: aln anchor 2ad2:40e4 wrong - my 9-insn stub needs byte-search.
+- pitchnum/MsgBox: param>local and param>param leaf ranking immovable
+  so far (source order, pads, decl order all inert).
+- 13 fns codegen-identical modulo relocs (DGROUP/seg-layout convergence
+  will auto-fix): CheckAAAHit DetermineShootParams DoOClockCall
+  DoPlayerOnTheCat DrawSweepDisplay FriendlyChooseBehavior NDDot NDLine
+  NPFLine Perspect3D ShowOurWPS TrackDisplayPosition UpdateOurPlaneAnims.
+
+## Turn: 615 -> 620 verified (snap7 race-free rebuild)
+
+Race-free snapshot link (all lanes frozen into /tmp/snap7) verified 620/761.
+New MATCHES this turn: _show_plane, _show_jamming (TEWS retail recon),
+_AICoreRadarCheck, _AISanitizeCheck, _AWG9_project + lane pads.
+
+TEWS reconstructions (committed cf3a569): show_plane x=(len-1)/2+2 CRT_Y-3;
+show_jamming else-branch prints gstr758; show_radar x=(len-1)/2+1 CRT_Y-3.
+horiz_line: retail draws ONE DrawLine pts[0]->pts[1] (second call removed).
+Residual _show_radar/_horiz_line diffs: param/local leaf-order + relocs.
+
+Open leaf-order classes (source-order-invariant in MS C6):
+- param > local wins ax (pitchnum ox+x-1, MsgBox arg) — parked
+- param > param symtable ordering (MsgBox Len+StartX) — parked
+- _LGetTargADP global-first leaf rank despite inner-extern — parked
+- _CheckTailAspect: gold reads distinct retail global 0xae26 (not PyLng_lo)
+- _MapLoc: thunk-call vs far-call structure — needs real reconstruction
