@@ -331,7 +331,7 @@ FLIGHT ()
         }
 
 //        ejectZ += rng (32-(++ejected), -256/FrameRate, 128/FrameRate);
-        ejectZ += rng (32-(++ejected), -128/FrameRate, 128/FrameRate);
+        ejectZ += rng (32-(++ejected), -64/FrameRate, 64/FrameRate);
         if ((ejectZ<0) || (ejected > (20 * FrameRate))) {
             ejectZ = 0;
             if (!(Gtime&3)) EndGame (EJECTEND);

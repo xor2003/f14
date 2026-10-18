@@ -168,10 +168,10 @@ CheckLandingAndCrash()
 	MinAlt=0;
 
     if ((RadarAlt<=0) || (OurAlt < 1)) {
-		if ((Status&TRAINING) || (ConfigData.CrashMode==0)) {
+		if ((Status&TRAINING) || (ConfigData.CrashMode==0) || (Gtime<2)) {
 
-			OurAlt  += 10;
 			RadarAlt+= 10;
+			OurAlt  += 10;
 			if (OurAlt > 10) {
 				OurAlt += 490;
 				RadarAlt += 490;
@@ -180,26 +180,24 @@ CheckLandingAndCrash()
 			Alt += 10/4;
 			OurRoll = OurPitch = 0;
 			MakeRotationMatrix (FM, OurHead,OurPitch,OurRoll);
-			if (REALFLIGHT) {
-				PxLng++;
-				GetHPR(FPARAMS.MAT,&OurHead,&OurPitch,&OurRoll);
-				MakeMatHPR( OurHead,0,0, FPARAMS.MAT);
-				FPARAMS.VEL[1]=0;
-			}
+			PxLng++;
+			GetHPR(FPARAMS.MAT,&OurHead,&OurPitch,&OurRoll);
+			MakeMatHPR( OurHead,0,0, FPARAMS.MAT);
+			FPARAMS.VEL[1]=0;
 			return(1);
 		}
 
 		if (ConfigData.CrashMode==1) {
 			Sound(N_LoudExplo,2,0);
 			WaitTicks (60);
-			LogIt (SLG_AIR_CRASH, -1, PxLng, (0x100000 - PyLng), Alt, -999, -999, 0L, LOG_AIR);
+			if (!ejected) LogIt (SLG_AIR_CRASH, -1, PxLng, (0x100000 - PyLng), Alt, -999, -999, 0L, LOG_AIR);
 			EndGame(0);
 		}
 
 		if (ConfigData.CrashMode==2) {
 			Sound(N_LoudExplo,2,0);
 			WaitTicks (60);
-			LogIt (SLG_AIR_CRASH, -1, PxLng, (0x100000 - PyLng), Alt, -999, -999, 0L, LOG_AIR);
+			if (!ejected) LogIt (SLG_AIR_CRASH, -1, PxLng, (0x100000 - PyLng), Alt, -999, -999, 0L, LOG_AIR);
   			EndGame(0);
 		}
 	}
