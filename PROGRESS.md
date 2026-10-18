@@ -893,3 +893,14 @@ Additional decode notes:
   82 are =~/~~-only (zero '!=' insns). =~ collisions arise when the SAME
   gold offset pairs to different ours offsets inside one routine — real
   access-order/codegen differences, NOT a bulk-fixable class.
+- _EasyLanding extent fixed (R22c1-24a0 continuous): bodies identical
+  through tail; ONLY remaining diff is then/else placement of the
+  `--landpt` vs else-chain at 0x246f — resistant to polarity swap AND
+  else-if flatten AND negated-block swap (MSC6 block-order invariant).
+- FUN_1604_0dda==_Get1GTrim, FUN_1604_0c69==_InitScottFlight (byte-twins
+  confirmed via mzdiff). EasyLanding tail calls match in source already.
+- _GetEmsMem/_ResizeEmsMem: gold `cmp [EMS],ax(local i)` vs ours
+  `mov ax,[EMS]; cmp [i],ax` — operand choice resists decl reorder AND
+  source comparison flip (flip changed frame 6->0xa, worse). Parked.
+- First-diff table for all 160 DIFFs captured (build/ + /tmp): biggest
+  cluster is 82 =~-only (data layout), rest are per-function codegen.
