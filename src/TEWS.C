@@ -479,6 +479,7 @@ int show_jamming()
 
 
 //***************************************************************************
+extern int _cx0;
 int convert_xy(x,y)
 {
 	int dx,dy,r,a;
