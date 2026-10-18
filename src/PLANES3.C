@@ -922,8 +922,8 @@ void CheckE2C(int planenum)
 	int targnum;
 	COORD targdist;
 	struct PlaneData far *ptmptype;
-    COORD       dist;
     int         signal;
+    COORD       dist;
     int         angl;
 
 
