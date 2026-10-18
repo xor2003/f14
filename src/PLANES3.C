@@ -2701,6 +2701,22 @@ int FriendStatus(int planenum)
 	return((ps[planenum].status & (FRIENDLY|NEUTRAL)));
 }
 
+extern int _pq0;
+extern int _pq1;
+extern int _pq2;
+extern int _pq3;
+extern int _pq4;
+extern int _pq5;
+extern int _pq6;
+extern int _pq7;
+extern int _pq8;
+extern int _pq9;
+extern int _pq10;
+extern int _pq11;
+extern int _pq12;
+extern int _pq13;
+extern int _pq14;
+extern int _pq15;
 int FriendMatch(int plane1, int plane2)
 {
 
@@ -4561,6 +4577,11 @@ out:
 	return;
 }
 
+extern int _pq16;
+extern int _pq17;
+extern int _pq18;
+extern int _pq19;
+extern int _pq20;
 void DoGroupAction(int planenum, int actionflag, int waypt)
 {
 	int wingcnt;

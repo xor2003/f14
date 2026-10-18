@@ -94,14 +94,14 @@ pitchnum(int w,int pitch,int dist,int off,int ox,int oy) { // draw numbers on a 
    int x,y;
 	extern char gstr113[];
 
-   x=abs(pitch-dist-off)/10;
+   x=abs(pitch-off-dist)/10;
    if (x>8) x=9-(x%8);               // max pitch 90 degrees
    itoa(x,Txt,10);
-   Rotate2D( w,dist+off,OurRoll,&x,&y);
+   Rotate2D( w,off+dist,OurRoll,&x,&y);
    x=x*22/30;
    y=y*22/30;  // rotate 0 into position, dist+off is distance from center of pitch bar
    RpPrint(RpCRT,ox+x-1,oy+scaley(y)-1,gstr113);
-   Rotate2D(-w,dist+off,OurRoll,&x,&y);
+   Rotate2D(-w,off+dist,OurRoll,&x,&y);
    x=x*22/30;
    y=y*22/30;  // rotate 0 to 8 into position
    if (Txt[0]=='1') x+=2;                                      // if printing a '1' then shift over because not using proportional font, ie font 7

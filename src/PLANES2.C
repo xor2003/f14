@@ -110,6 +110,16 @@ extern confData ConfigData;
 
 
 
+extern int _pq0;
+extern int _pq1;
+extern int _pq2;
+extern int _pq3;
+extern int _pq4;
+extern int _pq5;
+extern int _pq6;
+extern int _pq7;
+extern int _pq8;
+extern int _pq9;
 void SetUpWingman(int leadnum, int b, int numadd, int planeid)
 {
 	int startval;
@@ -604,6 +614,11 @@ void CloseInFight(int tanglel, int wingnum, int leadernum)
 	}
 }
 
+extern int _pq10;
+extern int _pq11;
+extern int _pq12;
+extern int _pq13;
+extern int _pq14;
 int CheckWingmanSix(int wingnum)
 {
 	int cnt;
@@ -4525,153 +4540,6 @@ void GorillaBomb()
 }
 
 /*----------*/
-TakingOff () {
-	int   leader;
-	int   cnt;
-	int   di2;
-	int   temphead;
-	int   speedval;
-	int   dv;
-	int   rbi;
-	int   basehead;
-	COORD xloc, yloc;
-	UWORD zloc;
-	int   behavenum, formnum, altval, headval, attack, launch, wpflag;
-
-	if(Gtime < 5)
-		return 0;
-
-	if((ps[i].base < 0) && (bv[i].threathead < 0) && (bv[i].groundt != -1)
-		&& (aiwaypoints[bv[i].groundt].x <= -1L)) {
-		bv[i].basespeed = 0;
-		ps[i].speed = 0;
-		if(bv[i].threathead > -5)
-			MoveAIToCat(i, -1 - bv[i].threathead);
-		return 0;
-	}
-
-	if(bv[i].Behavior == Ready5) {
-		bv[i].basespeed = 0;
-		ps[i].speed = 0;
-		return 0;
-	}
-
-	di2 = 0;
-	if(ptype->bclass == 0x28) {
-		if(bv[i].varcnt > Gtime) {
-			psi->speed = 0;
-			bv[i].basespeed = 0;
-			pdest = 0;
-			droll = 0;
-			psi->roll = 0;
-			return 0;
-		}
-		if(bv[planecnt].basespeed < 0x64) {
-			bv[i].varcnt = 0;
-			if(bv[i].basespeed <= 0x1e) {
-				speedval = bv[i].basespeed;
-				bv[i].Behavior();
-				bv[i].basespeed = speedval;
-			}
-			bv[planecnt].basespeed += 3;
-			ps[planecnt].speed += 3;
-			ps[planecnt].roll = 0;
-			droll = 0;
-		}
-		else {
-			bv[planecnt].basespeed = ptype->speed - (ptype->speed >> 2);
-			GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval,
-				&altval, &headval, &attack, &launch, &wpflag, -1);
-			if(speedval != -1)
-				bv[i].basespeed = AltSpeedConv(ps[i].alt, speedval);
-			ps[i].status &= ~TAKEOFF;
-			LogIt(SLG_AIR_TAKEOFF, i, ps[i].xL, ps[i].yL, ps[i].alt,
-				-999, -999, 0L, LOG_AIR);
-		}
-		pdest = (ps[i].alt < 0xc8) ? 0x2000 : 0;
-		return 0;
-	}
-
-	rbi = ReturnBaseInfo(psi->base, &xloc, &yloc, &zloc, &basehead);
-	if(rbi) {
-		for(leader = GetSquadLeader(i); leader >= 0; leader = bv[leader].nextsec) {
-			for(cnt = leader; cnt >= 0; cnt = bv[cnt].wingman) {
-				if(cnt == i) {
-					if(di2 == 0)
-						di2 = 1;
-				}
-				else if((ps[cnt].status & TAKEOFF) && (ps[cnt].status & ACTIVE)
-					&& (ps[cnt].status & ALIVE) && (di2 == 0))
-					di2 = -1;
-			}
-		}
-	}
-	if(di2 == -1) {
-		psi->speed = 0;
-		droll = 0;
-		pdest = 0;
-		return 0;
-	}
-	if(bv[i].varcnt > Gtime) {
-		psi->speed = 0;
-		bv[i].basespeed = 0;
-		pdest = 0;
-		droll = 0;
-		psi->roll = 0;
-		return 0;
-	}
-	if(bv[i].varcnt != 0) {
-		bv[i].basespeed = 0xa;
-		bv[i].varcnt = 0;
-		psi->speed = 0xa;
-		if((ps[i].base < 0) && (bv[i].threathead >= 0) && (bv[i].threathead < 4)) {
-			PlaneLaunched(bv[i].threathead, i);
-			GetNextLaunch(i);
-		}
-	}
-	droll = 0;
-	temphead = bv[i].threathead;
-	if(bv[i].basespeed <= 0x1e) {
-		speedval = bv[i].basespeed;
-		bv[i].Behavior();
-		bv[i].basespeed = speedval;
-		psi->roll = 0;
-		droll = 0;
-	}
-	bv[i].threathead = temphead;
-	if(psi->speed < 0xb2) {
-		psi->pitch = 0;
-		psi->roll = 0;
-		droll = 0;
-	}
-	else if(psi->pitch < 0x400) {
-		psi->pitch += 0x100 / Fticks;
-		if(psi->roll < 0x1000)
-			droll = 0x200;
-	}
-	pdest = psi->pitch;
-	if((ptype->speed > psi->speed) && (psi->speed < 0xdc)) {
-		dv = ((rbi == 0) ? 0x14 : ((psi->speed < 0x96) ? 0x4b : 7)) / Fticks;
-		if(dv == 0)
-			dv = 1;
-		psi->speed += dv;
-		bv[i].basespeed += dv;
-	}
-	else if(((GetQHeight(psi->xL, psi->yL) >> 2) + 0x50) < psi->alt) {
-		bv[planecnt].basespeed = ptype->speed - (ptype->speed >> 2);
-		GetWayPointChanges(bv[i].groundt, &behavenum, &formnum, &speedval,
-			&altval, &headval, &attack, &launch, &wpflag, -1);
-		if(speedval != -1)
-			bv[i].basespeed = AltSpeedConv(ps[i].alt, speedval);
-		ps[i].status &= ~TAKEOFF;
-		LogIt(SLG_AIR_TAKEOFF, i, ps[i].xL, ps[i].yL, ps[i].alt,
-			-999, -999, 0L, LOG_AIR);
-		return 0;
-	}
-	if(bv[i].basespeed > ptype->speed)
-		bv[i].basespeed = ptype->speed;
-	return 0;
-}
 
 int Langle(long x, long y)
 {
@@ -4691,16 +4559,13 @@ int Langle(long x, long y)
 	return(ARCTAN((int) x, (int) y));
 }
 
-extern int _pd10;
-extern int _pd11;
-extern int _pd12;
-extern int _pd13;
 void LGetTargADP(int planenum, long dx, long dy, COORD *tdist, int *tpitch, int *tangle, COORD *tdistnm, int *enemyalt, int deltalt, long *ldist)
 {
 	int holddist;
 	int tdx, tdy;
 	int junkangle, junkangle2;
 	long holddist2;
+	extern UWORD Altx;
 	extern char gstr563[];
 	extern char gstr564[];
 	extern char gstr565[];
@@ -4713,7 +4578,7 @@ void LGetTargADP(int planenum, long dx, long dy, COORD *tdist, int *tpitch, int 
 	holddist2 = *ldist = LDist2D(dx, dy);
 
 	if(bv[planenum].target == -1) {
-		*tpitch = GetAltPitch(ps[planenum].alt, (Alt + deltalt), *tdist);
+		*tpitch = GetAltPitch(ps[planenum].alt, (Altx + deltalt), *tdist);
 		*enemyalt = Alt;
 	}
 	else {
@@ -4902,6 +4767,12 @@ long LDist2D(long x, long y)
 	return(returnval);
 }
 
+extern int _pq15;
+extern int _pq16;
+extern int _pq17;
+extern int _pq18;
+extern int _pq19;
+extern int _pq20;
 long absL(long x)
 {
     return(x>0 ? x:-x);
