@@ -4565,7 +4565,6 @@ void LGetTargADP(int planenum, long dx, long dy, COORD *tdist, int *tpitch, int 
 	int tdx, tdy;
 	int junkangle, junkangle2;
 	long holddist2;
-	extern UWORD Altx;
 	extern char gstr563[];
 	extern char gstr564[];
 	extern char gstr565[];
@@ -4578,7 +4577,7 @@ void LGetTargADP(int planenum, long dx, long dy, COORD *tdist, int *tpitch, int 
 	holddist2 = *ldist = LDist2D(dx, dy);
 
 	if(bv[planenum].target == -1) {
-		*tpitch = GetAltPitch(ps[planenum].alt, (Altx + deltalt), *tdist);
+		*tpitch = GetAltPitch(ps[planenum].alt, (deltalt + Alt), *tdist);
 		*enemyalt = Alt;
 	}
 	else {
