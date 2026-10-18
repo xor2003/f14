@@ -39,11 +39,11 @@ static int hpts[6][2] = {
 DoDDD(int CrtNr)
 {
 	if (Damaged&D_AWG9) {
-    	RectFill (RpCRT, 0,0, RpCRT->Width1+1,RpCRT->Length1+1, BLACK);
+    	RectFill (RpCRT, 0,0, RpCRT->Width1+1,RpCRT->Length1+1, 82);
 		return(1);
 	}
 
-    RectFill(RpCRT, 0,0, RpCRT->Width1+1,RpCRT->Length1+1, 21);
+    RectFill(RpCRT, 0,0, RpCRT->Width1+1,RpCRT->Length1+1, 82);
 	if (!AWG9_SNIFF) {
 		show_az_carat();
 		ShowTargets();
@@ -133,10 +133,9 @@ int ShowTargets()
 //************************************************************************
 int DDDTargetDraw(TARGET *t, int age)
 {
-	int   d, clr;
-	int   x1,y1,x2,y2,off;
+	register int clr;
 
-	clr = 19 + age;
+	clr = (age) ? 88 : 84;
 
 	// draw block
 	DrawLine(RpCRT,t->x-1,t->y-1,t->x+1,t->y-1,clr);

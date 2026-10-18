@@ -364,7 +364,7 @@
 1125:0805 n=  20 -> _GetPallet                          dev@016c:0a0c jac=0.69 lcs=0.82
 1125:083e n=  20 -> _GetPallet                          dev@016c:0a0c jac=0.69 lcs=0.82
 18de:230b n=  20 -> _AddTargetFile                      dev@0901:2baa jac=0.69 lcs=0.82
-18de:306c n=  13 -> _HUD_standard                       dev@1f3b:003e jac=0.69 lcs=0.82
+18de:306c n=  13 -> _WingmanAISched                                             dev@1f3b:003e jac=0.69 lcs=0.82
 50b5:06ba n=  20 -> _GetPallet                          dev@016c:0a0c jac=0.83 lcs=0.82
 1c38:0a9e n= 114 -> _FormationBoat                      dev@0cc8:0d4a jac=0.78 lcs=0.82
 2cac:05da n=  11 -> _ReadPCX                            dev@016c:0816 jac=0.69 lcs=0.81
@@ -398,7 +398,7 @@
 220f:2068 n= 210 -> _DrawStores                         dev@13ba:3478 jac=0.79 lcs=0.79
 18de:1cc1 n=  23 -> FUN_1901_2440                       dev@0901:2440 jac=0.71 lcs=0.79
 2b89:0720 n=  22 -> FUN_30c2_0812                       dev@20c2:0812 jac=0.78 lcs=0.79
-18de:3404 n=  19 -> _AddTargetFile                      dev@0901:2baa jac=0.65 lcs=0.79
+18de:3404 n=  19 -> _WingmanAdd                                                dev@0901:2baa jac=0.65 lcs=0.79
 4a6f:00b5 n=  21 -> _Sound                              dev@4312:00d8 jac=0.79 lcs=0.79
 3ad2:4184 n=  86 -> _AIGoHome                           dev@3091:56b2 jac=0.68 lcs=0.79
 3ad2:4cb3 n=  54 -> _sinXL                              dev@3091:6488 jac=0.68 lcs=0.79
@@ -678,7 +678,7 @@
 2cac:0459 n= 140 -> _NWaitShowJoy                       dev@2201:0432 jac=0.68 lcs=0.63
 18de:2881 n=  23 -> _MissilesInAir                      dev@40fb:1d62 jac=0.61 lcs=0.62
 18de:2df8 n=  23 -> _MissilesInAir                      dev@40fb:1d62 jac=0.61 lcs=0.62
-18de:308e n=  20 -> _IsBombing                          dev@36f4:3ba0 jac=0.61 lcs=0.62
+18de:308e n=  20 -> _WingmanFixup                                                  dev@36f4:3ba0 jac=0.61 lcs=0.62
 4e88:0f1a n=  22 -> _WithinVisualRange                  dev@47e3:0d2a jac=0.61 lcs=0.62
 189f:019b n=  13 -> _FriendMatchType                    dev@36f4:3c4c jac=0.81 lcs=0.62
 3fb2:63b2 n= 106 -> _DoGroupAction                      dev@36f4:7420 jac=0.69 lcs=0.62
@@ -822,7 +822,7 @@
 2604:0f3d n=  71 -> _filelength                         dev@4a3f:0920 jac=0.64 lcs=0.52
 189f:0041 n=  14 -> _ResetCockpitLights                 dev@13ba:413a jac=0.52 lcs=0.51
 18de:2337 n=  34 -> _DelTargetFile                      dev@0901:2bdc jac=0.68 lcs=0.51
-18de:31b2 n=  58 -> FUN_1901_13a4                       dev@0901:13a4 jac=0.68 lcs=0.51
+18de:31b2 n=  58 -> _WingmanSelect                                              dev@0901:13a4 jac=0.68 lcs=0.51
 50b5:0000 n=  47 -> _MapIn3dObjects                     dev@0533:023e jac=0.67 lcs=0.51
 47ba:02ef n= 101 -> _JetisonSwitch                      dev@13ba:4736 jac=0.76 lcs=0.51
 3fb2:66fb n=  53 -> _GetPlaneLanding                    dev@36f4:70ae jac=0.56 lcs=0.51
@@ -832,11 +832,11 @@
 2b89:0047 n=  40 -> _DrawXploSprite                     dev@4341:0594 jac=0.58 lcs=0.51
 18de:0c6a n=  35 -> _AWG9_LOCK                          dev@0901:102e jac=0.58 lcs=0.51
 3ad2:0728 n=  86 -> _CheckAIBombs                       dev@25e2:8bae jac=0.60 lcs=0.50
-18de:21ec n= 113 -> _show_az_carat                      dev@185a:0094 jac=0.73 lcs=0.50
+18de:21ec n= 113 -> _UpdateConsoleXY                    dev@0901:20fd jac=0.73 lcs=0.50
 172e:04c5 n=  29 -> _DrawShadow                         dev@06ca:06b0 jac=0.82 lcs=0.50
 18de:006c n=  34 -> _InitTWSData                        dev@0901:006c jac=0.73 lcs=0.50
 18de:1b0e n=  23 -> _NewTacView                         dev@47e3:0c5e jac=0.57 lcs=0.50
-18de:3431 n=  12 -> _Shift3X3                           dev@06ca:01d0 jac=0.47 lcs=0.50
+18de:3431 n=  12 -> _WingmanListReset                                               dev@06ca:01d0 jac=0.47 lcs=0.50
 3fb2:0100 n=  16 -> _sgn                                dev@44e8:0160 jac=0.52 lcs=0.50
 3fb2:4e4b n= 305 -> _CheckTurnStuff                     dev@36f4:5a26 jac=0.63 lcs=0.50
 4be9:0153 n=  16 -> _sgn                                dev@44e8:0160 jac=0.45 lcs=0.50
@@ -945,7 +945,7 @@
 28d5:0134 n=  32 -> _EMMMAPPAGE                         dev@0375:00a9 jac=0.55 lcs=0.39
 4a9a:0a32 n= 235 -> _HandleSmoke                        dev@4341:0d72 jac=0.62 lcs=0.39
 3060:0b0c n= 148 -> _AddAcqList                         dev@0901:3300 jac=0.68 lcs=0.38
-18de:30d8 n=  93 -> FUN_1901_13a4                       dev@0901:13a4 jac=0.50 lcs=0.38
+18de:30d8 n=  93 -> _WingmanScan                                                dev@0901:13a4 jac=0.50 lcs=0.38
 50b5:074a n= 132 -> _GenDsp                             dev@47e3:0008 jac=0.66 lcs=0.38
 220f:0006 n= 102 -> _GenDsp                             dev@47e3:0008 jac=0.52 lcs=0.38
 3fb2:4a51 n= 114 -> _LetNextPlaneLand                   dev@36f4:6ee0 jac=0.64 lcs=0.38
@@ -1067,3 +1067,5 @@
 3fb2:0467 n= 401 -> _VectorIntercept                      dev@0000:0000 jac=1.00 lcs=1.00
 2a48:77bc n=  18 -> _AIRadarForwardCheck                dev@25e2:8f36 jac=1.00 lcs=1.00
 2a48:77e1 n=  18 -> _AIRadarRearCheck                   dev@25e2:8f6e jac=1.00 lcs=1.00
+2528:008e n=  73 -> _show_az_carat                      dev@13de:008c jac=0.80 lcs=0.80
+2528:000c n=  66 -> _DoDDD                              dev@13de:000a jac=0.80 lcs=0.80
