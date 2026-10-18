@@ -1242,3 +1242,21 @@ Verified/committed this session:
 In-flight: padmod2 lanes PLANES, PLANES2, PLANES3, MESSAGE, HUD2
 (resweeping TakingOff-move regressions: _Wall, _CheckTailAspect,
 _CoreCheckGunFiring, _GiveSanitizeMessage, _GetTargADP, _LGetTargADP).
+
+## Late-session notes
+- __amsg_exit (RTL): instruction-identical, only DGROUP/call offsets
+  differ -> resolves at data-layout convergence, same as ~10 others.
+- _FLIGHT: first ~50 insns match; diverges mid-body where mine has a
+  guard structure gold lacks (if x==0 skip vs direct imul).
+- _MsgBox: 1 residual = operand-order in Len+StartX (regalloc pick);
+  invariant to pads/locals/param-order probes. Parked.
+- Module diff census (snap6): PLANES15 CMDS14 PLANES2 12 PLANES3 10
+  COCKPIT10 BOATS9 GMAIN7 3DPLANES7 TEWS5 + long tail.
+- Lanes running: padmod2 on PLANES,PLANES2,PLANES3,COCKPIT,GMAIN,
+  3DPLANES,TEWS,AWG9 + serial queues /tmp/pm_queue{1,2}.log
+  (CARR,3DLOADER,MAP,CARRAI,BULLETS,AAAHIT,3DSCENE,NPOLYS,RIOMAP,
+  FLIGHT2 | NQFLY,LOADMISS,TAC,WORLD,SPRITES,MONOPRIN,RADARS,SAMS,
+  N3D,TID). Finished-clean: MESSAGE,HUD2,CMDS,BOATS (no new pads).
+- PLANES2 lane applied: _SetUpWingman p=10, _CheckWingmanSix p=5.
+- DGROUP: gold i@0x619a vs mine 0xf45c -> my DGROUP much smaller;
+  gstr/global ordering needs retail-order reconstruction in GDSEG.
