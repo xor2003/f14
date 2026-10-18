@@ -33,7 +33,7 @@ EMSint	MACRO	func
 
 	cmp	EMSseg,0
 	jnz	Exec
-	call	EMSinit
+	call	far ptr EMSinit
 	jz	Exec
 	jmp	Exit
 Exec:
@@ -80,7 +80,7 @@ EMSinit	PROC
 
 	mov	EMSseg,0
 
-	call	EMSprsnt
+	call	far ptr EMSprsnt
 	.286
 	shl	ax,8
 	.8086

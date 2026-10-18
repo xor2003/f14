@@ -2685,7 +2685,7 @@ CheckDataLink()
 	int temptime;
 	int curtime;
 	static int lasttime;
-	extern int NPLANESx;
+	extern int NPLANESy;
 
 
 	curtime = GETTIME();
@@ -2701,7 +2701,7 @@ CheckDataLink()
 	}
 	DataLinkCnt=0;
 
-	for (i=0; i<NPLANESx; i++) {
+	for (i=0; i<NPLANESy; i++) {
 		if (!(ps[i].status & ACTIVE)) continue;
 		if (!ps[i].speed) continue;
 
@@ -2735,7 +2735,7 @@ CheckDataLink()
 			dlorig = 1;
 	}
 	if (dlorig==1) {
-		for (i=0; NPLANESx>i; i++) {
+		for (i=0; i<NPLANESy; i++) {
 			if (DataLinkCnt>7) break;
 			if (!(ps[i].status & ACTIVE)) continue;
 			if (!ps[i].speed) continue;
