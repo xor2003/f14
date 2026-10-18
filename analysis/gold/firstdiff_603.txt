@@ -1,0 +1,160 @@
+_SetMatsPtrsOrder [!= 5 =~ 12 ~~ 0] 0058:01c4/000744: mov ax, [bp-0x0e]                != 0075:01c4/000914: mov ax, [0x61a8]
+_LoadEMSObject [!= 12 =~ 0 ~~ 0] 0058:0bff/00117f: jl 0xc39 (0x3a down)             != 0075:0b2a/00127a: jge 0xb2f (0x5 down)
+_GetEmsMem [!= 4 =~ 3 ~~ 0] 0125:0252/0014a2: mov ax, [bp-0x06]                != 0133:024e/00157e: mov ax, [0x86]
+_ResizeEmsMem [!= 4 =~ 2 ~~ 0] 0125:02d3/001523: mov ax, [bp-0x06]                != 0133:02ce/0015fe: mov ax, [0x86]
+_Perspect3D [!= 2 =~ 2 ~~ 0] 01ac:009f/001b5f: sbb al, [bx+di]                  != 01ba:0099/001c39: and al, [bx+di]
+_NPFLine [!= 12 =~ 4 ~~ 0] 01ac:02cd/001d8d: push 0x6601                      != 01ba:02c7/001e67: jo 0x2ca (0x3 down)
+_NPFFill [!= 2 =~ 3 ~~ 0] 01ac:056f/00202f: pop word [bx+di-0x7efa]          != 01ba:0569/002109: pop word bp
+_NDLine [!= 12 =~ 3 ~~ 0] 01ac:11cf/002c8f: push 0x6601                      != 01ba:10de/002c7e: jo 0x10e1 (0x3 down)
+_NDDot [!= 3 =~ 1 ~~ 0] 01ac:129f/002d5f: push ss                          != 01ba:11ae/002d4e: push ds
+_MakeBoxes [!= 8 =~ 6 ~~ 0] 0342:0680/003aa0: add al, [bp-0x06]                != 0341:0680/003a90: mov cx, di
+_DoBox [!= 0 =~ 7 ~~ 0] 
+_GetQHeight [!= 3 =~ 0 ~~ 0] 0342:1141/004561: mov si, [bp+0x0a]                != 0341:1130/004540: mov di, [bp+0x0a]
+_IsLand [!= 11 =~ 0 ~~ 0] 0342:12a0/0046c0: and al, 0xff                     != 0341:1295/0046a5: mov ah, al
+_Boats3D [!= 12 =~ 0 ~~ 0] 072e:00d1/0073b1: push 0x4, 0x0                    != 0610:00d2/0061d2: push di
+_Planes3D [!= 10 =~ 4 ~~ 0] 072e:02d7/0075b7: mov es, dx                       != 0610:02bc/0063bc: mov [bp-0x0a], ax
+_DrawCoolF14 [!= 12 =~ 1 ~~ 0] 072e:082e/007b0e: mov ax, [bp+0x0c]                != 0610:0812/006912: push [bp+0x0c]
+_DrawTexPlane [!= 8 =~ 1 ~~ 0] 072e:0e0e/0080ee: cmp word es:[bx], 0x8a           != 0610:0dea/006eea: mov ax, es:[bx]
+_LockDistanceCheck [!= 12 =~ 0 ~~ 0] 08de:14e4/00a2c4: mov ax, [bp-0x0a]                != 07ad:148a/008f5a: cmp word [bp-0x0a], 0x5
+_SearchForTargets [!= 11 =~ 2 ~~ 0] 08de:1921/00a701: mov ax, [bp-0x06]                != 07ad:18c5/009395: mov ax, [0xa476]
+_AddAcqList [!= 8 =~ 0 ~~ 0] 08de:28b0/00b690: mov di, [bp+0x06]                != 07ad:27c7/00a297: cmp word [0xec8], 0x0
+_CheckDataLink [!= 4 =~ 4 ~~ 0] 08de:2fa2/00bd82: mov ax, [bp-0x02]                != 07ad:2ec4/00a994: mov ax, [0xa476]
+_UpdateBoatSpeedAndPosition [!= 12 =~ 3 ~~ 0] 0c38:02ed/00c66d: les di, [0x7e4c]                 != 0ad3:02e0/00b010: mov ax, [bx+0x61be]
+_UpdateAIsOnCarrier [!= 4 =~ 15 ~~ 0] 0c38:07af/00cb2f: mov ax, [bp-0x02]                != 0ad3:076a/00b49a: mov ax, [0xa476]
+_FormationSpeedAdjustBoat [!= 7 =~ 7 ~~ 0] 0c38:0a86/00ce06: les bx, [0x7e4c]                 != 0ad3:0a40/00b770: mov bx, [bp-0x0c]
+_CheckBulletBetter [!= 10 =~ 1 ~~ 0] 0d04:0a08/00da48: mov es, dx                       != 0b9b:0a02/00c3b2: mov ax, 0xc
+_OnTheDeck [!= 12 =~ 0 ~~ 0] 0dc3:186b/00f49b: jnz 0x1898 (0x2d down)           != 0c59:180d/00dd9d: jz 0x1812 (0x5 down)
+_DoPlayerOnTheCat [!= 0 =~ 3 ~~ 0] 
+_EasyLanding [!= 8 =~ 8 ~~ 0] 0dc3:246f/01009f: jge 0x2477 (0x8 down)            != 0c59:2417/00e9a7: jl 0x242f (0x18 down)
+_CheckMouseInput [!= 0 =~ 6 ~~ 1] 
+_Cmds [!= 10 =~ 1 ~~ 0] 1081:075f/010f6f: jnz 0x764 (0x5 down)             != 0f18:079b/00f91b: jz 0x7c5 (0x2a down)
+_GDisplay [!= 12 =~ 0 ~~ 0] 120f:08e5/0129d5: push di                          != 109b:0814/0111c4: push si
+_DrawIndexer [!= 8 =~ 0 ~~ 0] 120f:1229/013319: push di                          != 109b:11d6/011b86: push 0x2, 0x0
+_DrawSweepDisplay [!= 12 =~ 0 ~~ 0] 120f:238a/01447a: dec [0x1e56]                     != 109b:28ce/01327e: mov ax, [0x59e2]
+_ShowFuel [!= 12 =~ 0 ~~ 0] 120f:2d2a/014e1a: mov ax, [0x5028]                 != 109b:31f7/013ba7: push si
+_FLIGHT [!= 12 =~ 6 ~~ 0] 1604:01a6/0161e6: imul word [0x500e], 0xc          != 14df:01a4/014f94: cmp word [0x23aa], 0x0
+_ScottFlight [!= 11 =~ 0 ~~ 0] 1604:1021/017061: sub ax, ax                       != 14df:1365/016155: mov ax, 0x1
+_NHorz [!= 12 =~ 0 ~~ 0] 1929:0065/0192f5: mov ax, [0x2afe]                 != 18d3:0096/018dc6: push 0x0
+_fourpoints [!= 12 =~ 2 ~~ 0] 1b89:002e/01b8be: sub bx, si                       != 1b19:0030/01b1c0: sub bx, [bp+0x0c]
+_TakingOff [!= 12 =~ 0 ~~ 0] 21ce:0b84/022864: sub di, di                       != 2832:47ac/02cacc: cmp word [0x5e7a], 0x5
+_AvoidMountains [!= 0 =~ 6 ~~ 0] 
+_UpdateSpeedAndPosition [!= 12 =~ 7 ~~ 0] 21ce:163c/02331c: push [0x619a]                    != 1fd4:0f8c/020ccc: mov bx, [bp-0x0e]
+_Landing [!= 12 =~ 6 ~~ 6] 21ce:1d5e/023a3e: mov [bp-0x0c], si                != 1fd4:1644/021384: add si, 0x750e
+_search [!= 12 =~ 9 ~~ 4] 21ce:2161/023e41: inc ax                           != 1fd4:1a1e/02175e: cmp ax, 0x46
+_CheckTailAspect [!= 3 =~ 6 ~~ 0] 21ce:263c/02431c: mov si, [bp+0x0a]                != 1fd4:1f07/021c47: mov si, [0x8eec]
+_CoreCheckGunFiring [!= 2 =~ 2 ~~ 0] 21ce:2ad9/0247b9: jnb 0x2b16 (0x3d down)           != 1fd4:23a4/0220e4: jbe 0x23e1 (0x3d down)
+_ChooseBehavior [!= 0 =~ 3 ~~ 2] 
+_Wall [!= 12 =~ 3 ~~ 0] 21ce:4f90/026c70: mov ax, [0x619a]                 != 1fd4:4886/0245c6: cmp [0x59fe], ax
+_LadderCircle [!= 4 =~ 4 ~~ 2] 21ce:59a2/027682: mov ax, [0x619a]                 != 1fd4:529e/024fde: mov ax, [bp-0x04]
+_AIBombTarget [!= 6 =~ 18 ~~ 9] 21ce:6c57/028937: imul word [0x619a], 0x30         != 1fd4:64ab/0261eb: imul si, byte 0x30
+_DESIGNATED_TrackingAI [!= 11 =~ 0 ~~ 0] 21ce:6fa3/028c83: mov ax, [bx+0x69e4]              != 1fd4:6739/026479: mov ax, bx
+_AISanitizeCheck [!= 10 =~ 7 ~~ 0] 21ce:7f27/029c07: jz 0x7fa7 (0x80 down)            != 1fd4:76d8/027418: jnz 0x76dd (0x5 down)
+_ChangeGroupBehavior [!= 0 =~ 0 ~~ 0] 
+_AddSomePlanes2 [!= 6 =~ 4 ~~ 0] 21ce:8367/02a047: jg 0x836e (0x7 down)             != 1fd4:7b1c/02785c: jl 0x7b23 (0x7 down)
+_UpdateHelicopterHPR_SandP [!= 12 =~ 1 ~~ 0] 21ce:86c5/02a3a5: mov si, ax                       != 1fd4:7e7d/027bbd: mov bx, [0xa4a2]
+_CheckWingmanSix [!= 4 =~ 12 ~~ 0] 2ad2:0bbb/02b8db: mov ax, [bp-0x02]                != 2832:0bb2/028ed2: mov ax, [0xa476]
+_Jink [!= 7 =~ 18 ~~ 0] 2ad2:1058/02bd78: imul word [0x61aa], 0x28         != 2832:10ff/02941f: push [bp-0x06]
+_Jink2 [!= 12 =~ 1 ~~ 0] 2ad2:19ac/02c6cc: imul word [0x61aa], 0x28         != 2832:1a27/029d47: mov ax, 0x376d
+_CAPAI [!= 1 =~ 13 ~~ 0] 2ad2:3425/02e145: jbe 0x342d (0x8 down)            != 2832:3416/02b736: jnb 0x341e (0x8 down)
+_UpdateInterceptGroup [!= 12 =~ 0 ~~ 0] 2fb2:02e3/02fe03: mov [bp-0x0a], ax                != 2d5d:02af/02d87f: push [bp+0x06]
+_VectorIntercept [!= 12 =~ 0 ~~ 0] 2fb2:0511/030031: mov ax, [bp+0x08]                != 2d5d:0407/02d9d7: push 0xe, 0x0
+_TrooperDrop [!= 3 =~ 1 ~~ 0] 2fb2:0f18/030a38: mov al, [0x51ca]                 != 2d5d:0e30/02e400: mov al, [bp-0x02]
+_GetWhoCover [!= 12 =~ 0 ~~ 0] 2fb2:1c58/031778: mov ax, [bx+0x69d0]              != 2d5d:1825/02edf5: imul word [bx+0x61ba], 0xe
+_GetWayPointChanges [!= 8 =~ 2 ~~ 0] 2fb2:2724/032244: mov cx, [bx-0x4ec4]              != 2d5d:22e6/02f8b6: mov di, [bx-0x6df8]
+_UpdateOurWPS [!= 12 =~ 0 ~~ 0] 2fb2:361f/03313f: sub ax, ax                       != 2d5d:333a/03090a: sub di, di
+_CheckForMobileR5 [!= 11 =~ 12 ~~ 1] 2fb2:3b32/033652: or ax, ax                        != 2d5d:3826/030df6: mov [bp-0x06], ax
+_MovePlane [!= 12 =~ 0 ~~ 0] 2fb2:3b77/033697: mov si, [bp+0x06]                != 2d5d:3871/030e41: mov ax, [bp+0x08]
+_SetUpLaunch [!= 12 =~ 2 ~~ 0] 2fb2:42ec/033e0c: push [bx+0x7e7a]                 != 2d5d:3fc2/031592: test byte [di+0x61c1], 0x80
+_DoAltHover [!= 12 =~ 1 ~~ 0] 2fb2:4676/034196: mov [bp-0x12], bx                != 2d5d:4321/0318f1: mov ax, [0x5e7a]
+_GetRadarGTNum [!= 2 =~ 2 ~~ 0] 2fb2:4837/034357: cmp [bx+0x7b94], ax              != 2d5d:44ec/031abc: cmp ax, [bx+0x72f2]
+_ShowOurWPS [!= 0 =~ 8 ~~ 0] 
+_CheckTurnStuff [!= 2 =~ 0 ~~ 0] 2fb2:4e51/034971: mov si, [bp+0x06]                != 2d5d:4a47/032017: mov di, [bp+0x06]
+_AICarrierLand [!= 12 =~ 0 ~~ 0] 2fb2:51b5/034cd5: push si                          != 2d5d:4da5/032375: push di
+_CheckPlaneLand [!= 4 =~ 0 ~~ 0] 2fb2:5c65/035785: mov di, 0x64                     != 2d5d:5820/032df0: mov bx, 0x64
+_LetNextPlaneLand [!= 10 =~ 0 ~~ 0] 2fb2:5f49/035a69: push si                          != 2d5d:5b06/0330d6: mov word [bp-0x0a], 0x64
+_GetPlaneLanding [!= 5 =~ 4 ~~ 0] 2fb2:611c/035c3c: mov ax, [bp-0x02]                != 2d5d:5cb9/033289: mov ax, [bx]
+_GetWhichElevator [!= 4 =~ 11 ~~ 0] 2fb2:62fb/035e1b: mov ax, [bp-0x06]                != 2d5d:5e98/033468: mov ax, [0xa476]
+_DoOClockCall [!= 0 =~ 17 ~~ 2] 
+_ReArmWingman [!= 6 =~ 2 ~~ 0] 2fb2:6946/036466: mov ax, [bp-0x02]                != 2d5d:66b8/033c88: mov ax, [0xa476]
+_detect [!= 1 =~ 6 ~~ 0] 36ad:0124/036bf4: jb 0x129 (0x5 down)              != 33cd:0124/033df4: ja 0x129 (0x5 down)
+_HeadProject [!= 5 =~ 1 ~~ 0] 3746:0594/0379f4: mov ax, [bp+0x0a]                != 345f:03f2/0349e2: mov ax, [0x8eec]
+_DrawRioMapInfo [!= 4 =~ 19 ~~ 0] 37ba:0786/038326: mov ax, [0xc56e]                 != 34b9:0783/035313: mov ax, [bp-0x08]
+_firemissile2 [!= 4 =~ 0 ~~ 0] 38b6:1461/039fc1: mov di, ax                       != 35b5:141f/036f6f: mov si, ax
+_InitSpeech [!= 9 =~ 0 ~~ 0] 3a6f:00e9/03a7d9: push di                          != 375c:00eb/0376ab: push si
+_LogIt [!= 0 =~ 16 ~~ 0] 
+_RadarThreats [!= 10 =~ 0 ~~ 1] 3cb5:0037/03cb87: sub di, di                       != 3980:0031/039831: sub si, si
+_show_radar [!= 12 =~ 4 ~~ 0] 3cb5:06b5/03d205: inc si                           != 3980:06a4/039ea4: lea ax, [bp-0x0a]
+_show_plane [!= 12 =~ 3 ~~ 0] 3cb5:0763/03d2b3: inc ax                           != 3980:074f/039f4f: mov [bp-0x06], ax
+_lproject [!= 5 =~ 1 ~~ 0] 3e65:0012/03e662: mov ax, [bp+0x0a]                != 3af4:0185/03b0c5: mov ax, [0x7fec]
+_ChangeColor [!= 11 =~ 0 ~~ 0] 4140:10c4/0424c4: xor ah, ah                       != 3d19:002e/03d1be: xor ax, ax
+_ClipSprite [!= 11 =~ 0 ~~ 0] 4140:10c4/0424c4: xor ah, ah                       != 3d19:0046/03d1d6: xor ax, ax
+_DrawDot [!= 11 =~ 0 ~~ 0] 4140:10c4/0424c4: xor ah, ah                       != 3d19:0056/03d1e6: xor ax, ax
+_DrawLine [!= 11 =~ 0 ~~ 0] 4140:10c4/0424c4: xor ah, ah                       != 3d19:005e/03d1ee: xor ax, ax
+_DrawPoly [!= 11 =~ 0 ~~ 0] 4140:10c4/0424c4: xor ah, ah                       != 3d19:0066/03d1f6: xor ax, ax
+_MouseSHOW [!= 11 =~ 0 ~~ 0] 4140:10c4/0424c4: xor ah, ah                       != 3d19:00ee/03d27e: xor ax, ax
+_RpPrint [!= 11 =~ 0 ~~ 0] 4140:10c4/0424c4: xor ah, ah                       != 3d19:0126/03d2b6: xor ax, ax
+_SndSounds [!= 11 =~ 0 ~~ 0] 4140:10c4/0424c4: xor ah, ah                       != 3d19:015e/03d2ee: xor ax, ax
+__amsg_exit [!= 12 =~ 0 ~~ 0] 4140:0113/041513: nop                              != 3d30:010b/03d40b: sub ax, 0x55
+_vsprintf [!= 12 =~ 0 ~~ 0] 4140:0961/041d61: sub sp, byte 0x2                 != 3d30:08c9/03dbc9: push di
+__setargv [!= 12 =~ 0 ~~ 0] 18d5:053f/01928f: retf                             != 3d30:0f38/03e238: pop word [0x5314]
+_RioWpMark [!= 12 =~ 0 ~~ 0] 37ba:00aa/037c4a: mov es, dx                       != 34b9:00a8/034c38: mov di, ax
+_CheckProximityHit [!= 3 =~ 6 ~~ 0] 38b6:0bd0/039730: cmp [bx+0x2a], ax                != 35b5:0b9d/0366ed: cmp ax, [bx+0x2a]
+_AwacsPicture [!= 12 =~ 0 ~~ 0] 2fb2:28f0/032410: mov si, [bp+0x06]                != 0798:000c/00798c: mov word [bp-0x0a], 0x2bf2
+_CheckCAP [!= 12 =~ 1 ~~ 0] 2ad2:0d21/02ba41: or ax, ax                        != 2832:3274/02b594: mov es, dx
+_DisplayRioHead [!= 12 =~ 0 ~~ 0] 0017:02ff/00046f: mov di, [bp+0x06]                != 345f:000a/0345fa: mov word [bp-0x02], 0xffff
+_FlyTo [!= 12 =~ 1 ~~ 0] 2ad2:33a1/02e0c1: lea ax, [bp-0x0c]                != 2832:34d0/02b7f0: lea cx, [bp-0x0a]
+_FlyWayPoint [!= 11 =~ 2 ~~ 0] 2fb2:67ad/0362cd: mov [bp-0x0e], bx                != 2832:37c9/02bae9: mov ax, [0x5e7a]
+_InitCarrier [!= 12 =~ 0 ~~ 0] 0017:02ff/00046f: mov di, [bp+0x06]                != 0c59:000e/00c59e: mov word [bp-0x08], 0xff94
+_KeepPlaneOnCarrier [!= 12 =~ 0 ~~ 0] 0017:02ff/00046f: mov di, [bp+0x06]                != 0c59:137e/00d90e: mov word [bp-0x12], 0x10
+_LoadSpecialObjects [!= 12 =~ 0 ~~ 0] 0017:02ff/00046f: mov di, [bp+0x06]                != 0500:0823/005823: mov word [bp-0x52], 0x50c
+_LocationPicture [!= 12 =~ 0 ~~ 0] 0342:09cc/003dec: mov di, [bp+0x06]                != 2d5d:0998/02df68: mov word [bp-0x12], 0x4650
+_MapLoc [!= 11 =~ 0 ~~ 0] 0c38:0581/00c901: push si                          != 1e06:00b1/01e111: push [bp+0x06]
+_NDraw3D [!= 9 =~ 0 ~~ 0] 0017:007b/0001eb: push di                          != 0723:0012/007242: push 0x100
+_NSCALELINE2 [!= 9 =~ 0 ~~ 0] 1a3c:0034/01a3f4: mov dx, [bp+0x14]                != 01ba:0ddd/00297d: mov bp, [bp+0x0a]
+_ShowAIStatus [!= 8 =~ 0 ~~ 0] 08de:0202/008fe2: mov di, 0xffff                   != 1fd4:5678/0253b8: mov word [bp-0x02], 0x0
+_TIDShowRange [!= 12 =~ 0 ~~ 0] 0017:007d/0001ed: push [bp+0x0e]                   != 109b:14ac/011e5c: push 0x0
+_UpdateLights [!= 12 =~ 0 ~~ 0] 120f:2be7/014cd7: call far 0x5ce0db1               != 109b:3133/013ae3: pop si
+_horiz_line [!= 0 =~ 7 ~~ 0] 
+_mplot [!= 11 =~ 0 ~~ 0] 0125:040a/00165a: or si, si                        != 1e06:0042/01e0a2: push [bp+0x08]
+_pitchbar2 [!= 10 =~ 1 ~~ 0] 120f:0788/012878: mov bx, [0x43fe]                 != 1b19:02e5/01b475: mov di, [bp+0x0e]
+_UpdateTime2 [!= 12 =~ 0 ~~ 0] 3b61:07f6/03be06: mov ax, [0x51d2]                 != 3845:07d3/038c23: cmp word [0x4e48], 0x4
+__aFNaldiv [!= 12 =~ 0 ~~ 0] 1a48:113e/01b5be: push 0x6                         != 3d30:0d2d/03e02d: push bx
+_DoCockpitDisplays [!= 6 =~ 0 ~~ 0] 120f:0662/012752: push cs                          != 109b:05a6/010f56: cmp word [0x8f58], 0x0
+_Messages [!= 10 =~ 0 ~~ 1] 05ce:0db8/006a98: cmp byte [0x560f], 0x0           != 1f4b:0013/01f4c3: cmp word [0x8f58], 0x48
+_UpdateTime1 [!= 12 =~ 0 ~~ 0] 3b61:0790/03bda0: push bp                          != 3845:0782/038bd2: call far 0x3d190076 ; ! / _GETTIME
+_CheckAZELChange [!= 0 =~ 7 ~~ 0] 
+_UpdateOurPlaneAnims [!= 0 =~ 6 ~~ 0] 
+_WingmanAdd [!= 12 =~ 1 ~~ 0] 08de:341a/00c1fa: mov [bp-0x02], ax                != 07ad:2fe1/00aab1: inc [0x597a]
+_SteerAndMoveMissile [!= 12 =~ 28 ~~ 0] 38b6:07b6/039316: mov bx, ax                       != 35b5:07ad/0362fd: mov bx, [0x5a2e]
+_TD_box [!= 11 =~ 3 ~~ 0] 1a48:1235/01b6b5: mov si, [0xc306]                 != 19f0:109a/01af9a: sub dx, dx
+_FriendlyChooseBehavior [!= 0 =~ 32 ~~ 12] 
+_doboats [!= 7 =~ 1 ~~ 0] 0c38:000a/00c38a: mov di, [0x666e]                 != 0ad3:0014/00ad44: mov si, [0x5e62]
+_doaaa [!= 4 =~ 9 ~~ 0] 0868:0226/0088a6: mov ax, [bp-0x12]                != 0739:0226/0075b6: mov ax, [0x7494]
+_Splatted [!= 12 =~ 1 ~~ 0] 1604:28d0/018910: push [0x247e]                    != 14df:2bae/01799e: push 0x2
+_DrawXploSprite [!= 11 =~ 0 ~~ 0] 3a9a:04ab/03ae4b: push si                          != 3784:04ab/037ceb: imul word [bp+0x0c], 0xa
+_X2map [!= 12 =~ 0 ~~ 0] 072e:0157/007437: push si                          != 1e06:0007/01e067: mov ax, [bp+0x06]
+_DoHover [!= 12 =~ 0 ~~ 0] 2ad2:40e4/02ee04: mov ax, [0x906c]                 != 2832:40bd/02c3dd: imul word [0x5a0c], 0x28
+_Do3DObject [!= 5 =~ 3 ~~ 0] 072e:0020/007300: mov ax, [0x895a]                 != 0610:0020/006120: mov ax, [bp+0x0c]
+_LoadScottMission [!= 12 =~ 13 ~~ 2] 1d56:022b/01d78b: mov ax, [bp-0x0088]              != 1cd6:0230/01cf90: imul word [bp-0x26], 0xe
+_DrawASurf [!= 12 =~ 1 ~~ 0] 0058:05a4/000b24: mov ax, di                       != 0075:05a0/000cf0: mov bx, [bx+0x54]
+_DisplayRightStuff [!= 12 =~ 0 ~~ 0] 120f:0c5f/012d4f: push 0x2, 0x0                    != 109b:0cc8/011678: push si
+_GetJoystickInputs [!= 10 =~ 2 ~~ 0] 1081:0090/0108a0: push di                          != 0f18:0088/00f208: push si
+_CheckAITarget [!= 6 =~ 1 ~~ 0] 2ad2:0c41/02b961: mov di, [bp+0x06]                != 2832:0c37/028f57: mov si, [bp+0x06]
+_UpdatePalBuf [!= 12 =~ 0 ~~ 0] 3cb5:0233/03cd83: push si                          != 17b6:0064/017bc4: push di
+_SetUpWingman [!= 0 =~ 31 ~~ 10] 
+_UnZoomDisplay [!= 11 =~ 0 ~~ 1] 120f:29cc/014abc: jge 0x29d2 (0x6 down)            != 109b:2f4f/0138ff: jle 0x2f55 (0x6 down)
+_GenDsp [!= 5 =~ 3 ~~ 0] 3e88:0066/03e8e6: jz 0xdd (0x77 down)              != 3b2f:005a/03b34a: jnz 0x5f (0x5 down)
+_NewLockView [!= 12 =~ 1 ~~ 0] 3e88:0e6b/03f6eb: jmp 0xf12 (0xa7 down)            != 3b2f:0ad0/03bdc0: jmp short 0xb17 (0x47 down)
+_farfread [!= 12 =~ 0 ~~ 0] 3a9a:09dd/03b37d: push di                          != 3d0f:0056/03d146: push si
+_ChangeHUDFilter [!= 10 =~ 1 ~~ 0] 2060:1663/021c63: mov al, 0x63                     != 17b6:07a7/018307: mov es, [0x5636]
+_Load3DPlaneInfo [!= 12 =~ 27 ~~ 0] 0504:01af/0051ef: mov si, ax                       != 0500:01b1/0051b1: imul word [0x4c94], 0x28
+_GetInterceptPlane [!= 12 =~ 0 ~~ 0] 3a9a:050d/03aead: sub di, di                       != 2d5d:07f7/02ddc7: cmp word [bp+0x06], 0xff
+_TID_draw_target [!= 12 =~ 0 ~~ 0] 3d7e:08a5/03e085: mov word [bp-0x0e], 0x1          != 3a40:05da/03a9da: imul word [si+0x1a], 0x28
+_MyMessages [!= 12 =~ 0 ~~ 0] 1fc6:0112/01fd72: jz 0x119 (0x7 down)              != 1f4b:013d/01f5ed: jnz 0x159 (0x1c down)
+_All2AirHoming [!= 4 =~ 9 ~~ 0] 38b6:01ab/038d0b: jge 0x216 (0x6b down)            != 35b5:019f/035cef: jle 0x20d (0x6e down)
+_OnCarrier [!= 12 =~ 0 ~~ 0] 2ad2:2c2d/02d94d: push di                          != 0c59:0f44/00d4d4: mov ax, [bp+0x06]
+_JoyRecal [!= 11 =~ 5 ~~ 0] 1cac:00cc/01cb8c: jnz 0xd1 (0x5 down)              != 1c37:00d2/01c442: jz 0x149 (0x77 down)
+_DamageAI [!= 7 =~ 1 ~~ 2] 2ad2:2307/02d027: sub ax, ax                       != 2832:22fb/02a61b: sub si, si
+_LocalCmds [!= 11 =~ 0 ~~ 0] 1081:1274/011a84: push 0x3c, 0x0                   != 0f18:12c2/010442: sub ax, ax
+_HsdCrt [!= 12 =~ 0 ~~ 0] 120f:2c73/014d63: push bp                          != 1b19:08ca/01ba5a: push 0x30, 0x0
+_Message [!= 12 =~ 0 ~~ 0] 08de:3450/00c230: push di                          != 1f4b:001f/01f4cf: push bp
