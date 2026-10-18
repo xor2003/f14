@@ -1697,12 +1697,12 @@ void CheckGunFiring(COORD tdistl, int tanglel, int tpitchl)
 	CoreCheckGunFiring(tdistl, tanglel, tpitchl, 0, (8<<8), 0x200, 24);
 }
 
-void CoreCheckGunFiring(COORD tdistl, int tanglel, int tpitchl, int turretangle, int fireangle, int dangle, int tdistfire)
+void CoreCheckGunFiring(COORD tdistl, int tanglel, int tpitchl, int turretangle, int fireangle, int dangle, COORD tdistfire)
 {
 	int dbulpitch, dbulhead;
     int nn,tspd;
 
-    if (tdistl<tdistfire && (!(bv[i].behaveflag & ENEMYNOFIRE)) && // .5 nm
+    if (tdistl<tdistfire && (!(bv[i].behaveflag & (ENEMYNOFIRE|ISHELICOPTER))) && // .5 nm
         abs((psi->head + turretangle)-tanglel)<(fireangle) && abs(psi->pitch-tpitchl)<(fireangle) ) {
 
 		if(GetSquadLeader(i) == -1) {

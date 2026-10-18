@@ -14,7 +14,7 @@ void Wall2();
 void FreeFighter();
 void FlySanitize();
 void CheckGunFiring(COORD tdistl, int tanglel, int tpitchl);
-void CoreCheckGunFiring(COORD tdistl, int tanglel, int tpitchl, int turretangle, int fireangle, int dangle, int tdistfire);
+void CoreCheckGunFiring(COORD tdistl, int tanglel, int tpitchl, int turretangle, int fireangle, int dangle, COORD tdistfire);
 void ShowAIStatus(int ainum, int otherai, int effects);
 void BOMB_TrackingAI();
 void DESIGNATED_TrackingAI(int relangle);
