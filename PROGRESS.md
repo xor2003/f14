@@ -1153,3 +1153,21 @@ helpers.
 - triage_fn.py pairs via classified.tsv `cand` column first; verify_build
   order is anchor→deepaddr→bestaddr→cand. Column choice explains some
   reported-vs-actual anchor drift when re-checking manually.
+
+## Probe results (minimal TU, fp*.c): si always = first int param
+
+- For `*(ptr+a±b)` forms, MSC6 deterministically puts the FIRST int param
+  into si and the second into di — operand order, `register`, local
+  copies, subscript vs deref syntax, /Os variants: all emit identically.
+  `_fourpoints` gold has si=bp+c (second param) — implies a different
+  source structure than any tested shape; parked.
+- `_X2map`: gold mutates through a pointer (`sar [bx],cl`) — different
+  API shape than mine (returns shifted int). NOCAND pairing; parked.
+- `_AddAcqList`: gold keeps param `t` in di across the function; MSC6
+  allocates di only via leaf order — locals i/j claim si/di first here.
+  No source lever found (decl order, register hints, local-copy all fail).
+- `_DamageAI`/`_AIBombTarget`: gold derefs a global pointer + does
+  `imul word [g]` in-place scaling — structurally different eval order;
+  real TU-state/codegen diffs.
+
+## Standing count: 595/760 (78.3%) — committed through e29809f
