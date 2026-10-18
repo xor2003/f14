@@ -805,3 +805,16 @@ Additional decode notes:
     MSC6 |/== leaf canonicalization (DoBox VIS1|VIS2, DoOClockCall equality),
     mispairings (TacBox, MBox, UpdateLights anchor)
   - FLIGHT still large structural diff; ejection rng bounds fixed to +-64/FrameRate
+- verify_curr.log: 581 -> 589 MATCH / 763 pairings
+  - _DrawSettings: retail drops "Vaughn Thomas"/"Version: 1.18" RpPrints — MATCH
+  - _DrawBullets: color ternary -> local, then trs[i].firedby!=-1 -> GetPlanePtr
+    -> PlaneEnumId==0xa7 -> col=0x92 recolor block, sx/ssx guard last — MATCH
+  - _GetTargADP + _StraightAttack: fixed via inner-extern binding — MATCH
+  - KEY MECHANISM: MSC6 evaluates the LATER-BOUND operand first into the register.
+    Params bind at function entry; globals declared file-top bind early. An
+    `extern` declared INSIDE the function body binds late -> global-first emit.
+    Retail F14 style appears to use function-scope externs; the port hoisted them.
+    Removing file-top externs perturbs module symtab -> can flip unrelated
+    operand picks (regressed _AddSomePlanes2's whichourcarr!=cnt compare).
+  - Parked: Boats3D pointer-walk + bv[i].field0&0x800 test; FlyTo preamble
+    (gold has bounds-check+exit, different frame); EasyLanding then/else layout.
