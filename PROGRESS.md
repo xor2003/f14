@@ -1097,3 +1097,31 @@ _DesignateTIDTarg _DoPlayerOnTheCat _FriendlyChooseBehavior _horiz_line
 _SetUpWingman _ShowAIWeaponStatus _StraightAttack _UpdateAIsOnCarrierFIXED
 
 Diff set now 181 functions.
+
+## 594/760 — EMS far-call encoding batch
+
+- `call far ptr X` in EMS.ASM forces `9A` encoding (UASM/MASM smartcall
+  otherwise emits `push cs;call near` for same-segment far procs).
+  Fixed all 9 EMS functions (_EMSinit.._EMSver). Same lever applies to
+  any .ASM intra-segment far call where gold kept `9A`.
+- `tools/objfn.py`: per-function OMF OBJ disasm — fast emit checks
+  (~2s) without relinking. PUBDEF parse handles 2-byte type indices.
+- Link note: `build_all.sh link` reports ~92 L2025 "defined more than
+  once" (GDSEG CRT symbols vs MLIBCA members) — non-fatal; linker keeps
+  GDSEG's replica defs and writes the EXE. relink_check.sh silences
+  this; F14.EXE/F14.MAP timestamps confirm output stays fresh.
+- `_DoCockpitDisplays`: callee segment-home mismatch — gold had
+  `_GDisplay` same-segment + `_DrawVVGauge` external; mine is reversed
+  (both in COCKPIT.C). Needs function relocation between TUs, not
+  codegen tweaks.
+- `_CheckDataLink` still DIFF: first-loop `i<NPLANES` emits ax=global
+  in this TU regardless of direction/alias/leaf — extern-class and
+  tentative both lose. Residual TU symbol-table state issue.
+
+## Remaining ~166 diff inventory (first-mismatch opcode histogram)
+
+xor ax,ax ×8 · push di ×8 · cmp word ×8 · mov word[L] ×7 · mov ax,[] ×7
++ long tail: regalloc si↔di swaps, stack-slot order, polarity flips,
+structural (block-layout over-merge/out-of-line arms), DGROUP placement
+(_CheckAAAHit Dist2Obj@0x60d2 class), byte-scan nohits, retail-only
+helpers.
