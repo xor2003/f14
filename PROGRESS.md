@@ -945,3 +945,21 @@ Additional decode notes:
 - _SearchForTargets/_CheckDataLink/_UpdateAIsOnCarrier: ours reads global
   [0xa476] where gold reads local — likely file-scope var that retail
   made function-local (needs deeper context diff).
+
+## Turn: 607 probe results — operand-order mechanism boundaries
+
+- `cmp` direction for `==` and `+`/`add` operand pick are NOT controlled by
+  the late-binding rule: _GetRadarGTNum (`cmp [bx+off],ax` vs ax-left),
+  _CheckProximityHit (`cmp losing,F5;jl` vs `cmp F5,losing;jg`),
+  _CheckTailAspect (`si=y.lo+[PyLng]` vs `si=[PyLng]+y.lo`),
+  _TrooperDrop (`al=Rtime/cl=prewing` vs `al=prewing/cl=Rtime`) — all
+  spelling-invariant (tried `>`/`<` swaps, `mem==expr` order, inner extern,
+  `y+PyLng-0x100000` and `y-0x100000+PyLng` flattenings, UWORD type change).
+  Isolated probes DO emit gold shape (near-ptr field cmp mem-left), so the
+  pick is driven by in-function register/liveness context, not decl order.
+- _UpdateAIsOnCarrier keeps `cmp [bp-2],ax(NPLANES)` despite extern+`>` —
+  inner-extern rebind worked in AWG9.C (CheckDataLink) but not BOATS.C;
+  both bind NPLAS via the same WORLD.H extern (def lives in STEALTH.C
+  under `_include_data`). Unexplained; parked.
+- Verified probe pipeline: kvikdos CL.EXE -> OBJ -> LEDATA extract ->
+  objdump -m i8086 works for codegen experiments (see /tmp/probe/cmpp*.c).
