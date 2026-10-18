@@ -606,3 +606,19 @@ SearchForTargets diff (real): gold `for(i=0;i<NPLANES;i++)` emits
   `mov ax,[i]; cmp [NPLANES],ax; jg` + `cmp [DESIGNATED],ax` +
   dual ptr locals [bp-0xa]=DETECTED_TARG, [bp-8]=ps — ours has
   operand-order flipped loop-head (compare-form source differs).
+
+Additional decode notes:
+- FUN_30d8 walks a 0x28-stride record array parallel to an int-per-plane
+  array at 0x76ec (di+=2, bound by numplanes). If 0x7e7c is gold ps[],
+  its stride 0x28(40) differs from our struct Planes=38B — check whether
+  gold's Planes has 2 extra bytes (field we lack) or 0x7e7c is a
+  different array. Field offsets used: [bx]&0x2 (status ACTIVE),
+  [bx+2]!=0 (speed/alive). [bp-34..] = TARGET local filled by F325a;
+  [bp-28]=dist-ish, [bp-20]=long, [bp-34]=mode flag (0->0xee/0x1dc0,
+  0xa/0x1d6 bounds), calls 1e8c:5f (hypot/range), 18a7:19e (angle),
+  then F3404(&T) adds to file + TBL[i]++.
+- FUN_31b2 recs at [0x104e]->0xbb2e have 0x32(50) stride, field +0x1a
+  holds "selected idx". Not DTARGET(8B)/TARGET(20B). Candidates:
+  AGEDTARGFILE elems? a 50B tracking struct.
+- _AWG9 now diffs ONLY at tail: missing `if(behavecommands==OTHERWINGAI)
+  WingmanAISched()` + the whole helper family.
