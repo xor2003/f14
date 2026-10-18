@@ -1425,3 +1425,11 @@ Still TODO for DGROUP:
   ordering diffs if lib code offsets shift.
 - wrong string contents in image where my data differed (now emits
   gold bytes verbatim — resolved).
+
+## Update: DGROUP harvest + near-fn reconstruction (verify 622/761)
+
+- +23 unplaced GDSEG vars resolved to real gold offsets (dseg_pairs + mzdiff); 538 remain at synthetic offsets.
+- `_X2map`/`_Y2map` made `near` (f14.pat signatures show `ret c3`, `[bp+4]` params); mplot/MapLoc now emit near calls. Net: +`_ChangeGroupBehavior` MATCH; −2 cls:bestaddr pairings (anchor drift from MAP_TEXT shrink, not code regressions).
+- Gold has NO standalone X2map/Y2map bodies with the `1+Mscale` idiom — three `mov cl,7;sub cl,[var]` sites exist inside bigger functions (inlined x/y shift pairs). The `7-var` there is likely a different var (0x908e) — needs var-identification.
+- `src/f14.pat` (790 patterns) + `f14my.pat` are FLIRT-style signatures with named symbols and `^off _Sym` reloc refs — per-function shape oracle for reconstruction.
+- Leaf-order class still parked: `_horiz_line` source-form flip emitted identical bytes (verified).
