@@ -753,3 +753,27 @@ Additional decode notes:
 - DrawTexPlane: gold re-reads es:[bx]->PlaneEnumId per compare (no CSE)
   and orders the bv[ID]/AnimVals statements differently — 352-insn
   function needs deeper reconstruction pass.
+- DrawSBox MATCH (576/763): retail MapInBank arg is an if/else on
+  `BITID>0x7f` — `(BITID-0x80)/16&15 +8` stamped-arm vs `STMPBANK+
+  (BITID/16&15)` else. KEY FORM: `if(c) MapInBank(A); else MapInBank(B)`
+  emits ax-resident + merged `push ax;call` tail; ternary or temp-var
+  forms stage through si/di (probe-proven). Applied to all 3 call sites.
+- DoBox: added missing `GRNDDETAIL==2 && (BITID&0x7f)==0x7f` early-out
+  (gold 0342:09ff) and `SZ2=SZ` (register copy) with SZ2 throughout the
+  bounds test — both match. Sole residual: `VIS1|VIS2` leaf-or order —
+  gold `mov al,[+7];or al,[+6]`, ours forced to +6-first by MSC6's
+  offset-sorted | canonicalization (30+ probe variants: no source shape
+  reproduces descending order). Then dataMap[6]=7 collision aborts at
+  the byte-identical `test es:[bx+6]` — tool-side cascade of the real
+  order diff. Semantically equivalent; flagged as canonicalization-class.
+- CheckWingmanSix loop tail: gold `mov ax,[cnt];cmp [NPLANES],ax;jle`
+  vs ours `mov ax,[NPLANES];cmp [cnt],ax;jge` — identical context incl.
+  `inc [bp-2]`; operand pick is descriptor-state-driven, not source
+  direction (NPLANES>cnt flip emits same). Probe: register-resident
+  counter gives gold's `cmp [NG],reg` shape — memory counter doesn't.
+- AddAcqList: gold pins `t` into di before the AWG9==EASY test and
+  reuses it for ps[t->i].type (imul 0x28) + t->conv/d tests; ours
+  reloads bx per site. Semantics confirmed identical (EASY gate present
+  in gold at 0x28b3, MODERATE at [0x1008]==1, AUTHENTIC at ==2 with
+  4988/159616 and 1900/60800,4513/144416,... sig table). Residual:
+  di-vs-bx pointer pin + preload hoist — regalloc class.
