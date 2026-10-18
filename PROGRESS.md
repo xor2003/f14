@@ -3,6 +3,33 @@
 Reference oracle: `/home/xor/games/f14gold/Fleetgold/F14GOLD/F14.EXE` (retail).
 `src/F14.EXE` is used ONLY for CodeView names/module order, never behavior.
 
+## Turn: 605 -> 607 — cmp operand-order mechanism cracked
+
+NEW MSC6 rule (verified): for `cmp` between two memory operands (local/param
+vs global), the LATER-BOUND operand emits as the mem-left operand and the
+earlier-bound goes to ax. To make a GLOBAL the mem-left operand (retail's
+shape, e.g. `cmp NPLANES,ax`), bind it AFTER the locals:
+
+1. If the global is defined in the same .C: move the `int G=0;` def to FILE
+   END and declare `extern int G;` inside the function AFTER the locals.
+   (EMSPagesGrabbed in EMSLOAD.C — GetEmsMem+ResizeEmsMem now MATCH.)
+2. If the global comes via header extern: `extern int G;` inside the fn
+   after locals SOMETIMES flips it (CheckDataLink, ReArmWingman MATCH) —
+   worked for NPLANES in some fns, not others (mechanism partly unclear).
+3. Loop-bound spelling `for(i=0;GLOBAL>i;i++)` emits literal
+   `cmp GLOBAL,i;jg` when the global is late-bound; `i<GLOBAL` emits
+   `cmp i,GLOBAL` when early-bound. `>` is NOT always normalized.
+
+_detect: signal/dist decl swap (signal before dist) + `dist<signal`
+spelling flipped the compare to gold's `cmp dist,ax;jb`.
+
+Unsigned compares emit literal jump sense (ja/jb) — source `>` gives ja,
+`<` gives jb; which operand is mem-left follows the binding rule above.
+
+Remaining classes unchanged: si/di/bx regalloc (use-count driven),
+far-ptr es save/reload, retail-only blocks (WING_SCHED in CheckDataLink's
+extent is now passed — function body itself matches).
+
 ## Toolchain (build_all.sh)
 
 - C: MSC 6.00 `c6/BIN/CL.EXE` under kvikdos, flags `/FPa /G2 /Gs /AM /Osegcl /Zi /Zd`
