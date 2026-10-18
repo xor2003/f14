@@ -1415,13 +1415,14 @@ EasyLanding()
 
 	if(Night || (MissionWeather == 0) || (landpt < 3)) {
 		--landpt;
-		goto landdone;
 	}
-	if(landpt < 5)
-		landpt = 2;
-	else
-		landpt -= 4;
-landdone:
+	else {
+		if(landpt < 5)
+			landpt = 2;
+		else
+			landpt -= 4;
+	}
+
    if (landpt<0) landpt=MAXPAT-1; // change to landpt--;
 
 
