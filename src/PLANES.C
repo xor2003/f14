@@ -4580,10 +4580,10 @@ void AIGetBombDist()
 
 	TurnAIPlaneBy(i, relangle);
 
-	if(((int)LDist2D(xval, yval) >> 2) + 0x23a <= ps[i].alt) {
+	if(((int)LDist2D(xval, yval) >> 2) + 0x23a > ps[i].alt) {
 		pdest = 0x2000;
 	}
-	else if(((int)LDist2D(xval, yval) >> 2) + 0x2bc >= ps[i].alt) {
+	else if(((int)LDist2D(xval, yval) >> 2) + 0x2bc < ps[i].alt) {
 		pdest = 0xD000;
 	}
 	else
