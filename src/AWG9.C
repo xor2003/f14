@@ -2710,8 +2710,7 @@ int WingmanAdd(TARGET *t)			/* FUN_08de_3404 */
 	TARGET *dst;
 
 	if (WING_CNT < 10) {
-		dst = WING_PTR + WING_CNT;
-		WING_CNT++;
+		dst = WING_PTR + WING_CNT++;
 		*dst = *t;
 	}
 }
@@ -2750,16 +2749,15 @@ int WingmanSelect()				/* FUN_08de_31b2 */
 {
 	int i, found;
 
-	if (WING_CNT == 0) {
+	found = 0;
+	if (WING_CNT == found) {
 		LOCKSHOOT = -1;
-		WING_HAVETARG = 0;
-		return;
+		return (WING_HAVETARG = 0);
 	}
 
-	if (WING_SELOK) {
+	if (WING_SELOK != found) {
 		if (LOCKSHOOT == -1)
 			goto picksel;
-		found = 0;
 		for (i=0; i<WING_CNT; i++) {
 			WING_PTR[i].i = LOCKSHOOT;
 			if (WING_PTR[i].i) {
@@ -2777,7 +2775,7 @@ picksel:
 
 	if (AWG9_project(ps[LOCKSHOOT].xL,ps[LOCKSHOOT].yL,ps[LOCKSHOOT].alt)==-1) {
 		LOCKSHOOT = -1;
-		return;
+		return(0);
 	}
 
 	WING_TX = proj_x - Px;			/* gold: [0x7df8]=[0x7e52]-[0x2f3a] */
