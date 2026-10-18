@@ -332,7 +332,8 @@ TrackBullets()
 //***************************************************************************
 DrawBullets()
 {
-    int i, ssx,ssy;
+    int i, ssx,ssy, col;
+	struct PlaneData far *ptargettype;
 
     for (i=0; i<NTRACE2; i++) {
         if (trs[i].x) {
@@ -340,8 +341,14 @@ DrawBullets()
             ssx=sx; ssy=sy;
             lproject ((trs[i].x+(trs[i].dx>>2))&~3, (trs[i].y+(trs[i].dy>>2))&~3, (trs[i].z+(trs[i].dz>>2))&~3);
 
+			col = i<FIRST_ENEMY_TRACE ? ORANGEFLAME:BLUEFLAME;
+			if (trs[i].firedby != -1) {
+				ptargettype = GetPlanePtr(ps[trs[i].firedby].type);
+				if (ptargettype->PlaneEnumId == 0xa7)
+					col = 0x92;
+			}
             if (sx!=-1  && ssx!=-1) {
-                DrawLine (Rp3D, sx,sy, ssx,ssy, i<FIRST_ENEMY_TRACE ? ORANGEFLAME:BLUEFLAME);
+                DrawLine (Rp3D, sx,sy, ssx,ssy, col);
             }
         }
     }

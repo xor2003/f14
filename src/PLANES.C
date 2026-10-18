@@ -44,7 +44,7 @@ extern  long    PxLng, PyLng;
 extern  int     OurHead,OurRoll, OurPitch;
 extern   UWORD       AirSpeed;
 extern  SWORD	Knots;
-extern  UWORD   Alt;
+extern  int     AltDummyUnused;
 extern  int     Demo;
 extern  int     FIRST_ENEMY_TRACE,DMAX9;
 extern  int     TSpeed;
@@ -166,6 +166,7 @@ int firstbehaveshow;
 /* Process all planes except us */
 /* -----------------------------*/
 doplanes () {
+	extern UWORD Alt;
     static int dog=0;
 	int droll1, droll2;
 	int maxrollval;
@@ -555,7 +556,8 @@ int GetAltPitch(int orgalt, int destalt, COORD tdist) {
 // #ifdef REMOVEDCODE
 
 /*----------*/
-GetDestinationXYZ () {     // sets xd,yd,zd, mode, CloseGuy
+GetDestinationXYZ () {
+	extern UWORD Alt;     // sets xd,yd,zd, mode, CloseGuy
     int b;
 	COORD bxloc, byloc;
 	UWORD bzloc;
@@ -1059,6 +1061,7 @@ UpdateSpeedAndPosition ()
 //***************************************************************************
 Landing ()
 {
+	extern UWORD Alt;
 	int otherplane;
 	int dx, dy, xd, yd, zd;
 	COORD bxloc, byloc;
@@ -1193,6 +1196,7 @@ ReturnToBase () {
 /*----------*/
 search ()
 {
+	extern UWORD Alt;
     COORD       dist;
     int         signal;
     int         angl;
@@ -1630,9 +1634,10 @@ ActivatePlane(int pl, int base, int planeid)
 
 void GetTargADP(int planenum, int dx, int dy, COORD *tdist, int *tpitch, int *tangle, COORD *tdistnm, int *enemyalt, int deltalt)
 {
+	extern UWORD Alt;
 	if(bv[planenum].target == -1) {
 		*tdist = Dist2D(dx, dy);
-		*tpitch = GetAltPitch(ps[planenum].alt, (Alt + deltalt), *tdist);
+		*tpitch = GetAltPitch(ps[planenum].alt, ((Alt|0) + deltalt), *tdist);
 		*enemyalt = Alt;
 	}
 	else {
@@ -2456,6 +2461,7 @@ void ChooseBehavior() {
 }
 
 void StraightAttack() {
+	extern UWORD Alt;
 	int dx, dy, dz;
 	int relangle, rrelangle, enemyhead;
 	int tangle, tpitch, troll, enemyalt, enemyroll;
@@ -4768,6 +4774,7 @@ void AIBombTarget()
 //////////////////////////////////////////////////////////////////////////
 void BOMB_TrackingAI ()
 {
+	extern UWORD Alt;
 	int  f;
 	long  dist;
 	int  dpitch;

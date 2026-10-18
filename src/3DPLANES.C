@@ -94,7 +94,7 @@ Do3dObject(int Obj, long OX, long OY, UWORD OZ, int ID,int TYPE)
 
 
     dx = OX - ViewX;
-    dy = ViewY - (0x100000L-OY);
+    dy = (ViewY - 0x100000L) + OY;
     dz = OZ - ViewZ;
 
 	if (abs(dz) > 0x3ffe) return (1);

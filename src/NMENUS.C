@@ -446,8 +446,6 @@ int DrawSettings()
 
 	RectFill(MenuRp,223,8,85,35,18);
 	RpPrint(MenuRp,225,10,"Quality Assurance");
-	RpPrint(MenuRp,225,18,"Vaughn Thomas");
-	RpPrint(MenuRp,225,26,"Version: 1.18");
 
 	// Draw Stick
 	ScaleRotate(mseg,185,104,6,6,MenuRp,(menuhotspots[StickType].x1+5),
