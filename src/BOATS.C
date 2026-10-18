@@ -330,6 +330,7 @@ void UpdateOurCarrier(int boatnum)
 #endif
 }
 
+extern int _pq0;
 void UpdateAIsOnCarrier(int boatnum, long cdx, long cdy)
 {
 	int cnt;

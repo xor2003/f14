@@ -428,6 +428,11 @@ int AnimIsRunning(UWORD SlotNMount)
 }
 
 //***************************************************************************
+extern int _pq0;
+extern int _pq1;
+extern int _pq2;
+extern int _pq3;
+extern int _pq4;
 CoolF14MissileAnims()
 {
    int   i;
@@ -587,6 +592,7 @@ int HookDownAnim()
 }
 
 //***************************************************************************
+extern int _pq5;
 UpdateOurPlaneAnims ()
 {
 	int stickx,sticky;

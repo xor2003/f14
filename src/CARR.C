@@ -591,6 +591,24 @@ int OnCarrier(long PX, long PZ, long PY)
 }
 
 //***************************************************************************
+extern int _pq0;
+extern int _pq1;
+extern int _pq2;
+extern int _pq3;
+extern int _pq4;
+extern int _pq5;
+extern int _pq6;
+extern int _pq7;
+extern int _pq8;
+extern int _pq9;
+extern int _pq10;
+extern int _pq11;
+extern int _pq12;
+extern int _pq13;
+extern int _pq14;
+extern int _pq15;
+extern int _pq16;
+extern int _pq17;
 int GlideScopeCheck(long PX, long PZ, long PY)
 {
 	int x,y;
@@ -766,6 +784,18 @@ UpdateCarrierAnim()
 
 
 //***************************************************************************
+extern int _pq18;
+extern int _pq19;
+extern int _pq20;
+extern int _pq21;
+extern int _pq22;
+extern int _pq23;
+extern int _pq24;
+extern int _pq25;
+extern int _pq26;
+extern int _pq27;
+extern int _pq28;
+extern int _pq29;
 int KeepPlaneOnCarrier(int reqcat, int planenum)
 {
 	int V[3];
@@ -1161,6 +1191,23 @@ extern int LSOMSGTIME;
 
 
 
+extern int _pq30;
+extern int _pq31;
+extern int _pq32;
+extern int _pq33;
+extern int _pq34;
+extern int _pq35;
+extern int _pq36;
+extern int _pq37;
+extern int _pq38;
+extern int _pq39;
+extern int _pq40;
+extern int _pq41;
+extern int _pq42;
+extern int _pq43;
+extern int _pq44;
+extern int _pq45;
+extern int _pq46;
 DoPlayerOnTheHook()
 {
    int   V[3];
