@@ -2686,7 +2686,7 @@ InitThreatTbl()
 static int     WING_CNT;                  /* gold 0xbe30 */
 static int     WING_SCHED;                /* gold 0x12d0 */
 static int     WING_SELOK;                /* gold 0x1054 */
-static int     WING_LOCKOK;               /* gold 0x6972 */
+
 static int     WING_HAVETARG;             /* gold 0x906e */
 static TARGET  WING_TARGS[10];            /* gold 0xbb2e */
 static TARGET *WING_PTR;                  /* gold 0x104e */
@@ -2788,7 +2788,7 @@ int WingmanFixup()				/* FUN_08de_308e */
 {
 	WING_HAVETARG = 0;
 	if (!AWG9_SNIFF && WING_SELOK) {
-		if (WING_LOCKOK) {
+		if (SHOOT) {						/* gold [0x6972]==SHOOT */
 			WING_HAVETARG = 1;
 			LOCKSHOOT = LOCKED;
 			return;

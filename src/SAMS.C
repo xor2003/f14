@@ -940,7 +940,7 @@ firemissile()
                             OurPitch,
                             OurRoll,
                             ((AirSpeed>>4)>>4) * 11,
-                            SHOOT ? LOCKED : -1,    // used for air-air only !
+                            weapon==W_AIM_9 ? LOCKSHOOT : (SHOOT ? LOCKED : -1),    // used for air-air only !
                             MAXPLANE,
                             TgtX,
                             TgtY,
