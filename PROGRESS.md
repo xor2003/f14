@@ -591,3 +591,18 @@ Global identity work needed: [0xbe30]=?count(AGEDTARGFILECNT?),
 [0x12d0]=?junktime-adjacent counter(ours 0x118c region),
 [0x66a2],[0x6972],[0xc564],[0x103a],[0x1036],[0x7e52],[0x8960],
 [0x2f3a],[0x2f3c],[0x7df8],[0x7e0a],[0x104e]->0xbb2e = TBD.
+
+Confirmed gold<->ours global map (via matched-fn operand pairing):
+  gold 0x1008=_AWG9_REALITY_LEVEL, 0x100a=_RIO_ASSIST, 0x100c=_AWG9_MODE,
+  0x1052=_DataLink, 0xc56e=NPLANES(_9f86), 0xc564=_AWG9_SNIFF(_9f7e),
+  0x6672=_DESIGNATED(_5974), 0xae9c=_behavecommands(_9d04),
+  0x7e7c=ps[] recs (0x28 stride; ours 0x701e+), 0xc97c=_DETECTED_TARG(_ab66)
+Still TBD: 0x12d0 ctr (junktime region ~our 0x118c), 0x76ec per-plane
+  word tbl parallel to ps (TARGFILE-occupancy flags?), 0x104e=ptr to
+  0x32-stride recs (DESIG_TARG candidate), 0x102c selected idx
+  (SelectedTarg sem.), 0x906e flag, 0x1054, 0x6972, 0x66a2, 0x103a,
+  0x1036, 0x7e52, 0x8960, 0x2f3a, 0x2f3c, 0x7df8, 0x7e0a, ptr 0xbb2e.
+SearchForTargets diff (real): gold `for(i=0;i<NPLANES;i++)` emits
+  `mov ax,[i]; cmp [NPLANES],ax; jg` + `cmp [DESIGNATED],ax` +
+  dual ptr locals [bp-0xa]=DETECTED_TARG, [bp-8]=ps — ours has
+  operand-order flipped loop-head (compare-form source differs).
