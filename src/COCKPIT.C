@@ -989,39 +989,40 @@ int DrawAirSpeedGauge()
 //***************************************************************************
 int DrawIndexer()
 {
-	int tempknot;
-	int pos;
-	int ballcolor;
-#ifdef YEP
-	if (!(Status & WHEELSUP)) {
-		tempknot = TAStoIAS(Knots);
+	unsigned int pos;
+	int c;
 
-		if (tempknot<130)
-			pos=0;
-		if (tempknots>130) && (tempknots<138))
-			pos=1;
-		if (tempknots>138)
-			pos=3;
+	pos = -1;
+	if (!(Status & WHEELSUP)) {
+		switch(MeatBall) {
+			case 0:
+				pos=2;
+			break;
+			case 1:
+				pos=2;
+			break;
+			case 2:
+				pos=1;
+			break;
+			case 3:
+				pos=0;
+			break;
+			case 4:
+				pos=0;
+			break;
+		}
 	}
-#endif
-	switch(MeatBall) {
-		case 0:
-			ballcolor=22;
-		break;
-		case 1:
-			ballcolor=22;
-		break;
-		case 2:
-			ballcolor=19;
-		break;
-		case 3:
-			ballcolor=17;
-		break;
-		case 4:
-			ballcolor=17;
-		break;
-	}
-	RectFill(Rp1,80,78,3,2,ballcolor);
+	c = (pos==2) ? 75 : 42;
+	RectFill(Rp1,77,72,81,72,c);
+	RectFill(Rp1,78,73,80,73,c);
+	DrawDot(Rp1,79,74,c);
+	c = (pos==1) ? 84 : 42;
+	RectFill(Rp1,80,78,82,78,c);
+	RectFill(Rp1,80,79,82,79,c);
+	c = pos ? 42 : 17;
+	DrawDot(Rp1,83,83,c);
+	RectFill(Rp1,82,84,84,84,c);
+	RectFill(Rp1,81,85,85,85,c);
 }
 
 
@@ -2056,24 +2057,27 @@ static CheckLights(int i)
 //***************************************************************************
 ShowFuel()
 {
-    int f, val;
-	int Lfuel,Rfuel;
-	int Rfbar,Lfbar;
+	int Lfuel, f, Lfbar, Rfuel, Rfbar;
 
-
-//    f = (Fuel+49)/50;
 	f = Fuel;
 	Lfuel = f/2;
 	Rfuel = f/2;
 
+	if (Lfuel<1) Lfuel=0;
+	if (Rfuel<1) Rfuel=0;
+	if (f<0) f=0;
+
     if (f!=OldFuel) {
         OldFuel = f;
 
-		Lfbar = Lfuel/300;
-		Rfbar = Rfuel/300;
+		Lfbar = Lfuel/360;
+		Rfbar = Rfuel/360;
 
-		if (Lfbar>140) Lfbar=140;
-		if (Rfbar>140) Lfbar=140;
+		if (Lfbar>28) Lfbar=28;
+		if (Rfbar>28) Lfbar=28;
+
+		if (Lfbar<1) Lfbar=1;
+		if (Rfbar<1) Rfbar=1;
 
         MouseHIDE ();
         Rp1->FontNr=F_3x5A;
@@ -2097,6 +2101,8 @@ ShowFuel()
 		RectFill(Rp2,244,114,5,27,BLACK);
 		RectFill(Rp2,244,141-Rfbar,5,Rfbar,(LightsOn?54:2));
 		RectCopy(Rp2,244,114,5,27,Rp1,244,114);
+
+		MouseSHOW();
     }
 }
 
