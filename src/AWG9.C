@@ -180,6 +180,12 @@ int InRangeFlash=0;
 static jmp_buf resetmark;
 
 //***************************************************************************
+extern int behavecommands;
+#ifndef OTHERWINGAI
+#define  OTHERWINGAI  18		/*  SHIFT F8  */
+#endif
+int WingmanAISched();
+
 int AWG9()
 {
 	setjmp(resetmark);
@@ -196,6 +202,7 @@ int AWG9()
 	FiringOrder();
 	UpdateTWSSelected();
 	DetermineShootParams();
+	if (behavecommands == OTHERWINGAI) WingmanAISched();
 	Aim9Sound();
 }
 
@@ -881,11 +888,11 @@ int AWG9_CHANGE_MODE(int mode)
 }
 
 //***************************************************************************
+static int prevaz=BAR_2;
+static int prevbar=DEG40;
+
 int CheckAZELChange()
 {
-	static int prevaz=BAR_2;
-	static int prevbar=DEG40;
-
 	if ((prevaz!=SELECTED_AZ) || (prevbar!=SELECTED_BAR_NUM)) {
 // YOU STUPID FUCK!!!
 //		ClearTargetFile();
@@ -1394,7 +1401,7 @@ int LockDistanceCheck(TARGET *t)
 {
 	long rng=0L;
 	struct PlaneData far *tempplane;
-	int radarsig;
+	int radarsig[1];
 
 	tempplane = GetPlanePtr(ps[t->i].type);
 
@@ -1419,20 +1426,20 @@ int LockDistanceCheck(TARGET *t)
 	}
 
 	if (AWG9_REALITY_LEVEL==AWG9_AUTHENTIC) {
-		radarsig = tempplane->radarsig;
-		if (radarsig==1) {
+		radarsig[0] = tempplane->radarsig;
+		if (radarsig[0]==1) {
 			rng = (t->conv) ? 1900L:60800L;		// 40 nmi
 		}
-		if (radarsig==2) {
+		if (radarsig[0]==2) {
 			rng = (t->conv) ? 4513L:144416L;	// 95 nmi
 		}
-		if (radarsig==3) {
+		if (radarsig[0]==3) {
 			rng = (t->conv) ? 4988L:159616L;	// 105 nmi
 		}
-		if (radarsig==4) {
+		if (radarsig[0]==4) {
 			rng = (t->conv) ? 5938L:190016L;	// 125 nmi
 		}
-		if (radarsig==5) {
+		if (radarsig[0]==5) {
 			rng = (t->conv) ? 6888L:220416L;	// 145 nmi
 		}
 
@@ -2035,7 +2042,7 @@ int RioLockCheck()
 		return(0);
 	}
 	else {
-		Message("(RIO) Bandit Locked Up!");
+		Message("(RIO) Bandit Locked Up!", RIO_NOW_MSG);
 	}
 
 	LOCKED =
@@ -2219,6 +2226,8 @@ int DesignateTIDTarg()
   					new = TIDTargetList[i].i;
 					if(DesigTargCnt && AlreadyDesigTarg(new))
 						new = -1;
+					else
+						break;
 			}
 	}
 
@@ -2668,4 +2677,143 @@ InitThreatTbl()
 	for (i=0; i<ThreatTblCnt; i++) {
 		ThreatTbl[i]=0;
 	}
+}
+
+//***************************************************************************
+/* Gold-only wingman datalink scheduler (retail 08de:306c-344f).
+   Runs under behavecommands==OTHERWINGAI; WING_SCHED divides the
+   list reset to every 10th call.                                   */
+static int     WING_CNT;                  /* gold 0xbe30 */
+static int     WING_SCHED;                /* gold 0x12d0 */
+static int     WING_SELOK;                /* gold 0x1054 */
+static int     WING_LOCKOK;               /* gold 0x6972 */
+static int     WING_HAVETARG;             /* gold 0x906e */
+static TARGET  WING_TARGS[10];            /* gold 0xbb2e */
+static TARGET *WING_PTR;                  /* gold 0x104e */
+static int     WING_TX, WING_TY;          /* gold 0x7df8/0x7e0a */
+
+//***************************************************************************
+int WingmanListReset()			/* FUN_08de_3431 */
+{
+	int i;
+
+	WING_PTR = WING_TARGS;
+	WING_CNT = 0;
+
+	for (i=0; i<NPLANES; i++)
+		DETECTED_TARG[i] = 0;
+}
+
+//***************************************************************************
+int WingmanAdd(TARGET *t)			/* FUN_08de_3404 */
+{
+	TARGET *dst;
+
+	if (WING_CNT < 10) {
+		dst = WING_PTR + WING_CNT;
+		WING_CNT++;
+		*dst = *t;
+	}
+}
+
+//***************************************************************************
+int WingmanScan()				/* FUN_08de_30d8 */
+{
+	TARGET t;
+	int i;
+
+	for (i=0; i<NPLANES; i++) {
+		if (!(ps[i].status & ACTIVE)) continue;
+		if (!ps[i].speed) continue;
+		if (DETECTED_TARG[i]) continue;
+
+		SetupNewTarget(&t,i);
+
+		if (t.rz < 0) continue;					/* behind player */
+
+		if ((long)t.d > ((t.conv) ? 238L:7616L)) continue;	/* 5 nmi max  */
+		if ((long)t.d < ((t.conv) ? 10L:470L))  continue;	/* min range  */
+
+		t.az = ARCTAN (t.rx,t.rz);				/* target azimuth  */
+		t.el =-ARCTAN (t.ry,t.rz);				/* target elevation */
+
+		if (abs(t.az) > Angles[DEG20].wdeg) continue;
+		if (abs(t.el) > Angles[DEG40].wdeg) continue;
+
+		WingmanAdd(&t);
+		DETECTED_TARG[i]++;
+	}
+}
+
+//***************************************************************************
+int WingmanSelect()				/* FUN_08de_31b2 */
+{
+	int i, found;
+
+	if (WING_CNT == 0) {
+		LOCKSHOOT = -1;
+		WING_HAVETARG = 0;
+		return;
+	}
+
+	if (WING_SELOK) {
+		if (LOCKSHOOT == -1)
+			goto picksel;
+		found = 0;
+		for (i=0; i<WING_CNT; i++) {
+			WING_PTR[i].i = LOCKSHOOT;
+			if (WING_PTR[i].i) {
+				found = 1;
+				break;
+			}
+		}
+		if (!found) {
+picksel:
+			LOCKSHOOT = WING_PTR[0].i;
+		}
+	}
+
+	if (LOCKSHOOT == -1) return;
+
+	if (AWG9_project(ps[LOCKSHOOT].xL,ps[LOCKSHOOT].yL,ps[LOCKSHOOT].alt)==-1) {
+		LOCKSHOOT = -1;
+		return;
+	}
+
+	WING_TX = proj_x - Px;			/* gold: [0x7df8]=[0x7e52]-[0x2f3a] */
+	WING_TY = proj_y - Py;			/* gold: [0x7e0a]=[0x8960]-[0x2f3c] */
+	WING_HAVETARG = 1;
+}
+
+//***************************************************************************
+int WingmanFixup()				/* FUN_08de_308e */
+{
+	WING_HAVETARG = 0;
+	if (!AWG9_SNIFF && WING_SELOK) {
+		if (WING_LOCKOK) {
+			WING_HAVETARG = 1;
+			LOCKSHOOT = LOCKED;
+			return;
+		}
+		if (LOCKSHOOT == -1) {
+			WING_HAVETARG = 0;
+			LOCKSHOOT = -1;
+			return;
+		}
+	} else if (LOCKSHOOT == -1) {
+		return;
+	}
+	WING_HAVETARG = 1;
+}
+
+//***************************************************************************
+int WingmanAISched()				/* FUN_08de_306c */
+{
+	if (++WING_SCHED > 10) {
+		WingmanListReset();
+		WING_SCHED = 0;
+	}
+	WingmanScan();
+	WingmanSelect();
+	WingmanFixup();
 }
