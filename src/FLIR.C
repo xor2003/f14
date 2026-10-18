@@ -318,17 +318,17 @@ FireColors ()
 
     UBYTE   Buf[6];
 
-    Palette[3*ORANGEFLAME+0] = Buf[0] = OrangeFlame[jx++];
-    Palette[3*ORANGEFLAME+1] = Buf[1] = OrangeFlame[jx++];
-    Palette[3*ORANGEFLAME+2] = Buf[2] = OrangeFlame[jx++];
-    Palette[3*BLUEFLAME  +0] = Buf[3] = BlueFlame[ix++];
-    Palette[3*BLUEFLAME  +1] = Buf[4] = BlueFlame[ix++];
-    Palette[3*BLUEFLAME  +2] = Buf[5] = BlueFlame[ix++];
+    Buf[0] = OrangeFlame[jx++];
+    Buf[1] = OrangeFlame[jx++];
+    Buf[2] = OrangeFlame[jx++];
+    Buf[3] = BlueFlame[ix++];
+    Buf[4] = BlueFlame[ix++];
+    Buf[5] = BlueFlame[ix++];
 
     MCGAColors(ORANGEFLAME, 2, Buf);
 
-    if (jx>=(3*10)) jx=0;
-    if (ix>=(3*8)) ix=0;
+    if (jx>=(3*9)) jx=0;
+    if (ix>=(3*6)) ix=0;
 }
 
 //***************************************************************************
