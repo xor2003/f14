@@ -1202,3 +1202,21 @@ Pending work queues:
 - PASM_TEXT asm fns: byte-level asm review needed.
 - _DrawASurf (422 insn, no gold routine matches), _ShowAIStatus (0.26 jac):
   source-level reconstruction differs fundamentally.
+
+## Session state (compact): 603/760 verified committed (69e9411)
+
+- aligned_anchors.tsv = order-aligned gold anchors for DIFF fns only
+  (DP seq-alignment of dev pubsym order vs gold segment routine order).
+  objsweep.py/padpos.py/padmod2.py all read it and override classified
+  anchors. Rerun padmod2 on a module uses corrected anchors.
+- ~10 fns have IDENTICAL normalized streams; only address immediates
+  differ -> resolve for free once DGROUP+segment layout converges.
+- GetWeaponCount: gold twin located at 08de:00c6 (mis-paired before).
+  Leaf-pick (elem vs param in ax) resists pads 0-24, inner externs,
+  aliases, operand flips, pointer-loop. Only probe-TU emits gold form.
+  Parked: needs deeper symtable-state lever or alternate source shape.
+- SetUpWingman: NPLANESx/LASTPLANEx inner externs fixed 2 of 3 leaf
+  compares (jnl/cmp[bp],ax); residual regalloc diff.
+- lanes: padmod2 sweeps continue on PLANES3,N3D,SAMS,MESSAGE,MAP,HSD
+  with corrected anchors; /tmp/pm2b_*.log; queues in /tmp/q_lane5,6.sh.
+- Orphaned kvikdos/C2.EXE procs killed (old t5 deadlock leftovers).
