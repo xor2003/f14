@@ -641,11 +641,18 @@ UpdateCarrierAnim()
 {
 	static int StrobeLight=0;
 	static int tempflag=0;
+	static int StrobeCnt=0;
 
+	if (tempflag || StrobeCnt) {
+		if (tempflag==1) StrobeCnt=30;
+		CarrierAnimVals[27] ^= 1;
+		tempflag = 0;
+		StrobeCnt--;
+	}
 	StrobeLight++;
 	if (StrobeLight>8) StrobeLight=1;
 	CarrierAnimVals[26]=StrobeLight;
-	CarrierAnimVals[28]=LightsOn;
+	CarrierAnimVals[28]= (Night || !LightsOn);
 
 
 	// Cat #1
@@ -654,7 +661,7 @@ UpdateCarrierAnim()
 		CarrierAnimVals[3]-=(5*DEG);
 		if (CarrierAnimVals[3]==(15*DEG)) CatReady[0]=1;
 	}
-	if ((!BlastShield[0]) && (CarrierAnimVals[3]<(90*DEG))) {
+	else if ((!BlastShield[0]) && (CarrierAnimVals[3]<(90*DEG))) {
 		CarrierAnimVals[3]+=(5*DEG);
 		if (CarrierAnimVals[3]==(90*DEG)) {
 			CarrierAnimVals[2]=0;
@@ -668,7 +675,7 @@ UpdateCarrierAnim()
 		CarrierAnimVals[5]-=(5*DEG);
 		if (CarrierAnimVals[5]==(15*DEG)) CatReady[1]=1;
 	}
-	if ((!BlastShield[1]) && (CarrierAnimVals[5]<(90*DEG))) {
+	else if ((!BlastShield[1]) && (CarrierAnimVals[5]<(90*DEG))) {
 		CarrierAnimVals[5]+=(5*DEG);
 		if (CarrierAnimVals[5]==(90*DEG)) {
 			CarrierAnimVals[4]=0;
@@ -682,7 +689,7 @@ UpdateCarrierAnim()
 		CarrierAnimVals[7]-=(5*DEG);
 		if (CarrierAnimVals[7]==(15*DEG)) CatReady[2]=1;
 	}
-	if ((!BlastShield[2]) && (CarrierAnimVals[7]<(90*DEG))) {
+	else if ((!BlastShield[2]) && (CarrierAnimVals[7]<(90*DEG))) {
 		CarrierAnimVals[7]+=(5*DEG);
 		if (CarrierAnimVals[7]==(90*DEG)) {
 			CarrierAnimVals[6]=0;
@@ -696,7 +703,7 @@ UpdateCarrierAnim()
 		CarrierAnimVals[9]-=(5*DEG);
 		if (CarrierAnimVals[9]==(15*DEG)) CatReady[3]=1;
 	}
-	if ((!BlastShield[3]) && (CarrierAnimVals[9]<(90*DEG))) {
+	else if ((!BlastShield[3]) && (CarrierAnimVals[9]<(90*DEG))) {
 		CarrierAnimVals[9]+=(5*DEG);
 		if (CarrierAnimVals[9]==(90*DEG)) {
 			CarrierAnimVals[8]=0;

@@ -88,6 +88,8 @@ End3D()
 
 	static	int	LizardMouth;
 	static int beacon=0;
+	static int SweepVar=0;
+	static int SweepDir=0;
 
 	int	L;
 
@@ -97,6 +99,17 @@ End3D()
 
     GrndAnimVals[16] += d20<<1;
     GrndAnimVals[17] += d5<<1;
+
+	PlaneAnimVals[1] = SweepVar*182;
+	PlaneAnimVals[2] = SweepVar*(-182);
+	if (SweepDir)
+		SweepVar-= 5;
+	else
+		SweepVar+= 12;
+	if (SweepVar < -15) SweepDir=0;
+	else if (SweepVar > 45) SweepDir=1;
+
+    PlaneAnimVals[16] = GrndAnimVals[16];
     PlaneAnimVals[17] = GrndAnimVals[17];
     PlaneAnimVals[18]^= 1;
 
@@ -107,12 +120,10 @@ End3D()
 	GrndAnimVals[13]= (L>4)? 1:0;
 
 	if (++beacon>2) beacon=0;
-	if (beacon==0) {
-		*(PalPtr3D+31) = 0x9393;
-	} else
-		*(PalPtr3D+31) = 0x9292;
+	*(PalPtr3D+31) = (beacon==0) ? 0x9393 : 0x9292;
 
 	UpdateOurPlaneAnims();
+	UpdateCarrierAnim();
 
 	CarrierAnimVals[16] += d10<<1;
 	CarrierAnimVals[17] += d5<<1;
