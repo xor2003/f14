@@ -432,8 +432,8 @@ int show_radar (int i,int flash)
 
 	ClipSprite(RpCRT,CRT_X-5,CRT_Y-5,TEWSprites[SPR_SQUARE]);
 	tempradar = GetRadarPtr(Rdrs[i].rclass);
-	x = (pstrlen(RpCRT,itoa(tempradar->tewsnum,s,10))-1)/2;
-	RpPrint(RpCRT,CRT_X-x,CRT_Y-2,s);
+	x = (pstrlen(RpCRT,itoa(tempradar->tewsnum,s,10))-1)/2 + 1;
+	RpPrint(RpCRT,CRT_X-x,CRT_Y-3,s);
 }
 
 
@@ -451,8 +451,8 @@ int show_plane(int i)
 	convert_xy(ps[i].x,ps[i].y);
 	ClipSprite(RpCRT,CRT_X-5,CRT_Y-5,TEWSprites[SPR_DIAMOND]);
 	tempradar = GetRadarPtr(tempplane->rclass);
-	x = (pstrlen(RpCRT,itoa(tempradar->tewsnum,s,10))-1)/2;
-	RpPrint(RpCRT,CRT_X-x,CRT_Y-2,s);
+	x = (pstrlen(RpCRT,itoa(tempradar->tewsnum,s,10))-1)/2 + 2;
+	RpPrint(RpCRT,CRT_X-x,CRT_Y-3,s);
 }
 
 
@@ -461,13 +461,14 @@ int show_jamming()
 {
 	static ticks=0, off=0;
 	extern char gstr757[];
+	extern char gstr758[];
 
 	RpCRT->APen = 0x54;
 	if (JAMMER[0]) {
 		if (JAMMER_ACTIVE && !off)
 			RpPrint (RpCRT,8,8,gstr757);
 		else if (!JAMMER_ACTIVE)
-			RpPrint (RpCRT,8,8,gstr757);
+			RpPrint (RpCRT,8,8,gstr758);
 	}
 
 	ticks += FTicks;

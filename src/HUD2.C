@@ -363,7 +363,6 @@ int horiz_line (deg, xc, yc)
 	// draw horizon line
 
 	DrawLine (PLRp,xc+pts[0][0],yc+pts[0][1],xc+pts[1][0],yc+pts[1][1],HUD_COLOR);
-	DrawLine (PLRp,xc+pts[3][0],yc+pts[3][1],xc+pts[4][0],yc+pts[4][1],HUD_COLOR);
 }
 
 //***************************************************************************
