@@ -1291,3 +1291,20 @@ Open leaf-order classes (source-order-invariant in MS C6):
 - _LGetTargADP global-first leaf rank despite inner-extern — parked
 - _CheckTailAspect: gold reads distinct retail global 0xae26 (not PyLng_lo)
 - _MapLoc: thunk-call vs far-call structure — needs real reconstruction
+
+## Stream-identical DIFF census (reloc/DGROUP-only residual)
+
+These emit byte-shape-identical instruction streams; verify DIFFs come
+only from relocated operands (DGROUP offsets, far-call segment targets).
+They auto-converge when data/segment layout converges:
+
+  _NDDot _Perspect3D _DetermineShootParams _NDLine _NPFLine
+  _CheckAAAHit _DrawSweepDisplay _ShowOurWPS _DoOClockCall
+  _DoPlayerOnTheCat _UpdateOurPlaneAnims _FriendlyChooseBehavior
+  _ChangeGroupBehavior (fixed: zero-init stores as statements)
+  _show_radar _pitchnum (+12 previously found = ~27 total)
+
+_Closest real diffs: _GetRadarGTNum nd1 (cmp dir), _GiveSanitizeMessage
+nd3 (global-vs-local cmp leaf), _AwacsPicture nd5 (expr difference),
+_AvoidMountains/_FormationSpeedAdjustBoat/_MakeBoxes/_EasyLanding nd6-16
+(block-placement + si/di + regalloc classes)._
