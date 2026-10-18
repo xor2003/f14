@@ -45,14 +45,7 @@ Messages()
 //***************************************************************************
 Message(char *s,int src)
 {
-    int i, min, slot;
-	extern char gstr335[];
-
     if (ejected) return(1);
-
-	mprintf(s);
-	mprintf(gstr335);
-
 	if (MSGDETAIL==3) return(0);
 	if ((MSGDETAIL==2) && (src==GAME_MSG)) return(0);
 	if ((MSGDETAIL==1) && (src==RIO_MSG)) return(0);
@@ -63,10 +56,10 @@ Message(char *s,int src)
 MsgBox (Len, StartX, StartY)
 {
     RectFill (Rp3D, StartX-1, StartY-1, Len+1+1, 7, LGREY);
-    DrawLine (Rp3D, StartX-2, StartY-2, StartX+Len+1, StartY-2, WHITE);
-    DrawLine (Rp3D, StartX-1, StartY+6, StartX+Len+1, StartY+6, DGREY);
-    DrawLine (Rp3D, StartX-2, StartY-1, StartX-2,       StartY+5, WHITE);
-    DrawLine (Rp3D, StartX+Len+1, StartY-1, StartX+Len+1, StartY+5, DGREY);
+    RectFill (Rp3D, StartX-2, StartY-2, StartX+Len+1, StartY-2, WHITE);
+    RectFill (Rp3D, StartX-1, StartY+6, StartX+Len+1, StartY+6, DGREY);
+    RectFill (Rp3D, StartX-2, StartY-1, StartX-2, StartY+5, WHITE);
+    RectFill (Rp3D, StartX+Len+1, StartY-1, StartX+Len+1, StartY+5, DGREY);
 }
 
 
