@@ -89,7 +89,16 @@ def main():
                        % (off, nxt, off, nxt), src)
 
     for path in tsvs:
-        if 'classified' in path:
+        if 'aligned' in path:
+            for l in open(path):
+                f = l.rstrip('\n').split('\t')
+                if len(f) < 3:
+                    continue
+                v = f[2].lstrip('@')
+                if re.fullmatch(r'[0-9a-f]{4}:[0-9a-f]{4}', v):
+                    s, o = (int(x, 16) for x in v.split(':'))
+                    add(f[0], s, o, 'aln')
+        elif 'classified' in path:
             hdr = None
             for l in open(path):
                 f = l.rstrip('\n').split('\t')
