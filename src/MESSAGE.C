@@ -299,7 +299,7 @@ MyMessage(char *s,int src)
 
 MBox (RPS *Rp,int StartX, int StartY, int EndX, int EndY)
 {
-    RectFill (Rp, StartX, StartY, EndX-StartX+1,EndY-StartY+1, 17);
+    RectFill (Rp, StartX, StartY, EndX-StartX+1,EndY-StartY+1, 5);
 
     DrawLine (Rp, StartX, StartY, EndX,StartY,18);
     DrawLine (Rp, EndX,StartY, EndX,EndY,18);
