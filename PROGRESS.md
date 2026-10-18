@@ -682,3 +682,15 @@ Additional decode notes:
   wrong gold routines).
 - count: **564/756 MATCH**.
 
+- _show_jamming MATCH: gold's body is
+  `if (JAMMER[0]) { if (JAMMER_ACTIVE && !off) RpPrint(..,"JAMMER");
+  else if (!JAMMER_ACTIVE) RpPrint(..,"JAMMER"); }` — not
+  "JAMMER ACTIVE". Global map: gold 0x527a=JAMMER_ACTIVE,
+  0x527c=JAMMER[0], 0x5294=ticks, 0x5296=off (byte xor toggle).
+- TEWS APen setup: show_radar/show_plane set RpCRT->APen=0x56,
+  show_jamming=0x54 at head.
+- _show_radar/_show_plane residual = instruction-scheduling order
+  around the RpPrint call (same ops reordered, regalloc class).
+- count: **573/763 MATCH** (DDD cluster clean: _DoDDD/_show_az_carat/
+  _DDDWeaponRanges/_DopplerCheck/_convert_xy/_show_jamming all MATCH;
+  _DDDTargetDraw colors 84/88 fixed, frame/regalloc residual remains).

@@ -414,6 +414,7 @@ int show_radar (int i,int flash)
 	char s[5];
 	struct RadarData far *tempradar;
 
+	RpCRT->APen = 0x56;
 	convert_xy (Rdrs[i].x,Rdrs[i].y);
 	if (flash && flash_off) return 0;
 
@@ -432,6 +433,7 @@ int show_plane(int i)
 	struct PlaneData far *tempplane;
 	struct RadarData far *tempradar;
 
+	RpCRT->APen = 0x56;
 	tempplane = GetPlanePtr(ps[i].type);
 
 	convert_xy(ps[i].x,ps[i].y);
@@ -447,8 +449,13 @@ int show_jamming()
 {
 	static ticks=0, off=0;
 
-	if (JAMMER_ACTIVE && !off)
-		RpPrint (RpCRT,8,8,"JAMMER ACTIVE");
+	RpCRT->APen = 0x54;
+	if (JAMMER[0]) {
+		if (JAMMER_ACTIVE && !off)
+			RpPrint (RpCRT,8,8,"JAMMER");
+		else if (!JAMMER_ACTIVE)
+			RpPrint (RpCRT,8,8,"JAMMER");
+	}
 
 	ticks += FTicks;
 	if (ticks > 20) {
