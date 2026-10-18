@@ -12,8 +12,11 @@ def moff(nm):
     m=re.search(nm+r': (\S+) FAR ([0-9a-f]+)-([0-9a-f]+)',open('build/f14_named.map').read())
     return segs[m.group(1)],int(m.group(2),16),int(m.group(3),16)
 def dis(exe,para,a,b,base):
-    off=(0x5400 if 'GOLD' in exe else 0x5000)+para*16+a
-    open('/tmp/fd.bin','wb').write(open(exe,'rb').read()[off:off+b-a+1])
+    raw=open(exe,'rb').read()
+    import struct
+    load=struct.unpack('<H',raw[8:10])[0]*16
+    off=load+para*16+a
+    open('/tmp/fd.bin','wb').write(raw[off:off+b-a+1])
     return subprocess.run(['ndisasm','-b16','-o0x%x'%base,'/tmp/fd.bin'],capture_output=True,text=True).stdout
 gf,mn=sys.argv[1],sys.argv[2]
 gp,ga,gb=gfn[gf]; mp,ma,mb=moff(mn)

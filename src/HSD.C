@@ -1,10 +1,8 @@
 #include "library.h"
 
-#include <stdlib.h>
 #include "world.h"
 #include "sdata.h"
 #include "f15defs.h"
-#include "armt.h"
 
 extern  RPS     *RpCRT;
 extern  UWORD   GRPAGE0[];
@@ -78,7 +76,7 @@ pitchbar(int w,int dist,int ox,int oy) {      // draw a bar according to pitch, 
 	x2=x2*22/30;
 	y2=y2*22/30;
 	y2=scaley(y2);
-	DrawLine(RpCRT, ox+x,oy+y,ox+x2,oy+y2, WHITE);
+	DrawLine(RpCRT, x+ox,y+oy,x2+ox,y2+oy, WHITE);
 }
 
 pitchnum(int w,int pitch,int dist,int off,int ox,int oy) { // draw numbers on a pitch bar where the left side is in ten's of degrees, the right side always zero ie: 1 - 0 is 10 degrees
@@ -103,7 +101,9 @@ int scaler(int x) { return(x*22/30); } // scale ladder's view, the z axis, um th
 
 pitchbar2(int w,int pitch,int dist,int ox,int oy,int dir,char *text) { // draw pitch bar with any text at both endpoints
    int x1=w,y1=(dir?-4:4),x2=w,y2=0,x3=6,y3=0;
-   int a,b,c,d,p,t=pstrlen(RpCRT,text)/2-1;
+   int a,b,c,d,p;
+   volatile int t;
+   t=pstrlen(RpCRT,text)/2-1;
 
    Rotate2D(0,dist,OurRoll,&a,&b);
    ox+=scaler(a);
@@ -118,7 +118,7 @@ pitchbar2(int w,int pitch,int dist,int ox,int oy,int dir,char *text) { // draw p
    Rotate2D(-a,b,OurRoll,&c,&d);
    c=scaler(c);
    d=scaler(d);
-   RpPrint(RpCRT,ox+c-t,oy+d-1,text);
+   RpPrint(RpCRT,ox-t+c,oy+d-1,text);
 
    Rotate2D(x1,y1,p,&x1,&y1);          // pitch upward the |-- --| lines
    Rotate2D(x2,y2,p,&x2,&y2);
