@@ -1334,3 +1334,57 @@ NG*32 vars: gold DGROUP+0x010a (early BEGDATA), mine +0xde86 (end of
 _DATA after 56KB GDSEG). Retail's PASM data was BEGDATA-class or in
 GDSEG. dseg_pairs.tsv has 7591 gold<->mine offset pairs; layout is
 block-scrambled (+0x300/-0x5126 runs), not a uniform shift.
+
+## DGROUP convergence — model solved, PASM block verified (623/761)
+
+Retail DGROUP ordering decoded from gold image bytes + code refs:
+
+    [NULL 0-0x41][ _DATA 0x42-0x649 ][ GDSEG-region 0x64a+ ][ _BSS ]
+
+_DATA run contents (gold):
+  0x42-0x109  RTL crt0dat + early C vars (banner is NULL-seg; 'r+b'@0x82,
+              far-ptrs@0x70, mode dims@0x8e, 'rb'@0x106, CLIPZ dd@0x46=0x20000)
+  0x10a-0x283 PASM .DATA block: NGXLO32@0x10a, NGYLO32@0x10e, NGXHI32@0x112,
+              NGYHI32@0x116, NGXMID dw@0x11a, NGYMID dw@0x11c, FILLYLO@0x11e,
+              FILLYHI@0x122, identity-mat@0x126, zoomfactor@0x138, NOASPECT@0x13a,
+              CNT@0x13c, DELZ@0x140, TOPTOBOT@0x144, gap vars@0x146-0x153,
+              NPX..NPYTADD dd's @0x154-0x16b, VECT@0x16c, LVECT@0x172,
+              OFlags@0x17e, MWID@0x180, TransTable@0x182, NTRANSGREYPTRS@0x282
+  0x284-0x2bf EMM.ASM .DATA: dw 0184h@0x284, emminstalled@0x286,
+              emmname 'EMMXXXX0'@0x288, emmpagemap@0x290, emmmpbuf@0x298
+  0x2be-0x649 gstr0-49 + interleaved small vars (dw 5@0x2bc, dw -1@0x2be,
+              'rb'@0x2e9 between gstr0 and gstr1, word vars 3,3,2,52,44,24@0x330)
+
+GDSEG-region (gold 0x64a+): gstr50 'SARATOW.3DZ'@0x64a onward + game vars
+  (_TRGTB@0x532c confirmed via dseg_order; _ps@0x7e64; NG 16-bit word vars
+  _NGXHI/_NGXLO/_NGXMID/_NGYHI/_NGYLO/_NGYMID at ORG'd 0x7b62-0x7b6c —
+  SEPARATE uninit vars, NOT aliases of the dd's).
+
+Mechanics:
+- GDSEG.ASM class BEGDATA->BSS makes LINK order the big segment after the
+  _DATA run (class-order, not obj-order). Bytes still emit.
+- PASM .DATA vars split by scope: 16-bit NG words -> EXTRN (GDSEG labels
+  own _NGXMID etc for C code at 0x7b62 set); NGXMID/NGYMID dw's in the
+  PASM block are LOCAL (asm refs bind 0x11a/0x11c; gold Perspect3D reads
+  [0x11a]/[0x1 1c]).
+- CLIPZ defined in PASM .DATA @0x46 (dd 020000h); GDSEG's sequential
+  _CLIPZ label removed. _GRTBLSEG DGROUP label removed (gold's is the
+  far _GRTBL seg @50ea:0000).
+
+Verified byte-identical after rebuild: _NDDot 0/92, _NDLine 0/326,
+_Perspect3D 0/146. verify_build snapshot: 623 MATCH / 761 pairings.
+
+TODO to finish DGROUP:
+1. _DATA must end at 0x649 (mine 0x12BA): move mid-run content out —
+   TrgTbl (TRIG.ASM; gold has _TRGTB@0x532c in GDSEG region), MCGA G-vars,
+   a0-fill table, _DEFAULTPAL (EXTRN'd in GDSEG already), C literals, RTL tail.
+2. gstr0-49 need a 'DATA' segment emission ordered after EMM (#8): either
+   new 'gdata' obj between emm/nqfly in OBJS, or appended inside EMM.ASM
+   .DATA tail. Interleave per gold order (rb@0x2e9, word vars @0x330-0x33d).
+3. Rebase GDSEG ORGs by -0x64a once GDSEG base lands at 0x64a; sort the
+   sequential head-block (1183 labels incl ~770 gstrs) into gold order:
+   542 content-matched in gold image, +174 via dseg_order.tsv; remaining
+   ~467 mostly small strings/uninit vars need neighbor-inference.
+4. Fix wrong string CONTENTS: gold F14L09C/F14R09C/F14SMLO3/F14SMC02 vs
+   mine F14L09B/F14R09B/F14SMLO2/F14SMC01 (version-suffix diffs).
+5. _RioLeftShould@0x150 sits inside PASM block gap vars (0x146-0x153).
