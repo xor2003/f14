@@ -352,28 +352,6 @@ int UpdateTWSSelected()
 
 		PDT_RNG = (t.conv)?t.d:t.d>>HTOV;
 
-		// Force range displays
-		if (PDT_RNG <= BRANGES[0])
-			RANGE=0;
-
-		if ((PDT_RNG > BRANGES[0]) && (PDT_RNG < BRANGES[1]))
-			RANGE=1;
-
-		if ((PDT_RNG > BRANGES[1]) && (PDT_RNG < BRANGES[2]))
-			RANGE=2;
-
-		if ((PDT_RNG > BRANGES[2]) && (PDT_RNG < BRANGES[3]))
-			RANGE=3;
-
-		if ((PDT_RNG > BRANGES[3]) && (PDT_RNG < BRANGES[4]))
-			RANGE=4;
-
-		if ((PDT_RNG > BRANGES[4]) && (PDT_RNG < BRANGES[5]))
-			RANGE=5;
-
-		if (PDT_RNG > BRANGES[5])
-			RANGE=5;
-
 		// build aspect angle string
 
 		asp    = angle (Px-ps[SelectedTarg].x, -(Py-ps[SelectedTarg].y));
@@ -839,18 +817,13 @@ int AWG9_CHANGE_MODE(int mode)
 		break;
 
 		case AWG9_VSL:
-			reset      = TRUE;
-			break_mode = AWG9_MODE;
-			BEAM_HDG   = 0x1C70;  // 40 deg.
-      		DESIGNATED =
-			LOCKED     = -1;
-		break;
-
 		case AWG9_BORESIGHT:
 			reset      = TRUE;
 			break_mode = AWG9_MODE;
+			SELECTED_AZ = DEG10;
+			SELECTED_BAR_NUM = BAR_2;
 			BEAM_HDG   = 0;
-			DESIGNATED =
+      		DESIGNATED =
 			LOCKED     = -1;
 		break;
 
@@ -1224,6 +1197,7 @@ int UpdateBeam()
 
 	SetupNewTarget(&DESIG_TARGF, DESIGNATED);
 	orient_to_player(&DESIG_TARGF);
+	MakeMatHPR(-(OurHead+BEAM_HDG), OurPitch+BEAM_PIT, 0, BEAM_M);
 	orient_to_beam(&DESIG_TARGF);
 
 	DESIG_TARGF.az = ARCTAN(DESIG_TARGF.rx,DESIG_TARGF.rz);    // target azimuth   angle
@@ -1274,8 +1248,6 @@ int UpdateBeam()
 	}
 
 	if (AWG9_MODE == AWG9_STANDARD_TRACK) return 0;
-
-	MakeMatHPR(-(OurHead+BEAM_HDG), OurPitch+BEAM_PIT, 0, BEAM_M);
 
 	// test gimbal limits
 
