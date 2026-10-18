@@ -1171,3 +1171,34 @@ helpers.
   real TU-state/codegen diffs.
 
 ## Standing count: 595/760 (78.3%) — committed through e29809f
+
+## Decl-pad / symtable-state matching (breakthrough, this session)
+
+MS C 6 codegen (operand-order leaf picks, si/di regalloc, polarity) depends
+on the EXACT ordered decl sequence before each function — not just count.
+Pads = `extern int _pdN;` / `_pqN;` lines placed right before a function
+def. Bands (matching pad counts) repeat ~17-22; uniform-top pads and
+distributed pads produce DIFFERENT states at the same cumulative count
+(insertion order into hash chains matters).
+
+- tools/padmod2.py MOD — iterative positional solver: for each obj-failing
+  fn top-down, sweep pad count 0..24 right before its def; one compile per
+  count measures ALL module fns (objfn + normalized compare vs gold R-block
+  extent). Applies count maximizing module matches. ~90s/compile.
+- obj-match ≠ mzdiff-match: wrong anchors and data/call-target issues mean
+  obj-win can still mzdiff-DIFF. Harvest needs relink + verify_build.
+- TMPD env var selects E:\tmp subdir so lanes can run parallel (concurrent
+  CL.EXE in same TMP deadlocks!).
+- _Wall proved positional: baseline MATCH, uniform-top-21 MATCH,
+  positional-21 DIFF. Baseline matchers broken by upstream pads need their
+  own positional pads.
+
+Pending work queues:
+- lane queue scripts /tmp/q_lane{1..4}.sh run modules serially.
+- MPSLIBM_TEXT: gold has ~45 real routines (4140:xxxx) vs stub lib — needs
+  real implementation reconstruction (big separate task).
+- _TEXT RTL (setargv/vsprintf/amsg_exit/aFNaldiv): custom lib or mis-anchored;
+  C700/SOURCE/STARTUP has runtime source.
+- PASM_TEXT asm fns: byte-level asm review needed.
+- _DrawASurf (422 insn, no gold routine matches), _ShowAIStatus (0.26 jac):
+  source-level reconstruction differs fundamentally.

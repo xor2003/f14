@@ -55,15 +55,12 @@ ghdr = int.from_bytes(gd[8:10], 'little') * 16
 def gold_disasm(fn):
     s, o = anch[fn]
     cseg, ext, gname = goldmap[(s, o)]
-    total = 0
-    chunks = []
-    for part in ext.split(' '):
-        if part.startswith('R'):
-            a, b = part[1:].split('-')
-            chunks.append((int(a, 16), int(b, 16)))
-        else:
-            a, b = part.split('-')
-            chunks.append((int(a, 16), int(b, 16)))
+    chunks = [p for p in ext.split(' ') if p.startswith('R')]
+    chunks = [(int(p[1:].split('-')[0], 16), int(p[1:].split('-')[1], 16))
+              for p in chunks]
+    if not chunks:
+        a, b = ext.split(' ')[0].split('-')
+        chunks = [(int(a, 16), int(b, 16))]
     img = s * 16
     blob = b''
     for a, b in chunks:
@@ -116,6 +113,16 @@ def cand_disasm(fn):
                        capture_output=True, text=True)
     return norm(r.stdout)
 
+def aligned(cand, gold):
+    # obj pubdef can point inside a shared prologue: candidate must appear
+    # as a contiguous slice of gold (gold may lead by a few instructions)
+    if not cand or len(cand) > len(gold):
+        return False
+    for k in range(0, min(5, len(gold) - len(cand) + 1)):
+        if gold[k:k + len(cand)] == cand:
+            return True
+    return False
+
 mi = [m.end() for m in re.finditer(r'#include[^\n]*\n', base)]
 ins = mi[-1] if mi else 0
 PAD = 'extern int _pd%d;\n'
@@ -128,7 +135,7 @@ for n in range(0, maxpad + 1):
         continue
     hits = []
     for fn in modfns:
-        if cand_disasm(fn) == golden[fn]:
+        if aligned(cand_disasm(fn), golden[fn]):
             bands[fn].append(n)
             hits.append(fn)
     print('n=%2d  %2d obj-match: %s' % (n, len(hits), ' '.join(hits[:8])), flush=True)

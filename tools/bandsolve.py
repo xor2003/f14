@@ -17,7 +17,7 @@ base = open('src/%s.C' % mod).read()
 # function order in source
 forder = []
 seen = set()
-for m in re.finditer(r'(?m)^([\w\* ]+?)\b(\w+)\s*\([^;]*\)\s*$', base):
+for m in re.finditer(r'(?m)^([\w\* ]+?)\b(\w+)\s*\([^;{}]*\)\s*\{?\s*$', base):
     n = '_' + m.group(2)
     if n in bands and n not in seen:
         forder.append((m.start(1), n))
