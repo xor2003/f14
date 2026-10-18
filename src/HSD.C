@@ -71,6 +71,11 @@ drawcircle(char far *screen,int ox,int oy,int radius, int color) {   // draw cir
 }
 
 
+extern int _pb0;
+extern int _pb1;
+extern int _pb2;
+extern int _pb3;
+extern int _pb4;
 pitchbar(int w,int dist,int ox,int oy) {      // draw a bar according to pitch, dist away from center (ox,oy) of width/2 in length(w)
 	int x,y,x2,y2;
 
@@ -150,9 +155,6 @@ pitchbar2(int w,int pitch,int dist,int ox,int oy,int dir,char *text) { // draw p
    DrawLine(RpCRT, ox+c,oy+d,ox+a,oy+b ,WHITE);
 }
 
-extern int _pq0;
-extern int _pq1;
-extern int _pq2;
 pitchnum2(int w,int pitch,int dist,int off,int ox,int oy) {
    int x,y,a;
 
