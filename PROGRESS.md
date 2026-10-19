@@ -1665,3 +1665,33 @@ REMAINING BLOCKER CLASSES (verified, all steer-proof or systemic):
   state) — every respell inert because tree canonicalization precedes
   leaf pick. NQFLY now 6/10 MATCH; 4 DIFFs = 1-2 insns each, all this
   class, bodies otherwise byte-identical.
+
+## Turn: post-NQFLY sweep — sampled diffs all resolve to parked classes
+
+- _ReArmWingman (PLANES3): residual is commuted `NPLANESx > cnt` loop
+  test (gold `cmp [NPLANESx],cnt;jg`, ours `cmp cnt,ax;jl`) — operand-
+  order class; source already respelled backwards, still commutes.
+- _EndStack3D (NHORZ): REAL addressing diff, but blocker class 2 —
+  gold reads STACK3D[i].field via `mov es,[0x5fca]; es:[bx+off]` (far
+  ptr/array) while ours uses near `ds:[bx+off]` (_STACK3D @DGROUP
+  0xa142). Retail STACK3D sat behind a far pointer/far segment; fix
+  requires the DGROUP data-layout task, not a source tweak.
+- _CheckForMobileR5: dead-store class (`mov [bp-6],ax` where
+  otherplane's slot is never read back); temp-free/assign-in-cond/
+  for(;;) respells all perturb or dead-store identically. Parked.
+- _GetWhoCover: gold caches `ps[cnt].status` into a reused slot
+  ([bp-0xa]) then tests ALIVE/ACTIVE from the copy; every temp-spelling
+  (tdist/gnum assign-in-cond, nested if) perturbs prologue regalloc.
+  Reverted to baseline; parked pending a lever that shifts only the
+  test site.
+- _AIBombTarget: `bv[i]==bv[wingman]` eval-order (i*0x30 first gold,
+  wingman first ours) — pinned class, `==`-swap inert.
+- _ShowOurWPS, _CheckPlaneLand, _CheckTurnStuff, _DoLandWait,
+  _DoAltHover, _DoGroupAction, _GetRadarGTNum: all previously
+  catalogued pinned regalloc/operand-order instances.
+- _AIGoHome/_AIGoHome2 (PLANES2): prologue slot-assignment drift
+  (gold enter 0xa + di/si pushes; ours wider frame) — local residency
+  regalloc, no evident source difference.
+- padmod2 sweep complete (CARR..3DSCENE lanes): _Splatted best 9/12
+  pad n, no further flips. Standing census /tmp/census.txt = 154 DIFF
+  names, dominated by the three parked classes above.
