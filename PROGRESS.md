@@ -1599,3 +1599,27 @@ guard mine lacks. HOWEVER: writing it as a `?:` operand reshapes the
 else-if chain so an EARLIER divergence surfaces (`jmp short` vs inline
 `cwd;idiv` at +0x73b) — the chain's arm layout itself also differs.
 Needs full chain-layout reconstruction, not just the clamp. DEFERRED.
+
+== ANCHOR MIS-PAIRING (not source bugs) ==
+Several DIFFs were wrong retail twins, not source errors. Fixed via:
+- size-collision scan: two funcs claiming same gold addr (awk uniq -d on
+  aligned_anchors.tsv col3) -> _Boats3D/_X2map@072e:00d1, _CheckMouseInput/
+  _GetJoystickInputs@1081:008c.
+- classified.tsv 'bestaddr' (byte-similarity) often holds the TRUE twin when
+  alignorder's sequence-DP mis-paired (fn-count drift). For _AddAcqList,
+  bestaddr=08de:28aa was the real insertion-loop twin; old anchor 08de:13c9
+  is actually _LockDistanceCheck (a Message() predicate).
+- _CheckMouseInput->1081:01f0 => byte-exact MATCH (+1). _AddAcqList->28aa
+  => correct twin, residual is t-in-bx-vs-di regalloc only.
+
+REMAINING BLOCKER CLASSES (verified, all steer-proof or systemic):
+1. PINNED codegen: si/di/bx regalloc, cmp-operand-order, branch-polarity,
+   dead-store, shared-zero 'sub ax,ax' frames. register-kw does NOT steer.
+2. DGROUP data-layout: far-ptr segment-selector globals at wrong near
+   offsets (ChangeHUDFilter reads [0x5fce] gold vs [0xf35c] ours). dseg_pairs
+   shows ~916 divergent offsets - wholesale data reorder, large task.
+3. Near-fn anchors: _X2map/_Y2map/_mplot/_MapLoc (MAP_TEXT). Gold has NO
+   'sar ax,cl' map-transform near-fn - X2map likely inlined into callers or
+   differently formulated. True twins not yet found.
+4. _UpdatePalBuf anchor 2060:005e is WRONG (gold is a 2734B 'enter 0x30c'
+   packet/filename handler, not the 75B palette copy). Real twin unfound.
