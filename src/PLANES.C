@@ -105,8 +105,10 @@ extern int planecnt;
 // #ifdef REMOVEDCODE
 static    COORD xd,yd;      // Delta coords to plane's destination
 static    int   zd;
-static    COORD dist;       // distance to plane's destination
-static    int   angl;       // angle to plane's destination
+extern    COORD dists;      // distance to plane's destination
+extern    int   angls;      // angle to plane's destination
+#define dist dists
+#define angl angls
 #endif
 
 extern int pdest;
@@ -1314,6 +1316,7 @@ Landing ()
 				bv[otherplane].Behavior = AIGoHome;
 				ps[otherplane].status |= BACKTOBASE;
 				ps[otherplane].status &= ~(LANDED|LANDING);
+				ps[otherplane].base = psi->base;
 			}
 		}
 		otherplane = bv[i].nextsec;
@@ -1322,6 +1325,7 @@ Landing ()
 				bv[otherplane].Behavior = AIGoHome;
 				ps[otherplane].status |= BACKTOBASE;
 				ps[otherplane].status &= ~(LANDED|LANDING);
+				ps[otherplane].base = psi->base;
 			}
 		}
 	}
@@ -1348,11 +1352,14 @@ Landing ()
         psi->alt = (bret ? 15:2) + heightval;
 
         if (psi->speed>0) {
-            psi->speed -= 120/FrameRate;
-			bv[i].basespeed -= 120/FrameRate;
+			dx = 120/FrameRate;
+			if(!dx)
+				dx = 1;
+            psi->speed -= dx;
+			bv[i].basespeed -= dx;
         } else {
-            psi->status = 0;  /*  Might want to put LOG info here  */
 			LogIt (SLG_AIR_LAND, i, ps[i].xL, ps[i].yL, ps[i].alt, -999, -999, 0L, LOG_AIR);
+            psi->status = 0;  /*  Might want to put LOG info here  */
 			IndirectWPCorrection(i);
         }
 
@@ -1390,6 +1397,8 @@ ReturnToBase () {
 #endif
 
 
+#undef dist
+#undef angl
 /*----------*/
 /* Airborne radar detection algorithm */
 /*----------*/
@@ -1666,6 +1675,8 @@ search ()
     ps[i].alert = rng(ps[i].alert, 0,255);
 }
 
+#define dist dists
+#define angl angls
 /*----------*/
 CheckTailAspect (long x, long y) {
     int     dx, dy, hd;
@@ -5330,6 +5341,7 @@ void DESIGNATED_TrackingAI (int relangle)
 	}
 }
 
+#undef dist
 int DropAIBomb()
 {
 	int type;
@@ -5436,6 +5448,7 @@ int DropAIBomb()
 	return(0);
 }
 
+#define dist dists
 void TurnAIPlaneBy(int ainum, int relangle)
 {
 	extern char gstr462[];

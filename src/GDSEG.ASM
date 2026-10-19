@@ -3884,7 +3884,13 @@ _OldThrust LABEL BYTE
 	DB 12 DUP(0)
 	PUBLIC _CloseBase
 _CloseBase LABEL BYTE
-	DB 16 DUP(0)
+	DB 12 DUP(0)
+	PUBLIC _angls
+_angls LABEL BYTE
+	DB 2 DUP(0)
+	PUBLIC _dists
+_dists LABEL BYTE
+	DB 2 DUP(0)
 	PUBLIC _iplanes
 _iplanes LABEL BYTE
 	PUBLIC _iplanesb
