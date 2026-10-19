@@ -1,0 +1,22 @@
+{
+"_ConfigCrts": false,
+"_DisplayRightStuff": false,
+"_DoCRT": false,
+"_DoCockpitDisplays": false,
+"_DrawAirSpeedGauge": true,
+"_DrawAltGauge": false,
+"_DrawEngineStat": true,
+"_DrawIndexer": false,
+"_DrawRadarAlt": false,
+"_DrawRadarRange": false,
+"_DrawRadarStatus": true,
+"_DrawStores": true,
+"_DrawSweepDisplay": false,
+"_DrawVVGauge": false,
+"_GDisplay": false,
+"_ResetCockpitLights": true,
+"_ShowFuel": true,
+"_TIDShowRange": false,
+"_UnZoomDisplay": true,
+"_UpdateLights": false
+}

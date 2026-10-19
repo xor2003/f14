@@ -4133,7 +4133,7 @@ _gun LABEL BYTE
 	ORG 0ae1aH
 	PUBLIC _homing
 _homing LABEL BYTE
-	ORG 0ae1eH
+	ORG 061aaH
 	PUBLIC _i
 _i LABEL BYTE
 	ORG 0ae22H

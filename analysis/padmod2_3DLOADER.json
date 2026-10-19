@@ -1,0 +1,11 @@
+{
+"_GetMissilePtr": true,
+"_GetPicType": true,
+"_GetPlanePtr": true,
+"_GetRadarPtr": true,
+"_Load3DPlaneInfo": false,
+"_LoadSpecialObjects": false,
+"_MissileAdd": true,
+"_PlaneSeek": true,
+"_RadarAdd": true
+}

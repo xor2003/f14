@@ -1,0 +1,13 @@
+{
+"_BigRioDot": false,
+"_DrawRioMapInfo": false,
+"_DrawRioTrack": false,
+"_DrawRioWayPoints": false,
+"_GetToken": true,
+"_RioCircle": false,
+"_RioLegend": true,
+"_RioMap": false,
+"_RioTop": false,
+"_RioWpMark": false,
+"_TextInTheBox": true
+}

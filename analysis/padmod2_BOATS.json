@@ -1,0 +1,12 @@
+{
+"_AvoidLand": false,
+"_CheckBoatGunFiring": true,
+"_FormationBoat": false,
+"_FormationSpeedAdjustBoat": false,
+"_IsBoat": false,
+"_UpdateAIsOnCarrier": false,
+"_UpdateBoatHeadPitchRoll": true,
+"_UpdateBoatSpeedAndPosition": false,
+"_UpdateOurCarrier": true,
+"_doboats": false
+}

@@ -1,0 +1,14 @@
+{
+"_Density": false,
+"_EngineBreathe": false,
+"_FLIGHT": false,
+"_Get1GTrim": true,
+"_InitScottFlight": true,
+"_PlaneDrag": true,
+"_PlaneWeight": true,
+"_ScottFlight": false,
+"_Splatted": false,
+"_TAStoIAS": true,
+"_TblTRPL": true,
+"_TrimIt": true
+}

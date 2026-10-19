@@ -57,7 +57,7 @@ extern  int     REALFLIGHT;
 extern  int     RunwayLeftX;
 extern  RPS     *Rp3D;
 
-static    int   i;          // index of this plane in "ps" array
+extern    int   i;          // index of this plane in "ps" array
 extern    int   planecnt;			// used since somebody desided to make i static
 							// and after the planes file grew to more than
 							// 5000 lines I got sick of it and desided to
@@ -4199,6 +4199,7 @@ void NextRefuel()
 
 void DoHover()
 {
+	i = planecnt;
 	droll = -ps[i].roll;
 	bv[i].basespeed = 0;
 	pdest = 0;

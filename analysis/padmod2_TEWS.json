@@ -1,0 +1,14 @@
+{
+"_MissileThreats": true,
+"_PlaneThreats": true,
+"_RadarThreats": false,
+"_SortThreats": false,
+"_TEWS_GFX": true,
+"_TEWS_RANGE": true,
+"_TEWS_SPOTTED": true,
+"_show_jamming": false,
+"_show_missiles": true,
+"_show_plane": false,
+"_show_radar": false,
+"_show_range": true
+}

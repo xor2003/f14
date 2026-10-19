@@ -1,0 +1,11 @@
+{
+"_DrawASurf": false,
+"_DrawN3dObject": true,
+"_DrawSuper3DObject": true,
+"_DrawSurfs": true,
+"_LoadEMSObject": false,
+"_MapEMSObjectTexture": true,
+"_NDraw3DObject": false,
+"_Reject": true,
+"_SetMatsPtrsOrder": true
+}

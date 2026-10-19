@@ -1,0 +1,14 @@
+{
+"_Air2GroundHoming": false,
+"_AirKill": true,
+"_All2AirHoming": false,
+"_CheckProximityHit": false,
+"_DamageIt": true,
+"_DamageMe": false,
+"_FindEmptyMissileSlot": false,
+"_FindEmptyMissileSlot2": true,
+"_FindEmptyMissileSlotP": false,
+"_SteerAndMoveMissile": false,
+"_firemissile": true,
+"_firemissile2": false
+}

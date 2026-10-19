@@ -1,0 +1,18 @@
+{
+"_AnimIsRunning": false,
+"_Boats3D": false,
+"_CoolF14MissileAnims": true,
+"_Do3DObject": false,
+"_DrawChute": true,
+"_DrawCoolF14": false,
+"_DrawDecoy": true,
+"_DrawMissile": true,
+"_DrawRegBoat": true,
+"_DrawShadow": true,
+"_DrawTexPlane": false,
+"_Init3DMissiles": true,
+"_InitOurCoolPlane": true,
+"_Planes3D": false,
+"_Shift3X3": true,
+"_UpdateOurPlaneAnims": true
+}
