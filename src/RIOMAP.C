@@ -336,7 +336,7 @@ DrawRioMapInfo(RPS *Rp,int force)
             }
          break;
       case 4:
-         for (i=0;i<LASTPLANE;i++)
+         for (i=0;i<NPLANES;i++)
             {
             if ((ps[i].status&ALIVE)&&(ps[i].status&FRIENDLY))
                {
@@ -352,7 +352,7 @@ DrawRioMapInfo(RPS *Rp,int force)
          DrawRioWayPoints(Rp,1);
          break;
       case 5:
-         for (i=0;i<LASTPLANE;i++)
+         for (i=0;i<NPLANES;i++)
             {
             if (!((ps[i].status&ALIVE)&&(ps[i].status&FRIENDLY)))
                continue;

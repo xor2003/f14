@@ -3257,7 +3257,7 @@ void SetUpLaunch(int planenum, int waypt)
 	bv[planenum].basespeed = 0;
 	ps[planenum].speed = 0;
 	ps[planenum].alt = 1;
-	if(bv[planenum].behaveflag & ISHELICOPTER)
+	if(GetPlanePtr(ps[planenum].type)->bclass == HELICOPTER_OBJCLASS)
 		return;
 	if((aiwaypoints[waypt].x <= (long)-1) && (ps[planenum].status & FRIENDLY)) {
 #if 0
