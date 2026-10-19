@@ -1379,8 +1379,9 @@ int GetWhoCover(int planenum)
 	int returnval = -999;
 	COORD tdist, cdist;
 
-	if(aiwaypoints[bv[planenum].groundt].x < 0) {
-		cnt = GetPlaneOrgNum((int)aiwaypoints[bv[planenum].groundt].y);
+	cnt = bv[planenum].groundt;
+	if(aiwaypoints[cnt].x < 0) {
+		cnt = GetPlaneOrgNum((int)aiwaypoints[cnt].y);
 		if((cnt >= 0) && (cnt < NPLANES) && FriendMatch(cnt, planenum) && (cnt != planenum)) {
 			stat = ps[cnt].status;
 			if((stat & ALIVE) && (stat & ACTIVE))
