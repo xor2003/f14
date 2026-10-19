@@ -986,7 +986,7 @@ void Jink()
 
 #else
 
-	if(tdist < 105){  /* was 30  */
+	if((tdist < 105) && (!(ps[i].status & BACKTOBASE))){
 		if((((Gtime + planecnt) & 0x1F) < (bv[i].winglevel<<1)) && (bv[i].winglevel > 2) && (!(bv[i].behaveflag & ISHELICOPTER)) && (ptype->maneuver > 1)) {
 			if((abs(ps[i].pitch - enemypitch) > 0x1000) && (abs(ps[i].roll) < 0x1000)) {
 				if(((ps[i].pitch > 0) || (ps[i].alt < 1000)) && (ps[i].alt < 5250)) {
