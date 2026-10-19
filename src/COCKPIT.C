@@ -708,21 +708,23 @@ int GDisplay()
 {
 	char txt[10], s[10];
 	int	N;
+	int	dy;
 	extern char gstr214[];
 	extern char gstr215[];
 
+	dy = 140 - ((View >= 1) ? 0x70 : 0);
 	SetFont(Rp2,F_3x5B);
-	Rp2->APen=83;
+	Rp2->APen=(LightsOn?54:2);
 
-	RectFill(Rp2,267,140,20,5,63);
+	RectFill(Rp2,267,dy,20,5,63);
 	N=abs(Gees+1);
 	txt[0]=0;
 	if (Gees<-1) strcpy(txt,gstr214);
 	strcat(txt, itoa(N/16,s,10));
 	strcat (txt, gstr215);
 	strcat(txt, itoa((10*(N&15))/16,s,10));
-	RpPrint(Rp2,269,140,txt);
-	RectCopy(Rp2,267,140,20,5,Rp1,267,140);
+	RpPrint(Rp2,269,dy,txt);
+	RectCopy(Rp2,267,dy,20,5,Rp1,267,dy);
 }
 
 
