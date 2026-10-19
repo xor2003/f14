@@ -736,7 +736,7 @@ TakingOff () {
 	if(Gtime < 5)
 		return 0;
 
-	if((ps[i].base < 0) && (bv[i].threathead < 0) && (bv[i].groundt != -1)
+	if((ps[i].base < di2) && (bv[i].threathead < di2) && (bv[i].groundt != -1)
 		&& (aiwaypoints[bv[i].groundt].x <= -1L)) {
 		bv[i].basespeed = 0;
 		ps[i].speed = 0;
