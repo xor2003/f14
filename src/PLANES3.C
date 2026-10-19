@@ -388,6 +388,7 @@ void UpdateInterceptGroup(int ainum, int dobehave)
 	int wingcnt;
 	int radaron = 0;
 	int enemynofire = 0;
+	int isheli = 0;
 
 	prewing = GetSquadLeader(ainum);
 
@@ -398,6 +399,8 @@ void UpdateInterceptGroup(int ainum, int dobehave)
 		radaron = 1;
 	if(bv[ainum].behaveflag & ENEMYNOFIRE)
 		enemynofire = 1;
+	if(bv[ainum].behaveflag & ISHELICOPTER)
+		isheli = 1;
 	wingcnt = prewing;
 	while (prewing >= 0) {
 		while (wingcnt >= 0) {
@@ -435,6 +438,10 @@ void UpdateInterceptGroup(int ainum, int dobehave)
 					bv[wingcnt].behaveflag |= ENEMYNOFIRE;
 				else
 					bv[wingcnt].behaveflag &= ~ENEMYNOFIRE;
+				if(isheli)
+					bv[wingcnt].behaveflag |= ISHELICOPTER;
+				else
+					bv[wingcnt].behaveflag &= ~ISHELICOPTER;
 			}
 
 			wingcnt = bv[wingcnt].wingman;
