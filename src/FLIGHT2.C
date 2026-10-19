@@ -568,7 +568,9 @@ FLIGHT ()
     dH = (int) OurHead - chs[n].head;
     dP = OurPitch - chs[n].pitch;
     sightX = sinX (OurRoll, dP>>2) + cosX (OurRoll, -dH>>2);
-    sightY = sinX (OurRoll,  dH>>2) + cosX (OurRoll, dP>>1);
+    {register int t; t = cosX (OurRoll, dP>>1);
+    t += sinX (OurRoll,  dH>>2);
+    sightY = t;}
 }
 
 
