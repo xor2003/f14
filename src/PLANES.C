@@ -5683,13 +5683,13 @@ int AICoreRadarCheck(int wingnum, int showinfo, int otherrange, int lessangle, i
 	extern char gstr463[];
 	extern char gstr402[];
 	extern char gstr464[];
+	COORD tdist;
 	COORD tdist1, tdistnm, tdistnm1, distkm;
 	int degreetmp;
 	UWORD dangle;
 	struct PlaneData far *wingptype;
 	struct RadarData far *tempradar;
 
-	COORD tdist;
 	int radarrangekm;
 
 	if(wingnum == -1) {
