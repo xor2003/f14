@@ -708,7 +708,9 @@ GetQHeight(long X, long Z )
 // the normals are (H1-H2)i+1024j+(H2-H4)k  poly1
 //             and (H3-H4)i+1024j+(H1-H3)k  poly2
 
-   int   XB,ZB,XOFF,ZOFF;
+   register int ZOFF;
+   int   XOFF;
+   unsigned char XB,ZB;
 
    int H1,H2,H3,H4;
    long  L;
@@ -723,10 +725,10 @@ GetQHeight(long X, long Z )
    FP_SEG(PTR)=MapInBank(HMAPBANK);
 
 
-   H1=(*(PTR+256*ZB+XB));
-   H2=(*(PTR+256*ZB+XB+1));
-   H3=(*(PTR+256*(ZB+1)+XB));
-   H4=(*(PTR+256*(ZB+1)+XB+1));
+   H1=(*(PTR+XB+256*ZB));
+   H2=(*(PTR+XB+256*ZB+1));
+   H3=(*(PTR+XB+256*(ZB+1)));
+   H4=(*(PTR+XB+256*(ZB+1)+1));
 
 	H1 <<=4;
 	H2 <<=4;
