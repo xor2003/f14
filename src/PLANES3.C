@@ -1375,22 +1375,22 @@ void FollowPlayer()
 int GetWhoCover(int planenum)
 {
 	int cnt;
-	int isfriend;
+	int stat;
 	int returnval = -999;
-	int gnum;
 	COORD tdist, cdist;
 
-	gnum = bv[planenum].groundt;
-	if(aiwaypoints[gnum].x < 0) {
-		cnt = GetPlaneOrgNum((int)aiwaypoints[gnum].y);
-		if((cnt >= 0) && (cnt < NPLANES) && FriendMatch(cnt, planenum) && (cnt != planenum)
-			&& (ps[cnt].status & ALIVE) && (ps[cnt].status & ACTIVE))
-			return cnt;
+	if(aiwaypoints[bv[planenum].groundt].x < 0) {
+		cnt = GetPlaneOrgNum((int)aiwaypoints[bv[planenum].groundt].y);
+		if((cnt >= 0) && (cnt < NPLANES) && FriendMatch(cnt, planenum) && (cnt != planenum)) {
+			stat = ps[cnt].status;
+			if((stat & ALIVE) && (stat & ACTIVE))
+				return cnt;
+		}
 		else if((cnt == -1) && (ps[planenum].status & FRIENDLY))
 			return cnt;
 	}
 
-	isfriend = FriendStatus(planenum);
+	stat = FriendStatus(planenum);
 
 	cdist = 1800;
 	for(cnt = 0; cnt < NPLANES; cnt ++) {
@@ -4806,7 +4806,7 @@ void ReArmWingman()
 	struct PlaneData far *ptemp;
 	extern int NPLANESx;
 
-	for(cnt = 0; NPLANESx > cnt; cnt++) {
+	for(cnt = 0; cnt < NPLANESx; cnt++) {
 		if ((ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE) && (bv[cnt].leader == -1) && (ps[cnt].status & FRIENDLY) && (!(ps[cnt].status & CRASH))) {
 			ptemp = GetPlanePtr(ps[cnt].type);
 			ps[cnt].mcnt[0] = ptemp->mcnt[0];

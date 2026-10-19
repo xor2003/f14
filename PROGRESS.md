@@ -1695,3 +1695,22 @@ REMAINING BLOCKER CLASSES (verified, all steer-proof or systemic):
 - padmod2 sweep complete (CARR..3DSCENE lanes): _Splatted best 9/12
   pad n, no further flips. Standing census /tmp/census.txt = 154 DIFF
   names, dominated by the three parked classes above.
+
+## Turn: F19-trick application + _GetWhoCover near-solve + flag analysis
+
+- F19 DECOMPILATION.md levers tried on pinned diffs: subtraction-compare,
+  register param/local, volatile, name-hash, nested blocks, casts, /Oa.
+- `_GetWhoCover` reconstructed: nested `if` + `stat` temp (renamed from
+  dead-store `isfriend`) + inlined `bv[planenum].groundt` now emit gold's
+  `mov ax;mov [slot];test al;test [slot]` status-cache + correct else-if
+  topology. Residual: gold spills `groundt` to `[bp-2]` (named-local
+  `mov ax,load;mov slot,ax;imul bx,ax` pattern) — every named-gnum spelling
+  steals `di` from `planenum` (MSC6 prefers dense early-use locals); CSE
+  form emits `imul mem` instead of the spill. ~15 variants; pinned.
+- `/Oe` investigation: gold calls `_aFlshr` helper 175×, never inlines
+  `>>5`. Initial probe suggested dropping /Oe fixed it, but module sweeps
+  showed identical match counts under /Osegcl vs /Osgcl — the earlier
+  "fix" was stale-binary state, not flags. PLANES2 override reverted.
+- tools/relink_check.sh now honors per-module MODULE_FLAGS (was hardcoded
+  /Osegcl, silently ignoring build_all.sh overrides).
+- PLANES3 unchanged-count; no sibling regressions.

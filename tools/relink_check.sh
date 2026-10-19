@@ -3,8 +3,12 @@
 # gdseg, relink, regen f14_named.map (image size = last segment stop).
 cd /home/xor/games/f14src
 KV=~/kvikdos/kvikdos
-CFLAGS="/FPa /G2 /Gs /AM /Osegcl /nologo /c /Zi /Zd"
+CFLAGS0="/FPa /G2 /Gs /AM /Osegcl /nologo /c /Zi /Zd"
+declare -A MODULE_FLAGS=(
+    [ddd]="/FPa /G2 /Gs /AM /Oaegcls /nologo /c /Zi /Zd"
+)
 for b in "$@"; do
+  CFLAGS="${MODULE_FLAGS[$(echo $b | tr A-Z a-z)]:-$CFLAGS0}"
   f=$(ls src/$b.C src/$b.c 2>/dev/null | head -1)
   [ -z "$f" ] && { echo "no src for $b"; continue; }
   $KV --mount=C:/home/xor/games/f14src/c6 --mount=D:/home/xor/games/f14src/src \
