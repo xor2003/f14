@@ -50,6 +50,7 @@ extern int      sx,sy,sz;
 extern unsigned Alt;
 extern int      PovMisl;
 extern UWORD    LastSlotNMount;
+extern int      NumInFlight;
 extern int      DMAX9;
 extern UWORD      Rtime;
 extern int      IneffectiveHit;
@@ -1049,6 +1050,8 @@ firemissile2(int misnum, int weapon, long x,long y,int z, int h, int p, int r, i
 						DESIG_TARG[tcnt].status=2;  // Missile Fired - Still Designated
 						DESIG_TARG[tcnt].ssi_index=k;
 						gtarg = DESIG_TARG[tcnt].target;
+						NumInFlight++;
+						break;
 					}
 				}
 			UpdateTIDTargs();
