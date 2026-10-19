@@ -1073,7 +1073,9 @@ UpdateSpeedAndPosition ()
 		if(bv[i].basespeed > (ptype->speed / 2))
 			bv[i].basespeed = ptype->speed / 2;
 	}
-	if((!(bv[i].behaveflag & ENEMYNOFIRE)) || (ps[i].status & BACKTOBASE)) {
+	abspeed = GetSquadLeader(i);
+	if(((!(bv[i].behaveflag & ENEMYNOFIRE)) || (ps[i].status & BACKTOBASE))
+		&& (abspeed != -1 || bv[i].Behavior != Formation)) {
 		if(ptype->speed > 500) {
 			abspeed = ptype->speed - 200;
 			if(abspeed < 450)
