@@ -252,8 +252,12 @@ UpdateBoatSpeedAndPosition (int bnum)
 	if(bv[bnum].basespeed < 0)
 		bv[bnum].basespeed = 0;
 
+	if(bv[bnum].basespeed > ptype->speed)
+		bv[bnum].basespeed = ptype->speed;
+
     spd = (long)((long)bv[bnum].basespeed*(0x8000-(ps[bnum].pitch/2))) >>15;
 	ps[boatnum].speed = (int)spd;
+	ps[boatnum].alt = 6;
 
 	if(Speedy == 1) {
 	    tspd = (((long)ps[bnum].speed*27 >>6) * Fticks * AILOCDIV) /60;
@@ -289,7 +293,9 @@ UpdateBoatSpeedAndPosition (int bnum)
 			StartASmoke( ps[bnum].xL, ps[bnum].alt, ps[bnum].yL, SMKPLUME, 35 );
 		}
 	}
-
+	else if((bv[bnum].verticlesep) && (bv[bnum].varcnt == Gtime) && (bnum == whichourcarr)) {
+		LetNextPlaneLand();
+	}
 }
 
 //***************************************************************************
