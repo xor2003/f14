@@ -5,6 +5,8 @@
 /*  Game logic for Stealth: all weapons           */
 /*  (Air-Air, Surface-Air, Air-Ground)            */
 
+extern struct Sams *ssi;
+extern int Gtime;
 #include "Library.h"
 #include "world.h"
 #include "sdata.h"
@@ -590,6 +592,9 @@ void CheckProximityHit()
 	struct MissileData far *tempmissile;
 	extern char gstr130[];
 	extern char gstr659[];
+	extern char gstrAircraft[];
+	extern char gstrWere[];
+	extern char gstrHitBy[];
 
     if (ssi->tgttype==0) return;   // don't do for air-to-ground
     if (ssi->target==-1) return;   // never had a target
@@ -624,6 +629,7 @@ void CheckProximityHit()
 		if(src == MAXPLANE)
 			src == -1;
 	}
+	TXT(gstrAircraft);
 
     if (killed == MAXPLANE) {
 		tempmissile = GetMissilePtr(ssi->type);
@@ -631,22 +637,24 @@ void CheckProximityHit()
         Txt[0]=0;
 		LogIt (SLG_AIR_MISSILE_HIT, -1, PxLng, (0x100000-PyLng), Alt, src, ssi->type, 0L, LOG_AIR);
 	    StartASmoke (PxLng, Alt, 0x100000-PyLng, AIRXPLO, 10);
+		TXT(gstrWere);
 
     } else {
 		if(!(ps[killed].status & (ALIVE|ACTIVE)))
 			return;
 
-		if(ps[killed].status & CRASH) {
+		if((UBYTE)ps[killed].status & CRASH) {
 			ps[killed].status = 0;
 			if(CloseEnoughFor(SNDSTUFF, ps[killed].x, ps[killed].y))
 	    		Sound (N_FarExplo, 2,0);
 			StartASmoke( ps[killed].xL, ps[killed].alt,ps[killed].yL, AIRXPLO, 10 );
 			return;
 		}
+		tempmissile = GetMissilePtr(ssi->type);
 		if((!(DOINVISIBLE||ENEMYNODIE)) && (bv[killed].Behavior != EngageTrain)) {
 			if((bv[killed].leader == -1) || (Rtime & 0x1)) {
 				crashstat = ps[killed].status & CRASH;
-				DamageAI(killed, sst->damage);
+				DamageAI(killed, tempmissile->damage);
 				if(crashstat != (ps[killed].status & CRASH))
 					LogIt (SLG_AIR_DESTROYED_MISSILE, killed, ps[killed].xL, ps[killed].yL, ps[killed].alt, src, ssi->type, 0L, LOG_AIR);
 				else
@@ -654,7 +662,6 @@ void CheckProximityHit()
 			}
 			else {
         		AirKill (killed);
-				LogIt (SLG_AIR_MISSILE_HIT, killed, ps[killed].xL, ps[killed].yL, ps[killed].alt, src, ssi->type, 0L, LOG_AIR);
 				LogIt (SLG_AIR_DESTROYED_MISSILE, killed, ps[killed].xL, ps[killed].yL, ps[killed].alt, src, ssi->type, 0L, LOG_AIR);
 			}
 		}
@@ -670,7 +677,7 @@ void CheckProximityHit()
 	if(CloseEnoughFor(SNDSTUFF, ps[killed].x, ps[killed].y))
 	    Sound (N_FarExplo, 2,0);
 
-    TXA (gstr659);
+    TXA (gstrHitBy);
 	FTXA (sst->name);
     Message(Txt,GAME_MSG);
 
