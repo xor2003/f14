@@ -64,7 +64,6 @@ extern  int     Demo;
 extern  int     FIRST_ENEMY_TRACE,DMAX9;
 extern  int     TSpeed;
 
-extern  UWORD     Rtime;
 extern  int     PovMisl;
 extern  int     detected, atarg;
 extern  COORD   xlast[],ylast[];
@@ -93,6 +92,7 @@ extern struct Planes * psi;
   // pointer into "ps" structure array for this plane
 
 extern    int   iplanes;    // index of this plane in "ps" array
+extern  UWORD     Rtime;
 #define   i       iplanes
 
 extern int planecnt;
@@ -896,7 +896,7 @@ void AvoidMountains () {     // sets pdest
 		else {
         	psi->status &= ~PITCHUP;
 		}
-        orgheightval = heightval = (GetQHeight(psi->xL, psi->yL)>>2);
+        orgheightval = heightval = ((int)LDist2D(psi->xL, psi->yL)>>2);
         if (psi->alt< heightval) {
 			if(psi->status & CRASH) {
         		psi->status = 0;
@@ -931,7 +931,7 @@ void AvoidMountains () {     // sets pdest
 			}
 	    	dx = sinXL(psi->head,500L);
     		dy = -cosXL(psi->head,500L);
-        	heightval = (GetQHeight(psi->xL + dx, psi->yL + dy) >> 2) + daltclimb;
+        	heightval = ((int)LDist2D(psi->xL + dx, psi->yL + dy) >> 2) + daltclimb;
 	        if (psi->alt< heightval) {
     	        psi->status |= PITCHUP;
 				if(pdest < 0x3000)
@@ -946,7 +946,7 @@ void AvoidMountains () {     // sets pdest
 
 				dx = dx<<1;
 				dy = dy<<1;
-	        	heightval = (GetQHeight(psi->xL + dx, psi->yL + dy) >> 2) + daltclimb;
+	        	heightval = ((int)LDist2D(psi->xL + dx, psi->yL + dy) >> 2) + daltclimb;
 		        if (psi->alt< heightval) {
 					dheight = heightval - psi->alt;
     		        psi->status |= PITCHUP;
