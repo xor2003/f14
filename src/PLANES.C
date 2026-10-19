@@ -1503,6 +1503,7 @@ search ()
         if (ps[i].alert>192) {
 			if((!(bv[i].behaveflag & DAMAGERADAR)) || (dist<bv[i].winglevel*4 && !Night)) {
 				pwtargetnum = GetSquadLeader(targetnum);
+				if(pwtargetnum == -1) pwtargetnum = MAXPLANE;
 				if(pwtargetnum < MAXPLANE) {
 					if((ps[pwtargetnum].time < Gtime) || (!((Gtime + i) & 0xF))) {
 						tempgotcha = 3;
@@ -1645,7 +1646,7 @@ search ()
 
 
                                 --ps[i].mcnt[j];
-                                if ((!imaboat) && (ps[i].mcnt[0]==0 && ps[i].mcnt[1]==0)) {
+                                if ((!imaboat) && (ps[i].mcnt[0]==0 && ps[i].mcnt[1]==0 && ps[i].mcnt[2]==0)) {
 									if(GetSquadLeader(i) == -1) {
 										GetWingName(i, Txt);
 										TXA(gstr376);

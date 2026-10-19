@@ -94,6 +94,7 @@ extern int PadHead;
 extern int PadPitch;
 
 extern int PadLockee;
+extern int SamLockee;
 
 extern int far InitSpecialPal(int which);
 
@@ -488,20 +489,30 @@ NewTacView(int NewView)
 NewLockView(int NewView)
 {
     int i;
-
-    if (PadLockee==-1) PadLockee=0;
+    int j;
+    int *tp;
 
     if (View!=NewView && DESIGNATED!=-1 && WithinVisualRange (DESIGNATED, NewView) ) {
         PadLockee=DESIGNATED;
     } else {
-        for (i=0; i<NPLANES; i++) {
-            PadLockee++;
-            if (PadLockee>=NPLANES) PadLockee=0;
-            if (ps[PadLockee].speed) {
-                if (WithinVisualRange (PadLockee, NewView)) break;
-            }
-        }
-        if (i==NPLANES) PadLockee=-1;
+		if (SamLockee == -1) {
+			for (i=0; i<NPLANES; i++) {
+				PadLockee++;
+				if (ps[PadLockee].speed) {
+					if (PadLockee<NPLANES && WithinVisualRange (PadLockee, NewView)) break;
+				}
+			}
+			if (i>=NPLANES) PadLockee=-1;
+		}
+		if (PadLockee == -1) {
+			for (j=0, tp=&ss[0].target; tp<&ss[NSAM].target; tp+=22, j++) {
+				SamLockee++;
+				if (*tp == MAXPLANE) {
+					if (SamLockee<NSAM && tp[-6] != 0) break;
+				}
+			}
+			if (j>=NSAM) SamLockee=-1;
+		}
     }
     View=NewView;
 	return 1;

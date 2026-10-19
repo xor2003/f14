@@ -1433,3 +1433,35 @@ Still TODO for DGROUP:
 - Gold has NO standalone X2map/Y2map bodies with the `1+Mscale` idiom — three `mov cl,7;sub cl,[var]` sites exist inside bigger functions (inlined x/y shift pairs). The `7-var` there is likely a different var (0x908e) — needs var-identification.
 - `src/f14.pat` (790 patterns) + `f14my.pat` are FLIRT-style signatures with named symbols and `^off _Sym` reloc refs — per-function shape oracle for reconstruction.
 - Leaf-order class still parked: `_horiz_line` source-form flip emitted identical bytes (verified).
+
+## Update: DGROUP gap closure + enregistered-var reconstruction (verify ~640/760)
+
+- `_CheckProximityHit` MATCH: embedded `"Aircraft "/"We're "/"Hit by "`
+  labels inside gstr722 + TXT() calls; local `tempmissile` far ptr for
+  DamageAI; `(UBYTE)status & CRASH` byte test; single LogIt in AirKill arm.
+- `_All2AirHoming` MATCH: `_Gtime`@0x669a, `_lastCounter`@0xca18,
+  `_GtimeDAC`@0xca1a (were wrongly colocated); file-scope extern hoisted
+  before includes flips compare operand order (leaf-insertion lever).
+- `_ntmp` placed at DGROUP 0xc0de (was ZFAR 0) — fixes all TXN pushes.
+- Missing 20-byte record after `_InXPLO`/`f14.pic` (01 00 00 00 26 00
+  2d 00 15 00 11 00 00 00 73 00 2c 00): fixes iplanes@0x619a and all
+  refs in 0x5610-0x6200 (was third +0x12 region after _O and XPLO).
+- PLANES3 `static int i` = gold var at 0x61ac: now `extern int i3` +
+  `#define i i3`. Collateral MATCHes: _DoOClockCall, _FollowPlayer,
+  _GetLastPosition, _GorillaCover.
+- `_ailoc` moved to 0xbe4a (22B BSS gap after _WORLDXTRAZ).
+- `_MovePlane` MATCH: missing tail `ps[].alt=(GetQHeight(xL,yL)>>2)+4`;
+  once the tail existed, planenum->si enregistration came for free.
+- `_AICoreRadarCheck` MATCH: `COORD tdist` split to its own decl AFTER
+  tdist1 — last-declared wins ax (same F117 leaf-insertion rule).
+- `_GetRadarGTNum` 1 real diff parked: `cmp ax,[f]` vs `cmp [f],ax`
+  opcode-direction — `==`-form emits 0x39, `!=`-form pins 0x3B in mine;
+  `!(a==b)`, `&&`-fusion, operand-swap all inert.
+- `_TakingOff` di2 = real tri-state flag (0/1/-1) enregistered in di
+  for the squadron list walk + zero-operand compares. My source has the
+  walk but MSC constant-folds di2->0 (imm compares) and won't enregister
+  (only 3 visible uses); needs the remaining di2 uses reconstructed.
+- `register` keyword is fully ignored by this MSC 6.00 build.
+- si/di-vs-bx temp selection and param-vs-local leaf order remain the
+  dominant parked classes (~15 fns).
+- verify runs MUST be serialized with rebuilds (see prior races).
