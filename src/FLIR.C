@@ -122,7 +122,7 @@ UpdatePalette()
     static UWORD OldNight =0;
     static int   OldClouds=0;
     static int   OldCycle =0;
-	static int NextPalFrame=0;
+	extern int NextPalFrame;
 	static int OldPal=0;
 
 	if ((PaletteChanged == 0) && (NextPalFrame^=1))

@@ -1096,7 +1096,21 @@ CheckOurAlt()
 LocalCmds()
 {
     int i;
+	char s[60];
 	extern char gstr191[];
+	extern char gstr769[];
+	extern char gstr770[];
+	extern char gstr771[];
+	extern char gstr772[];
+	extern char gstr773[];
+	extern char gstr774[];
+	extern char gstr775[];
+	extern char gstr776[];
+	extern int BadWeather;
+	extern int MinTicks;
+	extern int AutoPause;
+	extern int RudderTrim;
+	extern int PaletteChanged;
 
 	tempvar = 0;
 	behavecommands = 0;
@@ -1111,6 +1125,10 @@ LocalCmds()
     switch (KEYPRINT) {
         case ESCKEY:
 			MainMenu();
+		break;
+
+        case SHIFTW:
+			BadWeather ^= 1;
 		break;
 
         case ALTPKEY:
@@ -1129,6 +1147,24 @@ LocalCmds()
 
         case SHIFTL:
 			LIGHTS^=1;
+		break;
+
+        case 0x273a:
+			if (MinTicks==4) {
+				MinTicks = 2;
+				Message(gstr775,5);
+			} else {
+				MinTicks = 4;
+				Message(gstr776,5);
+			}
+		break;
+
+        case SHIFTB:
+			AutoPause ^= 1;
+			if (!AutoPause)
+				Message(gstr773,1);
+			else
+				Message(gstr774,1);
 		break;
 
 		case CTRLH:
@@ -1177,6 +1213,11 @@ LocalCmds()
 		break;
         case F10KEY:
 			NewTacView(MAGICCAM2);
+			PaletteChanged = 1;
+		break;
+		case SF10KEY:
+			NewTacView(17+VFULL+VOFFSET);
+			PaletteChanged = 1;
 		break;
 
 		case PAD1:
@@ -1198,6 +1239,16 @@ LocalCmds()
 				else if((RUDDERVALS - 8) > -127) {
 					RUDDERVALS-=8;
 				}
+				sprintf(s,gstr769,RUDDERVALS);
+				Message(s,5);
+			} else {
+				if(RudderTrim > 0)
+					RudderTrim = 0;
+				else if((RudderTrim - 2) >= -32) {
+					RudderTrim-=2;
+				}
+				sprintf(s,gstr770,RudderTrim);
+				Message(s,5);
 			}
 		break;
 
@@ -1209,6 +1260,16 @@ LocalCmds()
 				else if((RUDDERVALS + 8) < 127) {
 					RUDDERVALS+=8;
 				}
+				sprintf(s,gstr771,RUDDERVALS);
+				Message(s,5);
+			} else {
+				if(RudderTrim < 0)
+					RudderTrim = 0;
+				else if((RudderTrim + 2) <= 32) {
+					RudderTrim+=2;
+				}
+				sprintf(s,gstr772,RudderTrim);
+				Message(s,5);
 			}
 		break;
 
@@ -1225,7 +1286,6 @@ LocalCmds()
 
 		/*************  Wingman Behavior and Communication commands **********/
 
-		case ALTF1KEY:
 		case ALTF2KEY:
 		case ALTF3KEY:
 		case ALTF4KEY:
@@ -1235,6 +1295,7 @@ LocalCmds()
 		case ALTF8KEY:
 		case ALTF9KEY:
 		case ALTF10KEY:
+		case (ALTF10KEY+0x100):
 			behavecommands = 1 + ((KEYPRINT-ALTF1KEY) >>8);
 		break;
 
@@ -1247,7 +1308,6 @@ LocalCmds()
 		case SF7KEY:
 		case SF8KEY:
 		case SF9KEY:
-		case SF10KEY:
 			behavecommands = 11 + ((KEYPRINT-SF1KEY) >>8);
 		break;
         default:        return(1);

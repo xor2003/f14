@@ -49,6 +49,7 @@ extern UWORD QTime;
 extern UWORD QTimer;
 extern UWORD FrameRate10;
 extern UWORD FTicks;
+extern UWORD MinTicks;
 
 extern int AutoGearOk;
 
@@ -524,10 +525,12 @@ LogIt (int event, int donetonum, long x, long y, UWORD z, int missileOwner, int 
 /*----------*/
 UpdateTime1 ()
 {
-    static UWORD OldTime=0;
+    extern UWORD OldTime;
 
-    FTicks = GETTIME () - OldTime;
-    OldTime += FTicks;
+	FTicks = 0;
+	while (FTicks < MinTicks)
+		FTicks = GETTIME () - OldTime;
+	OldTime += FTicks;
 
 //    FTicks=4; /* uncomment this to peg frame rate */
 
@@ -543,11 +546,11 @@ UpdateTime1 ()
 
 /*----------*/
 UpdateTime2 () {
-    static TickAccum=0;
+    extern int TickAccum;
 
-    if (FTicks<4) {                 /* Don't exceed 15 FPS */
-        TickDelay = 4-FTicks;
-        FTicks = 4;
+    if (FTicks<MinTicks) {          /* Don't exceed 15 FPS */
+        TickDelay = MinTicks-FTicks;
+        FTicks = MinTicks;
     } else {
         TickDelay = 0;              /* Don't run any slower than 3 FPS */
         if (FTicks>20) FTicks=20;

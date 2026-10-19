@@ -133,7 +133,7 @@ extern int MYWID;
 //***************************************************************************
 ChangeWeather()
 {
-	static int BadWeather=0;
+	extern int BadWeather;
 
 	if (BadWeather) {
 		CLOUDHEIGHT=8150;

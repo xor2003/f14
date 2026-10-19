@@ -80,11 +80,11 @@ static int  BITPERPIX_X[] = { 23, 45, 90 };  // bits/pix in x
 static int  BITPERPIX_Y[] = { 25, 50,100 };  // bits/pix in y
 static int  MAXBITS    [] = { 475,950 ,1900};// max bits on display
 static int  OORBITS    [] = { 593,1188,2375};// out of range circle
-static int  CRT_X, CRT_Y;
+extern int CRT_X, CRT_Y;
 
 static int  TEWS_RNG = TRNG40;
 // static int TEWS_RNG = TRNG10;
-static int  flash_off=0;
+extern int flash_off;
 
 extern int MLAUNCH;
 
@@ -432,7 +432,7 @@ int show_radar (int i,int flash)
 
 	ClipSprite(RpCRT,CRT_X-5,CRT_Y-5,TEWSprites[SPR_SQUARE]);
 	tempradar = GetRadarPtr(Rdrs[i].rclass);
-	x = (pstrlen(RpCRT,itoa(tempradar->tewsnum,s,10))-1)/2 + 1;
+	x = (pstrlen(RpCRT,itoa(tempradar->tewsnum,s,10))-1)/2 + 2;
 	RpPrint(RpCRT,CRT_X-x,CRT_Y-3,s);
 }
 
