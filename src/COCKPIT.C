@@ -218,12 +218,12 @@ extern int VdiMode;
 extern int msiz;
 
 
-static  int OLDMM;
-static  int OldFuel;
-static  int OldThrust;
-static  int OldLights[40];
-static  int OldEMIS;
-static  int OldMC;
+extern  int OLDMM;
+extern  int OldFuel;
+extern  int OldThrust;
+extern  int OldLights[40];
+extern  int OldEMIS;
+extern  int OldMC;
 
 extern int EgtL;
 

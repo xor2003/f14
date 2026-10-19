@@ -44,8 +44,8 @@ def main():
             pos = int(m.group(1), 16)
             out.append(l)
             continue
-        mm = re.match(r'(\s*)(DB|DW|DD)\s+(.*)', l)
-        if not mm:
+        mm = re.match(r'(\s*)(?:\w+\s+)?(DB|DW|DD)\s+(.*)', l)
+        if not mm or mm.group(1).strip().endswith('LABEL'):
             out.append(l)
             continue
         ind, op, body = mm.groups()

@@ -3122,7 +3122,28 @@ _GAMNT LABEL BYTE
 	DB 2 DUP(0)
 	PUBLIC _Dist2Obj
 _Dist2Obj LABEL BYTE
-	DB 184 DUP(0)
+	DB 80 DUP(0)
+	PUBLIC _OldFuel
+_OldFuel LABEL BYTE
+	DB 2 DUP(0)
+	PUBLIC _OldEMIS
+_OldEMIS LABEL BYTE
+	DB 2 DUP(0)
+	PUBLIC _OldMC
+_OldMC LABEL BYTE
+	DB 2 DUP(0)
+	PUBLIC _OLDMM
+_OLDMM LABEL BYTE
+	DB 2 DUP(0)
+	PUBLIC _OldLights
+_OldLights LABEL BYTE
+	DB 2 DUP(0)
+	DB 2 DUP(0)
+	DB 76 DUP(0)
+	PUBLIC _OldThrust
+_OldThrust LABEL BYTE
+	DB 4 DUP(0)
+	DB 12 DUP(0)
 	PUBLIC _CloseBase
 _CloseBase LABEL BYTE
 	DB 16 DUP(0)
@@ -3132,13 +3153,14 @@ _iplanes LABEL BYTE
 	PUBLIC _psi
 _psi LABEL BYTE
 	DB 8 DUP(0)
-	DB 000H,000H,000H,000H
-	PUBLIC _Coursestr
-_Coursestr LABEL BYTE
-	DB 2 DUP(0)
+	DB 000H
+	DB 000H
 	PUBLIC _homedist
 _homedist LABEL BYTE
-	DB 2 DUP(0)
+	DB 000H
+	DB 000H
+	PUBLIC _Coursestr
+_Coursestr LABEL BYTE
 	PUBLIC _homeangle
 _homeangle LABEL BYTE
 	DB 2 DUP(0)
@@ -3180,17 +3202,20 @@ _ssi LABEL BYTE
 	DB 2 DUP(0)
 	PUBLIC _sst
 _sst LABEL BYTE
-	DB 4 DUP(0)
+	DB 2 DUP(0)
+	DB 2 DUP(0)
 	PUBLIC _EnemySam
 _EnemySam LABEL BYTE
 	DB 2 DUP(0)
 	PUBLIC _TargetsHit
 _TargetsHit LABEL BYTE
 	DB 2 DUP(0)
-	PUBLIC _CrtConfig
-_CrtConfig LABEL BYTE
 	PUBLIC _PrintedMiss
 _PrintedMiss LABEL BYTE
+	DB 2 DUP(0)
+	DB 2 DUP(0)
+	PUBLIC _CrtConfig
+_CrtConfig LABEL BYTE
 	DB 600 DUP(0)
 	ORG 06430H
 	PUBLIC _MeatBall
