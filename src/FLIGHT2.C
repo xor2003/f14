@@ -110,6 +110,7 @@ extern SBYTE AOARepCnt;
 extern SBYTE RollRepCnt;
 
     extern SWORD ThrustI;
+    extern int OldThrust;
 extern SWORD PitchAngle;
 extern SWORD MinSpd;
 extern SWORD MinKnots;
@@ -231,95 +232,12 @@ FLIGHT ()
 
     if (Alt==MinAlt && AOARATE<0 && OurPitch<=0) AOARATE = 0;
 
-    if (!REALFLIGHT && OurAlt>=100 && !(Status&WHEELSUP) && AutoGearOk) {
-        AutoGearOk = FALSE;
-        Status |= WHEELSUP;
-        Message(gstr156,RIO_MSG);
-        Sound (N_GearOpenSeq, 1,0);
-    }
 
-    if (!REALFLIGHT && Alt==MinAlt && THRUST==0 && !(Status&BRAKESON)) {
-        Status |= BRAKESON;
-        Message (gstr225,RIO_MSG);
-    }
 
 	/* AutoPilot logic */
     dx = wps[NextWayPoint].x - Px;
     dy = wps[NextWayPoint].y - Py;
     AutoHead = angle (dx,-dy);
-
-    if (AutoAlt && (!REALFLIGHT)) {
-        if (ROLLRATE || AOARATE) {
-            AutoAlt = 0;
-            Message (gstr183,RIO_MSG);
-        }
-
-		dH = 0;
-		dH = rng2(AutoHead+dH-(int)OurHead, -20<<8,20<<8)*2;
-		ROLLRATE = -rng2((dH-OurRoll)>>6, -24,24);
-
-		dP = rng2( ((AutoAlt-Alt)<<4)-PitchAngle, -20<<8,12<<8);
-		AOARATE = rng2 ((dP-OurPitch)>>7, -8,8);
-
-
-        if (NextWayPoint==3 && Diff>0 && !(Rdrs[ms[1].base].status&TANKER)) {
-            int MyDir;          // 1 to land from South, -1 to land from North
-
-            MyDir = Direction;
-            b = ms[1].base;
-            dx = Rdrs[b].x - Px;
-            dy = Rdrs[b].y - Py;
-            if (abs (dy)<800) Status &= ~WHEELSUP;
-            if (!(Rdrs[b].status&CARRIER)) MyDir = -sgn(dy);  /* Sid */
-            dy += MyDir*(Rdrs[b].status&CARRIER ? 28:52);
-
-            dH = abs ((int)OurHead);
-
-            if (MyDir==-1) {
-                dx = -dx;
-                dy = -dy;
-                dH = abs ((int)OurHead - 0x8000);
-            }
-
-            dP = rng (abs(dx)*2 + abs(dy)*2 + dH/32, 50,4096);
-//            if (dP<4096) NoAccel (); /* AWH */
-            if (Rdrs[b].status&CARRIER) dP += 100;
-//            if (OnRunway && abs(dH)<0x200) dP = -20;
-
-            dy = Rdrs[b].y-Py;
-            dy += MyDir*(Rdrs[b].status&CARRIER ? 28:52);
-            dy += MyDir*rng(abs(dx)+dH/64, 0,48<<(BT2KM-2)); /* A */
-
-            Status &= ~BRAKESON;
-
-            if (dH>0x4000) {
-                dx = Rdrs[b].x-Px;
-                dP = 4096;
-            }
-            else {
-                dx = Rdrs[b].x + MyDir*dx*2 -Px;
-                if (Knots>THRUST*80) Status |= BRAKESON;
-            }
-
-            angl = angle (dx, -dy);
-
-            maxroll = Knots/16;
-            dH = rng2(angl-(int)OurHead, -maxroll<<8,maxroll<<8)*2;
-//            if (OnRunway) dH = 0;
-            ROLLRATE = -rng2((dH-OurRoll)>>6, -32,32);
-            THRUST = rng (dP/64+abs(dH)/256, 35,80);
-
-            dP = rng2( (((dP>>2)-(int)Alt) >>1)+(PitchAngle>>7), -12<<1,12<<1);
-            AOARATE = rng2 ((dP-((OurPitch+64)>>7)), -16,16);
-
-            if (Alt==MinAlt) {
-                THRUST = 0;
-                ROLLRATE = 0;
-                Status |= BRAKESON;
-                AOARATE = 0;
-            }
-        }
-    }
 
 	/* Turbulence */
     wobble = 0;
@@ -391,6 +309,7 @@ FLIGHT ()
             }
             AirSpeed = THRUST = 0;
         }
+        else THRUST = 100;
     }
 
 	/* Instantaneous thrust */
@@ -496,7 +415,11 @@ FLIGHT ()
 
 	if ((SNDDETAIL!=1) && (SNDDETAIL!=3)) {
     	SndSounds(N_KnotsAre, Knots, ThrustI);
+        if (ThrustI==0 && OldThrust!=0)
+            SndSounds(N_SpoolDown);
+        OldThrust = 0;
 	}
+    OldThrust = ThrustI;
 
 	/****************************************
 	*                                       *
@@ -644,7 +567,7 @@ FLIGHT ()
     n  = (Rtime-n) &15;
     dH = (int) OurHead - chs[n].head;
     dP = OurPitch - chs[n].pitch;
-    sightX = cosX (OurRoll, -dH>>2) + sinX (OurRoll, dP>>2);
+    sightX = sinX (OurRoll, dP>>2) + cosX (OurRoll, -dH>>2);
     sightY = sinX (OurRoll,  dH>>2) + cosX (OurRoll, dP>>1);
 }
 
@@ -1070,6 +993,11 @@ ScottFlight()
 	extern char gstr234[];
 	extern char gstr235[];
 	extern char gstr236[];
+	extern int SLEW;
+	extern int SELECTED_BAR_NUM;
+	extern int SavStx;
+	extern int SavSty;
+	extern int BackSeat;
 	SWORD	n,dH,dP;
 	UWORD ALT;
 	long	D;
@@ -1088,6 +1016,7 @@ ScottFlight()
 
 
 	if (ONTHECAT||ONTHEHOOK) {
+		PitchAngle = VVI = SLEW = SELECTED_BAR_NUM = 0;
 		return(1);
 	}
 
@@ -1122,19 +1051,12 @@ ScottFlight()
       }
 
 
-    if (Knots>350 && !(Status&WHEELSUP) && !(Damaged&D_HYDRAULICS)) {
-		AutoGearOk = FALSE;
-        Status |= WHEELSUP;
-        Message (gstr156,RIO_MSG);
-        Sound(N_GearOpenSeq, 1,0);
-    }
-
 	// check for slewing
 	if (PxLng!=(FPARAMS.X/100)) {
 		FPARAMS.X=100*PxLng;
 		FPARAMS.Y=100L*(long)OurAlt;
 	}
-	if (PyLng!=(0x100000L-(FPARAMS.Z/100))) {
+	if (FPARAMS.Z/-100 - PyLng != -0x100000L) {
 		FPARAMS.Z=100*(0x100000L-PyLng);
 		FPARAMS.Y=100L*(long)OurAlt;
 	}
@@ -1178,7 +1100,7 @@ ScottFlight()
 	LTHRUST*= 388;
 	if (LTHRUST>56000L) LTHRUST= 56000L;
 
-   if (ConfigData.FightModel==0)
+   if (ConfigData.FightModel==0 && ALT<50000)
       D=100;
    else
    	D=EngineBreathe(ALT);
@@ -1225,6 +1147,19 @@ ScottFlight()
 	sty=mS2n&0xff;
 	stx-=128;
 	sty-=128;
+
+   if (ConfigData.BackSeat==2 && BackSeat) {
+      stx=0;
+      sty=0;
+   }
+   if (ConfigData.BackSeat==1 && BackSeat) {
+      stx=SavStx;
+      sty=SavSty;
+   }
+   if (!BackSeat) {
+      SavStx=stx;
+      SavSty=sty;
+   }
 
    if (sty<-128) sty=-128;
    if (sty>128) sty=128;
@@ -1721,14 +1656,9 @@ ScottFlight()
 Splatted(struct FPARAM *F, int spltcode)
 {
    int   ouch;
-   char str[80];
    long  VVILIMIT;
    int   ROLLLIMIT;
    int   SPDLIMIT;
-	extern char gstr237[];
-	extern char gstr238[];
-	extern char gstr239[];
-	extern char gstr240[];
 	extern char gstr241[];
 	extern char gstr242[];
 	extern char gstr243[];
@@ -1764,22 +1694,11 @@ Splatted(struct FPARAM *F, int spltcode)
          }
       tchdwnrating=10;
       if (F->VEL[1]> VVILIMIT )
-         {
          tchdwnrating+=10;
-         Message(gstr237,RIO_MSG);
-         }
       if ( abs(OurRoll) < ROLLLIMIT  )
-         {
          tchdwnrating+=5;
-         Message(gstr238,RIO_MSG);
-         }
       if (abs(Knots-135)<SPDLIMIT)
-         {
          tchdwnrating+=5;
-         Message(gstr239,RIO_MSG);
-         }
-      sprintf(str,gstr240,tchdwnrating);
-      Message(str,RIO_MSG);
 	  Sound(N_CarrierLanding, 1,0);
       }
 
@@ -1811,40 +1730,19 @@ Splatted(struct FPARAM *F, int spltcode)
 
    OurRoll= 0;                   // fix the mat here too !!
 
-   if ((ouch)&&(ConfigData.CarrierLanding==2)&&((Status & TRAINING)==0))
+   if (ouch)
       {
-      StartASmoke( PxLng, Alt, (0x100000-PyLng), GRND2XPLO, 17 );
-      Sound (N_FarExplo, 2,0);
-      EndGame (CRASHLAND);
-      LSORating=0;
+      if ((ConfigData.CarrierLanding==2)&&((Status & TRAINING)==0))
+         {
+         StartASmoke( PxLng, Alt, (0x100000-PyLng), GRND2XPLO, 17 );
+         Sound (N_FarExplo, 2,0);
+         EndGame (CRASHLAND);
+         LogIt (46, -1, PxLng, (0x100000-PyLng), Alt, -999, -999, 0L, LOG_AIR);
+         LSORating=0;
+         }
       }
    if (ouch)
       {
-      switch (ouch)
-         {
-         case 1:
-            Message(gstr241,RIO_MSG);
-            break;
-         case 2:
-            Message(gstr242,RIO_MSG);
-            break;
-         case 3:
-            Message(gstr243,RIO_MSG);
-            break;
-         case 4:
-            Message(gstr244,RIO_MSG);
-            break;
-         case 5:
-            Message(gstr245,RIO_MSG);
-            break;
-         case 6:
-            Message(gstr246,RIO_MSG);
-            break;
-         case 7:
-            Message(gstr247,RIO_MSG);
-            break;
-         }
-//      Message("OUCH",RIO_MSG);
       tchdwnrating=-40;
       }
 
