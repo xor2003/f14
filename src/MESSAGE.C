@@ -81,6 +81,11 @@ extern int AutoPause;
 
 extern int MsgEMS;
 
+extern UWORD OutsideLength;
+extern UWORD far VdiMask[250];
+extern int RadarRepeat;
+extern confData ConfigData;
+
 //***************************************************************************
 LoadMsgEMS()
 {
@@ -135,19 +140,28 @@ Messages()
 
 	if (outside) {
 		if (Mupdate) {
-    		OutSideMSGBox(MRp);
-    		OutSideHeading(MRp);
-    		Mupdate=0;
-			RectCopy(MRp,0,170,320,30,Rp1,0,170);
+			if ((View==PADLOCK)||(View==PILOT)) {
+    			InSideMSGBox(MRp);
+    			Mupdate=0;
+				RectCopy(MRp,0,192,320,7,Rp1,0,192);
+			} else {
+    			OutSideMSGBox(MRp);
+    			OutSideHeading(MRp);
+    			Mupdate=0;
+				RectCopy(MRp,0,170,320,30,Rp1,0,170);
+			}
 		} else {
-			OutSideHeading(MRp);
-			RectCopy(MRp,0,176,320,20,Rp1,0,176);
+			if ((View!=PADLOCK)&&(View!=PILOT)) {
+				OutSideHeading(MRp);
+				RectCopy(MRp,0,176,320,20,Rp1,0,176);
+			}
 		}
 	} else {
       if (MsgEMS<0) return(0);
       if (Mupdate) {
          Mupdate=0;
          if (MyMSG[0]) {
+			if (MouseY>180) MouseHIDE();
             InSideMSGBox(MRp);
             // copy to msg memory here
             FP_SEG(P)=MapEmsFile( MsgEMS,0);
@@ -159,6 +173,7 @@ Messages()
             FP_SEG(SRC)= GRPAGE0[0];
             FP_OFF(SRC)=192*320;
             fmemcpy(P,SRC,320*8);
+			if (MouseY>180) MouseSHOW();
             }
       }
 
@@ -188,6 +203,7 @@ Messages()
 				}
 			}
 			if(lastmsg == 0) {
+				if (MouseY>180) MouseHIDE();
 	    		if (outside==0) {
     				// put back cockpit mask here
     				FP_SEG(P)=MapEmsFile( MsgEMS,0);
@@ -199,9 +215,11 @@ Messages()
     			MyMSG[0]=0;
 	    		msgtime=0;
     			Mupdate=1;
+    			VdiRestore();
+				if (MouseY>180) MouseSHOW();
 			}
 			else {
-                Sound(N_RadarSearch, 1,0);
+                if(AutoPause) Sound(N_RadarSearch, 1,0);
 				msgplace = lastmsgnum;
 	    		strncpy(MyMSG, HudMsg[msgplace], MAXMSGLEN);
     			MyMSG[MAXMSGLEN-1]='\0';
@@ -212,6 +230,7 @@ Messages()
 					msgtime=GETTIME() + (2*60);      // two seconds per message
 				else
 					msgtime=GETTIME() + (3*60);      // three seconds per message
+				if(Gtime==0) msgtime += (5*60);
     			Mupdate=1;
 				HudMsg[msgplace][0] = 0;
 				for(cnt = 0; cnt < MAXMESSAGES; cnt ++) {
@@ -226,10 +245,22 @@ Messages()
 	MsgOnScreen= (MyMSG[0])?1:0;
 
 	if (MsgOnScreen) {
-		Rp1->Length1=191;
+		if ((View==PILOT)||(View==PADLOCK))
+			OutsideLength = 0xc0;
 	} else {
-		Rp1->Length1=199;
+		if ((View==PILOT)||(View==PADLOCK))
+			OutsideLength = 0xc7;
 	}
+}
+
+VdiRestore()
+{
+   if ((!BackSeat)&&((View==FRONT)||(View==DOWN))) {
+      VdiMask[3] = 57;
+      DoCRT(0);
+      if ((RadarRepeat==0)&&(ConfigData.GunCamera==2))
+         FlirCopy(VdiMask);
+   }
 }
 
 MyMessage(char *s,int src)
