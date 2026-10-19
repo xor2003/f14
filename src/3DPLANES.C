@@ -64,6 +64,7 @@ Shift3X3(int *M, int SHFT);
 extern int PlaneAnimVals[32];
 
 extern int LIGHTS;
+extern int Lightemup;
 
 extern int PLANEDETAIL;
 
@@ -640,7 +641,7 @@ UpdateOurPlaneAnims ()
 	}
 */
 
-	AnimVals[9] = !(LIGHTS);
+	AnimVals[9] = !(Lightemup);
 	AnimVals[10]= LIGHTS;
     AnimVals[15]= (rnd2(4)!=0 && Gees>48)? 0:1;
 

@@ -1123,6 +1123,10 @@ LocalCmds()
 			AdjustSounds();
 		break;
 
+        case SHIFTF:
+			Lightemup^=1;
+		break;
+
         case SHIFTL:
 			LIGHTS^=1;
 		break;
