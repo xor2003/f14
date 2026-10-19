@@ -1665,9 +1665,11 @@ search ()
                         }
                     }
                 }
+#if 0
 				if((tempvar) && (GetSquadLeader(i) == -1)) {
 					Message(Txt,WINGMAN_MSG);
 				}
+#endif
             }
         }
         ps[i].status |= ALERTED;

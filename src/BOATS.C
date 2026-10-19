@@ -142,8 +142,16 @@ void doboats()
 					ShowWhichBehave(i);
 #endif
 
-				if((Rtime & 7) == (i & 7))
-	   				bv[i].Behavior();
+				if((Rtime & 7) == (i & 7)) {
+					if(psi->status & CRASH) {
+						if(bv[i].basespeed > 0)
+							bv[i].basespeed--;
+						else
+							bv[i].basespeed = 0;
+					}
+					else
+	   					bv[i].Behavior();
+				}
 				else
 					droll = 0;
 
@@ -175,7 +183,7 @@ void doboats()
                     }
                 }
 
-				if((!(bv[i].behaveflag & ENEMYNOFIRE)) && (ptype->gun != 0)) {
+				if((!(bv[i].behaveflag & (ENEMYNOFIRE|ISHELICOPTER))) && (ptype->gun != 0)) {
 					CheckBoatGunFiring();
 				}
 
