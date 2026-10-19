@@ -320,7 +320,7 @@ HsdCrt(int CrtNr)
 	RpPrint(RpCRT,(RpCRT->Width1/2)-12,(RpCRT->Length1/2)-6,s);
 
 	sprintf(s,gstr282,Knots);
-	RpPrint (RpCRT, (RpCRT->Width1/2)-10,(RpCRT->Length1/2)+2,s);
+	RpPrint (RpCRT, (RpCRT->Width1/2)-10,(RpCRT->Length1/2)-2,s);
 	sprintf(s,gstr283,TAStoIAS(Knots));
 	RpPrint (RpCRT, (RpCRT->Width1/2)-9,(RpCRT->Length1/2)+10,s);
 
