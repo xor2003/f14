@@ -409,6 +409,7 @@ RioMap()
 	extern char gstr702[];
 	extern char gstr302[];
 	extern char gstr2[];
+	extern char gstr720[];
 	extern char gstr703[];
 	extern char gstr704[];
 	extern char gstr705[];
@@ -424,6 +425,7 @@ RioMap()
 	extern char gstr715[];
 	extern char gstr716[];
 	extern char gstr717[];
+	extern char gstr718[];
    RPS Rpdef  =  {1, 0,0, 319,199, JAM3, GREEN, BLACK, 2};
    RPS *Rtemp  = &Rpdef;
    FILE    *File;
@@ -437,7 +439,7 @@ RioMap()
 
    S[0]=0;
    strcpy (S,gstr702);
-   if ((File = fopen (gstr302, gstr2)) != NULL)
+   if ((File = fopen (gstr302, gstr720)) != NULL)
       {
       fread (&start_data, sizeof (struct _missionHeader_), 1, File);
       if (start_data.goalLoc && start_data.goalLen)
@@ -604,7 +606,7 @@ RioMap()
                   ofont=Rp1->FontNr;
                   Rp1->FontNr=Rtemp->FontNr;
                   TextInTheBox(Rp1,gstr717,0x15,2,0xff,0x1e,0);
-                  TextInTheBox(Rp1,gstr717,0x14,1,0xff,0x1e,4);
+                  TextInTheBox(Rp1,gstr718,0x14,1,0xff,0x1e,4);
                   Rp1->FontNr=ofont;
                   MouseSHOW();
                   while (1)
