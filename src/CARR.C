@@ -983,10 +983,11 @@ OnTheDeck(long X, long Y, long Z )
    if (ONTHECAT)
       return(1);
    if (PreparePlaneWings < 0xf0) {
-      if (!ONTHECAT) {
+      if (!ONTHECAT)
          PreparePlaneWings += Fticks;
+      else
          return;
-      }
+      return;
    }
 
    if ( (50000L<labs(X-carrier.x)) || (labs(Z-carrier.z)>50000L)|| (Y>12000) )
@@ -1471,7 +1472,10 @@ EasyLanding()
    RUDDERVALS=0;
 	InitScottFlight();
 
-	if(Night || (MissionWeather == 0) || (landpt < 3)) {
+	if(Night || (MissionWeather == 0)) {
+		--landpt;
+	}
+	else if (landpt < 3) {
 		--landpt;
 	}
 	else {
