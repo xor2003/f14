@@ -6347,8 +6347,17 @@ void UpdateHelicopterHPR_SandP () {
 
 /* Update ROLL and HEADING */
 	fdroll = droll*4/FrameRate;
-   	psi->roll += fdroll;
-    psi->head += (psi->roll>>3)/FrameRate;
+
+	if((bv[i].Behavior == AICarrierLand) && (bv[i].threathead == -1)) {
+		psi->head += fdroll/FrameRate;
+		droll = rng2(-psi->roll, -(ptype->maneuver<<9), (ptype->maneuver<<9));
+		psi->roll += droll*4L/FrameRate;
+		psi->pitch += (rng2(0xa00 - psi->speed, -0x400, 0x400))*4/FrameRate;
+	}
+	else {
+   		psi->roll += fdroll;
+    		psi->head += (psi->roll>>3)/FrameRate;
+	}
 
     dpitch = pdest;  /*  In this case pitch will show speed so */
 					 /*  pdest will be used instead of pitch to change alt  */
@@ -6395,6 +6404,8 @@ void UpdateHelicopterHPR_SandP () {
         psi->speed = (int)spd;
 		if(psi->speed == 0)
 			psi->speed = 1;
+		if(bv[i].Behavior == AICarrierLand)
+			psi->speed = bv[i].basespeed;
     }
 
 //    spd = (psi->speed*27 >>6) /FrameRate;
