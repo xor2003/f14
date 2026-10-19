@@ -6023,6 +6023,7 @@ AIFoxCall (weapon)
 	extern char gstr473[];
 	extern char gstr474[];
 	extern char gstr475[];
+	extern char gstr800[];
     switch (weapon) {
         case ML_AIM7M:
 			TXA (gstr473);  Speech (FOX1);         break;
@@ -6031,7 +6032,7 @@ AIFoxCall (weapon)
         case ML_AIM120:
 			TXA (gstr475);  Speech (FOX3);         break;
         case ML_AIM54C:
-			TXA (gstr475);  Speech (FOX3);         break;
+			TXA (gstr800);  Speech (FOX3);         break;
     }
     Message(Txt,WINGMAN_MSG);
 }
