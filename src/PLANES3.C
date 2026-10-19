@@ -4421,7 +4421,7 @@ int GetWhichElevator(int try0, int try1, int try2, int try3, int yesinvis)
 	                   {-13, 35, 69, -33}};
 	int elevnum;
 	int elevOK;
-	extern int NPLANES;
+	extern int NPLANESx;
 	int whichcarr;
 
 
@@ -4436,7 +4436,7 @@ int GetWhichElevator(int try0, int try1, int try2, int try3, int yesinvis)
 	for(cnt = 0; cnt < 4; cnt ++ ) {
 		elevnum = elevorder[cnt];
 		elevOK = 1;
-		for(cnt2 = 0; NPLANES>cnt2; cnt2 ++) {
+		for(cnt2 = 0; NPLANESx>cnt2; cnt2 ++) {
 			if((ps[cnt2].status & ALIVE) && (ps[cnt2].status & ACTIVE) && (ps[cnt2].base == ((whichourcarr + 1) * -1)) && ((!(bv[cnt2].behaveflag & AI_INVISIBLE)) || yesinvis)) {
 				if(((bv[cnt2].Behavior == Ready5) || (bv[cnt2].Behavior == SARWait)
 						|| ((bv[cnt2].Behavior == AICarrierLand) && (bv[cnt2].threathead <= -3)) || ((ps[cnt2].status & TAKEOFF) && (ps[cnt2].speed <= 1)))) {
