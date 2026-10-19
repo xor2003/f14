@@ -1528,7 +1528,7 @@ void Jink2() {
 
 	i = planecnt;
 
-	if(CheckDetection(i) == -999) {
+	if((CheckDetection(i) == -999) && (!(ps[i].status & BACKTOBASE))) {
 		bv[i].Behavior = StraightAttack;
 		StraightAttack();
 		return;
