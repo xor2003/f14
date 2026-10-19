@@ -367,13 +367,14 @@ DrawRioMapInfo(RPS *Rp,int force)
                   ScaleRotate(GRPAGE0[2],0x124,4,9,9,Rp2,x,y,0x100,0,0,0);
                   break;
                case BOMBER_OBJCLASS:
-               case HELICOPTER_OBJCLASS:
+               case TRANSPORT_OBJCLASS:
+               case CIVILIAN_OBJCLASS:
                   ScaleRotate(GRPAGE0[2],0x138,4,9,9,Rp2,x,y,0x100,0,0,0);
                   break;
-               case CARRIER_OBJCLASS:
+               case CMISSILE_OBJCLASS:
                   ScaleRotate(GRPAGE0[2],0x11a,0xe,3,9,Rp2,x,y,0x100,0,0,0);
                   break;
-               case CMISSILE_OBJCLASS:
+               case RADAR_PLANE_OBJCLASS:
                   ScaleRotate(GRPAGE0[2],0x12e,4,9,9,Rp2,x,y,0x100,0,0,0);
                   break;
                   }
