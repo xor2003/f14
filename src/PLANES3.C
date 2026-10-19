@@ -83,7 +83,8 @@ extern struct MissileData far *GetMissilePtr(int MissileNo);
 extern struct RadarData far *GetRadarPtr(int RadarNo);
 
 
-static    int   i;          // index of this plane in "ps" array
+extern    int   i3;
+#define   i     i3          // index of this plane in "ps" array
 extern    int   planecnt;			// used since somebody desided to make i static
 							// and after the planes file grew to more than
 							// 5000 lines I got sick of it and desided to
@@ -3046,6 +3047,7 @@ int MovePlane(int planenum, int xval, int yval)
 	ailoc[i].xloc = ((long)ps[planenum].xL * AILOCDIV) + (AILOCDIV>>1);
 	ailoc[i].yloc = ((long)ps[planenum].yL * AILOCDIV) + (AILOCDIV>>1);
 	ps[planenum].head = 0;
+	ps[planenum].alt = (GetQHeight(ps[planenum].xL, ps[planenum].yL)>>2) + 4;
 }
 
 void CruiseDistruct(int planenum)
