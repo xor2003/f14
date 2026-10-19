@@ -88,6 +88,13 @@ def main():
         jobs[mname] = (para, off, 'CAND', '%04x-%04x R%04x-%04x'
                        % (off, nxt, off, nxt), src)
 
+    # aligned_anchors.tsv holds curated extents and wins over the fuzzy
+    # classified/matches rows; load it implicitly if it lives beside the map.
+    for cand_aln in (os.path.join(os.path.dirname(goldmap_path),
+                                  'aligned_anchors.tsv'),):
+        if os.path.exists(cand_aln) and cand_aln not in tsvs:
+            tsvs.insert(0, cand_aln)
+
     for path in tsvs:
         if 'aligned' in path:
             for l in open(path):
