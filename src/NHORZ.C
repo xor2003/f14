@@ -93,6 +93,8 @@ extern  FARSTACK;
 
 extern int ABOVECLOUDS;
 
+extern int BADWEATHER;
+
 extern int GRNDDETAIL;
 
 extern int OVERCAST;
@@ -190,10 +192,12 @@ NHorz(long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER,
 	int  GRY;
 	int  MSK,SHFT;
 	int	 MYM;
+	int	 SAVEBW;
 
 
 	XZD=1;
 	ZD= 64;
+	SAVEBW=BADWEATHER;
 
 	CLOUDSEG=MapEmsFile(cldhndl, 0);
 
@@ -261,7 +265,12 @@ NHorz(long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER,
 		MYM=M;
 		if (abs(M)<2) M= (M<0)? -2:2;
 
-      if (SKYDETAIL==0)
+		if ((M<=0) && (abs(M) < CHT/2))
+			BADWEATHER = 1;
+		else
+			BADWEATHER = SAVEBW;
+
+      if ((SKYDETAIL==0) || ((M<=0) && !ABOVECLOUDS && BADWEATHER))
          {
          FP_SEG(P)=BUFFER;
          FP_OFF(P)=MYWID*(i);
