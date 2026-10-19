@@ -121,7 +121,7 @@ DisplayRioHead()
 	}
 
 	if (mseg=MapInEMSSprite(MISCSPRTSEG,1)) {
-		TransRectCopy(mseg,2,1,145,113,Rtemp,xheadpos,49,0,mirrorhead);
+		TransRectCopy(mseg,2,0,145,113,Rtemp,xheadpos,49,0,mirrorhead);
 	}
 
 	AnimCnt=1;
@@ -144,25 +144,48 @@ DisplayRioHead()
 
 	LastPos=AnimCnt;
 
-	if ((head_proj_x > 0) && (head_proj_y < 0)) AnimCnt=2;
-	if ((head_proj_x > 0) && (head_proj_y < -15)) AnimCnt=3;
-	if ((head_proj_x > 0) && (head_proj_y < -40)) AnimCnt=5;
-	if ((head_proj_x > 0) && (head_proj_y < -60)) AnimCnt=6;
+	if (View == REARRIGHT) {
+		if ((head_proj_x > 0) && (head_proj_y < 0)) AnimCnt=9;
+		if ((head_proj_x > 0) && (head_proj_y < -15)) AnimCnt=10;
+		if ((head_proj_x > 0) && (head_proj_y < -40)) AnimCnt=12;
+		if ((head_proj_x > 0) && (head_proj_y < -60)) AnimCnt=13;
 
-	if ((head_proj_x > 0) && (head_proj_y > 0)) AnimCnt=2;
-	if ((head_proj_x > 0) && (head_proj_y > 15)) AnimCnt=1;
-	if ((head_proj_x > 0) && (head_proj_y > 40)) AnimCnt=0;
-	if ((head_proj_x > 0) && (head_proj_y > 60)) AnimCnt=4;
+		if ((head_proj_x > 0) && (head_proj_y > 0)) AnimCnt=9;
+		if ((head_proj_x > 0) && (head_proj_y > 15)) AnimCnt=8;
+		if ((head_proj_x > 0) && (head_proj_y > 40)) AnimCnt=7;
+		if ((head_proj_x > 0) && (head_proj_y > 60)) AnimCnt=11;
 
-	if ((head_proj_x < 0) && (head_proj_y < 0)) AnimCnt=9;
-	if ((head_proj_x < 0) && (head_proj_y < -15)) AnimCnt=10;
-	if ((head_proj_x < 0) && (head_proj_y < -40)) AnimCnt=12;
-	if ((head_proj_x < 0) && (head_proj_y < -60)) AnimCnt=13;
+		if ((head_proj_x < 0) && (head_proj_y < 0)) AnimCnt=2;
+		if ((head_proj_x < 0) && (head_proj_y < -15)) AnimCnt=3;
+		if ((head_proj_x < 0) && (head_proj_y < -40)) AnimCnt=5;
+		if ((head_proj_x < 0) && (head_proj_y < -60)) AnimCnt=6;
 
-	if ((head_proj_x < 0) && (head_proj_y > 0)) AnimCnt=9;
-	if ((head_proj_x < 0) && (head_proj_y > 15)) AnimCnt=8;
-	if ((head_proj_x < 0) && (head_proj_y > 40)) AnimCnt=7;
-	if ((head_proj_x < 0) && (head_proj_y > 60)) AnimCnt=11;
+		if ((head_proj_x < 0) && (head_proj_y > 0)) AnimCnt=2;
+		if ((head_proj_x < 0) && (head_proj_y > 15)) AnimCnt=1;
+		if ((head_proj_x < 0) && (head_proj_y > 40)) AnimCnt=0;
+		if ((head_proj_x < 0) && (head_proj_y > 60)) AnimCnt=4;
+	}
+	else {
+		if ((head_proj_x > 0) && (head_proj_y < 0)) AnimCnt=2;
+		if ((head_proj_x > 0) && (head_proj_y < -15)) AnimCnt=3;
+		if ((head_proj_x > 0) && (head_proj_y < -40)) AnimCnt=5;
+		if ((head_proj_x > 0) && (head_proj_y < -60)) AnimCnt=6;
+
+		if ((head_proj_x > 0) && (head_proj_y > 0)) AnimCnt=2;
+		if ((head_proj_x > 0) && (head_proj_y > 15)) AnimCnt=1;
+		if ((head_proj_x > 0) && (head_proj_y > 40)) AnimCnt=0;
+		if ((head_proj_x > 0) && (head_proj_y > 60)) AnimCnt=4;
+
+		if ((head_proj_x < 0) && (head_proj_y < 0)) AnimCnt=9;
+		if ((head_proj_x < 0) && (head_proj_y < -15)) AnimCnt=10;
+		if ((head_proj_x < 0) && (head_proj_y < -40)) AnimCnt=12;
+		if ((head_proj_x < 0) && (head_proj_y < -60)) AnimCnt=13;
+
+		if ((head_proj_x < 0) && (head_proj_y > 0)) AnimCnt=9;
+		if ((head_proj_x < 0) && (head_proj_y > 15)) AnimCnt=8;
+		if ((head_proj_x < 0) && (head_proj_y > 40)) AnimCnt=7;
+		if ((head_proj_x < 0) && (head_proj_y > 60)) AnimCnt=11;
+	}
 
 	mpage = RioHead[RioAnim[AnimCnt].head].page;
 	if (View==REARLEFT) {
