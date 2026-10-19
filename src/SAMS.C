@@ -95,15 +95,15 @@ extern confData ConfigData;
 /* Process all enemy missiles (SAM and AAM) and our weapons */
 /* ---------------------------------------------------------*/
 
-static int homedist,homeangle, HomeHead, pangle;
-static COORD xd,yd,dist,d;
-static int homer,homing,zd,angl,stype;
-static struct Sams *ssi;
+extern int homedist,homeangle, HomeHead, pangle;
+extern COORD xd,yd,dist,d;
+extern int homer,homing,zd,angl,stype;
+extern struct Sams *ssi;
 // static struct sam *sst;
-static struct MissileData far *sst;
-static int EnemySam;
-static int TargetsHit;
-static int PrintedMiss;
+extern struct MissileData far *sst;
+extern int EnemySam;
+extern int TargetsHit;
+extern int PrintedMiss;
 
 //***************************************************************************
 dosams()
