@@ -375,7 +375,8 @@ out:
 }
 
 //***************************************************************************
-int InitSpecialPal()
+int InitSpecialPal(which)
+int which;
 {
 	int i,j;
 	extern char gstr248[];

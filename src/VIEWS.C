@@ -95,6 +95,8 @@ extern int PadPitch;
 
 extern int PadLockee;
 
+extern int far InitSpecialPal(int which);
+
 
 //***************************************************************************
 //
@@ -120,32 +122,24 @@ GenDsp ()
     }
 
 
-    if ((View!=LastView) || (BackSeat!=LastSeat)) {
+    if ((LastView!=View) || (BackSeat!=LastSeat)) {
         ScreenOff();
         MouseSETUP(MouseSprite,0,0);
         MouseHIDE();
+		SetViewDims();
 
         if (View<FRONTAL) {
-			if (LastView==DOWN) {
-				LoadPicToPal(1,gstr357,PalPkt);
-				UpdatePalBuf(PalPkt);
-			}
 			LoadNewCockpit();
         } else {
-            if (LastView<FRONTAL) {
-                LoadPicToPal(1,gstr357, PalPkt);
-				UpdatePalBuf(PalPkt);
-            }
-			if (View==PADLOCK || View==PILOT) {
-            	Rp3D->Length1 = 199;
-            	Rp3D->Width1  = OutsideWidth - 1;
-            	ClearPage(0, BLACK);
-			} else {
-            	Rp3D->Length1 = OutsideLength - 1;
-            	Rp3D->Width1  = OutsideWidth - 1;
-            	ClearPage(0, BLACK);
-			}
+			ClearPage(0, BLACK);
+			if (View==REARLEFT || View==REARRIGHT)
+				InitSpecialPal (View);
+			else
+				InitSpecialPal (-1);
         }
+		if ((LastView==DOWN) && (LastSeat==1)) {
+			InitSpecialPal (-1);
+		}
         LastView = View;
         LastSeat = BackSeat;
     }
@@ -153,7 +147,52 @@ GenDsp ()
     NDraw3D(-vHead,vPitch,vRoll, ViewX,ViewY, (long) ViewZ);
 
     CheckImHit();
-	return 1;
+}
+
+//***************************************************************************
+//*
+//* Set Outside view dims and the Rp3D window for the new View
+//*
+//***************************************************************************
+SetViewDims ()
+{
+	OutsideWidth = 0x140;
+	switch (View) {
+		case FRONT:
+			OutsideLength = BackSeat ? 0x8b : 0x96;
+			break;
+		case LEFT:
+		case RIGHT:
+			OutsideLength = 0x6e;
+			break;
+		case DOWN:
+			OutsideLength = BackSeat ? 0xa : 0x32;
+			break;
+		case REARLEFT:
+			OutsideLength = BackSeat ? 0x8c : 0xa2;
+			break;
+		case REARRIGHT:
+			OutsideLength = BackSeat ? 0x8c : 0xa2;
+			break;
+		case FRONTAL:
+		case STEADY:
+		case WINGMAN:
+		case MAGICCAM1:
+		case MAGICCAM2:
+		case POVVIEW:
+		case TOWERVIEW:
+		case LSOVIEW:
+		case 17+VFULL+VOFFSET:
+			OutsideLength = 0xaa;
+			break;
+		case PADLOCK:
+		case PILOT:
+		case EJECTVIEW:
+			OutsideLength = 0xc7;
+			break;
+	}
+	Rp3D->Length1 = OutsideLength;
+	Rp3D->Width1  = OutsideWidth - 1;
 }
 
 //***************************************************************************
