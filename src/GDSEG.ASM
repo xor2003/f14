@@ -3107,8 +3107,8 @@ _GAMNT LABEL BYTE
 	PUBLIC _CloseBase
 _CloseBase LABEL BYTE
 	DB 16 DUP(0)
-	PUBLIC _friendfire
-_friendfire LABEL BYTE
+	PUBLIC _iplanes
+_iplanes LABEL BYTE
 	DB 10 DUP(0)
 	PUBLIC _psi
 _psi LABEL BYTE
@@ -4115,7 +4115,10 @@ _ejectY LABEL BYTE
 	ORG 0ae08H
 	PUBLIC _ejectZ
 _ejectZ LABEL BYTE
-	ORG 0ae0aH
+	ORG 03a06H
+	PUBLIC _friendfire
+_friendfire LABEL BYTE
+	ORG 03a08H
 	PUBLIC _enemyfire
 _enemyfire LABEL BYTE
 	ORG 0ae0cH

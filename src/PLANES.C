@@ -90,7 +90,8 @@ extern int olddog;
 extern struct Planes * psi;
   // pointer into "ps" structure array for this plane
 
-static    int   i;          // index of this plane in "ps" array
+extern    int   iplanes;    // index of this plane in "ps" array
+#define   i       iplanes
 
 extern int planecnt;
 			// used since somebody desided to make i static
