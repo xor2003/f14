@@ -10,7 +10,7 @@
 #include "sounds.h"
 
 #define MAXMESSAGES 5
-#define MAXMSGLEN   60
+#define MAXMSGLEN   70
 
 char    HudMsg[MAXMESSAGES][MAXMSGLEN];
 extern int MsgCount[MAXMESSAGES];
@@ -76,6 +76,8 @@ extern int MyMSGTYP;
 extern int msgtime;
 
 extern int Mupdate;
+extern int Gtime;
+extern int AutoPause;
 
 extern int MsgEMS;
 
@@ -232,14 +234,14 @@ Messages()
 
 MyMessage(char *s,int src)
 {
-    int i, min, slot;
-	int cnt, lastmsg, lastmsgnum;
+    int i, *min, slot;
+	int lastmsg, lastmsgnum, cnt;
 	int msgplace;
 
     if (ejected) return(1);
 
 	if((!msgtime) || ((src == RIO_NOW_MSG) || (src == WING_MENU_MSG))) {
-        Sound(N_RadarSearch, 1,0);
+        if(AutoPause) Sound(N_RadarSearch, 1,0);
     	strncpy(MyMSG, s, MAXMSGLEN);
     	MyMSG[MAXMSGLEN-1]='\0';
 		if(src == RIO_NOW_MSG) {
@@ -254,14 +256,16 @@ MyMessage(char *s,int src)
 			MyMSGTYP=src;
 			msgtime=GETTIME() + (3*60);      // three seconds per message
 		}
+		if(Gtime==0) msgtime += (5*60);
     	Mupdate=1;
 	}
 	else {
+		cnt = 0;
 		lastmsg = 0;
 		lastmsgnum = 0;
-		for(cnt = 0; cnt < MAXMESSAGES; cnt ++) {
-			if(MsgCount[cnt] > lastmsg) {
-				lastmsg = MsgCount[cnt];
+		for(min = MsgCount; min < MsgCount + MAXMESSAGES; min++, cnt++) {
+			if(*min > lastmsg) {
+				lastmsg = *min;
 				lastmsgnum = cnt;
 			}
 		}
@@ -278,7 +282,7 @@ MyMessage(char *s,int src)
 			MsgSrc[msgplace] = src;
 		}
 		else {
-        	Sound(N_RadarSearch, 1,0);
+        	if(AutoPause) Sound(N_RadarSearch, 1,0);
 			msgplace = lastmsgnum + 1;
 			if(msgplace >= MAXMESSAGES)
 				msgplace = 0;
@@ -286,6 +290,7 @@ MyMessage(char *s,int src)
     		MyMSG[MAXMSGLEN-1]='\0';
 			MyMSGTYP=MsgSrc[msgplace];
 			msgtime=GETTIME() + (2*60);      // two seconds per message
+			if(Gtime==0) msgtime += (5*60);
     		Mupdate=1;
     		strncpy(HudMsg[msgplace], s, MAXMSGLEN);
 			MsgCount[msgplace] = 6;
