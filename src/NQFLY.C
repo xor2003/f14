@@ -574,12 +574,12 @@ DoBox(struct SBox far *B,struct GRDPT far *PL1,struct GRDPT far *PL2,
       FP_SEG(PTR)=MapInBank(SDEFBANK);
 
 
-      if (B->VIS1&0x80) B->VIS2|=0x80;
+      if (B->VIS2&0x80) B->VIS1|=0x80;
 
       (TBXBS)->TYPE1=B->TYPE1;
       (TBXBS)->TYPE2=B->TYPE2;
-      (TBXBS)->VIS1=B->VIS1;
       (TBXBS)->VIS2=B->VIS2;
+      (TBXBS)->VIS1=B->VIS1;
       (TBXBS)->CLR1= B->CLR1;
       (TBXBS)->CLR2= B->CLR2;
 
@@ -595,7 +595,8 @@ DoBox(struct SBox far *B,struct GRDPT far *PL1,struct GRDPT far *PL2,
          }
       else
          {
-         (TBXBS)->BITID=B->BITID;
+         if (LEV!=2)
+            (TBXBS)->BITID=B->BITID;
          (TBXBS)->XL=   B->XL;
          (TBXBS)->YL=   B->YL;
          (TBXBS)->XH=  (B->XL+B->XH +1)>>1;
@@ -607,9 +608,9 @@ DoBox(struct SBox far *B,struct GRDPT far *PL1,struct GRDPT far *PL2,
       FP_OFF(PTR)=SOFF;
       FP_SEG(PTR)=MapInBank(SDEFBANK);
 
-      if ( B->VIS1 )
+      if ( B->VIS2 )
          {
-         (TBXBS)->VIS1=(TBXBS)->VIS2= (B->VIS1|0x80);
+         (TBXBS)->VIS2=(TBXBS)->VIS1= (B->VIS2|0x80);
          (TBXBS)->TYPE1=(TBXBS)->TYPE2=B->TYPE1;
          (TBXBS)->CLR1=(TBXBS)->CLR2=B->CLR1;
 
@@ -626,7 +627,8 @@ DoBox(struct SBox far *B,struct GRDPT far *PL1,struct GRDPT far *PL2,
             }
          else
             {
-            (TBXBS)->BITID=B->BITID;
+            if (LEV!=2)
+               (TBXBS)->BITID=B->BITID;
             (TBXBS)->XL=   (B->XL+B->XH +1)>>1;
             (TBXBS)->YL=   B->YL;
             (TBXBS)->XH=   B->XH;
@@ -638,9 +640,9 @@ DoBox(struct SBox far *B,struct GRDPT far *PL1,struct GRDPT far *PL2,
       FP_OFF(PTR)=SOFF;
       FP_SEG(PTR)=MapInBank(SDEFBANK);
 
-      if ( B->VIS2 )
+      if ( B->VIS1 )
          {
-         (TBXBS)->VIS1=(TBXBS)->VIS2= (B->VIS2|0x80);
+         (TBXBS)->VIS2=(TBXBS)->VIS1= (B->VIS1|0x80);
          (TBXBS)->TYPE1=(TBXBS)->TYPE2=B->TYPE2;
 
       (TBXBS)->BITID= *(PTR+8);
@@ -656,7 +658,8 @@ DoBox(struct SBox far *B,struct GRDPT far *PL1,struct GRDPT far *PL2,
             }
          else
             {
-            (TBXBS)->BITID=B->BITID;
+            if (LEV!=2)
+               (TBXBS)->BITID=B->BITID;
             (TBXBS)->XL=   B->XL;
             (TBXBS)->YL=  (B->YL+B->YH +1)>>1;
             (TBXBS)->XH=  (B->XL+B->XH +1)>>1;
@@ -672,8 +675,8 @@ DoBox(struct SBox far *B,struct GRDPT far *PL1,struct GRDPT far *PL2,
 
       (TBXBS)->TYPE1=B->TYPE1;
       (TBXBS)->TYPE2=B->TYPE2;
-      (TBXBS)->VIS1=B->VIS1;
       (TBXBS)->VIS2=B->VIS2;
+      (TBXBS)->VIS1=B->VIS1;
       (TBXBS)->CLR1= B->CLR1;
       (TBXBS)->CLR2= B->CLR2;
 
@@ -689,7 +692,8 @@ DoBox(struct SBox far *B,struct GRDPT far *PL1,struct GRDPT far *PL2,
          }
       else
          {
-         (TBXBS)->BITID=B->BITID;
+         if (LEV!=2)
+            (TBXBS)->BITID=B->BITID;
          (TBXBS)->XL=  (B->XL+B->XH +1)>>1;
          (TBXBS)->YL=  (B->YL+B->YH +1)>>1;
          (TBXBS)->XH=   B->XH;
@@ -708,9 +712,9 @@ GetQHeight(long X, long Z )
 // the normals are (H1-H2)i+1024j+(H2-H4)k  poly1
 //             and (H3-H4)i+1024j+(H1-H3)k  poly2
 
-   register int ZOFF;
+   int   ZOFF;
    int   XOFF;
-   unsigned char XB,ZB;
+   unsigned int XB,ZB;
 
    int H1,H2,H3,H4;
    long  L;
@@ -725,19 +729,12 @@ GetQHeight(long X, long Z )
    FP_SEG(PTR)=MapInBank(HMAPBANK);
 
 
-   H1=(*(PTR+XB+256*ZB));
-   H2=(*(PTR+XB+256*ZB+1));
-   H3=(*(PTR+XB+256*(ZB+1)));
-   H4=(*(PTR+XB+256*(ZB+1)+1));
+   H1=(*(PTR+XB+256*ZB))<<4;
+   H2=(*(PTR+XB+256*ZB+1))<<4;
+   H3=(*(PTR+XB+256*(ZB+1)))<<4;
+   H4=(*(PTR+XB+256*(ZB+1)+1))<<4;
 
-	H1 <<=4;
-	H2 <<=4;
-	H3 <<=4;
-	H4 <<=4;
-
-	MikeHeight = H1;
-
-   if (XOFF>ZOFF)
+   if (ZOFF<XOFF)
       {
       L= -(MulDiv32((long)(H1-H2),(long)(XOFF),4096L) +
          MulDiv32((long)(H2-H4),(long)(ZOFF),4096L));
@@ -748,11 +745,10 @@ GetQHeight(long X, long Z )
          MulDiv32((long)(H1-H3),(long)(ZOFF),4096L));
       }
 
-     H1 = (H1 + (int)L)*8;
-     if(H1/2 <= (int)CLOUDHEIGHT)
-        return(H1);
-     else
+     H2 = (H1 + (int)L)*8;
+     if(H2/2 > (int)CLOUDHEIGHT)
         return(CLOUDHEIGHT*2);
+     return(H2);
 }
 
 extern int _pq0;
@@ -762,7 +758,8 @@ IsLand(long X, long Z )
 // the normals are (H1-H2)i+1024j+(H2-H4)k  poly1
 //             and (H3-H4)i+1024j+(H1-H3)k  poly2
 
-   int   XB,ZB,XOFF,ZOFF;
+   int   XOFF,ZOFF;
+   unsigned int XB,ZB;
 
    int H1,H2,H3,H4;
    long  L;

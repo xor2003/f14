@@ -1623,3 +1623,45 @@ REMAINING BLOCKER CLASSES (verified, all steer-proof or systemic):
    differently formulated. True twins not yet found.
 4. _UpdatePalBuf anchor 2060:005e is WRONG (gold is a 2734B 'enter 0x30c'
    packet/filename handler, not the 75B palette copy). Real twin unfound.
+
+## Turn: NQFLY DoBox/GetQHeight/IsLand — real source diffs found + fixed
+
+- _IsLand DIFF->MATCH: `int XB,ZB` -> `unsigned int XB,ZB` reproduces
+  gold's byte-pack (`mov bl,[slot]; mov bh,al`) AND the extra `enter 0xa`
+  frame (dead XOFF/ZOFF locals retained, matching gold's slot count).
+  Gold evaluates X-div first, Z-div second, reads `[es:bx+si]`, `cbw`.
+- _GetQHeight: 132-insn stream is instruction-identical to gold after
+  removing `MikeHeight=H1` (no global store in gold; freed ax for H2-4
+  reads, H1 shifts in di: `mov di,ax; shl di,4`), direct `<<4` per-read
+  expressions, and early-return tail `if(H2/2>CLOUDHEIGHT)return(CH*2)`.
+  Sole residual: `cmp si,ax;jge` vs `cmp ax,si;jle` — same pinned
+  operand-order class (steer-proof: decl order, register kw, pad locals,
+  in-cond assign, ternary, expr operands all inert; module-state bound).
+- _DoBox REAL source differences reconstructed from gold (previously
+  catalogued as "es save/reload codegen"):
+  * `if (B->VIS2&0x80) B->VIS1|=0x80` — was `VIS1`->`VIS2` (fields
+    swapped vs old source; gold tests +6=VIS2, sets +7=VIS1).
+  * field-copy blocks emit VIS2(+6) before VIS1(+7) => source writes
+    `TBXBS->VIS2=` before `TBXBS->VIS1=` in both copy sites.
+  * quadrant blocks use the OPPOSITE guard: `if(B->VIS2)` gates the
+    TYPE1/CLR1/PTR+1 body; `if(B->VIS1)` gates TYPE2/CLR2/PTR+8 body.
+    Chained assigns are `VIS2=VIS1=` (VIS1 stored first).
+  * all 4 else-branches guard the BITID copy: `if(LEV!=2)
+    TBXBS->BITID=B->BITID;` (gold has 8 `cmp LEV,2` sites vs our 4;
+    when LEV==2 the earlier `*(PTR)` BITID value survives).
+  Residual: 1 insn — `VIS1|VIS2` head emits +7-load-first in gold,
+  +6-first here (offset-ascending leaf order; spelling/`!`/cast/`+0`
+  all inert). Plus MAXLEV global at different DGROUP offset (data).
+- _DrawLandObjects MATCH->DIFF after module perturbation: `(Y+yt)`
+  emits param-first in gold, local-first here — same pinned
+  leaf-eval-order class (2 sites, `/-scl` and `*scl` arms).
+- _MakeBoxes residual confirmed same class: `*(PTR+256*Zbyte+Xbyte)`
+  index emits ZBASE+i first in gold, XBASE+j first here (the -8 on Z
+  folds into `[es:bx-0x800]` disp in BOTH). Positional/subscript/
+  double-mask/explicit-disp respells all inert.
+- PATTERN across all 4 NQFLY residuals: gold evaluates canonical-LEFT
+  operand first, this build evaluates canonical-RIGHT first. Suspect
+  systemic leaf-eval-order difference (compiler version or module
+  state) — every respell inert because tree canonicalization precedes
+  leaf pick. NQFLY now 6/10 MATCH; 4 DIFFs = 1-2 insns each, all this
+  class, bodies otherwise byte-identical.
