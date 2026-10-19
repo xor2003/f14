@@ -47,6 +47,7 @@ extern	int		ThrustI;
 extern  int     O[3][3];
 extern	int		PlaneAnimVals[];
 extern  int     whichourcarr;     // holds value for which boat our carrier
+extern  int     WaveSpeed;
 extern  int     Fticks;
 extern  int     TimeOnHook;
 extern  int     LightsOn;
@@ -81,8 +82,6 @@ extern int MeatBall;
 extern int StormLevel;
 
 extern int WaveHeight;
-
-extern int WaveSpeed;
 
 
 extern carriers far carrier;

@@ -7,6 +7,33 @@
 /*  Flight related commands are handled in        */
 /*  FLIGHT2.C                                     */
 
+extern int OldMouseX;
+extern int OldMouseY;
+extern int WasInCrt;
+
+#define	NUM_FRONT_TOP	3
+#define NUM_FRONT_LEFT	6
+#define NUM_FRONT_RIGHT 1
+#define NUM_FRONT_BOT	2
+#define	NUM_BACK_TOP	20
+#define NUM_BACK_LEFT	2
+#define NUM_BACK_BOT	8
+
+typedef struct {
+    int     X;
+    int     Y;
+    int     XX;
+    int     YY;
+    int     KeyVal;
+} cs;
+
+extern cs FrontTopSpots[NUM_FRONT_TOP];
+extern cs FrontLeftSpots[NUM_FRONT_LEFT];
+extern cs FrontRightSpots[NUM_FRONT_RIGHT];
+extern cs BackTopSpots[NUM_BACK_TOP];
+extern cs BackBotSpots[NUM_BACK_BOT];
+extern cs BackLeftSpots[NUM_BACK_LEFT];
+
 #include <bios.h>
 
 #include "library.h"
@@ -183,42 +210,6 @@ extern struct FPARAM{
 } FPARAMS;
 
 
-#define	NUM_FRONT_TOP	3
-#define NUM_FRONT_LEFT	6
-#define NUM_FRONT_RIGHT 1
-#define NUM_FRONT_BOT	2
-#define	NUM_BACK_TOP	20
-#define NUM_BACK_LEFT	2
-#define NUM_BACK_BOT	8
-
-
-typedef struct {
-    int     X;
-    int     Y;
-    int     XX;
-    int     YY;
-    int     KeyVal;
-} cs;
-
-
-extern cs FrontTopSpots[NUM_FRONT_TOP];
-
-
-extern cs FrontLeftSpots[NUM_FRONT_LEFT];
-
-
-extern cs FrontRightSpots[NUM_FRONT_RIGHT];
-
-
-extern cs BackTopSpots[NUM_BACK_TOP];
-
-
-extern cs BackBotSpots[NUM_BACK_BOT];
-
-
-extern cs BackLeftSpots[NUM_BACK_LEFT];
-
-
 
 //***************************************************************************
 TakeInputs ()
@@ -319,9 +310,6 @@ CheckMouseInput()
 {
     int        i, spr;
     int        MouseMoved;
-    static int OldMouseX;
-    static int OldMouseY;
-    static int WasInCrt=0;
 	static int lasttime;
 	int curtime;
 
@@ -340,23 +328,6 @@ CheckMouseInput()
 
     MyMouseHits = MouseHITS();
 
-
-    if (View>=FRONTAL) {
-        if (Button) {
-            if (MouseX>160 && MouseY>100) {
-                OutsideWidth  = MouseX*2-320;
-                Rp3D->Width1  = OutsideWidth-1;
-
-                OutsideLength = MouseY*2-200;
-				if (OutsideLength>170) OutsideLength=170;
-                Rp3D->Length1 = OutsideLength-1;
-
-                MouseHIDE();
-                ClearPage (0, BLACK);
-                MouseSHOW();
-            }
-        }
-    }
 
 	if (!(BackSeat)) {
 		if (View==FRONT) { /* Select Cockpit hotspots */
