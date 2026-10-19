@@ -1533,3 +1533,37 @@ Parked (regalloc/eval-order, not source bugs):
 - `_GDisplay`: gold computes `si=([0xae94]>=1?0x70:0)` via cmc/sbb/and
   bool idiom before struct stores — a mode-dependent offset my source
   lacks; needs field-level reconstruction.
+
+## Session: size-gap scan + DGROUP symbol map (645/761)
+
+New tool: `analysis/gold/dseg_order.tsv` maps GOLD DGROUP offsets -> names
+(gold_off, our_off, name, delta, conf). Resolves e.g. 0x2b00=_ABOVECLOUDS,
+0x1e9e=_GRPAGE0, 0x61a4=_psi, 0xd656=_pdest, 0x619a=_i (labelled
+`_friendfire`, low conf — it is really the global index `i`; `imul
+word[0x619a]` = i*stride). Use this to decode `mov ax,[goff]` / `cmp
+[goff]` operand references when reconstructing.
+
+Routine-size scan (gold size - my size) flags real missing-code gaps.
+Largest genuine (excluding tiny mis-paired stubs):
+_DisplayRioHead +414, _UpdateHelicopterHPR_SandP +258, _DrawASurf +209,
+_Messages +182 (mostly DGROUP-offset collision, not code), _JoyRecal +144,
+_LocationPicture +142, _GetInterceptPlane +122, _LoadScottMission +113,
+_TID_draw_target +110, _UpdateSpeedAndPosition +106, _NHorz +82,
+_SteerAndMoveMissile +74, _NDraw3D +66.
+
+_NDraw3D analysis (3DSCENE.C): gold prologue does `si=di=0; if([0xd5e]!=0)
+{si=ABOVECLOUDS; di=[0xd654]}` before Bgn3D; the [0xd5e] flag also selects
+between two renderer far-calls (0x3a9a:0x9d9 vs 0xa32) mid-body. Land block
+matches: `if(!ABOVECLOUDS){ND.seg=GRPAGE0[1](0x1ea0); NE.seg=[0x76];
+DrawNLand; Carrier3D; Boats3D}`. si/di are register vars consumed between
+Bgn3D and the land test; [0xd5e]/[0xd654] are unnamed in the dseg map —
+blocked pending a data-symbol resolution.
+
+_TakingOff (PLANES.C:724): already reconstructed — `di2` register-zero
+(`sub di,di`, reused as `cmp[..],di` operand) + `if(Gtime<5)return 0` +
+`ps[i].base<di2 && bv[i].threathead<di2` all present. Residual is
+local-vs-register init layout, pinned.
+
+_AIBombTarget (PLANES.C:5045): gold caches `&bv[i]` (imul bx,[i],0x30 ->
+[bp-0x1a]) before `&bv[wingman]` (imul bx,si,0x30 -> [bp-0x1c]); mine
+reverses. Semantics identical — eval-order, pinned.
