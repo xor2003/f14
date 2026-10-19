@@ -2011,6 +2011,19 @@ UpdateLights()
 		OldLights[RIGHTFIRE_LIGHT]=status;
 	}
 
+	MouseHIDE();
+	if (JetisonSW) {
+		if ((mseg=MapInEMSSprite(MISCSPRTSEG,0))) {
+			TransRectCopy(mseg,111,125,20,20,Rp2,88,102,0,0);
+		}
+	} else {
+		if ((mseg=MapInEMSSprite(MISCSPRTSEG,0))) {
+			TransRectCopy(mseg,134,125,20,20,Rp2,88,102,0,0);
+		}
+	}
+	RectCopy(Rp2,88,102,20,20,Rp1,88,102);
+	if (ShowMouse) MouseShow();
+
 }
 
 //***************************************************************************
