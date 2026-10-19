@@ -6132,6 +6132,7 @@ void ChangeGroupBehavior(int ainum, int matchenemyfire)
 
 int AddSomePlanes2 (int planenum, int planeid, int AIBehavior, int formnum, int numadd, int numwingadd, int isfriend, int whattype, long xval, long yval, int altval, int headval, int path, int speedval, int howgood)
 {
+	extern int NPLANESX;
 	int cnt;
 	int numwingmen;
 	int wingspace;
@@ -6143,6 +6144,7 @@ int AddSomePlanes2 (int planenum, int planeid, int AIBehavior, int formnum, int 
 	int incval;
 	int notdone = 1;
 	struct PlaneData far *tempplane;
+	extern int whichourcarrb;
 
 	numwingmen = 0;
     wingspace = (Direction==1 ? 5:-5);
@@ -6174,12 +6176,12 @@ int AddSomePlanes2 (int planenum, int planeid, int AIBehavior, int formnum, int 
 			}
 		}
 
-    	if ((notdone) && (whichourcarr != cnt) && !((ps[cnt].status&ACTIVE) && (ps[cnt].status & ALIVE))) { /* Planes in the air */
+    	if ((notdone) && (whichourcarrb != cnt) && !((ps[cnt].status&ACTIVE) && (ps[cnt].status & ALIVE))) { /* Planes in the air */
     		ps[cnt].status = ALIVE+ACTIVE;
 			if(tempplane->bclass == CIVILIAN_OBJCLASS)
     			ps[cnt].status |= CIVILIAN;
-			if((NPLANES <= cnt) && (!imaboat))
-				NPLANES = cnt + 1;
+			if((cnt >= NPLANESX) && (!imaboat))
+				NPLANESX = cnt + 1;
 			if((LASTPLANE >= cnt) && (imaboat))
 				LASTPLANE = cnt;
 
@@ -6268,7 +6270,7 @@ int AddSomePlanes2 (int planenum, int planeid, int AIBehavior, int formnum, int 
 
 #ifdef SEEIFWENEEDTHIS
 			if(tempplane->PlaneEnumId == SO_KHAWKA) {
-				whichourcarr = cnt;     // holds value for which boat our carrier
+				whichourcarrb = cnt;   // holds value for which boat our carrier
 				wps[0].xL = xval;
 				wps[0].yL = yval;
 				wps[0].x = xval>>HTOV;

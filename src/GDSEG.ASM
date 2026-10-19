@@ -5386,6 +5386,8 @@ _whichdefensethreat LABEL BYTE
 	ORG 0c558H
 	PUBLIC _whichourcarr
 _whichourcarr LABEL BYTE
+	PUBLIC _whichourcarrb
+_whichourcarrb LABEL BYTE
 	ORG 0c55aH
 	PUBLIC _PDT_PROJ_Y
 _PDT_PROJ_Y LABEL BYTE
