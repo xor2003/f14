@@ -41,6 +41,7 @@ extern long oldFPX;
 extern long oldFPZ;
 extern UWORD oldAltval;
 extern  int     olddog;
+extern	int		closeplane;
 extern	int		DESIGNATED;
 extern	int		LOCKED;
 extern  char    Txt[];
@@ -74,7 +75,6 @@ extern  int     RunwayLeftX;
 extern	int		LastCall;
 extern  RPS     *Rp3D;
 extern	int 	AIWingMan;
-extern	int		closeplane;
 
 
 extern struct PlaneData far *ptype;
@@ -3615,8 +3615,8 @@ void ShowOurWPS()
 		waynum += 1;
 	}
 
-	if(waynum >= (aipaths[OurPath].wp0 + aipaths[OurPath].numWPs)) {
-		waynum = aipaths[OurPath].wp0 + aipaths[OurPath].numWPs - 1;
+	if(waynum >= (aipaths[OurPath].numWPs + aipaths[OurPath].wp0)) {
+		waynum = aipaths[OurPath].numWPs + aipaths[OurPath].wp0 - 1;
 	}
 
 	GetWayPointChanges(waynum, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
