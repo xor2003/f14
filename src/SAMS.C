@@ -458,7 +458,12 @@ SteerAndMoveMissile()
 		ssi->speed += 50/FrameRate;
 	}
 	else if ((ssi->tgttype) && (ssi->srctype) && (labs(ssi->x - lx) < 720) && (labs(ssi->y - ly) < 720) && (abs(ssi->alt - lz) < 720)) {
-		ssi->speed += 50/FrameRate;
+		{
+			register int t;
+			t = 50/FrameRate;
+			if (t == 0) t = 1;
+			ssi->speed += t;
+		}
 	}
     if (ssi->speed < sst->speed) {
 //		lastspeed = ssi->speed;
@@ -471,7 +476,7 @@ SteerAndMoveMissile()
 			Message(Txt,DEBUG_MSG);
 	   }  */
     } else if (ssi->speed > sst->speed) {
-       ssi->speed += (sst->speed-ssi->speed - (4*FrameRate-1))/(FrameRate<<2);
+       ssi->speed += (sst->speed - (4*FrameRate-1) - ssi->speed)/(FrameRate<<2);
     }
 #endif
 
