@@ -4305,6 +4305,9 @@ void LetNextPlaneLand()
 	extern char gstr690[];
 	extern char gstr691[];
 
+	if((whichourcarr != -999) && (bv[whichourcarr].verticlesep != 0) && (bv[whichourcarr].varcnt > Gtime)) {
+		return;
+	}
 	if(landingstatus & (LANDCAT0USED | LANDCAT1USED)) {
 		return;
 	}
