@@ -1590,3 +1590,12 @@ local-vs-register init layout, pinned.
 _AIBombTarget (PLANES.C:5045): gold caches `&bv[i]` (imul bx,[i],0x30 ->
 [bp-0x1a]) before `&bv[wingman]` (imul bx,si,0x30 -> [bp-0x1c]); mine
 reverses. Semantics identical — eval-order, pinned.
+
+_SteerAndMoveMissile (SAMS.C:460): gold clamps the third speed-bump
+branch to a minimum of 1: `mov ax,50; cwd; idiv [FrameRate]; mov bx,ax;
+or bx,bx; jnz L; mov bx,1; L: add [ssi+0x12],bx` => `ssi->speed += (50/
+FrameRate ? 50/FrameRate : 1)` (or a min-1 div macro). Real semantic
+guard mine lacks. HOWEVER: writing it as a `?:` operand reshapes the
+else-if chain so an EARLIER divergence surfaces (`jmp short` vs inline
+`cwd;idiv` at +0x73b) — the chain's arm layout itself also differs.
+Needs full chain-layout reconstruction, not just the clamp. DEFERRED.
