@@ -1301,8 +1301,10 @@ L31:
 
 	pop	bx
 	mov	al,bh		;color offset byte from hi of dims
-        and     bl,0fch         ;check for inc pix type fills
+        test    bl,07ch         ;check for inc pix type fills
         jne     L424
+        test    bl,080h
+        je      L423
 
 
         cmp     cx,8
@@ -1371,13 +1373,65 @@ L422:
 	inc     di
         loop    L422
         jmp     L33
+L423:
+        cmp     cx,8
+        jl      L423t
+
+        push    cx
+        shr     cx,2
+L423m:
+	shld	ebx,esi,8
+	shld	ebx,eax,8
+	mov	bl,fs:[bx]
+	add	bl,al
+	mov	es:[di],bl
+        add	eax,edx
+	add	esi,ebp
+	shld	ebx,esi,8
+	shld	ebx,eax,8
+	mov	bl,fs:[bx]
+	add	bl,al
+	mov	es:1[di],bl
+        add	eax,edx
+	add	esi,ebp
+	shld	ebx,esi,8
+	shld	ebx,eax,8
+	mov	bl,fs:[bx]
+	add	bl,al
+	mov	es:2[di],bl
+        add	eax,edx
+	add	esi,ebp
+	shld	ebx,esi,8
+	shld	ebx,eax,8
+	mov	bl,fs:[bx]
+	add	bl,al
+	mov	es:3[di],bl
+        add	eax,edx
+	add	esi,ebp
+	add     di,4
+	dec	cx
+	jne	L423m
+        pop     cx
+        and     cx,3
+	je	L33
+L423t:
+	shld	ebx,esi,8
+	shld	ebx,eax,8
+	mov	bl,fs:[bx]
+	add	bl,al
+	mov	es:[di],bl
+        add	eax,edx
+	add	esi,ebp
+	inc     di
+        loop    L423t
+        jmp     L33
 L424:
 
         add     edx,edx                ;for inc pixel trick
         add     ebp,ebp
 
-        cmp     cx,8
-        jb      L321
+        cmp     cx,4
+        jc      L321
         push    cx
         shr     cx,2
 
@@ -1416,9 +1470,24 @@ L321:
 	shld	ebx,esi,8
 	shld	ebx,eax,8
 	mov	bl,fs:[bx]
+        cmp     bl,0
+        je      @F
 	add	bl,al
 	mov	es:[di],bl
+        sub     bl,al
+@@:
         inc     di
+        dec     cx
+        je      L33
+        cmp     bl,0
+        je      @F
+	add	bl,al
+        inc     bl
+        mov     es:[di],bl
+@@:
+        inc     di
+        add	eax,edx
+	add	esi,ebp
         loop    L321
 
 L33:
@@ -1833,8 +1902,10 @@ L31:
 
 	pop	bx
 	mov	al,bh		;color offset byte from hi of dims
-        and     bl,0fch         ;check for inc pix type fills
+        test    bl,07ch         ;check for inc pix type fills
         jne     L424
+        test    bl,080h
+        je      L423
 
 
         cmp     cx,8
@@ -1903,13 +1974,65 @@ L422:
 	inc     di
         loop    L422
         jmp     L33
+L423:
+        cmp     cx,8
+        jl      L423t
+
+        push    cx
+        shr     cx,2
+L423m:
+	shld	ebx,esi,8
+	shld	ebx,eax,8
+	mov	bl,fs:[bx]
+	add	bl,al
+	mov	es:[di],bl
+        add	eax,edx
+	add	esi,ebp
+	shld	ebx,esi,8
+	shld	ebx,eax,8
+	mov	bl,fs:[bx]
+	add	bl,al
+	mov	es:1[di],bl
+        add	eax,edx
+	add	esi,ebp
+	shld	ebx,esi,8
+	shld	ebx,eax,8
+	mov	bl,fs:[bx]
+	add	bl,al
+	mov	es:2[di],bl
+        add	eax,edx
+	add	esi,ebp
+	shld	ebx,esi,8
+	shld	ebx,eax,8
+	mov	bl,fs:[bx]
+	add	bl,al
+	mov	es:3[di],bl
+        add	eax,edx
+	add	esi,ebp
+	add     di,4
+	dec	cx
+	jne	L423m
+        pop     cx
+        and     cx,3
+	je	L33
+L423t:
+	shld	ebx,esi,8
+	shld	ebx,eax,8
+	mov	bl,fs:[bx]
+	add	bl,al
+	mov	es:[di],bl
+        add	eax,edx
+	add	esi,ebp
+	inc     di
+        loop    L423t
+        jmp     L33
 L424:
 
         add     edx,edx                ;for inc pixel trick
         add     ebp,ebp
 
-        cmp     cx,8
-        jb      L321
+        cmp     cx,4
+        jc      L321
         push    cx
         shr     cx,2
 
@@ -1948,9 +2071,24 @@ L321:
 	shld	ebx,esi,8
 	shld	ebx,eax,8
 	mov	bl,fs:[bx]
+        cmp     bl,0
+        je      @F
 	add	bl,al
 	mov	es:[di],bl
+        sub     bl,al
+@@:
         inc     di
+        dec     cx
+        je      L33
+        cmp     bl,0
+        je      @F
+	add	bl,al
+        inc     bl
+        mov     es:[di],bl
+@@:
+        inc     di
+        add	eax,edx
+	add	esi,ebp
         loop    L321
 
 L33:
