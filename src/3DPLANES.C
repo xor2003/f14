@@ -158,7 +158,7 @@ Boats3D()
 
     for (i=LASTPLANE; i<MAXPLANE; i++) {
 		if (whichourcarr == i) continue;
-        if (ps[i].status&ACTIVE) {
+        if ((ps[i].status&ACTIVE) && (!(bv[i].behaveflag & AI_INVISIBLE))) {
             lproject(ps[i].xL, ps[i].yL, ps[i].alt);
             if (sz<0) {
 				pic = GetPicType(ps[i].type);
