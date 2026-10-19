@@ -1497,3 +1497,39 @@ Still TODO for DGROUP:
   MSC6 dead-eliminated ~20 local words; body needs fuller rewrite.
 - Confirmed the "missing-block" pattern is the highest-yield class:
   functions ending early (retf) while gold continues.
+
+## Session: BACKTOBASE gates + operand-order reconstructions -> 645/761
+
+New MATCH:
+- `_Jink2`: gold's early-exit is `CheckDetection(i)==-999 &&
+  !(ps[i].status & BACKTOBASE)` — a returning-to-base plane skips the
+  StraightAttack handoff and falls through to enemynum processing.
+  Added the missing conjunct -> byte-exact MATCH.
+
+Real-condition fix (still DIFF deeper):
+- `_Jink`: outer maneuver gate is `tdist<105 && !(ps[i].status &
+  BACKTOBASE)` — same returning-plane idiom folded into the outer if.
+  Remaining diff is a pinned winglevel CSE spill ([bp-0x1a] temp, not a
+  named local).
+
+Recurring finding — `ps[i].status & BACKTOBASE` (bit 0x4) is a real
+missing gate in the combat AI routines; several funcs test it via
+`test byte[bx+0x7e7c],0x4` where my source ran the block unconditionally.
+`_UpdateSpeedAndPosition` has another at behaveflag&ENEMYNOFIRE scope
+(needs full reconstruction — gold does `si=func(i); if(flg&2){if(st&4)si++}`).
+
+Parked (regalloc/eval-order, not source bugs):
+- `_NearWingTarget`: gold iterates ps[] via si cursor + cnt at [bp-0x2]
+  (memory); mine enregisters cnt. `volatile` experiment added reload
+  artifacts (1->10 diffs), reverted.
+- `_GetRadarGTNum`: `cmp [field],ax` vs `cmp ax,[field]` — MSC6 puts the
+  computed (gt.x>>HTOV) result in ax as cmp-dest regardless of == order.
+- `_AvoidMountains`: `cmp ax,[bx+6]` vs `cmp[bx+6],ax` — heightval lives
+  in si (strength-reduced), cmp operand order is downstream of that
+  regalloc; > vs < spelling is canonicalized inert.
+- `_ShowAIStatus`, `_FlyWayPoint`: gold clears 2-3 locals via shared
+  `sub ax,ax`; mine enregisters one + extra `push di`. Local-enregister
+  class, pinned.
+- `_GDisplay`: gold computes `si=([0xae94]>=1?0x70:0)` via cmc/sbb/and
+  bool idiom before struct stores — a mode-dependent offset my source
+  lacks; needs field-level reconstruction.
