@@ -20,7 +20,7 @@ extern  long    PxLng, PyLng;
 extern  UWORD   Px, Py;
 
 static	int	    MapX,MapZ;
-static  UWORD   Dist2Obj;
+extern  UWORD   Dist2Obj;
 static  UWORD   HitFlags;
 static  int     NUM, k;
 
