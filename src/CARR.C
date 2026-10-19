@@ -982,14 +982,14 @@ OnTheDeck(long X, long Y, long Z )
 
    if (ONTHECAT)
       return(1);
-   if (TimeOnHook < 0xf0) {
-      if (ONTHECAT)
+   if (PreparePlaneWings < 0xf0) {
+      if (!ONTHECAT) {
+         PreparePlaneWings += Fticks;
          return;
-      TimeOnHook += Fticks;
-      return;
+      }
    }
 
-   if ( (labs(X-carrier.x)>50000L) || (labs(Z-carrier.z)>50000L)|| (Y>12000) )
+   if ( (50000L<labs(X-carrier.x)) || (labs(Z-carrier.z)>50000L)|| (Y>12000) )
       return(0);
 
    V[0]= (int)((X-carrier.x)/10L);

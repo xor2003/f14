@@ -4105,9 +4105,9 @@ void MoveAIToElevator(int planenum, int elevator)
 #define LANDD 338
 void DoLandWait(long dx, long dy, int rearhead)
 {
-	int whichwait;
-	int i;
 	int whichside;
+	int i;
+	int whichwait;
 	long dx2, dy2;
 	int newangle;
 	int returnval;
@@ -4156,7 +4156,7 @@ void DoLandWait(long dx, long dy, int rearhead)
 		if(whichside > 3)
 			whichside = 0;
 	}
-	bv[planecnt].threathead = whichwait + whichside;
+	bv[planecnt].threathead = whichside + whichwait;
 }
 
 void CheckPlaneLand(int planenum)

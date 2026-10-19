@@ -24,6 +24,7 @@ extern UBYTE far DawnPal[256*3];
 
 extern UBYTE far DuskPal[256*3];
 
+extern UBYTE far TBLOCK[256*3];
 
 
 extern char WorldColor[256];
@@ -227,7 +228,6 @@ NSetGreyPal(int TR, int TG, int TB)
 	unsigned char far *P;
 	int R,G,B;
 	int N, CockpitLast;
-	unsigned char TBLOCK[3*256];
 
     for (i=0,P=Palette; i<(256*3); i++,P++) {
         TBLOCK[i] = *P;

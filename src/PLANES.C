@@ -722,9 +722,9 @@ GetDestinationAngles () {   // set dist, angl, and pdest
 /*----------*/
 
 TakingOff () {
+	register int   di2;
 	int   leader;
 	int   cnt;
-	int   di2;
 	int   temphead;
 	int   speedval;
 	int   dv;
@@ -4050,7 +4050,8 @@ void LadderCircle ()
 	COORD tdist, distkm, tdistnm;
 	int prewing, prespeed, secplace;
 	int whofollow, tmpcnt, temphead;
-	int wingcnt, prewing2;
+	int prewing2;
+	int wingcnt;
 	extern int iplanesb;
 
 	if (psi->status & PANIC) {
