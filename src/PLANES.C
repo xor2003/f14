@@ -48,6 +48,7 @@ extern char OurWingName[20];
 extern  UBYTE   ExitCode;
 extern	int		DESIGNATED;
 extern	int		LOCKED;
+extern  int     LOCKEDx;
 extern  char    Txt[];
 extern  COORD   xydist ();
 extern  long    LMul   ();
@@ -4022,6 +4023,8 @@ extern int _pq48;
 extern int _pq49;
 extern int _pq50;
 extern int _pq51;
+#undef i
+#define i iplanesb
 void LadderCircle ()
 {
 	int txi, tyi;
@@ -4036,7 +4039,8 @@ void LadderCircle ()
 	COORD tdist, distkm, tdistnm;
 	int prewing, prespeed, secplace;
 	int whofollow, tmpcnt, temphead;
-	int prewing2, wingcnt;
+	int wingcnt, prewing2;
+	extern int iplanesb;
 
 	if (psi->status & PANIC) {
 		bv[i].Behavior = StraightAttack;
@@ -4147,6 +4151,8 @@ void LadderCircle ()
 	}
 #endif
 }
+#undef i
+#define i iplanes
 
 extern int _pd21;
 extern int _pd22;
@@ -4157,7 +4163,6 @@ int CheckDetection(int planenum)
 	COORD tdist, tdist1;
 	int returnval = -999;
 	int dx, dy, x, y;
-	extern int LOCKEDx;
 
 	x = ps[planenum].x;
 	y = ps[planenum].y;

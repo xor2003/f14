@@ -3879,6 +3879,8 @@ _CloseBase LABEL BYTE
 	DB 16 DUP(0)
 	PUBLIC _iplanes
 _iplanes LABEL BYTE
+	PUBLIC _iplanesb
+_iplanesb LABEL BYTE
 	DB 10 DUP(0)
 	PUBLIC _psi
 _psi LABEL BYTE
