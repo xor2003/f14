@@ -5769,8 +5769,8 @@ void GiveSanitizeMessage(int wingnum, int groupcheck[])
 {
 	int returnval, x, y, dx, dy, founddist, targetnum;
 	int tpitch, tangle, enemyalt, rangle, rrangle, winghead;
-	extern int NPLANESx;
 	int cnt, rangle1, rrangle1, tangle1;
+	extern int NPLANESx;
 	extern char gstr465[];
 	extern char gstr466[];
 	extern char gstr467[];
@@ -5800,14 +5800,15 @@ void GiveSanitizeMessage(int wingnum, int groupcheck[])
 	tdist = 0;
 	groupcnt = 0;
 
-    for (cnt=0; cnt<NPLANESx; cnt++) {
+    cnt=0;
+    while (cnt<NPLANESx) {
 		if(groupcheck[cnt]) {
 			groupcnt ++;
 		    dx = ps[cnt].x - x;
     		dy = ps[cnt].y - y;
 			GetTargADP(i, dx, dy, &tdist1, &tpitch, &tangle, &tdistnm, &enemyalt, 0);
 			rangle = tangle - winghead;
-       		if ((((tdist1<tdist) || ((tdistnm < 80) && (!founddist))) && (abs(rangle) < 0x2000))) {
+       		if ((((tdist>tdist1) || ((tdistnm < 80) && (!founddist))) && (abs(rangle) < 0x2000))) {
 				founddist = 1;
            		tdist=tdist1;
 				targetnum = cnt;
@@ -5820,6 +5821,7 @@ void GiveSanitizeMessage(int wingnum, int groupcheck[])
 					groupalt = 1;
        		}
 		}
+		cnt++;
 	}
 	if(founddist) {
 		dangle = (UWORD)tangle1;
