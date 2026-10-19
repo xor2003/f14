@@ -1465,3 +1465,35 @@ Still TODO for DGROUP:
 - si/di-vs-bx temp selection and param-vs-local leaf order remain the
   dominant parked classes (~15 fns).
 - verify runs MUST be serialized with rebuilds (see prior races).
+
+## Session: missing-block reconstructions (642 -> 644+)
+
+- `_UpdateLights` MATCH: missing unconditional tail — MouseHIDE +
+  MapInEMSSprite + TransRectCopy (col 111 vs 134 by JetisonSW) +
+  RectCopy(88,102,20x20) + MouseShow. Same sprite imagery as
+  JetisonSwitch() but no View gate / no state update. Restored.
+- `_LetNextPlaneLand` MATCH: missing early-exit guard —
+  `if(whichourcarr != -999 && bv[whichourcarr].verticlesep != 0 &&
+  bv[whichourcarr].varcnt > Gtime) return;` (carrier landing-slot
+  timeout live). bv field offsets: varcnt@0x18, verticlesep@0x1c,
+  threathead@0x28 (stride 0x30, far Behavior fnptr@0).
+- `_NewLockView` MATCH (earlier): gold's dual padlock-cursor search —
+  plane scan gated by SamLockee==-1 (no PadLockee wrap), plus a
+  ss[NSAM](28x44) SAM-padlock fallback via an int* target-field cursor;
+  new adjacent global SamLockee(0x5536). Loop exits use i>=N/j>=NSAM.
+- `_HsdCrt` +2 fix: Knots label is (Length1/2)-2 (dec ax;dec ax), not
+  +2 — label was 4px low. Label block still diffs deeper (gold uses a
+  sprite-scale-gated path, enter 0x62 vs 0x3a — different local set).
+- `_MoveAIToElevator` resolved to MATCH (earlier frame work).
+- `_GetWhoCover` partial: `int gnum=bv[planenum].groundt` hoist killed
+  an in-place `imul word[groundt],0xe` that corrupted groundt before
+  the second aiwaypoints[g].y read. Still DIFF: gold spills
+  ps[cnt].status to [bp-0xa] (embedded-assign form) + caches ps/bv
+  base ptrs in [bp-0x2]/[bp-0x4].
+- `_EasyLanding` parked: landpt decrement logic is semantically
+  identical, but gold places the shared `dec` BEFORE the else-block
+  (jnl->else); MSC6 won't reorder (goto/!/&& forms all inert).
+- `_AICarrierLand` big divergence: gold enter 0x62 vs mine 0x3a —
+  MSC6 dead-eliminated ~20 local words; body needs fuller rewrite.
+- Confirmed the "missing-block" pattern is the highest-yield class:
+  functions ending early (retf) while gold continues.
