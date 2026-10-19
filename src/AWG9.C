@@ -2557,7 +2557,8 @@ int AddAcqList(TARGET *t, int start)
 //***************************************************************************
 int DetermineShootParams()
 {
-	static flash=1;
+	extern int shootflash;
+#define flash shootflash
 
 	LOCKSHOOT  =  0;
 	SHOOT      =  0;				// initialize variables

@@ -1662,8 +1662,10 @@ DrawAOADisplay()
 //***************************************************************************
 DrawSweepDisplay()
 {
-	static int prevrot;
-	static int timer;
+	extern int swprevrot;
+	extern int swtimer;
+#define prevrot swprevrot
+#define timer swtimer
 	int pos;
 
 	if (--timer > 0) return 1;
