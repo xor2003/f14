@@ -136,6 +136,8 @@ extern int RadarRepeat;
 
 extern int BackSeat;
 
+extern int RIOEmsOk;
+
 extern int Panning;
 
 // int     LookingDown = 0;
@@ -529,18 +531,17 @@ DoCockpitDisplays ()
 			DoCRT(1);
 			DoCRT(3);
 			UpdateCockpitLites();
-			DisplayBall();
 			DisplayMaster();
 			GDisplay();
 		}
-		if ((View==REARLEFT || View==REARRIGHT)) {
+		if ((View==REARLEFT || View==REARRIGHT) && RIOEmsOk) {
 			DisplayRioHead();
 		}
 		if (View==LEFT) {
 			DisplayLeftStuff();
 		}
 		if (View==RIGHT) {
-			DisplayRightStuff();
+			DisplayRightStuff(1);
 		}
 	} else {
 		if (View==FRONT) {
@@ -560,6 +561,9 @@ DoCockpitDisplays ()
 		}
 		if (View==LEFT) {
 			DrawRadarDials();
+		}
+		if (View==RIGHT) {
+			DisplayRightStuff(0);
 		}
 
 	}
@@ -831,81 +835,94 @@ DisplayLeftStuff()
 
 
 //***************************************************************************
-DisplayRightStuff()
+DisplayRightStuff(int arg)
 {
-	int i;
 	int mseg;
+	int xoff, yoff;
 
 	MouseHIDE();
 
-	if ((mseg=MapInEMSSprite(MISCSPRTSEG,0))) {
-		if (HookDown)
-			ScaleRotate(mseg,294,116,40,46,Rp1,(15+20),(106+23),0x0100,0,0,0);
-		else
-			ScaleRotate(mseg,250,116,40,46,Rp1,(15+20),(106+23),0x0100,0,0,0);
+	if (arg) {
+		xoff = yoff = 0;
+	}
+	else {
+		yoff = -10;
+		xoff = 1;
+	}
+
+	if (arg) {
+		if ((mseg=MapInEMSSprite(MISCSPRTSEG,0))) {
+			if (HookDown)
+				TransRectCopy(mseg,140,1,38,28,Rp2,1,79,0,0);
+			else
+				TransRectCopy(mseg,99,1,38,28,Rp2,1,79,0,0);
+			RectCopy(Rp2,1,79,38,28,Rp1,1,79);
+		}
 	}
 
 	// Display Damaged Stuff
 
 	if (Damaged&D_GEAR) {
-		ChangeColor(Rp1,84,172,28,72,2,16);
-		ChangeColor(Rp1,84,172,28,72,4,17);
+		ChangeColor(Rp1,84+yoff,172+xoff,28,72,2,16);
+		ChangeColor(Rp1,84+yoff,172+xoff,28,72,4,17);
 	}
 
 	if (Damaged&D_HOOK) {
-		ChangeColor(Rp1,99,172,25,20,3,62);
-		ChangeColor(Rp1,99,172,25,20,5,63);
+		ChangeColor(Rp1,99+yoff,172+xoff,25,20,3,62);
+		ChangeColor(Rp1,99+yoff,172+xoff,25,20,5,63);
 	}
 
 	if (BingoFuelWarn) {
-		ChangeColor(Rp1,113,168,26,24,2,16);
-		ChangeColor(Rp1,113,168,26,24,4,17);
+		ChangeColor(Rp1,113+yoff,168+xoff,26,24,2,16);
+		ChangeColor(Rp1,113+yoff,168+xoff,26,24,4,17);
 	}
 
 	if (Damaged&D_HYDRAULICS) {
-		ChangeColor(Rp1,143,157,23,35,2,16);
-		ChangeColor(Rp1,143,157,23,35,4,17);
+		ChangeColor(Rp1,143+yoff,157+xoff,23,35,2,16);
+		ChangeColor(Rp1,143+yoff,157+xoff,23,35,4,17);
 	}
 
 	if (Damaged&D_LEFTENGINE) {
-		ChangeColor(Rp1,158,157,18,35,3,62);
-		ChangeColor(Rp1,158,157,18,35,5,63);
+		ChangeColor(Rp1,158+yoff,157+xoff,18,35,3,62);
+		ChangeColor(Rp1,158+yoff,157+xoff,18,35,5,63);
 	}
 
 	if (LLowFuelWarn) {
-		ChangeColor(Rp1,173,156,13,36,2,16);
-		ChangeColor(Rp1,173,156,13,36,4,17);
+		ChangeColor(Rp1,173+yoff,156+xoff,13,36,2,16);
+		ChangeColor(Rp1,173+yoff,156+xoff,13,36,4,17);
 	}
 
 	if (RLowFuelWarn) {
-		ChangeColor(Rp1,188,156,13,36,3,62);
-		ChangeColor(Rp1,188,156,13,36,5,63);
+		ChangeColor(Rp1,188+yoff,156+xoff,13,36,3,62);
+		ChangeColor(Rp1,188+yoff,156+xoff,13,36,5,63);
 	}
 
 
 	if (Damaged&D_RIGHTENGINE) {
-		ChangeColor(Rp1,199,157,17,35,2,16);
-		ChangeColor(Rp1,199,157,17,35,4,17);
+		ChangeColor(Rp1,199+yoff,157+xoff,17,35,2,16);
+		ChangeColor(Rp1,199+yoff,157+xoff,17,35,4,17);
 	}
 
 //	if (Damaged&D_WINGSWEEP) {
-//		ChangeColor(Rp1,211,166,35,26,3,62);
-//		ChangeColor(Rp1,211,166,35,26,5,63);
+//		ChangeColor(Rp1,211+xoff,166+yoff,35,26,3,62);
+//		ChangeColor(Rp1,211+xoff,166+yoff,35,26,5,63);
 //	}
 
 	if (Damaged&D_AWG9) {
-		ChangeColor(Rp1,247,166,29,26,3,62);
-		ChangeColor(Rp1,247,166,29,26,5,63);
+		ChangeColor(Rp1,247+yoff,166+xoff,29,26,3,62);
+		ChangeColor(Rp1,247+yoff,166+xoff,29,26,5,63);
 	}
 
 	if (Damaged&D_FIRECONTROL) {
-		ChangeColor(Rp1,257,166,34,26,3,62);
-		ChangeColor(Rp1,257,166,34,26,5,63);
+		ChangeColor(Rp1,262+yoff,166+xoff,30,26,2,16);
+		ChangeColor(Rp1,262+yoff,166+xoff,30,26,4,17);
+		ChangeColor(Rp1,256+yoff,166+xoff,6,7,2,16);
+		ChangeColor(Rp1,256+yoff,166+xoff,6,7,4,17);
 	}
 
 	if (Damaged&D_NAV) {
-		ChangeColor(Rp1,277,174,29,18,3,62);
-		ChangeColor(Rp1,277,174,29,18,5,63);
+		ChangeColor(Rp1,277+yoff,174+xoff,29,18,3,62);
+		ChangeColor(Rp1,277+yoff,174+xoff,29,18,5,63);
 	}
 
 	if (ShowMouse) MouseShow();
