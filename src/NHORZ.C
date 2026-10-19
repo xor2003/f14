@@ -82,7 +82,7 @@ struct STK3D{
 	int TYPE;
 	int SCL;
 };
-extern struct STK3D STACK3D[52];
+extern struct STK3D far STACK3D[52];
 
 
 extern  LASTSTACK;
