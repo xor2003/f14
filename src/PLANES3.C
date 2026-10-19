@@ -3478,11 +3478,8 @@ int GetRadarGTNum(int radarnum)
 {
 	int cnt;
 	for(cnt = 0; cnt < NGTARGETS; cnt ++) {
-		if(((int)(gt[cnt].x>>HTOV) == Rdrs[radarnum].x))
-			if(Rdrs[radarnum].y != (int)(gt[cnt].y>>HTOV))
-				continue;
-			else
-				return(gt[cnt].orgnum);
+		if(((int)(gt[cnt].x>>HTOV) == Rdrs[radarnum].x) && ((int)(gt[cnt].y>>HTOV) == Rdrs[radarnum].y))
+			return(gt[cnt].orgnum);
 	}
 	return(-999);
 }

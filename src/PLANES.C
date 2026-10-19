@@ -5669,12 +5669,13 @@ int AICoreRadarCheck(int wingnum, int showinfo, int otherrange, int lessangle, i
 	extern char gstr463[];
 	extern char gstr402[];
 	extern char gstr464[];
-	COORD tdist, tdist1, tdistnm, tdistnm1, distkm;
+	COORD tdist1, tdistnm, tdistnm1, distkm;
 	int degreetmp;
 	UWORD dangle;
 	struct PlaneData far *wingptype;
 	struct RadarData far *tempradar;
 
+	COORD tdist;
 	int radarrangekm;
 
 	if(wingnum == -1) {
@@ -5813,7 +5814,7 @@ void GiveSanitizeMessage(int wingnum, int groupcheck[])
     		dy = ps[cnt].y - y;
 			GetTargADP(i, dx, dy, &tdist1, &tpitch, &tangle, &tdistnm, &enemyalt, 0);
 			rangle = tangle - winghead;
-       		if ((((tdist>tdist1) || ((tdistnm < 80) && (!founddist))) && (abs(rangle) < 0x2000))) {
+       		if ((((tdist1<tdist) || ((tdistnm < 80) && (!founddist))) && (abs(rangle) < 0x2000))) {
 				founddist = 1;
            		tdist=tdist1;
 				targetnum = cnt;
