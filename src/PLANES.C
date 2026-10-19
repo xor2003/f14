@@ -55,6 +55,7 @@ extern  long    LMul   ();
 extern  COORD   Px,Py;
 extern  long    PxLng, PyLng;
 extern  int     OurHead,OurRoll, OurPitch;
+extern  UWORD   Alt;
 extern   UWORD       AirSpeed;
 extern  SWORD	Knots;
 extern  int     AltDummyUnused;
@@ -1839,7 +1840,6 @@ ActivatePlane(int pl, int base, int planeid)
 
 void GetTargADP(int planenum, int dx, int dy, COORD *tdist, int *tpitch, int *tangle, COORD *tdistnm, int *enemyalt, int deltalt)
 {
-	extern UWORD Alt;
 	if(bv[planenum].target == -1) {
 		*tdist = Dist2D(dx, dy);
 		*tpitch = GetAltPitch(ps[planenum].alt, ((Alt|0) + deltalt), *tdist);

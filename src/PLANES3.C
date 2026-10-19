@@ -3717,14 +3717,11 @@ void CheckTurnStuff(int planenum)
 {
 	int planeG, tempg;
 	int tdroll, cnt, altspd, tempspd;
-	int i, maxspeed;
+	int maxspeed;
 	int wingkludge = 0;
 	long spd;
 	int MinSpdG[] = {150, 150, 225, 250, 275, 300, 325, 350, 5000, 5000, 5000};
 	int GAngle[] = {0, 0, 0x2AA8, 0x3224, 0x35B1, 0x37C8, 0x3929, 0x3A25, 0x3AE1, 0x3B72, 0x3BE7};
-
-
-	planenum = planenum;
 
 	if(ps[planenum].status & (CRASH|LANDING|LANDED))
 		return;
