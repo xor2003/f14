@@ -30,6 +30,29 @@ Remaining classes unchanged: si/di/bx regalloc (use-count driven),
 far-ptr es save/reload, retail-only blocks (WING_SCHED in CheckDataLink's
 extent is now passed — function body itself matches).
 
+## Turn: 645 -> UpdateInterceptGroup MATCH; operand-order is MODULE-STATE chaotic
+
+KEY finding on the "sometimes works" operand-order mechanism: the
+late-bound-vs-early-bound mem-left choice is NOT purely per-function.
+Adding `int isheli` to UpdateInterceptGroup (line ~389, early in
+PLANES3.C) perturbed module codegen state and FLIPPED the `cmp` operand
+order in 4 later siblings — _DoGroupAction, _GetPlaneLanding,
+_GetWhichElevator, _ReArmWingman went MATCH->DIFF though their source is
+unchanged and correctly paired (same gold addr). Verified by revert:
+removing isheli restores _GetWhichElevator MATCH. So the 4 are NOT source
+bugs — gold emits `cmp NPLANES,cnt` (bound-left) and the in-fn
+`extern int NPLANES` late-bind trick is unreliable for header-COMDEF
+globals (NPLANES is `int NPLANES;` COMDEF in WORLD.H — can't move to
+file-end, option 1 doesn't apply). Inert levers tried: respelling
+`NPLANES>cnt` <-> `cnt<NPLANES`, repositioning in-fn extern to truly-last,
+merging decls, renaming isheli->cnt, adding unused pad local. The 4 will
+likely flip back as future edits perturb the module.
+
+Also landed: DrawRioMapInfo case4/5 loop bound LASTPLANE->NPLANES (real
+wrong-global fix, 4->1 diff); SetUpLaunch helicopter check
+behaveflag&ISHELICOPTER -> GetPlanePtr(type)->bclass==HELICOPTER_OBJCLASS
+(real reconstruction fix, still a deeper local-order diff).
+
 ## Toolchain (build_all.sh)
 
 - C: MSC 6.00 `c6/BIN/CL.EXE` under kvikdos, flags `/FPa /G2 /Gs /AM /Osegcl /Zi /Zd`
