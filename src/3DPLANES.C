@@ -501,12 +501,12 @@ DrawCoolF14(int X, int Y, int Z, int SHFT)
 	InvertMatrix();
 
     Trans3X3(O, M);
-    V2[0] = -4*X;
-    V2[1] = -4*Y;
+    V2[0] = -4*Y;
+    V2[1] = -4*X;
     V2[2] = -4*Z;
     Rotate(V2, M);
 
-   dst=X/8+Y/8+Z/8;
+    dst=X/8+Y/8+Z/8;
 
    mydetail=2;
    if (dst>400)
@@ -517,7 +517,7 @@ DrawCoolF14(int X, int Y, int Z, int SHFT)
 	if (SHFT)
       {
       mydetail=0;
-		Shift3X3(O,SHFT);
+		Shift3X3(O,Scale3d=SHFT);
       }
    if (mydetail<0) mydetail=0;
    if (mydetail>PLANEDETAIL)
@@ -527,9 +527,9 @@ DrawCoolF14(int X, int Y, int Z, int SHFT)
    if (mydetail==0)
       {
       if (Status&WHEELSUP)
-         DrawSuper3DObject(CoolObj,N3DZ_FLIGHT_F14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj,N3DZ_FLIGHT_F14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
       else
-         DrawSuper3DObject(CoolObj,N3DZ_DECK_F14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj,N3DZ_DECK_F14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
       }
    if (mydetail==1)
       {
@@ -537,21 +537,21 @@ DrawCoolF14(int X, int Y, int Z, int SHFT)
          {
          AnimVals[14]=WingRot;
   		   AnimVals[30]=-(slposx*DEG)+(slposy*DEG);
-			DrawSuper3DObject(CoolObj,N3DZ_L_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
-			NDraw3DObject(N3DZ_C_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+			DrawSuper3DObject(CoolObj,N3DZ_L_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+			NDraw3DObject(N3DZ_C_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
 			AnimVals[14]=-WingRot;
 		   AnimVals[30]=(slposx*DEG)+(slposy*DEG);
-			DrawSuper3DObject(CoolObj,N3DZ_R_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+			DrawSuper3DObject(CoolObj,N3DZ_R_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
          }
       else
          {
 			AnimVals[14]=-WingRot;
          AnimVals[30]=(slposx*DEG)+(slposy*DEG);
-			DrawSuper3DObject(CoolObj,N3DZ_R_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
-			NDraw3DObject(N3DZ_C_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+			DrawSuper3DObject(CoolObj,N3DZ_R_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+			NDraw3DObject(N3DZ_C_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
 			AnimVals[14]=WingRot;
          AnimVals[30]=-(slposx*DEG)+(slposy*DEG);
-			DrawSuper3DObject(CoolObj,N3DZ_L_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+			DrawSuper3DObject(CoolObj,N3DZ_L_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
          }
       }
    if (mydetail==2)
@@ -561,28 +561,29 @@ DrawCoolF14(int X, int Y, int Z, int SHFT)
 		   AnimVals[14]=WingRot;
 		   AnimVals[29]=(WingRot/8);
   		   AnimVals[30]=-(slposx*DEG)+(slposy*DEG);
-		   DrawSuper3DObject(CoolObj, N3DZ_L_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
-		   DrawSuper3DObject(CoolObj, N3DZ_LM_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
-		   DrawSuper3DObject(CoolObj, N3DZ_RM_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+		   DrawSuper3DObject(CoolObj, N3DZ_L_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+		   DrawSuper3DObject(CoolObj, N3DZ_LM_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+		   DrawSuper3DObject(CoolObj, N3DZ_RM_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
 		   AnimVals[14]=-WingRot;
 		   AnimVals[29]=-(WingRot/8);
 		   AnimVals[30]=(slposx*DEG)+(slposy*DEG);
-		   DrawSuper3DObject(CoolObj, N3DZ_R_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+		   DrawSuper3DObject(CoolObj, N3DZ_R_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
 	      }
       else
          {
          AnimVals[14]=-WingRot;
          AnimVals[29]=-(WingRot/8);
          AnimVals[30]=(slposx*DEG)+(slposy*DEG);
-         DrawSuper3DObject(CoolObj, N3DZ_R_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
-         DrawSuper3DObject(CoolObj, N3DZ_RM_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
-         DrawSuper3DObject(CoolObj, N3DZ_LM_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj, N3DZ_R_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj, N3DZ_RM_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj, N3DZ_LM_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
          AnimVals[14]=WingRot;
          AnimVals[29]=-(WingRot/8);
          AnimVals[30]=-(slposx*DEG)+(slposy*DEG);
-         DrawSuper3DObject(CoolObj, N3DZ_L_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj, N3DZ_L_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
 	      }
       }
+   Scale3d=1;
 }
 
 
