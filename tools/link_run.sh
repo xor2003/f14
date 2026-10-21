@@ -32,7 +32,7 @@ for b in $rest; do
     echo "E:\\$B.OBJ+" >> "$rsp"
 done
 echo "E:\\GDSEGR.OBJ" >> "$rsp"
-printf 'E:\\F14RUN.EXE\nE:\\F14RUN.MAP\nG:\\MPSLIBM.LIB H:\\LIB\\MLIBC7.LIB\n' >> "$rsp"
+printf 'E:\\F14RUN.EXE\nE:\\F14RUN.MAP\nH:\\LIB\\MLIBC7.LIB\n' >> "$rsp"
 "$KV" --mount=C:"$ROOT/C700/" --mount=E:"$OBJ/" --mount=G:"$LIBD/" \
     --mount=H:"$ROOT/c6/" --env='LIB=G:\;H:\LIB' --drive=E \
     'C:\BIN\LINK.EXE' /MAP /SEG:256 /ST:8192 /CODEVIEW "@E:\\f14run.lrf" \

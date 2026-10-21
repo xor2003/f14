@@ -92,7 +92,7 @@ $(OBJS: =+^
 )
 f14.exe
 f14.map
-..\lib\mpslibm.lib;
+;
 <<KEEP
 
 monoprin.obj: monoprin.c
@@ -259,8 +259,4 @@ trig.obj: trig.asm
 _rp.obj: _rp.asm
     masm $(AFLAGS) _rp.asm;
 
-_mpslibm.obj: _mpslibm.c
-    CL $(CFLAGS) _mpslibm.c
 
-..\lib\mpslibm.lib: _mpslibm.obj
-    lib ..\lib\mpslibm.lib -+_mpslibm.obj,,

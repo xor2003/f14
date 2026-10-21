@@ -219,3 +219,21 @@ Small rewrites move the emitted code:
 - The `mrec`-style anonymous struct decls in `LOADMISS.C` are
   reconstructed from gold's field accesses — sizes were guessed from
   `fread` extents and may need revisiting if the frame is ever off.
+- Byte-lift → readable asm (`tools/mpsreal_readable.py`,
+  `MPSREAL.ASM`→`MPSLIBM.ASM`): parse the lift directly; `gXXXX`/`pXXXX`
+  labels are position anchors. Capstone-decode pure-byte `db` runs;
+  keep `mn` lines verbatim; merge `dw offset/seg sym` carriers into the
+  owning instruction. MASM 5.10 specifics that bite:
+  `[imm]` memory operands need explicit `ds:` or they're parsed as
+  immediates; unconditional `jmp` is shrunk to `EB` when in range —
+  emit `jmp short` for original `EB`, and `db 0e9h / dw tgt-$-2` to
+  force original `E9` width; `call`/`jmp` to FAR-typed labels needs
+  `near ptr` to stay near; capstone prints reg-reg `xchg` reversed vs
+  MASM's reg-field encoding — swap operands; `lods/stos/movs/scas/cmps`
+  must be the suffixed forms; 386+ insns (`cdq`, `cwde`, operand-size
+  prefixes) and runtime-patched cells stay raw `db`; after `ret`/`jmp`/
+  `int3` treat bytes as data until the next anchor label. Never emit a
+  reference to a label that won't be emitted — rewrite to raw `db`.
+  Object-level verdict: identical bytes except real FIXUPPs replacing
+  baked literals (better) and a MASM LEDATA tail pad byte past
+  declared segment size (harmless).

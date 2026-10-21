@@ -1,5 +1,38 @@
 # F-14 Fleet Defender — retail-matching source rebuild progress
 
+## Turn: MPSREAL.ASM → readable MPSLIBM.ASM, MONOPRIN canonical .C, stub lib removed
+
+`src/MPSREAL.ASM` (opaque byte-lift: `gXXXX` labels + raw `db` streams)
+was converted to readable MASM 5.10 assembly and renamed
+`src/MPSLIBM.ASM` (the module is the MPSLIBM library body: raster
+primitives, mouse driver, overlay loader, PIC loader). Conversion tool:
+`tools/mpsreal_readable.py` — capstone-decodes `db` runs, resolves
+branch/call targets to labels, merges `dw offset/seg` reloc carriers,
+keeps runtime-patched cells and 386+/unsupported forms as raw `db`.
+
+MASM 5.10 assembles it: 0 severe errors (66 benign A4031 warnings).
+Object comparison vs the byte-lift OBJ: MPSDAT 14161B identical,
+AUX2_TEXT 215B identical, MPSLIBM_TEXT and PIC_TEXT byte-identical
+except (a) operands that now carry real FIXUPPs instead of baked
+literals — they resolve to the same relative targets at link — and
+(b) one trailing pad byte past each code segment's declared size
+(MASM LEDATA tail junk, linker ignores). `F14RUN.EXE` relinks clean
+(0 errors) and runtime-verified equivalent to the pre-rewrite build
+(both reach the same `__setenvp` CRT env-scan, which is a pre-existing
+slow path under libdosbox — not a regression; verified side-by-side
+with the b465238 binary at /tmp/ehd/F14R.EXE).
+
+`MPSLIBM.LIB` stub lib and `src/_mpslibm.c` removed — all MPS publics
+are defined by MPSLIBM.OBJ; link needs no stubs. `build_all.sh` OBJS
+renamed `mpsreal`→`mpslibm`.
+
+`MONOPRIN.ASM` (compiler-generated listing) is gone — `MONOPRIN.C`
+(original Ned Way source) is canonical; `src_for` prefers `.C`.
+
+Known pre-existing issue (not from this change): `build_all.sh link`
+for the byte-match `F14.EXE` fails L2041 (stack+data >64K) — DGROUP
+grew from earlier GDSEGR work; untouched by this change.
+
 ## Turn: F14RUN runtime — overlay loader works end-to-end under libdosbox
 
 Two independent defects fixed; F14RUN now runs past both early overlay

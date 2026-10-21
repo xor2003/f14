@@ -37,7 +37,7 @@ flags_for() {
 }
 
 # object list from MAKEFILE OBJS — original link order (determines segment layout)
-OBJS="gdseg monoprin adicrt npolys n3d emsload pasm emm nqfly 3dexcept 3dloadt 3dloader 3dmatrix 3dobject 3dplanes 3dscene aaa aaahit armt awacs awg9 billasm boats bullets carr carrai cmds cockpit ctrlvect ddd egraph ems flight2 flir fltmath gmain nhorz horzasm hud2 hsd joystx njoycal keyjoy libglue loadmiss math mcga mcgamask nmenus message options ovl planes planes2 planes3 radars rastport riohead riomap sams savemode sound sprites stealth support tac tews tgtflir tid trig track views vdi world _rp mpsreal"
+OBJS="gdseg monoprin adicrt npolys n3d emsload pasm emm nqfly 3dexcept 3dloadt 3dloader 3dmatrix 3dobject 3dplanes 3dscene aaa aaahit armt awacs awg9 billasm boats bullets carr carrai cmds cockpit ctrlvect ddd egraph ems flight2 flir fltmath gmain nhorz horzasm hud2 hsd joystx njoycal keyjoy libglue loadmiss math mcga mcgamask nmenus message options ovl planes planes2 planes3 radars rastport riohead riomap sams savemode sound sprites stealth support tac tews tgtflir tid trig track views vdi world _rp mpslibm"
 
 src_for() {
     local b=$1
@@ -237,7 +237,7 @@ link)
         B=$(tr 'a-z' 'A-Z' <<< "$b")
         if [ "$b" = "$last" ]; then echo "E:\\$B.OBJ" >> "$rsp"; else echo "E:\\$B.OBJ+" >> "$rsp"; fi
     done
-    printf 'E:\\F14.EXE\nE:\\F14.MAP\nG:\\MPSLIBM.LIB\n' >> "$rsp"
+    printf 'E:\\F14.EXE\nE:\\F14.MAP\n\n' >> "$rsp"
     "$KV" --mount=C:"$ROOT/C700/" --mount=E:"$OBJ/" --mount=G:"$LIBD/" \
         --mount=H:"$ROOT/c6/" --env='LIB=G:\;H:\LIB' --drive=E \
         'C:\BIN\LINK.EXE' /MAP /SEG:256 /ST:2050 /CODEVIEW "@E:\\f14.lrf" \
