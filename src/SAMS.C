@@ -452,18 +452,22 @@ SteerAndMoveMissile()
 	}
 
 	if ((ssi->tgttype) && (ssi->speed < 75)) {
-		ssi->speed += 20/FrameRate;
+		register int t;
+		t = 20/FrameRate;
+		if (t == 0) t = 1;
+		ssi->speed += t;
 	}
 	else if ((ssi->tgttype) && (ssi->speed < 175)) {
-		ssi->speed += 50/FrameRate;
+		register int t;
+		t = 50/FrameRate;
+		if (t == 0) t = 1;
+		ssi->speed += t;
 	}
 	else if ((ssi->tgttype) && (ssi->srctype) && (labs(ssi->x - lx) < 720) && (labs(ssi->y - ly) < 720) && (abs(ssi->alt - lz) < 720)) {
-		{
-			register int t;
-			t = 50/FrameRate;
-			if (t == 0) t = 1;
-			ssi->speed += t;
-		}
+		register int t;
+		t = 50/FrameRate;
+		if (t == 0) t = 1;
+		ssi->speed += t;
 	}
     if (ssi->speed < sst->speed) {
 //		lastspeed = ssi->speed;
@@ -476,7 +480,7 @@ SteerAndMoveMissile()
 			Message(Txt,DEBUG_MSG);
 	   }  */
     } else if (ssi->speed > sst->speed) {
-       ssi->speed += (sst->speed - (4*FrameRate-1) - ssi->speed)/(FrameRate<<2);
+       ssi->speed += ((sst->speed - (FrameRate<<2) + 1) - ssi->speed)/(FrameRate<<2);
     }
 #endif
 
@@ -520,18 +524,23 @@ SteerAndMoveMissile()
          {
          dx=ASinB(-50,ssi->head);
          dy=-ACosB(-50,ssi->head);
+			ASinB(-25,ssi->head);
+			ACosB(-25,ssi->head);
 			StartASmoke( ssi->x+(long)dx, ssi->alt, ssi->y+(long)dy, EXHAUST, 15 );
-			StartASmoke( ssi->x+(long)((dx<<1)), ssi->alt, ssi->y+(long)((dy<<1)), EXHAUST, 6 );
+			StartASmoke( ssi->x+(long)((dx<<1)), ssi->alt, ssi->y+(long)((dy<<1)), EXHAUST, 15 );
          }
 
 	}
 	else
 	{
-		if(homer!=ML_FFBOMB)
+		if(homer!=ML_FFBOMB && homer!=ML_RTBOMB && homer!=ML_LGBOMB)
          {
          dx=ASinB(-100,ssi->head);
          dy=-ACosB(-100,ssi->head);
-			StartASmoke( ssi->x+(long)dx, ssi->alt, ssi->y+(long)dy, EXHAUST, 15 );
+			if (sst->MissileEnumId!=0x3b)
+				StartASmoke( ssi->x+(long)dx, ssi->alt, ssi->y+(long)dy, EXHAUST, 15 );
+			else
+				StartASmoke( ssi->x+(long)dx, ssi->alt, ssi->y+(long)dy, 5, 15 );
          }
 	}
 //	StartASmoke( ssi->x, ssi->alt, ssi->y, EXHAUST, 15 );
@@ -1077,6 +1086,10 @@ firemissile2(int misnum, int weapon, long x,long y,int z, int h, int p, int r, i
 						// Don't do anything
 			} else {
 				if((gtarg != MAXPLANE) && (gtarg >= 0) && (gtarg < NPLANES)) {
+					if(bv[gtarg].behaveflag & ISHELICOPTER) {
+						bv[gtarg].behaveflag &= ~ISHELICOPTER;
+						ChangeGroupBehavior(gtarg, 0);
+					}
 					if(CheckAIBombs(gtarg) != -999) {
 						ShowJettison(gtarg);
 					}

@@ -84,8 +84,8 @@
 #define  TDBOX_W     13
 #define  TB_WINX     100
 #define  TB_WINY     15
-#define  TB_WINL     119
-#define  TB_WINW     73
+#define  TB_WINL     108
+#define  TB_WINW     68
 
 extern int TB_CTRX;
 
@@ -803,26 +803,20 @@ int break_x()
 //************************************************************************
 int TD_box ()
 {
-	int x,y,l;
+	int x,y;
 	static int off=0;
 
 	if (!PDT_PROJ) return 0;
 
 	x = PDT_PROJ_X + TB_CTRX - TB_WINX;
-	y = PDT_PROJ_Y + TB_CTRY - TB_WINY;
+	y = TB_CTRY + PDT_PROJ_Y - TB_WINY;
 
 	// limit TD box
 
-	l = 0;
-
-	if ((x < 8) || (x > TB_WINL) || (y < 0) || (y > (TB_WINW-5))) l++;
-
-	if (l) {
-		if (x<8) x=10;
-		if (x>TB_WINL) x=TB_WINL - 4;
-		if (y<0) y=4;
-		if (y>(TB_WINW-5)) y=TB_WINW - 5;
-	}
+	if (x<8) x=10;
+	if (x>(TB_WINL-4)) x=TB_WINL - 4;
+	if (y<0) y=4;
+	if (y>(TB_WINW-5)) y=TB_WINW - 5;
 
 	diamondbox(TDBRp,x,y);
 }

@@ -304,10 +304,14 @@ int InitTWSData()
 //***************************************************************************
 int GetWeaponCount(int type)
 {
-	int cnt=0, i;
+	int cnt=0;
+	int *p, *e;
 
-	for(i=0;i<F14_STATION_NUM;i++) {
-		if (type == F14_STATION[i]) cnt++;
+	p = F14_STATION;
+	e = &F14_STATION[F14_STATION_NUM];
+	while (p < e) {
+		if (*p == type) cnt++;
+		p++;
 	}
 	return cnt;
 }
@@ -469,117 +473,124 @@ int AWG9_IFF()
 	extern char gstr120[];
 	extern char gstr121[];
 	extern char gstr122[];
+	extern char gstr801[];
+	extern char gstr802[];
+	extern char gstr803[];
+	extern char gstr804[];
+	extern char gstr805[];
+	extern char gstr806[];
+	extern char gstr807[];
 
-	if (CheckMode(AWG9_MODE,AWG9_TWSA) || CheckMode(AWG9_MODE,AWG9_TWSM)) {
-		if (SelectedTarg==-1) return(0);
-		if (ps[SelectedTarg].status & FRIENDLY) {
- 			IFF_timer = FrameRate * 2;
+	if (!(CheckMode(AWG9_MODE,AWG9_TWSA) || CheckMode(AWG9_MODE,AWG9_TWSM))) {
+		// If no one is designated, then you can't IFF somebody!
+		if (DESIGNATED == -1) return 0;
+
+		if (ps[DESIGNATED].status & FRIENDLY) {
+			IFF_timer = FrameRate * 2;
 			Sound (N_IFFWarning, 1,0);
 			if (AWG9_REALITY_LEVEL == AWG9_EASY)
 				Message(gstr118, RIO_NOW_MSG);
 			else
 				Message(gstr119, RIO_NOW_MSG);
+			if ((AWG9_MODE==AWG9_STANDARD_TRACK) || (AWG9_MODE == AWG9_PDSTT)) {
+				DESIG_TARGF.id = 1;
+				if (PREV_DESIG_TARGF.i == DESIG_TARGF.i)
+					PREV_DESIG_TARGF.id = 1;
 
+			}
 			for (i=0; i < *TARGFILECNT; i++) {
-				if (TARGFILE[i].i == SelectedTarg) {
+				if (DESIGNATED == TARGFILE[i].i) {
 					TARGFILE[i].id = 1;
 					break;
 				}
 			}
 			for (i=0; i < *AGEDTARGFILECNT; i++) {
-				if (AGEDTARGFILE[i].i == SelectedTarg) {
+				if (DESIGNATED == AGEDTARGFILE[i].i) {
 					AGEDTARGFILE[i].id = 1;
 					break;
 				}
 			}
 		}
-		if (!(ps[SelectedTarg].status & (FRIENDLY|NEUTRAL))) {
+		if (!(ps[DESIGNATED].status & (FRIENDLY|NEUTRAL))) {
+			BAD_GUY = FrameRate * 2;
 			if (AWG9_REALITY_LEVEL == AWG9_EASY)
 				Message(gstr120, RIO_NOW_MSG);
 			else
 				Message(gstr121, RIO_NOW_MSG);
-			BAD_GUY = FrameRate * 2;
+			if ((AWG9_MODE==AWG9_STANDARD_TRACK) || (AWG9_MODE == AWG9_PDSTT)) {
+				DESIG_TARGF.id = 2;
+				if (PREV_DESIG_TARGF.i == DESIG_TARGF.i)
+					PREV_DESIG_TARGF.id = 2;
+			}
 			for (i=0; i < *TARGFILECNT; i++) {
-				if (TARGFILE[i].i == SelectedTarg) {
+				if (DESIGNATED == TARGFILE[i].i) {
 					TARGFILE[i].id = 2;
 					break;
 				}
 			}
 			for (i=0; i < *AGEDTARGFILECNT; i++) {
-				if (AGEDTARGFILE[i].i == SelectedTarg) {
+				if (DESIGNATED == AGEDTARGFILE[i].i) {
 					AGEDTARGFILE[i].id = 2;
 					break;
 				}
 			}
 		}
-		if (ps[SelectedTarg].status & CIVILIAN) {
+		if (ps[DESIGNATED].status & CIVILIAN) {
 			if (AWG9_REALITY_LEVEL == AWG9_EASY)
 				Message(gstr122, RIO_NOW_MSG);
 			else
-				Message(gstr121, RIO_NOW_MSG);
+				Message(gstr807, RIO_NOW_MSG);
 		}
-		return 0;
+		return;
 	}
 
-	// If no one is designated, then you can't IFF somebody!
-	if (DESIGNATED == -1) return 0;
-
-	if (ps[DESIGNATED].status & FRIENDLY) {
+	if (SelectedTarg==-1) return(0);
+	if (ps[SelectedTarg].status & FRIENDLY) {
 		IFF_timer = FrameRate * 2;
 		Sound (N_IFFWarning, 1,0);
 		if (AWG9_REALITY_LEVEL == AWG9_EASY)
-			Message(gstr118, RIO_NOW_MSG);
+			Message(gstr801, RIO_NOW_MSG);
 		else
-			Message(gstr119, RIO_NOW_MSG);
-		if ((AWG9_MODE==AWG9_STANDARD_TRACK) || (AWG9_MODE == AWG9_PDSTT)) {
-			DESIG_TARGF.id = 1;
-			if (PREV_DESIG_TARGF.i == DESIG_TARGF.i)
-				PREV_DESIG_TARGF.id = 1;
-
-		}
+			Message(gstr802, RIO_NOW_MSG);
 		for (i=0; i < *TARGFILECNT; i++) {
-			if (DESIGNATED == TARGFILE[i].i) {
+			if (TARGFILE[i].i == SelectedTarg) {
 				TARGFILE[i].id = 1;
 				break;
 			}
 		}
 		for (i=0; i < *AGEDTARGFILECNT; i++) {
-			if (DESIGNATED == AGEDTARGFILE[i].i) {
+			if (AGEDTARGFILE[i].i == SelectedTarg) {
 				AGEDTARGFILE[i].id = 1;
 				break;
 			}
 		}
 	}
-	if (!(ps[DESIGNATED].status & (FRIENDLY|NEUTRAL))) {
-		BAD_GUY = FrameRate * 2;
+	if (!(ps[SelectedTarg].status & (FRIENDLY|NEUTRAL))) {
 		if (AWG9_REALITY_LEVEL == AWG9_EASY)
-			Message(gstr120, RIO_NOW_MSG);
+			Message(gstr803, RIO_NOW_MSG);
 		else
-			Message(gstr121, RIO_NOW_MSG);
-		if ((AWG9_MODE==AWG9_STANDARD_TRACK) || (AWG9_MODE == AWG9_PDSTT)) {
-			DESIG_TARGF.id = 2;
-			if (PREV_DESIG_TARGF.i == DESIG_TARGF.i)
-				PREV_DESIG_TARGF.id = 2;
-		}
+			Message(gstr804, RIO_NOW_MSG);
+		BAD_GUY = FrameRate * 2;
 		for (i=0; i < *TARGFILECNT; i++) {
-			if (DESIGNATED == TARGFILE[i].i) {
+			if (TARGFILE[i].i == SelectedTarg) {
 				TARGFILE[i].id = 2;
 				break;
 			}
 		}
 		for (i=0; i < *AGEDTARGFILECNT; i++) {
-			if (DESIGNATED == AGEDTARGFILE[i].i) {
+			if (AGEDTARGFILE[i].i == SelectedTarg) {
 				AGEDTARGFILE[i].id = 2;
 				break;
 			}
 		}
 	}
-	if (ps[DESIGNATED].status & CIVILIAN) {
+	if (ps[SelectedTarg].status & CIVILIAN) {
 		if (AWG9_REALITY_LEVEL == AWG9_EASY)
-			Message(gstr122, RIO_NOW_MSG);
+			Message(gstr805, RIO_NOW_MSG);
 		else
-			Message(gstr121, RIO_NOW_MSG);
+			Message(gstr806, RIO_NOW_MSG);
 	}
+	return(0);
 }
 
 //***************************************************************************
@@ -1226,6 +1237,33 @@ int CHANGE_AZIMUTH()
 		break;
 	}
 	SELECTED_AZ=aztemp;
+}
+
+//***************************************************************************
+int AWG9_SET_RANGE(int i)
+{
+	if (i < 0) return 0;
+	if (i > MAXRNG) return 0;
+	switch (i) {
+		case 0:
+			RANGE = 0;
+		break;
+		case 1:
+			RANGE = 1;
+		break;
+		case 2:
+			RANGE = 2;
+		break;
+		case 3:
+			RANGE = 3;
+		break;
+		case 4:
+			RANGE = 4;
+		break;
+		case 5:
+			RANGE = 5;
+		break;
+	}
 }
 
 //***************************************************************************
@@ -2496,7 +2534,6 @@ int InAcqList(int n)
 //***************************************************************************
 int AddAcqList(TARGET *t, int start)
 {
-	int sig;
 	int i,j;
 	long rng;
 	struct PlaneData far *tempplane;
@@ -2513,26 +2550,26 @@ int AddAcqList(TARGET *t, int start)
 	tempplane = GetPlanePtr(ps[t->i].type);
 
 	if (AWG9_REALITY_LEVEL == AWG9_MODERATE) {
-		if ((long)t->d > ((t->conv) ? 4988L:159616L)) {
+		rng = (t->conv) ? 4988L:159616L;
+		if ((long)t->d > rng) {
 			return(0);
 		}
 	}
 
 	if (AWG9_REALITY_LEVEL == AWG9_AUTHENTIC) {
-		sig = tempplane->radarsig;
-		if (sig==1) {
+		if (tempplane->radarsig==1) {
 			rng = (t->conv) ? 1900L:60800L;		// 40 nmi
 		}
-		if (sig==2) {
+		if (tempplane->radarsig==2) {
 			rng = (t->conv) ? 4513L:144416L;	// 95 nmi
 		}
-		if (sig==3) {
+		if (tempplane->radarsig==3) {
 			rng = (t->conv) ? 4988L:159616L;	// 105 nmi
 		}
-		if (sig==4) {
+		if (tempplane->radarsig==4) {
 			rng = (t->conv) ? 5938L:190016L;	// 125 nmi
 		}
-		if (sig==5) {
+		if (tempplane->radarsig==5) {
 			rng = (t->conv) ? 6888L:220416L;	// 145 nmi
 		}
 
@@ -2881,7 +2918,7 @@ static int     WING_CNT;                  /* gold 0xbe30 */
 static int     WING_SCHED;                /* gold 0x12d0 */
 static int     WING_SELOK;                /* gold 0x1054 */
 
-static int     WING_HAVETARG;             /* gold 0x906e */
+int            WING_HAVETARG;             /* gold 0x906e */
 static TARGET  WING_TARGS[10];            /* gold 0xbb2e */
 static TARGET *WING_PTR;                  /* gold 0x104e */
 static int     WING_TX, WING_TY;          /* gold 0x7df8/0x7e0a */
@@ -2917,7 +2954,7 @@ int WingmanScan()				/* FUN_08de_30d8 */
 		if (!ps[i].speed) continue;
 		if (DETECTED_TARG[i]) continue;
 
-		SetupNewTarget(&t,i);
+		SetupWingmanTarget(&t,i);
 
 		if (t.rz < 0) continue;					/* behind player */
 
@@ -2975,6 +3012,56 @@ picksel:
 }
 
 //***************************************************************************
+int SetupWingmanTarget(TARGET *t, int plane)		/* FUN_08de_325a */
+{
+	long x,y,z;
+	int V[3];
+	int M[9];
+
+	// translate to player coordinates
+
+	t->conv = 0;
+	x = ps[plane].xL - PxLng;
+	y = (long)ps[plane].alt - Alt;
+	z = (0x100000L-PyLng) - ps[plane].yL;
+
+	if (labs(x)>=18900L || labs(y)>=18900L || labs(z)>=18900L) {
+		x >>= HTOV;
+		y >>= HTOV;
+		z >>= HTOV;		// convert to short
+		t->conv++;
+	}
+
+	t->ox = x;
+	t->oy = y;
+	t->oz = z;
+
+	// figure heading relative to player
+	t->h = OurHead - ps[plane].head;
+	t->i = plane;
+
+	// rotate to player coordinate system
+	V[0] = t->ox;
+	V[1] = t->oy;
+	V[2] = t->oz;
+	Rotate (V, PLYR_M);
+	t->rx = V[0];
+	t->ry = V[1];
+	t->rz = V[2];
+	t->d  = Dist3D(t->rx,t->ry,t->rz);
+
+	// rotate to radar beam coordinate system
+	MakeMatHPR (-OurHead, OurPitch, 0, M);
+	V[0] = t->ox;
+	V[1] = t->oy;
+	V[2] = t->oz;
+	Rotate (V, M);
+	t->bx = V[0];
+	t->by = V[1];
+	t->bz = V[2];
+}
+
+//***************************************************************************
 int WingmanFixup()				/* FUN_08de_308e */
 {
 	WING_HAVETARG = 0;
@@ -3005,4 +3092,69 @@ int WingmanAISched()				/* FUN_08de_306c */
 	WingmanScan();
 	WingmanSelect();
 	WingmanFixup();
+}
+
+//***************************************************************************
+extern int		HEATTARG;
+extern TARGET	*HEATFILE;
+extern int		HEATERCAGED;
+extern int		HEATFILECNT;
+extern TARGET	*HEATSORT[];
+extern int		HEATSORTCNT;
+extern char		gstr819[];
+extern char		gstr820[];
+
+int UnCageHeater()				/* FUN_08de_33d3 */
+{
+	if (HEATERCAGED) {
+		Message(gstr819, RIO_NOW_MSG);
+	}
+	HEATERCAGED = 0;
+	NextHeaterTarg();
+}
+
+int CageHeater()				/* FUN_08de_33f1 */
+{
+	HEATERCAGED = 1;
+	Message(gstr820, RIO_NOW_MSG);
+}
+
+int NextHeaterTarg()				/* FUN_08de_3450 */
+{
+	int i;
+
+	SortHeaterFile();
+	if (HEATSORTCNT == 0) return 0;
+	for (i = 0; i < HEATSORTCNT; i++) {
+		if (HEATSORT[i]->i == HEATTARG) break;
+	}
+	if (i == HEATSORTCNT) i = -1;
+	i++;
+	if (i >= HEATSORTCNT) i = 0;
+	if (i == -1) return -1;
+	return HEATTARG = HEATSORT[i]->i;
+}
+
+int SortHeaterFile()				/* FUN_08de_34a7 */
+{
+	int i;
+
+	HEATSORTCNT = 0;
+	for (i = 0; i < HEATFILECNT; i++) {
+		InsertHeaterTarg(&HEATFILE[i]);
+	}
+}
+
+int InsertHeaterTarg(TARGET *t)		/* FUN_08de_34cb */
+{
+	int i, j;
+
+	for (i = 0; i < HEATSORTCNT; i++) {
+		if (t->d < HEATSORT[i]->d) break;
+	}
+	for (j = HEATSORTCNT - 1; j >= i; j--) {
+		HEATSORT[j+1] = HEATSORT[j];
+	}
+	HEATSORT[i] = t;
+	HEATSORTCNT++;
 }

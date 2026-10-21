@@ -110,6 +110,7 @@ extern confData ConfigData;
 
 
 //***************************************************************************
+#pragma optimize("el",off)
 InitCarrier()
 {
 	int i;
@@ -249,6 +250,7 @@ InitCarrier()
 	for (i=3; i<10; i+=2)
 		CarrierAnimVals[i]=(45*DEG);
 }
+#pragma optimize("el",on)
 
 
 //***************************************************************************
@@ -1957,6 +1959,14 @@ int TurnTo(int planenum, int heading)
 		return(1);
 
 	return(0);
+}
+
+
+TomcatBall()						/* FUN_0dc3_2a62 */
+{
+	extern char gstr162[];
+
+	Message(gstr162+0xa8, RIO_NOW_MSG);
 }
 
 

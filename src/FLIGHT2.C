@@ -201,6 +201,7 @@ InitFlightModel()
 
 
 //***************************************************************************
+#pragma optimize("egl", off)
 FLIGHT ()
 {
 	extern char gstr156[];
@@ -572,6 +573,7 @@ FLIGHT ()
     t += sinX (OurRoll,  dH>>2);
     sightY = t;}
 }
+#pragma optimize("egl", on)
 
 
 #define	DEG 182
@@ -800,6 +802,7 @@ extern int STTBL[33];
 
 extern  UWORD   RudderStick;
 extern	int	RUDDERVALS;
+extern	int	RudderTrim;
 
 extern int GEFFECT;
 
@@ -812,6 +815,8 @@ extern int FASTROLL;
 extern UWORD OldAutoAlt;
 
 extern int OLDAOA;
+
+extern long NEWAOA;
 
 extern int OLDSLEW;
 
@@ -975,7 +980,7 @@ ScottFlight()
 	int	TMP[3];
 	long	MASS,STICKGS,WEIGHT,MAXSTICKGS;
 	long	G[3],LIFTGS,DRAGS;
-	long NEWAOA;
+	long newaoa;
 	int	V[3];
 	long FPV[3];
 	long	VSQ[3];
@@ -1018,7 +1023,7 @@ ScottFlight()
 
 
 	if (ONTHECAT||ONTHEHOOK) {
-		PitchAngle = VVI = SLEW = SELECTED_BAR_NUM = 0;
+		PitchAngle = VVI = NEWAOA = 0;
 		return(1);
 	}
 
@@ -1359,20 +1364,20 @@ ScottFlight()
 		D=RELWND;
 		if (RELWND<200)
 			{
-			D= (RUDDERVALS*15*D)/200;
+			D= ((RudderTrim+RUDDERVALS)*15*D)/200;
 			}
 		else
 			{
 			if (RELWND>800)
 				D=800;
-			D= (RUDDERVALS*15*(1000-D))/800;
+			D= ((RudderTrim+RUDDERVALS)*15*(1000-D))/800;
 			}
 		D= (long)(OLDSLEW)+(((D-OLDSLEW)*SFticks/(60))*(long)(RELWND)/200);
 		SLEW= D;
 		OLDSLEW=SLEW;
 
 
-		G[0]+= ASinB((int)LTHRUST,3*SLEW);
+		G[0]+= ASinB((int)LTHRUST,(int)(3*SLEW));
 		G[0]+= (3*SLEW)/4;
 
 
@@ -1547,30 +1552,30 @@ ScottFlight()
 
 // add bogus angle of attack
 
-	NEWAOA= 130*STICKGS/(VSQ[2]/180+1);
+	newaoa= 130*STICKGS/(VSQ[2]/180+1);
 
 
 // lower angles of attack with swept wings
-   NEWAOA/=2;
+   newaoa/=2;
 
-	NEWAOA = ((WEIGHT*NEWAOA)/40000L);
+	newaoa = ((WEIGHT*newaoa)/40000L);
 
-	if (NEWAOA<0) NEWAOA=0;
-	if (NEWAOA>(12*182)) NEWAOA=12*182;
-	NEWAOA= OLDAOA+(NEWAOA-OLDAOA)*SFticks/(60);
-	OLDAOA=NEWAOA;
+	if (newaoa<0) newaoa=0;
+	if (newaoa>(12*182)) newaoa=12*182;
+	newaoa= OLDAOA+(newaoa-OLDAOA)*SFticks/(60);
+	OLDAOA=newaoa;
 
 //		sprintf(Txt,"NEWAOA: %i",NEWAOA);
 //		Message(Txt);
 
-   if (NEWAOA>1270)   //5.5*182
+   if (newaoa>1270)   //5.5*182
       {
 		Sound(N_StallHorn, 1,0);
 		Message(gstr234,RIO_MSG);
       }
 
 
-	MakeMatRPH(0,-(int)NEWAOA,SLEW,TM);
+	MakeMatRPH(0,-(int)newaoa,SLEW,TM);
 
 	Mult3X3(FPARAMS.MAT,TM,RM);
 	GetHPR(RM,&OurHead,&OurPitch,&OurRoll );
@@ -1589,7 +1594,7 @@ ScottFlight()
 	Knots= (Knots*10)/16;
 
 
-	PitchAngle= (128*NEWAOA)/100;
+	PitchAngle= (128*newaoa)/100;
 
 	Gees= (STICKGS/200);
 
@@ -1651,6 +1656,8 @@ ScottFlight()
 		if ( ((PRESSUREBLACK-600)/4)>GAMNT )
 			GAMNT=( (PRESSUREBLACK-600)/4);
 		}
+
+	NEWAOA=newaoa;
 
 }
 

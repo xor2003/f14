@@ -118,7 +118,6 @@ char    **envp;
     InitGraph('M');
 
 	WaitScreen();
-
 	set_ctrl_b();
     MouseON();
 
@@ -278,6 +277,7 @@ LoadFiles()
 	extern char gstr274[];
 	extern char gstr275[];
 	extern char gstr276[];
+	extern char gstr274a[];
 	if (LoadEMSPicFile(gstr265,SPRTXPLSEG,0,20)) {
     	LoadEMSPicFile(gstr266,SPRTXPLSEG,1,0);
     	LoadEMSPicFile(gstr267,SPRTXPLSEG,2,0);
@@ -299,7 +299,7 @@ LoadFiles()
 			LoadTheWorld(gstr273);
 		break;
 		case 2:
-			LoadTheWorld(gstr274);
+			LoadTheWorld(gstr274a);
 		break;
 		case 3:
 			LoadTheWorld(gstr275);

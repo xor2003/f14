@@ -36,6 +36,7 @@ EMSint	MACRO	func
 	call	far ptr EMSinit
 	jz	Exec
 	jmp	Exit
+	nop
 Exec:
 	EMSraw	func
 Exit:

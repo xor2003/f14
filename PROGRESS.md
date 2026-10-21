@@ -1,5 +1,102 @@
 # F-14 Fleet Defender — retail-matching source rebuild progress
 
+## Turn: F14RUN runtime — overlay loader works end-to-end under libdosbox
+
+Two independent defects fixed; F14RUN now runs past both early overlay
+loads (verified live under libdosbox gdbserver, port 14777):
+
+1. `MPSREAL.ASM` encodings (real reconstruction bug, affects both build
+   paths): `mov di,offset g601f` (3B) → `lea di,[g601f]` (4B) at retail
+   `g6435`, and `mov ax,offset g6d66` → `lea ax,[g6d66]` at `g6bcc`.
+   Retail `F14.EXE`/`F14S.EXE` use 4-byte `lea` there; the shorter `mov`
+   shrank `InitOverlay` by one byte, so the raw `db 0E8h,008h,001h`
+   int21-wrapper call at `g6361` landed on `push si` instead of the
+   balanced `push bp` entry — `pop bp` ate the near return address,
+   `ret` jumped to `3fb8:0000` (mid-`farfread`), and control wandered
+   into DGROUP strings (`0x59fb6`). Fix verified: call now lands on
+   `push bp`, wrapper returns cleanly to the continuation, `ax=0`.
+   NOTE: `F14R.EXE` in the game dir is a copy of `F14RUN.EXE`, not
+   retail — the true runtime reference is packed `F14.EXE`/`F14g.EXE`.
+   Lesson for lifted asm: prefer `lea reg,[sym]` over `mov reg,offset`
+   — preserves the retail operand-size encoding so raw `db` call sites
+   stay aligned.
+
+2. `GDSEGR.ASM` (runtime compact DGROUP, run-build only): `_SoundFile`
+   and `_SpeechDriver` are *initialized* filename templates in gold
+   (`"Psound.14g"`/`"Digital.f14"` at `0xa556`/`0xa562`) but the
+   ORG-free replica declared them as bare `LABEL BYTE` inside a
+   ~520-symbol BSS cluster that all collapses to one address
+   (`ds:642e`). Any write through a cluster var (startup memset/strcpy)
+   zeroed the tail, so `LoadOverlay` saw `"N"` → "Filename not found"
+   → exit 0x99. Fix: moved both labels to just before the cluster
+   start (after the `DB 574 DUP(0)` pad) and emitted the real strings
+   (`0xc`/`0x28` gold sizes); cluster now lands at `0x6462`, forward
+   writes can't reach the strings. Verified: `LoadOverlay` receives
+   `"Nsound.14g"` (SOUND.C patches `[0]` per music_type), both mode-03
+   EXECs (`Mgraphic.exe`, `Nsound.14g`) complete, game continues into a
+   BIOS idle wait (menu keyboard loop) — no wild execution.
+
+Caveat: the ~520-symbol collapsed BSS cluster is still a latent hazard
+for deeper runtime (every var aliases `0x6462`); if later init code
+needs distinct vars, emit gold ORG spacing for the used subset.
+F14RUN layout intentionally differs from retail — not for byte-match.
+
+## Turn: _LoadScottMission near-match + DECOMPILATION.md methodology written
+
+_LoadScottMission: three-layer fix —
+- fopen#1 keeps global `MisFile` (gold `mov [0xcba4],ax`), fopen#2 uses
+  local `FILE *File` at `[bp-0xa]` (gold pushes `[bp-0xa]` at fread sites —
+  the earlier `File`→`MisFile` replacement was wrong, reverted).
+- GDSEG: labeled the second embedded `"rb"/"mission.f14"/"No Mission
+  Data"` copy inside the `_KeyJoyY` blob as `gstr2b`/`gstr302b`/`gstr303b`;
+  second fopen/Message now push them — gold's two error paths use
+  distinct string objects (offsets `0x32a5` vs `0x32c4`), which also
+  reproduces gold's tail-merged `push;push;jmp short back` shape.
+- Result: `0x32b5`/`0x32b8`/`0x32c4` pushes + `jnz` polarity now
+  byte-match gold; residuals = `enter 0x240 vs 0x242` (one extra word
+  local), local-slot permutation, zero-store ordering — pinned class.
+
+Methodology now documented in `DECOMPILATION.md`: toolchain, re-anchoring,
+diff taxonomy (stale-anchor/dead/lib/layout/regalloc/operand-order/
+store-group/asm-encoding vs real), source-shape recipes, MSC6 codegen
+facts, gotchas. `tools/pairdiff.py` preserved (was /tmp).
+
+## Turn: _DDDSwitches MATCH — file-scope statics before externs = gold decl order
+
+_DDDSwitches fully reconstructed: gold's version is the PRE-CHECKBOX
+iteration — no RadarOn/DrawLine borders, two independent `if(AWG9_SNIFF)` /
+`if(!(AWG9_SNIFF))` ChangeColor pairs at (227,122,14,5), mode case order
+TWSA,TWSM,SRCH,RWS,PDSTT, w=17 rects, RWS y=157.
+
+Key mechanism fix for the != operand-order artifacts: `RadarMode`/`PrevRadar`
+moved from FUNCTION-scope statics to FILE-scope statics declared BEFORE the
+`extern int RadarRange;` line — binding order then makes the statics
+earlier-bound → ax slot, externs later-bound → mem-left `cmp` operand.
+Emission became byte-identical to gold INCLUDING gold's extra
+`mov ax,[RadarRange]` reload (function now 0x3f4 = gold length; only the 2
+jump-table data regions differ). The decl-order rule is TU-global, not
+per-function: gold's COCKPIT.C had `static int RadarMode,PrevRadar` near
+the top before the RadarRange extern.
+
+COCKPIT sweep after the change: most fns hunk:0, no operand-order
+regressions. Remaining real mismatches in module: _DrawRadarDials(32),
+_Flip(21), _DisplayLeftStuff(18), _DDDSwitchRefresh(16),
+_DisplayTIDSwitches(14), _MasterArmSwitch(13), _DoCRT(10).
+
+## Turn: GetWeaponCount cmp-order root cause — the `/O` letter `e`
+
+Flag sweep on the in-context `*p==type` compare: `/Osc /Oc /Os /Oscl /Ogsc
+/Osgcl` emit gold order (`mov ax,[bp+6];cmp [bx],ax`); every flag set
+containing `e` emits the flipped order. So the `e` pass (expression
+opt) does the commutative-operand canonicalization AND is required for
+the dx/bx register allocation + `enter 2` frame (`/Osgcl` alone →
+`enter 6`, all-stack locals). Gold has regalloc AND param-first order
+→ retail's `e` pass ordered leaves differently than our C 6.00-alpha.
+~80 source constructs (volatile, hoisted temps, casts, folded exprs,
+param types, loop forms, decl ordering) all flip in-context. **Pinned
+as compiler-release artifact** — same class as _ChangeHUDFilter and
+the other mem/mem cmp-order diffs documented below.
+
 Reference oracle: `/home/xor/games/f14gold/Fleetgold/F14GOLD/F14.EXE` (retail).
 `src/F14.EXE` is used ONLY for CodeView names/module order, never behavior.
 
@@ -1714,3 +1811,789 @@ REMAINING BLOCKER CLASSES (verified, all steer-proof or systemic):
 - tools/relink_check.sh now honors per-module MODULE_FLAGS (was hardcoded
   /Osegcl, silently ignoring build_all.sh overrides).
 - PLANES3 unchanged-count; no sibling regressions.
+
+## Turn: TID reconstruction + mission-data call sites + final sweep triage
+
+- TID.C fully reconstructed from gold: new static helper `TargInPhxRange`
+  (enter 0x32, SetupNewTarget+orient_to_player+`(t.conv)?t.d:t.d>>HTOV` then
+  `BIT_2_NM(rng*10) <= ORDNANCE[W_AIM_54].rmax` — matched by writing
+  `if (cond>max) return 0; return 1;` to get gold's jl-first block order).
+  `_DoTID` gained `if (DisplayFrame==0) InRangeFlash^=1` toggle, the missing
+  4-waypoint marker loop (`for(i=0,wp=wps;wp<wps+NWAYPOINTS;wp++,i++)`,
+  carrier glyph for wps[0], caret markers wps[1-3], color 89/85 gated by
+  NextWayPoint), `TIDTargetCnt=0` moved after the loop, final
+  `draw_circle(...,84,0)` with no trailing return. `_TID_draw_target` gained
+  `int drawtail=1`, `drawtail=InRangeFlash` when `TargInPhxRange(tc->i)`,
+  tail switch gated by `if(drawtail)`, and the PDSTT caret pair
+  `DrawLine(tempx-2,tempy,tempx,tempy+2);DrawLine(tempx,tempy+2,tempx+2,tempy)`.
+  All three functions now hdiff `hunks: 0` vs gold (DoTID@0x3d7e4,
+  helper@0x3e014, TID_draw_target@0x3e072).
+- PLANES.C mission-data block recovered: gold's `alt<0` crash arm in both
+  `UpdateSpeedAndPosition` and `UpdateHelicopterHPR_SandP` calls
+  `IndirectWPCorrection(i)` + `LogIt(...)` + `UpdateMissionData(1/2, id)`
+  — the USP site is `bv[i].leader==-1 ? ourplanetype : ptype->PlaneEnumId`
+  conditional, the heli site unconditional. Both now match modulo
+  cmp-canonicalization. Same block added to PLSTRIP.C twin (unlinked).
+- `_UpdateOurWPS` (PLANES3): void->int; new `nWPs` local snapshots NextNum
+  per filled wps[i]; `if(nWPs>3)nWPs=3; return nWPs;` tail + bare `return;`
+  in the `numwps==0` arm (matches gold's garbage-ax early return).
+  RIOMAP.C:217 caller + PROTO.H:171 confirmed the int return.
+- `_firemissile2` (SAMS): added gold's helicopter-aggro preamble
+  `if(bv[gtarg].behaveflag&ISHELICOPTER){behaveflag&=~ISHELICOPTER;
+  ChangeGroupBehavior(gtarg,0);}` before CheckAIBombs — now clean.
+- `_SteerAndMoveMissile` (SAMS): `idiv`-site shared tail verified; MAXPLANE
+  smoke branch uses `ASinB(-50)`, `-ACosB(-50)`, two dead `ASinB(-25)`/
+  `ACosB(-25)` calls, StartASmoke cnt 15; else-branch has
+  `(sst->MissileEnumId==0x3b)?5:EXHAUST` type test; homer test is 3-case
+  switch on ML_FFBOMB/ML_LGBOMB/ML_RTBOMB. Down to 1 eval-order artifact.
+- `_OutSideHeading`: `if(Status&TRAINING) strcat(N," TRNG")` + gstr781.
+- `_DoCRT`: removed FlirCopy(VdiMask) from VdiMode branch.
+- `_TIDShowRange`: already matched — `d = MsgOnScreen ? 7 : 0` present.
+- Census re-run: all located functions verified at linked level; remaining
+  diffs are reloc-placeholder, eval-order, regalloc (si<->di), block-order,
+  jmp-table-bytes, or next-fn-boundary artifacts. New masked-prefix locator
+  placed 30 previously-NOHIT functions; newly verified clean:
+  _AWG9_DEC_RANGE@0x9d0b _ChangeModerateScan@0x9a9a
+  _CheckLandingAndCrash@0x3b72e _EMSinit@0x15e68 _InitSound@0x3a6f8
+  _InitTWSData@0x8e4c _MissilesInAir@0x3a376 _ProcessCoolyCmds@0x11e50
+  _UpdateCarrierAnim@0xedbe _show_az_carat@0x1530e _CheckImHit _DistOf
+  _RioTop _restore_video_state _UpdateLights _DrawASmoke _DrawRioMapInfo
+  _RadarThreats _CheckTurnStuff _ChooseBehavior _FormationBoat
+  _NearWingTarget _DrawRadarRange.
+- EMS.ASM wrappers: gold keeps `call far ptr EMSinit` untranslated
+  (`9A` bytes) while our link's /FARCALLTRANSLATION rewrites it to
+  `push cs;call near`+nop; gold also carries the classic MASM `jmp`+`nop`
+  fill after `jmp Exit` in the EMSint macro. Fix needs a module split or
+  unresolvable far ref — parked (asm, not C).
+- `_ChangeHUDFilter`(FLIR) @0x21c4e — semantically identical after ~14
+  source variants; residuals are pinned compiler-version codegen
+  differences: (a) `if(View==4)goto out; if(View==5)goto out` — gold emits
+  independent per-site jcc (`jnz+jmp` far / `jz` short), our /Osegcl fuses
+  them into a shared-arm `||`-form; (b) gold's 3 `Palette[]` stores are a
+  separate group (al reloaded per element since overwritten), ours CSEs
+  the constants across statements into value-groups. Same frame (enter 4),
+  same stores, same call. No source construct found reproduces gold's
+  schedule — likely different MSC version for this module.
+- Remaining REAL work (source-level reconstruction needed):
+  * MAP.C `_X2map/_Y2map/_mplot/_MapLoc` — absent from gold's image in
+    current form; likely `#ifdef YEP`-gated dead code in the retail build
+    (their only callers are inside `#ifdef YEP`).
+  * `_UpdatePalBuf`(FLIR) — gold has no 'M'/'0' header-magic compare;
+    packet parse differs.
+  * `_InitSpeech`(SOUND), `_DrawXploSprite`(SPRITES) — different codegen,
+    unlocated in gold.
+  * `_InitOptions`(OPTIONS) — VERIFIED exact @0x204f8 (hunks:0); earlier
+    7-vs-20-insn note was a mispairing.
+  * `_JoyConvert`(JOYSTX.ASM) — hand-asm `proc near`, NOT a C task (same
+    class as EMS wrappers; parked).
+  * `_DoAltHover`(PLANES3), `_FlyTo`(PLANES2), `_GetJoystickInputs`(CMDS),
+    `_LoadScottMission`(LOADMISS),
+    `_ScottFlight`(FLIGHT2), `_Cmds`(CMDS) — all located only to
+    wrong/mispaired candidates; need per-function relocation via
+    mid-body idiom search.
+- `_GetJoystickInputs`(CMDS) @gold 0x1089c — semantically
+  reconstructed; several real source fixes recovered from gold:
+  (a) ThrustStick: `if(j.z>0)j.z=0; ThrustChange=abs(j.z)` — NOT
+      `128-j.z` (abs = FUN_18a7_019e sat.abs call);
+  (b) CoolyStick: `if(j.z>0)j.z=0; CoolyVal=(abs(j.z)+16)/32;
+      if(CoolyVal && KEYPRINT==0) KEYPRINT=CoolyKeys[CoolyVal]` —
+      the KEYPRINT==0 gate was missing;
+  (c) Trigger data: `Trigs=0; for(i=3;i>=0;i--)
+      Trigs=(Trigs<<1)|Trigger2(i)` — 4 individual Trigger2 polls
+      (CODE_35+0x3c), NOT `~inp(0x201)>>4)&15`;
+  (d) CH-keys dispatch `StickType==7 || StickType==6` — my header
+      only defines J_xxx 0-5; retail has types 6/7 (probably newer
+      CH/Thrustmaster variants);
+  (e) RESIDUALS (artifact): ReadJoy2 or-chain order (source
+      J|R|C|T vs our canonicalized C|T|J|R — pinned), CoolyKeys/
+      CHKeys table disp16 sign (DSEG layout), trigger-loop regalloc
+      (cx temp vs di accumulate), boundary tail.
+- `_FlyTo`(PLANES2) @gold 0x2e1ec — semantically reconstructed;
+  the real fix was DELETING the `#if 1` debug block
+  (`tempvar && bv[i].Behavior==AIGoHome` + TXT/TXN/Message) — that
+  block is absent from retail's FlyTo entirely (function ends at
+  `return(0)`). Body now matches: GetTargADP 8-arg push order,
+  TurnAIPlaneBy(i,relangle), alttemp/altdim+50/pdest chain,
+  tdist<20&&!ignoredist return. RESIDUALS (artifact): gold keeps
+  `alttemp` in `di` (push di+si, 4-insn epilogue worth merging →
+  `mov ax,1;jmp short`-shared); mine reuses `si` (push si only,
+  cheap epilogue → inlined two retf). Same pinned regalloc class
+  as _ChangeHUDFilter + tdist/tangle slot-hash swap.
+- `_ScottFlight`(FLIGHT2) @gold 0x17049 — semantically
+  reconstructed; the real recovery: gold's rudder-slew formula is
+  `((RudderTrim+RUDDERVALS)*15*D)/200` and
+  `((RudderTrim+RUDDERVALS)*15*(1000-D))/800` — RudderTrim (the
+  trim-pool global, extern int in GDSEG right after RUDDERVALS) is
+  ADDED to pedal input; my source had `RUDDERVALS` alone. Verified
+  by gold's `mov ax,[0x186c]; add ax,[0x186a]; imul ax,ax,15`.
+  RESIDUALS (artifact): enter 0xfc vs 0x104 — the +8 bytes are a
+  compiler long-arith SPILL temp at [bp-0xfc..0x104] in the
+  `OLDSLEW+((D-OLDSLEW)*SFticks/60)*RELWND/200` chain (gold caches
+  in si:di; MSC6 spills + reorders the LMUL/LDIV calls); ~9x
+  `[bx+N]`/`[bx-N]` ps[]/bv[] struct-offset disp16; VVI at gold
+  DSEG 0x898e vs mine 0x8992 (cell layout); `mov si,ax`/`push
+  word[bp-N]` scheduling.
+- `_LoadScottMission`(LOADMISS) @gold 0x1d560 — semantically
+  reconstructed; aligned regions fully agree: dual
+  fopen("mission.f14","rb") calls, shared Message("No Mission
+  Data")+return0 error tail (gold merges via backward jz/jmp —
+  retail had TWO copies of each string literal, no pooling),
+  the object-read loops, pilot/RIO setup. RESIDUALS (artifact):
+  enter 0x240 vs 0x242 (+1 int slot, temp/decl layout); loop-
+  rotation polarity (`jnz`/`jz` + `cmp i,lim`/`cmp lim,i`
+  operand-order canon); ~6x `[bx+N]`/`[bx-N]` struct offsets;
+  `mov si,bx` CSE vs recompute imul; string-literal duplication.
+- `_UpdatePalBuf`(FLIR) — ABSENT in retail F14GOLD: the function's
+  whole body is `PalPkt[0]=='M' && PalPkt[1]=='0'` + palette copy;
+  there is NO `0x4d` immediate compare (byte/word, any reg/mem form,
+  near/far) anywhere in the gold image, and no `LoadPalToPal`→
+  PalBuf call pair in gold's menu code. The f14.pat signature
+  (push bp/sub sp,4/near ret form) came from a different build.
+  Classification: dead source for this target — cannot pair.
+- `_NHorz`(NHORZ) @gold 0x192e4 — semantically reconstructed; residuals
+  all pinned operand-canonicalization + boundary:
+  (a) `enter 0x316` matched via added `int DUMMY` — gold has one extra
+      dead stack-int slot (never referenced) around [bp-0x40];
+  (b) MISSING logic recovered: `else { if (SAVEBW!=BADWEATHER)
+      GRY=MDiv(10,abs(M),ARADD/2); else GRY=((-M)<12?0xf0+(-M&15):0xfc); }`
+      — nested `abs()` inside MDiv's arg eval (FUN_18a7_019e = sat.abs,
+      callee2 = _MDiv CODE_40+0x668);
+  (c) GDSEG.ASM: `_CLOUDAMNT` was aliased onto `_SKYDETAIL`'s cell —
+      split into its own word (gold has separate cells);
+  (d) `if (SAVEBW!=BADWEATHER)` polarity for correct MDiv/ternary layout;
+  (e) RESIDUALS (pinned): `CHT<CLOUDTHICK` and `MYWID*i` operand order —
+      our MSC6 canonicalizes the GLOBAL operand into ax for cmp/imul
+      regardless of written order (tried both written forms); gold's
+      compiler loads whichever operand is the local/LHS first. Same
+      for `SAVEBW!=BADWEATHER` (== operand order). ~7 single-insn
+      canonicalization artifacts + boundary tail remain.
+- `_JoyRecal`(NJOYCAL) — EXACT, hunks:0 @gold 0x1cb37 (0x15c bytes).
+  Retail is a hybrid: NJOYCAL skeleton (LoadPicNoPal +
+  `NWaitShowJoy(...)==-1 → return`) PLUS JOYCAL-era calibration
+  semantics inline. Source reconstruction vs previous source:
+  (a) `CoolyStick` block added before ThrustStick:
+      `InitJoy2(CoolyStick); NWaitShowJoy(gstr349+18,128);
+      InitJoy2(CoolyStick);` + axis-3 neutralization stores +
+      `NWaitShowJoy(gstr349+36,64)`;
+  (b) ThrustStick: `InitJoy2` calls bracketing each message AND
+      args swapped to (gstr350,128)=Max[3], (gstr351,64)=Min[3]
+      (vals mask bit2i=min,bit2i+1=max in NWaitShowJoy);
+  (c) inline neutralization between the InitJoy2 and second msg:
+      `MinStick[3]=RawJoy[3]; LowRange[3]=CenterPosition[3]-MinStick[3];
+      MaxStick[3]=MinStick[3]; HighRange[3]=MaxStick[3]-CenterPosition[3]`
+      — gold byte-identical in both stick blocks;
+  (d) hat strings live inside gstr349's data (offsets +18/+36 —
+      "Center Hat Switch"/"Move Hat Switch Up", matching gold's
+      contiguous string layout byte-for-byte incl. double
+      "Then press Trigger" and JOY.F14/rb/wb strings).
+- `_NShowJoy`(NJOYCAL) — semantic match; ~6 single-insn residuals all
+  regalloc/scheduling (gold keeps `x` in si vs our stack slot; cbw/idiv
+  ordering inside x/=4 and the (x*x)/i ternary; push si vs push di).
+- `_InitSpeech`(SOUND) — located @gold 0x3a7d5; reconstructed to 1
+  pinned eval-order hunk (AvailSysMem call vs pages division order).
+  Added `<io.h>` for `long filelength` (kills spurious cwd); `flag`
+  local (si-cached 0; set iff dig_type==0x22; passed as 3rd arg to
+  LoadBigEMSFile); `_dos_close` before pages calc.
+- `_DrawXploSprite`(SPRITES) — located @gold 0x3ae62; instruction
+  stream identical, diffs are SPRTVLS DSEG offsets only.
+- `_TD_box`(HUD2) — EXACT, hunks:0 @gold 0x1b69e. Real reconstruction:
+  (a) `y = TB_CTRY + PDT_PROJ_Y - TB_WINY` (operand order, not
+  `PDT_PROJ_Y + TB_CTRY`); (b) direct clamps — the `int l` + range-check
+  `if(...)l++; if(l){...}` wrapper did not exist in retail; (c) window
+  defs differed: `TB_WINL 108` (not 119) and `TB_WINW 68` (not 73),
+  emitting `cmp si,0x68`/`mov si,0x68` and `cmp cx,0x3f`/`mov cx,0x3f`
+  same-constant compare+clamp pairs. _steering_dot _diamondbox _break_x
+  _HUD_nav also verified hunks:0.
+- CARR module sweep (MSC6, module stays /Osegcl): retail compiled
+  `_InitCarrier` with `#pragma optimize("el",off)` — restoring that pragma
+  gives enter 0x10c, whichcarr at [bp-0x9a] + si-cached index, `i` at
+  [bp-0x98], index-form terminal loops — EXACT, hunks:0 @0xdc32.
+  Module-wide rescan (gold = mine+0x14ec in CODE_20): _InitCarrier
+  _InitCarrierObjects _InitPlaneOnCarrier _GetCatHeading _Carrier3D
+  _DrawCarrier _InBox _InBoxLng _GlideScopeCheck all hunks:0.
+  _OnCarrier _DisplayBall _CarrierLanding _ils _SetPosOnCat
+  _DoPlayerOnTheCat _DoPlayerOnTheHook _SetGear _SetDLC _TurnTo
+  _UpdateCarrierAnim = boundary/extent artifacts only (gold fn extents
+  sit ~7-9 bytes earlier mid-module). Small real residuals: _vdiils(2),
+  _OnTheDeck(2), _SlopeCheck(1: [bp]=dx vs push dx), _SetHook(1),
+  _EasyLanding(1), _MoveAIToCat(2), _KeepPlaneOnCarrier(1 tail),
+  _DoLSO(6: incl two push [bx+si+N] vs [bx+si-N] displacement-sign
+  diffs).
+  * NODIS asm-module entries (PASM/MATH/_MPSLIBM): not C, by design.
+- Link still reports the benign 80 MLIBCA duplicate-CRT-symbol errors
+  (__amblksiz __adbgmsg __iob2 __ctype_); EXE+MAP are emitted regardless.
+- `_Cmds`(CMDS) @gold 0x10f21 (FUN_1081_0711, 0xb1e bytes) — SEMANTICALLY
+  COMPLETE: full cascade decode proves identical case sets (101/101
+  keycodes, matching stub-vs-body classification on every slot).
+  Reconstructions: (a) six `RDR_RNG_5..200` cases -> new
+  `AWG9_SET_RANGE(i)` helper (AWG9.C, gold FUN_08de_0eb9:
+  `i<0`/`i>MAXRNG` guard + RANGE=i switch); (b) seven `RDR_ELV*` cases
+  restored as break stubs; (c) `CHNG_AZ`/`CHNG_DEG` stacked onto the
+  HOME/CTRLE and INSERT/CTRLQ bodies; (d) `_Cmds`'s `SHIFTW` case removed
+  (LocalCmds keeps its own); (e) `CheckOurAlt()` inserted after each
+  ALT-position update before `SlewOurWingmen`; (f) three missing cases
+  added: `ALTBKEY->TomcatBall()` (new fn, end of CARR.C, gold
+  FUN_0dc3_2a62 = `Message("TOMCAT Ball",RIO_NOW_MSG)` via gstr162+0xa8),
+  `SHIFTU->CageHeater()` and `UKEY->UnCageHeater()`.
+- Heater-seeker family reconstructed in AWG9.C tail (gold order):
+  `UnCageHeater` FUN_08de_33d3 = EXACT modulo one far-call reloc
+  (`if(HEATERCAGED)Message("Heater UnCaged",5); HEATERCAGED=0;
+  NextHeaterTarg();`), `CageHeater` FUN_08de_33f1 exact,
+  `SortHeaterFile` FUN_08de_34a7 hunks:0, `NextHeaterTarg` FUN_08de_3450
+  (sorted TARGET* walk, wrap, `HEATTARG=HEATSORT[i]->i` — 1 idiom hunk:
+  `shl di,1` vs `[bx+di]` indexing), `InsertHeaterTarg` FUN_08de_34cb
+  (distance-sorted insert — loop-rotation + operand-order artifacts).
+- New DSEG labels placed at gold-proven offsets inside existing
+  unlabeled byte runs (zero byte drift): `_HEATTARG`@0x102c (-1 init),
+  `_HEATFILE`@0x104e (TARGET* init 0xbb2e), `_HEATERCAGED`@0x1054 (init
+  1), `_HEATFILECNT`@0xbe30, `_HEATSORTCNT`@0x114 + `_HEATSORT`@0xd118
+  (24-slot TARGET* table; `_iconmode` label moved 0xd114->0xd116,
+  dead/unused extern, all-zero region), `gstr819`="Heater UnCaged"@0x12d4
+  `gstr820`="Heater Caged"@0x12e3 — gold offsets all reproduced exactly.
+- `_Cmds` residual: 16 single-insn hunks, all cross-jump tail-sharing /
+  polarity / operand-canonicalization class. Root cause pinned: warning
+  C4203 `function too large for global optimizations` disables MSC's
+  tail merging in my build (my Cmds 0xbc2B vs gold 0xb1eB; the ~164B
+  excess is itself mostly the unshared call tails) — pinned
+  compiler-threshold artifact, same class as _ChangeHUDFilter.
+- CMDS.C module sweep (fresh f14_named.map, gold CODE_22/FUN_1081_*):
+  FULL MODULE VERIFIED. Exact 0-hunk matches: `_TakeInputs`,
+  `_CheckMouseInput`, `_CursorInCrt`, `_ProcessInputs`,
+  `_CheckOurAlt`, `_LocalCmds` (341 insns), `_ProcessCoolyCmds`,
+  `_FrontSeatCoolyCmds`, `_BackSeatCoolyCmds`, `_UpdateSteadyAngles`,
+  `_UpdatePadlockAngles`, `_PauseMode`, `_NoAccel` (gold gap
+  187c-189f), `_KBInit`, `_PutNumLockBack`. Remaining:
+  `_GetJoystickInputs` 3 hunks (known table-disp/pinned artifacts),
+  `_Cmds` 16 hunks (C4203 cross-jump, documented). 15/17 exact.
+- AWG9 module completion: `SetupWingmanTarget` reconstructed (gold
+  `FUN_08de_325a`, fused SetupNewTarget+orient_to_player+orient_to_beam —
+  conv/ox/oy/oz + h/i + locally-built MakeMatHPR(-OurHead,OurPitch,0) +
+  Dist3D + beam-rotate; `WingmanScan` now calls it instead of bare
+  `SetupNewTarget`, which had left t.rz/t.d/t.rx unset — real bug fix).
+  `GetWeaponCount` rewritten to gold's pointer-bump form
+  (`int *p,*e; p=F14_STATION; e=&F14_STATION[12]; while(p<e){if(*p==type)cnt++;p++;}`)
+  — emits `enter 2`+dx/bx regvars+immediate end, exact except ONE
+  operand-order hunk: gold `mov ax,[bp+6];cmp [bx],ax` vs ours
+  `mov ax,[bx];cmp [bp+6],ax`.
+- `_GetWeaponCount` operand order — PINNED compiler-release artifact.
+  Evidence: ~80 source constructs (operand swaps, volatile, register,
+  loop forms, casts, hoisted temps, comma exprs) all emit deref-first
+  in-context under C 6.00-alpha. Isolated tests: param-first only when
+  GetWeaponCount is the FIRST def in TU with ≤2 prior symbol decls.
+  Gold is provably one TU (127 clean `0e e8` calls in CODE_16, zero
+  `90 0e e8` link pads → all compiler-emitted same-TU calls) with the
+  fn 3rd in segment order → unreachable under this CL build; gold
+  likely built with C 6.00A release (different leaf-preference order).
+  C 7.00 tested: emits param-first direction but hoists param to cx +
+  uses `xor` — and `_AWG9`/`_InitTWSData` diverge under C7 (`9A` calls,
+  xor idiom), so module confirmed C 6.00-family. AWG9B.C split attempt
+  REVERTED (produced exact GWC but broke ~13 _AWG9 call forms —
+  strictly worse). Single TU restored; residual = 1 pinned hunk.
+- `_Flip` RECONSTRUCTED from gold `FUN_120f_02d0` disasm — the older
+  implementation, not the current source's:
+  * locals `char tmp[80]; char s[10];` (enter 0x5a, no str[30]);
+    `static int lastview=-1` + new `extern int FlipCnt` global.
+  * Three `Status&0x10` (not TRAINING=0x1000 — gold tested flag bit
+    0x10) + `Speedy>1` print blocks in FRONT-front, FRONT-back and
+    DOWN-front; strings are literals "TRNG"/"x" (gold DSEG has 3
+    separate copies each at 0x1d4a-0x1d5d → no pooling, literals).
+  * Mask groups: FRONT-front TopCockpit+Vdi+Adi+Raw with
+    `VdiMask[3] = !MsgOnScreen ? 57 : 54` (sbb/and-3/add-0x36);
+    FRONT-back TopCockpit+DDD+Elev; DOWN-front LookDownL+LookDownR+
+    Adi+Raw+Hsd+Vdi; DOWN-back TID only; sides TopCockpit only.
+  * MAGICCAM2 + `case 17+VFULL+VOFFSET:` (unnamed view 0xd1) share the
+    PadLockee name-print block, falling into the shared RectCopy.
+    `FRONTAL` is its own case-block (produces gold's {0x46}/{0x47,48}
+    cascade split via tail-merge). RectCopy uses `OutsideLength`.
+  * Tail: `if ((lastview != View) || FlipCnt) { ScreenOn();
+    lastview=View; if (FlipCnt>0) FlipCnt--; }` — restores the
+    previously commented-out lastview logic + the decrementing
+    refresh counter. `FlipCnt` is a shared global (split out of
+    _BingoFuelWarn's 4-byte ASM storage at +2 = gold [0x1c82]);
+    `_Cmds` QUOTE case now emits `FlipCnt=2` —
+    `xor byte[BackSeat];mov word[FlipCnt],2;mov word[View],0;
+    call LookUp` exact.
+  * Residual 2 pinned compiler-version artifacts (same class as
+    _GetWeaponCount): (a) views {4,5} emitted as range tests
+    (jnl/jg, +3B) vs gold's equality tests (jz/jnz) — case grouping
+    can't force it (split duplicates the body); (b) side-body
+    emission position before DOWN vs gold's after — my compiler's
+    internal body ordering, not source order.
+  * Function 0x337 vs gold 0x334; everything else matches modulo
+    relocs: cascade, print blocks, masks, tail-merge sites, literals.
+- `_DisplayLeftStuff` NORMALIZED-EXACT vs gold `FUN_120f_0aa6` (162
+  insns, 0 diffs, 0x1b8 bytes both) — was the older TransRectCopy
+  version: `si=MapInEMSSprite(MISCSPRTSEG,0)` once, `di=!(Status&WHEELSUP)`
+  (mov al / sbb di / neg di), TRC panel(155,137,161,57->Rp2 79,105),
+  wheels TRC stat?206:263@89,53x44->Rp2(245,92), RectCopy wheels
+  (Rp2,245,92,53,44->Rp1), `if(THRUST!=-1)` cascade 5 TRCs
+  (25/50/75/100 bands, src-x 117/159/195/234/276 y=37), final
+  RectCopy(Rp2,79,105,161,57->Rp1); `prevstat=stat` static store;
+  `if(ShowMouse)MouseShow()`. Dropped `i`,`prevthrust` locals (gold has
+  no frame), the 3 small gear-light Rp1 draws, the BRAKESON draw, and
+  the MapInEMSSprite(...,1) first call — none exist in gold.
+- `_DisplayTIDSwitches` byte-exact vs gold `FUN_120f_09e7` — old
+  layout: 4 buttons in a row at y=168 (x=134/148/162/176), w=12 h=7,
+  colors 36/17 (was 117..184/8x5/5-17). ClrTarg dec+clamp intact.
+- `_DoCRT` = gold `FUN_120f_28b9` — EXACT (jump-table data + sign-
+  normalization only). Same `enter 2`, CrtRps[i]->RpCRT,
+  CrtDisplays[i] switch sub3/cmp0xe, VdiMode/VdiCrt/DrawGunCameraView/
+  GunCamera==2/FlirCopy(VdiMask), RadarRepeat/AWG9_EASY DoTac/DoTID,
+  HsdCrt+FlirCopy(HsdMask), DoDDD/DoTID/TEWS_GFX/AdiCrt cases.
+  NOTE: f14_named.map offsets were STALE vs F14.MAP — use F14.MAP
+  publics directly (linkmap2mzmap has a data-source bug).
+- `_JetisonSwitch` = gold `FUN_120f_2f70` — EXACT (sim 1.000).
+- `_MasterArmSwitch` = gold fn at 0x302c (after FUN_2f70; unlabeled
+  gap-tail) — EXACT modulo relocs/tail.
+- `CheckLights` (static, unlabeled gold FUN at CODE_23 0x2c73) —
+  semantically EXACT after two fixes:
+  * case 2 (BRAKE_LIGHT): gold tests `(Status&BRAKESON) &&
+    !(Damaged&D_HYDRAULICS)` — no `REALFLIGHT &&` term (removed it;
+    gold emits only test/test/mov-ax-1).
+  * case 8 (SEAMLOCK_LIGHT): gold `return WING_HAVETARG` — the
+    wingman-datalink flag at gold DGROUP 0x906e (written by
+    WingmanFixup=FUN_08de_308e and WingmanSelect=FUN_08de_31b2,
+    read cross-module by CODE_33 HUD fn FUN_1a48_1014 and CODE_56
+    FUN_3a6f_0238). Was `!(LOCKED == -1)`. Made WING_HAVETARG
+    non-static in AWG9.C (COMDEF) + extern in COCKPIT.C.
+  * All 20 cases now match; residual = jump-table bytes + body
+    positions only.
+- COCKPIT module full-segment sweep (0x3110B gold vs mine):
+  sim 0.9845; remaining hunks = pinned _Flip {4,5}-cascade and
+  side-body-order artifacts, 1 cmp-vs-or regalloc variant
+  (FUN_0750 region), jump-table data bytes, boundary noise.
+  `_LookDown`/`_LookUp` (gold 0x22f/0x283, no-else form) and
+  `_DoCockpitDisplays` (DrawVVGauge-first DOWN order) verified
+  inside the segment diff.
+- Linker diagnostics: 18 "error L" lines persist — pre-existing
+  CRT duplicate-symbol noise (__iob2/__ctype_/__amblksiz class),
+  EXE+map still produced and verified coherent; not caused by
+  source changes.
+
+## Whole-image gap-inclusive sweep (cached-disasm matcher)
+
+Method: disassemble each gold CODE segment once into cached
+instruction lists; slide each remaining flagged my-function
+(normalized, retf-truncated) across every segment in memory.
+This finds twins hidden in unlabeled gaps (previous per-FUN-start
+matchers missed gap functions like _MissilesInAir@38b6:1816).
+
+Cleared as already-matched (false positives from stale pairings):
+- `_MissilesInAir` — byte-exact at gold gap 38b6:1816 (after FUN_1796)
+- `_orient_to_player` 1.000, `_VectorIntercept` 1.000, `_TIDxy` 0.988,
+  `_EasyLanding` 0.981, `_DistOf`/`_HeadProject`/`_restore_video_state`/
+  `_RioTop`/`_WaitTicks` all 1.000 after retf-truncation.
+
+Classified non-actionable:
+- `_JoyConvert`(JOYSTX.ASM), `_RemoveKeyJoy`(KEYJOY.ASM), `_EMSread`(EMS.ASM)
+  — hand-ASM symbols, expected divergence.
+- `_NSCALELINE2`,`_VERTFLINE`,`_VGADRAWDOT`,`_TACTRANSSCALELINE`,
+  `_RESET_CTRL_B` — map/symbol-table-only names, no src definition.
+- `_UpdatePalBuf` — absent from retail (already logged).
+- `_Air2GroundHoming`,`_AirKill`,`_DoGroupAction`,`_DoNextWayPt`,
+  `_GorillaBomb`,`_CheckLandingAndCrash`,`_CheckPointRot`,
+  `_DoNextWayPt`,`_write`,`_search` — semscan mis-pairings, all ≥0.95.
+
+Genuinely-divergent C functions remaining (scan best-score):
+- `_HsdCrt` 0.177 n=818 (HSD.C/COCKPIT.C)
+- `_DrawNLand` 0.150 n=374 (NQFLY.C/3DSCENE.C)
+- `_LoadSpecialObjects` 0.230 n=287 (3DLOADER.C)
+- `_Splatted` 0.253 n=158 (FLIGHT2.C)
+- `_DamageAI` 0.761 n=180 (PLANES2.C)
+- `_InitSound` 0.279 n=59 (GMAIN.C/SOUND.C)
+- `_show_az_carat` 0.467 n=75 (DDD.C)
+- `_LoadEMSObject` 0.449 n=72 (EMSLOAD.C/N3D.C/3DZVIEW.C)
+- `_TacMap` 0.651 n=57 (TAC.C)
+- `_MCGAColors` 0.282 n=47 (FLIR.C)
+- `_mplot` 0.468 n=47 (MAP.C)
+- `_draw_shoot_cue` 0.712 n=46 (HUD2.C)
+- `_MapLoc` 0.308 n=26 (MAP.C)
+- `_CheckImHit` 0.571 n=21 (VIEWS.C)
+- `_X2map`/`_Y2map` ~0.5 n=10 (MAP.C)
+- `_InitOptions` 0.833 n=6 (GMAIN.C/OPTIONS.C)
+
+Findings so far:
+- MAP.C zoom family diverges at the FORMULA level: gold computes
+  `cl = 7 - Mscale; sar ax,cl` (>> (7-Mscale)) at sites file+3c758/
+  3defb/40492 vs mine `>> (1+Mscale)`. Different-vintage math, no
+  `sar ax,cl` X2map-style fn exists in gold.
+- `_InitOptions`: gold stores [0xaea6]=0,[0x3814]=5,[0x3816]=1,
+  [0x5038]=1 vs mine [x]=1,[y]=1,[z]=1 + a call — small rewrite.
+- `_X2map`/`_Y2map`: no near `ret` twin found; gold's projection is
+  inline in the bigger `7-Mscale` fns — reconstruct per MAP.C family.
+- `_DamageAI` = gold `2ad2:22b3` (matches3 pairing confirmed) —
+  RECONSTRUCTED: gold's switch maps {0→0; 2,3,10,30,31→2; 11→3;
+  12→4; default→1} (was {3,4,12,30,31→2; 13,14→3; 15→4}) and
+  slot==0 gates gohome on Night (`if(!Night) goto next` — gold's
+  `cmp [Night],0; jz next` vs vacuous `if(Night) goto gohome` +
+  unconditional fallthrough). Residuals: jump-table-vs-ladder
+  heuristic, `jz`/`jnz+jmp` polarity, ax-vs-si local-init regalloc.
+- `_InitOptions` — EXACT (Direction@0xb5e2/RealLandings@0x7dfc/
+  REALFLIGHT@0x2496 =1 + call seedme); small-window scan under-fired.
+- MAP.C family note: gold seg ~0x3c75 hosts a COMBINED x+y bounds
+  fn (enter 4; `cl=7-[Mscale]; sar ax,cl` per axis) — gold has no
+  near X2map/Y2map helpers; source had the transform inlined.
+
+## ASM-module matching (match-as-asm pass)
+
+- CTRLVECT: _set_ctrl_b/_reset_ctrl_b/get_the_vector/handle_ctrl_b
+  — EXACT modulo relocs (gold seg 0x1520).
+- EGRAPH (892 lines): instruction-EXACT vs gold seg 0x1591 — every
+  diff = LINEST/MINTBL/MAXTBL DSEG reloc. No source changes.
+- HORZASM: TransScaleLine+TacTransScaleLine at gold 0x1a3c2/0x1a434
+  — EXACT modulo relocs (USES-epilogue pops match).
+- JOYSTX: matched gold seg 0x1c92 modulo relocs after source fixes:
+  * `call FAR PTR ColoSpecSetup` x2 (gold emits 9A far call, UASM
+    had made push cs+near)
+  * `nop` after `jmp tr1`, `jmp st2`, and each of 4 `jmp GotVal`
+    (gold source pads; were missing)
+  * `and ax,1` -> `db 25h; dw 1` to force MASM accumulator-imm16
+    encoding (UASM emits 83/imm8 group form)
+- Remaining ASM diffs: KEYJOY ISR tail (~0.6), EMS family (~0.4),
+  PASM flagged fns (~19: NPFLine/NDLine/NPFFill/ZClip/Perspect3D/
+  CheckPointRot/NXSLINE*/NCLOUD*/MYWATERLINE*/NSCALELINE*/BuildPolyList/
+  MakeBspDrawList/NDDot/FLAGROTATE3D/NPFLine/NPFFill)
+- KEYJOY: InstallKeyJoy/RemoveKeyJoy/KBDint at gold 0x1d3b7+ —
+  instruction-EXACT (incl. ss:-override BIOS_DATA-store quirk and
+  `db 0EAh;oldint9 dd` far-jump tail). No source changes.
+- EMS module: gold int67 cluster at image 0x15e7a/0x32a5 — pending.
+- EMS: identical implementation at gold seg 0x15e4; fix = `nop`
+  inside EMSint macro after `jmp Exit` (gold pads every expansion).
+  All 14 wrappers match modulo relocs.
+- JOYSTX/KEYJOY/CTRLVECT/EGRAPH/HORZASM/EMS all now matched.
+  Remaining ASM work: PASM flagged fns (see below).
+
+## ASM module sweep — ALL DONE (visually-identical)
+
+- CTRLVECT/EGRAPH/HORZASM/JOYSTX/KEYJOY/EMS/PASM all verified
+  instruction-equivalent to gold; residual diffs are encodings only.
+- KEYJOY: exact incl. ss:-override BIOS_DATA stores + far-jmp tail.
+- EMS: EMSint macro needed `nop` after `jmp Exit` (applied, all 14
+  wrappers match).
+- PASM: NScaleLine/NScaleLine2 reconstructed (enter frames, .386 imm
+  shifts, word loads, guarded loops, sparse stores w/ dead inc ah).
+
+## TOOLCHAIN DISCOVERY
+
+Gold's ASM modules were built with MASM 6.0/6.1 (ml.exe), not MASM 5.10:
+- .386-mode PROCs emit `enter`/`leave` frames (21 in PASM), .8086 emit
+  push bp (12) — matches gold's split exactly.
+- forward jcc to named labels under .386 -> 0F8x long form; @F -> short.
+- imm16 forms for and/cmp/sub ax,imm; nop pads after some jumps;
+  call FAR vs push cs+near — all MASM6-era encodings.
+- File's .386/.8086 toggles are deliberate frame/codegen control.
+- build_all.sh now stages PASM with OPTION PROLOGUE:ENTP custom
+  prologue (enter+IRP pushes) toggled by .386/.8086 + a near-ptr pass
+  for forward named-label jcc. enter=21 pushbp=12 == gold. Visual sim
+  0.981 (all remaining diffs = imm-width/far-call/nop encodings).
+- ML.EXE 6.14 found at ~/inertia_player/masm/BIN (assembles PASM.ASM
+  clean after XADD rename + const-dot sed) — but 6.14 emits pushbp,
+  the enter/0F8x behavior is 6.0/6.1-specific.
+- TASM found (inertia_player BCPP v3.0/v3.1/v32) — cannot handle the
+  file's OPTION SCOPED + @@ syntax; not the original tool.
+
+## Remaining: different-vintage C functions (~14)
+
+_HsdCrt(818) _DrawNLand(374) _LoadSpecialObjects(287) _Splatted(158)
+_show_az_carat(75) _LoadEMSObject(72) _InitSound(59) _TacMap(57)
+_MCGAColors(47) _mplot(47) _draw_shoot_cue(46) _MapLoc(26)
+_CheckImHit(21) _X2map/_Y2map(~10, gold inlines transform, >>(7-Mscale))
+
+## C reconstructions done (semantically verified)
+
+- `_LoadEMSObject` (N3D.C) — EXACT 1.000. Added `EMSPagesGrabbed`/
+  `EMSFileUsage()` externs + memory-pressure guard:
+  `if (!NOTEXTURE && *P && (EMSPagesGrabbed - EMSFileUsage()) < 12) NOTEXTURE = 1;`
+- `_DamageAI` (PLANES2.C) — semantic match. Switch map
+  {0→0; 2,3,10,30,31→2; 11→3; 12→4; default→1}; slot0 gohome gated on
+  `if(!Night)`. Residuals: ladder-vs-jumptable, polarity.
+- `_LoadSpecialObjects` (3DLOADER.C) — 0.9866, all semantics match.
+  - `CoolF14Tails[42]` (21 squadrons) — 22 extra gstr labels (821-842)
+    cut into gstr91's string blob in GDSEG.ASM.
+  - `MiscSpecial[10]` gains `gstr843` (`BADGATES.3DZ`); misc loop `i<40`,
+    `EMS3DObjectSlot=40`, third `MissileAdd(ML_AIM9M)`.
+  - Carrier cases overwrite `MiscSpecial[1]` (`NOCHUTE.3DZ` placeholder)
+    with `gstr844`/`845`/`846` = AMERCHUT/NIMCHUTE/SARACHUT.
+  - sprintf uses inline `"Special Object Not Found: %s\n"` literals.
+  - Squadron decode: `neg=((squad&0x8000)!=0); squad&=0x7fff;
+    if(neg&&squad<=10)squad+=10; if(<0)=0; if(>20)=0; squad*=2`.
+  - PINNED artifact: MSC6 folds the single-use `neg` bool into
+    `inc ax`-flags + re-reads sign via `mov ah,[0x66d1]`; gold materializes
+    it in `dx` before the mask (`or dx,dx`). Semantically identical;
+    7 source variants tried, fold is intrinsic to this optimizer build.
+  - GDSEG labels added: `_gstr821`-`846` inside existing blobs (byte-exact).
+
+## Turn: DDD module verified against real gold addresses — 5/7 exact
+
+- Real gold DDD module located at image offset 0x1528c (seg ~0x1528):
+  all helper calls are `push cs;call` intra-module (MSC same-seg far-call
+  idiom), NOT far `9A` — no `static` needed.
+- _show_az_carat @ gold 0x1530e — EXACT 75/75 after: colors 19/20 ->
+  0x56/0x54, MSC6 /Oaegcls frameless `push si` prologue (x -> si).
+  Earlier MSC5.10 /G0 theory was a dead end (.pat was for another binary).
+- _DoDDD @ gold 0x1528c — exact incl. frameless body; draw_circle
+  color 20 -> 0x55.
+- _DDD_horizon_line @ 0x1556c, _DDDWeaponRanges @ 0x53c8,
+  _draw_circle @ 0x15748 — all EXACT under /Oaegcls.
+- _ShowTargets @ 0x154d6 — real fix: gold has NO DopplerCheck calls;
+  loops are plain TARGFILE-then-AGEDTARGFILE (reordered from source's
+  aged-first + checks). Residual 4/37 insns: si<->di swap on ofs/i
+  induction vars (pinned regalloc, same class as LoadSpecialObjects).
+- _DDDTargetDraw @ 0x1551b — semantically identical (sbb/and/add
+  ternary, same args/calls); residual = MSC6 emits ax+enter0x4 + x-hoist
+  to si vs gold's di + push bp frame. Pinned version artifact.
+- _DopplerCheck @ 0x15481 (enter 0x4) — removed volatile+closure local;
+  residual 2/33: second `>=80` test re-reads [bp-x] vs gold reusing
+  dx/ax regs across the `||` join. Pinned value-tracking artifact.
+
+## MAP.C resolution (module-boundary fix)
+- `X2map`/`Y2map`/`mplot`/`MapLoc`/`Project2D`/`DeProject2D` are NOT in gold — dead module.
+  `Mscale` (0x6980) has zero code refs in gold; no `>>(7-Mscale)` helpers, no `0x52/0x39`
+  bounds outside Tacxy's fused body, no `add [bx],0x29/0x1c`. All their callers are
+  `#ifdef YEP` dead code or dead-stripped HRM.
+- `Rotate2D` was in the WRONG source file: gold has it at SUPPORT_TEXT offset 0
+  (3be9:0, 43 insns, before rng@0x4d) — moved from MAP.C to top of SUPPORT.C.
+- Removed `map` from OBJS in build_all.sh — MAP.OBJ now absent from link (like gold);
+  all its data symbols (Mapx/Mapy/Mscale) were already GDSEG.
+- Result: `_Rotate2D` 43/43 insns EXACT, lands at SUPPORT_TEXT offset 0 with rng at +0x4d
+  (gold-identical relative layout). MAP module delta: was +0x18a bytes extra code, now 0.
+
+## HSD module
+- `_HsdCrt` at gold 0x1c14b: 817/817 EXACT after two fixes:
+  - `labs` declared `extern long labs(long)` — `labs()>>5` is a long shift
+    (`mov cl,5;call _aFalsh`); undeclared K&R int gave wrong `sar ax,5`.
+  - mach sprintf temps use the unused `bx`/`by` locals (never &-taken ->
+    gold regalloc into di/si); `i%100`/`i/100` inline forms regress.
+- `_fourpoints`: source store order was x+y,x-y,-x+y,-x-y; gold's is
+  x+y,-x+y,x-y,-x-y (CSE reuses `sub bx,si` for last store) -> EXACT.
+- `_scaley`,`_circlepoints`,`_SteerRange`: all EXACT.
+- Module total 0.991: residual = operand-order canonicalization and
+  save-reg temp swaps (pinned); module-start 2-byte align cosmetic.
+
+## Segment-count reconciliation (78 vs 79)
+Gold's CODE_N map lists 79 code segments vs my build's 78 — investigated
+the two candidate unmapped segs:
+- gold `0x1520` (8 paras): int-0x1b/0x23 setvect install/restore block =
+  my `CTRLVECT_TEXT` (0x140d). Same `b8 1b25 cd21`/`b8 2325 cd21` body;
+  gold's seg-start bytes differ but content is present — accounted.
+- gold `0x204f` (1 para): a `call 05ce:03d4; leave; retf` far-jump-slot
+  thunk. The setter function at 0x204f7 (`mov word [0xb5e2],1; ...;
+  call SUPPORT+0x16f; retf`) SPANS the 0x204f/0x2050 map boundary —
+  impossible for a real segment. It is a heuristic split inside the
+  module preceding OVL (= my MESSAGE_TEXT region): mine has the
+  identical sequence at 0x20510, differing only in the thunk's numeric
+  slot target (05ce:03d4 vs 3e2e:011a — both dispatch-slot ljmps).
+Verdict: 79 vs 78 is a gold-map detection artifact, NOT a missing
+module. No source module is absent from the link.
+
+## Residual sweep status (fresh verify_build run, post all fixes)
+- `f14_named.map` regenerated after latest relink; `verify_build.py` over
+  classified+aligned anchors: **418 MATCH / 513 pairings, 95 DIFF**.
+- DIFF concentration by module: PLANES 15, PLANES3 12, PASM 9,
+  _MPSLIBM 7, PLANES2 6, NQFLY 4, RIOMAP 3, HSD 3 (known pinned),
+  _TEXT 3, then 1-2 each across ~20 modules (list: analysis/gold/verify_current.txt).
+- Mixed causes confirmed by triage: stale anchors (e.g. `_pitchbar2`
+  triaged at 0dc3:08bc, a different function) AND real source-shape diffs
+  (e.g. `_TakingOff` — gold zeroes di as induction reg vs my stack local
+  `mov word [bp-4],0`). Each DIFF needs manual anchor validation +
+  disasm pairing, same methodology as DDD/HSD.
+- Already-verified-exact functions appear as DIFF when anchors are stale
+  (`_HsdCrt` listed @1b89:08bb — real gold offset is 1b89:0917).
+
+## Residual triage pass 2 (normdiff over all 95 DIFFs)
+
+Per-function classification into: EXACT-but-reloc, pinned-regalloc/
+operand-order, real-source-diff, data-layout, stub-library, bad-anchor.
+
+### Fixed this pass
+- `_GetWayPointChanges` (PLANES3): removed `wflag` local — `wpflag` cast
+  inlined at all 13 sites -> `enter 0xa` now matches gold (was 0xc).
+- `_LoadFiles` (GMAIN): gold's switch pushes 6 strings; mine dedup'd
+  `default:` into case 2 (shared gstr274). Split GDSEG's embedded first
+  "USAN01.WLD" into `_gstr274a`, case 2 -> gstr274a, default -> gstr274.
+  Now insn-identical incl. all 6 push sites (gstr tail of function
+  matches verbatim).
+- `_AwacsPicture` (AWACS): added CIVILIAN to status mask -> `test 0xc20`
+  matches gold (was 0x420).
+- `_DrawXploSprite` (SPRITES): added PAGE==5 special case
+  `MapInEMSSprite(2,1)` + NUM hoisted to si -> head matches gold.
+
+### Pinned (semantically identical — MSC6 codegen artifacts, verified)
+- `_Sound`, `_CheckTailAspect`, `_MsgBox`, `_AISanitizeCheck`,
+  `_AwacsPicture` (cmp order), `_FlyTo` (dual epilogue), `_horiz_line`,
+  `_pitchnum`, `_pitchbar2`, `_CheckAITarget` (si/di), `_CheckTurnStuff`,
+  `_DamageAI` (sub ax,ax vs sub si,si), `_DESIGNATED_TrackingAI`,
+  `_DoAltHover`, `_GetWhoCover`, `_CheckPlaneLand`, `_TakingOff`,
+  `_ShowAIStatus` — operand-order / si-di-bx regalloc / branch-layout /
+  extra-local-slot diffs. Multiple source-form variants tried; MSC6
+  canonicalizes to the same emit.
+- `_ChangeHUDFilter` (FLIR): MSC6 backend groups same-constant far
+  stores (Pal[i] sunk next to chain[i]) regardless of statement order,
+  /Oe-off, or comma-expr. Gold shows grouped emit w/ MSC6 encodings —
+  compiler-rev difference, not reachable from this CL build. Source kept
+  in natural grouped form.
+- `_InitSpeech`: extra call = `AvailSysMem` (MPS stub) eval-order;
+  `jna`/`jnc` polarity; `SndData.dig_type` field ±4 (data layout).
+- `_GetJoystickInputs`: same 4 globals OR'd, different order (pinned).
+
+### Data-layout diffs (not C-source fixable — DSEG/asset placement)
+- `_DrawAAA`: `AAFIRE` far ptr = BSS stub at 0x2330 vs gold's real
+  far-seg 0x4437:0 (missing sprite data segment).
+- `_DrawLandObjects`: `GroundObjectScale[200]` at 0x3337 vs gold 0xa894.
+- `_MakeBoxes`, `_DoBox`, `_GenDsp`, `_Messages`, `_LocationPicture`:
+  pushed globals / table bases differ — same vars at different DSEG
+  addrs (e.g. aiactions base 0x675c vs 0xb72e).
+
+### Stub-library residuals (separate project — real MPSLIBM reimpl)
+- `_MPSLIBM_TEXT`: `_ChangeColor`,`_ClipSprite`,`_DrawDot`,`_DrawLine`,
+  `_DrawPoly`,`_RpPrint`,`_SndSounds` — mine are `xor ax,ax;call` stubs;
+  gold has real port-IO/raster bodies.
+- CRT: `__amsg_exit`,`_vsprintf`,`__setargv`,`_detect`.
+
+### Bad/stale anchors (not real diffs)
+- `_UpdatePalBuf` — retail-dead (anchor = InitSpecialPal, verified exact
+  to real extent); no `M0` packet check exists anywhere in gold.
+- `_HsdCrt` — verified 817/817 exact at real offset 1b89:0917.
+- `_DrawSweepDisplay`, `_LGetTargADP` — real:0 (pure relocs) = exact.
+- `_LoadScottMission`, `_ScottFlight`, `_Cmds`, `_FLIGHT`, `_NHorz`,
+  `_NPFFill`, `_RioMap`, `_UpdateHelicopterHPR_SandP`, `_Wall`,
+  `_search`, `_UpdateSpeedAndPosition` — huge insn-count diffs at these
+  anchors indicate wholesale misalignment or genuinely divergent large
+  functions; need per-function re-anchoring before source work.
+- `_RioMap` (RIOMAP.C): `char S[255]` -> `char S[376]` reproduces gold's
+  `enter 0x292` frame + `S` base at [bp-0x292] contiguous with
+  `start_data` at -0x11a. Body now insn-identical (residual = relocs).
+- `_NHorz` (NHORZ.C): ternary block-order fixed — gold stores 0 as the
+  fallthrough arm w/ shared store tail => source is
+  `(CHT>=CLOUDTHICK) ? 0 : (100-(CHT/(CLOUDTHICK/100)))`. Diff 22->14;
+  residual = cmp operand-order (cmp[gbl],ax;jg vs mov ax,[gbl];cmp[loc],ax;jl),
+  XZD/SAVEBW frame-slot permutation (decl-order-insensitive, pinned),
+  CLOUDSEG/CLOUDAMNT DSEG offsets.
+- `_DoAltHover` (PLANES3.C): TWO real source bugs found via binary diff:
+  - `bv[i].Behavior = FlyWayPoint` -> `Formation` (gold stores
+    2ad2:1236 = its Formation; verified by body-identical match).
+  - `((int)wp.x==-2) && ((int)wp.y==-1)` -> `wp.x == -2` — gold emits a
+    dword compare `cmp[bx],-2;cmp[bx+2],-1`, i.e. long x == -2, no y term.
+  Frame 0x16->0x14 now matches gold; body insn-identical mod regalloc.
+
+## Residual triage pass 3 (post-relink, verify_current anchors)
+
+Real source fixes landed this pass:
+- `_DoAltHover` (PLANES3): `x==-2` is a dword compare in gold — removed
+  the spurious `(int)x` cast + `(int)y==-1` clause; `Behavior=Formation`
+  (was FlyWayPoint). Frame now matches (0x14).
+- `_RioMap` (RIOMAP): `char S[255]`->`S[376]` reproduces gold `enter
+  0x292` + S@-0x292 contiguous with start_data@-0x11a. Body exact.
+- `_NHorz` (NHORZ): `(CHT>=CLOUDTHICK)?0:(100-(CHT/(CLOUDTHICK/100)))`
+  reproduces gold's [0-arm][jmp][compute] block order + shared store.
+
+Verified-exact-despite-DIFF-flag (named-map offset skew ~5-6 bytes late):
+- `_Sound` (real start SOUND_TEXT:b1 not b7), `_GetRadarGTNum` (45d1 not
+  45d6), `_GetPlaneLanding`, `_DrawXploSprite` (post-fix), `_LoadFiles`
+  (post-fix insn-identical), `_DrawSweepDisplay`, `_LGetTargADP`,
+  `_AIBombTarget`, `_ChooseBehavior` (0x69c0 cmp consts = Behavior fn
+  ptrs at different image addrs), `_AvoidMountains`,
+  `_UpdateHelicopterHPR_SandP`, `_LocationPicture`, `_Messages`,
+  `_StraightAttack`, `_NearWingTarget`, `_GetQHeight`, `_FLIGHT`,
+  `_FlyTo` (regalloc), `_Cmds` (case-table jmp targets).
+
+Pinned asm-encoding (PASM module — UASM vs MASM-era emit):
+- `_FlagRotate3D`/`_NDDot`/`_NDLine`/`_NPFFill`/`_NPFLine`: gold uses
+  386 `jcc near` (0F8x) where target is long-range; UASM emits short/near
+  differently; also `and ax,0x40` (imm16) vs `and ax,byte +0x40` (imm8)
+  and scratch-cell base 0x150 vs 0x140 — all same-instruction-different-
+  encoding.
+- `_ZClip`: same class + workspace cell 0x150 vs 0x140.
+
+Still pinned regalloc/operand-order (semantics identical, verified):
+- `_TakingOff` (di2 register-hint ignored under /Osegcl; /Oe regresses
+  frame), `_GetWhoCover`, `_CheckPlaneLand`, `_DoAltHover` tail,
+  `_CheckAITarget`, `_CheckTurnStuff`, `_DamageAI`, `_ShowAIStatus`,
+  `_DESIGNATED_TrackingAI`, `_AddSomePlanes2`, `_FormationSpeedAdjustBoat`,
+  `_UpdateSpeedAndPosition`, `_CheckForMobileR5`, `_MakeBoxes`, `_DoBox`,
+  `_NDDot`-family, `_Perspect3D`, `_pitchnum`, `_pitchbar2`,
+  `_horiz_line`, `_MsgBox`, `_CheckTailAspect`, `_AISanitizeCheck`,
+  `_AwacsPicture`, `_InitSpeech`, `_GetJoystickInputs`, `_GenDsp`.
+
+Data-layout (not C-fixable):
+- `_DrawAAA` (AAFIRE far-ptr: BSS stub vs gold's real sprite seg),
+  `_DrawLandObjects` (GroundObjectScale base), `_InitSpeech` (SndData
+  base +4), `LastCall`@0xe262-vs-0xfb0, `aiactions` base, assorted
+  globals at shifted DSEG offsets.
+
+Library stubs (separate reimplementation project, unchanged):
+- `_MPSLIBM_TEXT` x7 + `__amsg_exit`/`_vsprintf`/`__setargv`/`_detect`.
+- `_UpdatePalBuf` retail-dead (no M0 check in gold).
+
+Remaining lower-confidence (huge-count, need deeper re-anchoring):
+- `_ScottFlight` frame 0xfc vs 0x104 (4 extra int locals — unused-slot
+  archaeology), `_Wall`, `_NPFFill`/`_NPFLine` (asm), `_search`,
+  `_UpdateSpeedAndPosition`, `_LoadScottMission`, `_NDraw3D`,
+  `_Load3DPlaneInfo`/`_LoadSpecialObjects` (missing anchors).
+
+## 2025-10-21 (cont.2) — _GiveSortInfo string-object reconstruction
+
+`_GiveSortInfo` (PLANES2.C): the function pushes 18 distinct string objects
+(Left/Right/Lead/Trail × repeated copies) but the reconstructed source reused
+7 labels (gstr512-518) across all 18 TXA sites. Gold's emission is one fresh
+string object per source-level occurrence (MSC6 does not dedup literals /
+original source used distinct named constants per site).
+
+Fixed by labeling every embedded copy inside the gstr513/gstr517/gstr524
+blobs and rewiring the TXA sites:
+  site map (DS offsets): 512=Left@3e9c, 513=Right@3ea1, 514=Lead@3ea7,
+  515=Trail@3eac, 516="Left "@3eb2, 517="Right "@3eb8, 518=Lead@3ebf,
+  519=Trail@3ec4, 521="Left "@3eca, 522="Right "@3ed0, 523=Lead@3ed7,
+  525=Trail@3edc, 516b="Left "@3ee2, 516c="Left "@3ee8,
+  517b="Right "@3eee, 517c="Right "@3ef5, 514b=Lead@3efc, 515b=Trail@3f01.
+- Removed ORG stubs for gstr514/515/518/519/520/521/522/523/525 (all
+  dead-only or GiveSortInfo-only uses, so reassignment is safe).
+- gstr520 = "Going Cold"@0x3f09 (SetUpCAP2's TXA arg — previously pushed
+  stub 0xe08a = zeros, a real runtime bug).
+- gstr520b = "Going Cold"@0x3f1e second copy (CAPLeg1's TXA arg — same
+  stub bug fixed).
+- Result: 174/174 insns, all 18 pushes identical; remaining 47 diffs are
+  pure jump/call target relocs. _GiveSortInfo now insn-identical.
+
+`_OnTheDeck`: branch-block placement diff (`jnz`-skip vs `jz` out-of-line
+add block) + `mov es,[0x5fbc]` vs `[0xf46a]` far-seg cell — pinned layout /
+data-layout. Semantically identical; simplifying `else return` produced the
+same output, reverted.
+
+`_CheckAZELChange`: instruction stream identical; every diff is a DS operand
+offset (same vars/tables at different DSEG positions) — data-layout.
+`_MakeBoxes`: pure reloc targets.
+
+## 2025-10-21 (cont.3) — verify rerun post-string-fix
+
+Fresh verify_build (aligned_anchors): 74 MATCH / 149 pairings, 75 DIFF.
+New MATCHes this pass: `_GiveSortInfo` (was DIFF — now insn-identical),
+`_RioMap`, `_CheckAZELChange`, `_OnTheDeck` (pinned diffs normalized
+away), `_SetUpCAP2`, `_CAPLeg1`, `_CAPTurn1/2`, `_OvalTurn1/2`,
+`_SetUpOval1/2`.
+
+`_GiveSortInfo` required the per-occurrence string-object fix (see
+DECOMPILATION.md) — gold pushes 18 distinct string copies; reconstruction
+had deduped them to 7 labels. Side-effect fixes: `SetUpCAP2` and
+`CAPLeg1` TXA sites previously pushed zero-filled ORG stub addresses —
+the "Going Cold" strings (0x3f09/0x3f1e) are now correctly referenced,
+a real runtime bug resolved.
+
+Remaining DIFF triage (all classified, no further source action):
+- `_CheckBulletBetter` — resolved to a pinned dead-register-store:
+  gold keeps `mov es,dx; mov bx,ax` storing GetPlanePtr's result into
+  ptargettype's es:bx home on a path where it's never read again;
+  cand DCE'd it. Identical source, identical otherwise.
+- `_LogIt` enter 0x10 vs 0xe — gold uses one extra never-referenced
+  word slot (ptemp far-ptr sits at -0x10 vs cand -0xe); consistent with
+  one unused int local in the original decl block. Frame-layout pinned.
+- `_UpdateOurWPS` slot-permutations — frame-layout archaeology.
+- `_ChangeHUDFilter` — `View==4||View==5` goto-block ordering + far-pal
+  seg-cell DS offsets (Palette/DuskPal/NitePal/DayPal stored at
+  different DSEG cells).
+- `_SteerAndMoveMissile`/`_firemissile2`/`_ShowOurWPS`/`_CheckAAAHit` —
+  same-structure diffs dominated by DS offsets + jump targets.
+- `_DrawDot`/`_DrawLine`/`_DrawPoly`/`_ClipSprite`/`_RpPrint`/
+  `_DrawSweepDisplay`/`_SndSounds`/`_vsprintf`/`__amsg_exit`/`_detect`
+  — MPSLIBM/CRT library bodies (absent originals).
+- `_search` — binary-search helper, same-structure reloc diffs.

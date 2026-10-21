@@ -39,14 +39,14 @@ AwacsPicture()
 	int whatsrc;
 
     MinDist = 11250;             // 250 nm range for AWACS
-    if (Gtime-LastCall<(Diff+1)*60) {
+    if ((Diff+1)*60>Gtime-LastCall) {
 		LocationPicture (AWACSSRC, ENEMYSRC, 0, MinDist, 0, 1);
     } else {
         LastCall = Gtime;
 
 		bogeyi = -999;
         for (i=0, psi=ps; i<NPLANES; i++, psi++) {
-            if (psi->status&ACTIVE && psi->speed && !(psi->status&(CRASH+FRIENDLY))) {
+            if (psi->status&ACTIVE && psi->speed && !(psi->status&(CRASH+FRIENDLY+CIVILIAN))) {
                 dx = psi->x-Px;
                 dy = psi->y-Py;
 

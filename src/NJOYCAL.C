@@ -185,10 +185,29 @@ JoyRecal (int x, int y)
 				return;
 		}
 
-		if (ThrustStick) {
-			if (NWaitShowJoy(gstr350,64)==-1 )
+		if (CoolyStick) {
+			InitJoy2(CoolyStick);
+			if (NWaitShowJoy(gstr349+18,128)==-1 )
 				return;
-			if (NWaitShowJoy(gstr351,128)==-1 )
+			InitJoy2(CoolyStick);
+			MinStick[3] = RawJoy[3];
+			LowRange[3] = CenterPosition[3]-MinStick[3];
+			MaxStick[3]  = MinStick[3];
+			HighRange[3] = MaxStick[3]-CenterPosition[3];
+			if (NWaitShowJoy(gstr349+36,64)==-1 )
+				return;
+		}
+
+		if (ThrustStick) {
+			InitJoy2(ThrustStick);
+			if (NWaitShowJoy(gstr350,128)==-1 )
+				return;
+			InitJoy2(ThrustStick);
+			MinStick[3] = RawJoy[3];
+			LowRange[3] = CenterPosition[3]-MinStick[3];
+			MaxStick[3]  = MinStick[3];
+			HighRange[3] = MaxStick[3]-CenterPosition[3];
+			if (NWaitShowJoy(gstr351,64)==-1 )
 				return;
 		}
 		NWaitShowJoy(gstr352,0);

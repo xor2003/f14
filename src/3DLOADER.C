@@ -512,7 +512,7 @@ int Init3DPlanes()
 //***************************************************************************
 int LoadSpecialObjects()
 {
-	int i,j,squad;
+	int i,j,squad,neg;
 	extern char gstr21[];
 	extern char gstr22[];
 	extern char gstr23[];
@@ -601,6 +601,32 @@ int LoadSpecialObjects()
 	extern char gstr106[];
 	extern char gstr107[];
 	extern char gstr108[];
+	extern char gstr821[];
+	extern char gstr822[];
+	extern char gstr823[];
+	extern char gstr824[];
+	extern char gstr825[];
+	extern char gstr826[];
+	extern char gstr827[];
+	extern char gstr828[];
+	extern char gstr829[];
+	extern char gstr830[];
+	extern char gstr831[];
+	extern char gstr832[];
+	extern char gstr833[];
+	extern char gstr834[];
+	extern char gstr835[];
+	extern char gstr836[];
+	extern char gstr837[];
+	extern char gstr838[];
+	extern char gstr839[];
+	extern char gstr840[];
+	extern char gstr841[];
+	extern char gstr842[];
+	extern char gstr843[];
+	extern char gstr844[];
+	extern char gstr845[];
+	extern char gstr846[];
 
 	char *CarrierAmerica[14] = {
 		gstr21,		// Base - Level 1
@@ -665,9 +691,7 @@ int LoadSpecialObjects()
 		gstr71,
 	};
 
-	char *CoolF14Tails[22] = {
-//		"F14LTSAN.3DZ",
-//		"F14RTSAN.3DZ",
+	char *CoolF14Tails[42] = {
 		gstr72,	// Tophatters VF-14
 		gstr73,
 		gstr74, // Swordsman  VF-32
@@ -688,8 +712,28 @@ int LoadSpecialObjects()
 		gstr89,
 		gstr90,	// Pukin' Dogs VF-143
 		gstr91,
-		gstr92,
-		gstr93
+		gstr821,	// VF-1
+		gstr822,
+		gstr823,	// VF-2
+		gstr824,
+		gstr825,	// VF-21
+		gstr826,
+		gstr827,	// VF-24
+		gstr828,
+		gstr829,	// VF-51
+		gstr830,
+		gstr831,	// VF-111
+		gstr832,
+		gstr833,	// VF-114
+		gstr834,
+		gstr835,	// VF-124
+		gstr836,
+		gstr837,	// VF-154
+		gstr838,
+		gstr839,	// VF-213
+		gstr840,
+		gstr841,	// NEDS
+		gstr842
 	};
 
 	char *Missiles[7] = {
@@ -702,40 +746,45 @@ int LoadSpecialObjects()
 		gstr100
 	};
 
-	char *MiscSpecial[9] = {
+	char *MiscSpecial[10] = {
 		gstr101,
 		gstr102,
 		gstr103,
 		gstr104,
 		gstr105,
 		gstr106,
-		gstr107
+		gstr107,
+		gstr843
 	};
 
 	// Load Carrier
 	for (i=0; i<14; i++) {
 		switch(ConfigData.Carrier) {
 			case 0:
+				MiscSpecial[1] = gstr844;
 				if (!LoadEMSObject(CarrierAmerica[i],i)) {
-					sprintf(Txt,gstr108,CarrierAmerica[i]);
+					sprintf(Txt,"Special Object Not Found: %s\n",CarrierAmerica[i]);
 					Message(Txt,DEBUG_MSG);
 				}
 			break;
 			case 1:
+				MiscSpecial[1] = gstr845;
 		   		if (!LoadEMSObject(CarrierNimitz[i],i)) {
-					sprintf(Txt,gstr108,CarrierNimitz[i]);
+					sprintf(Txt,"Special Object Not Found: %s\n",CarrierNimitz[i]);
 					Message(Txt,DEBUG_MSG);
 				}
 			break;
 			case 2:
+				MiscSpecial[1] = gstr846;
 				if (!LoadEMSObject(CarrierSaratoga[i],i)) {
-					sprintf(Txt,gstr108,CarrierSaratoga[i]);
+					sprintf(Txt,"Special Object Not Found: %s\n",CarrierSaratoga[i]);
 					Message(Txt,DEBUG_MSG);
 				}
 			break;
 			default:
+				MiscSpecial[1] = gstr844;
    				if (!LoadEMSObject(CarrierAmerica[i],i)) {
-					sprintf(Txt,gstr108,CarrierAmerica[i]);
+					sprintf(Txt,"Special Object Not Found: %s\n",CarrierAmerica[i]);
 					Message(Txt,DEBUG_MSG);
 				}
 			break;
@@ -746,7 +795,7 @@ int LoadSpecialObjects()
 
 	for (j=0,i=14; i<23; j++,i++) {
    		if (!LoadEMSObject(CoolF14Objects[j],i)) {
-			sprintf(Txt,gstr108,CoolF14Objects[j]);
+			sprintf(Txt,"Special Object Not Found: %s\n",CoolF14Objects[j]);
 			Message(Txt,DEBUG_MSG);
 		}
 	}
@@ -754,18 +803,21 @@ int LoadSpecialObjects()
 	// Load F-14 Squadron
 
 	squad = ConfigData.Squadron;
-	if (squad<0) squad = 20;
-	if (squad>9) squad = 20;
+	neg = ((squad & 0x8000) != 0);
+	squad &= 0x7fff;
+	if (neg && squad <= 10) squad += 10;
+	if (squad<0) squad = 0;
+	if (squad>20) squad = 0;
 	squad = squad * 2;
 
    	if (!LoadEMSObject(CoolF14Tails[squad],23)) {
-		sprintf(Txt,gstr108,CoolF14Tails[squad]);
+		sprintf(Txt,"Special Object Not Found: %s\n",CoolF14Tails[squad]);
 		Message(Txt,DEBUG_MSG);
 	}
 
 
    	if (!LoadEMSObject(CoolF14Tails[squad+1],24)) {
-		sprintf(Txt,gstr108,CoolF14Tails[squad+1]);
+		sprintf(Txt,"Special Object Not Found: %s\n",CoolF14Tails[squad+1]);
 		Message(Txt,DEBUG_MSG);
 	}
 
@@ -773,21 +825,21 @@ int LoadSpecialObjects()
 
 	for (j=0,i=25; i<32; j++,i++) {
    		if (!LoadEMSObject(Missiles[j],i)) {
-			sprintf(Txt,gstr108,Missiles[j]);
+			sprintf(Txt,"Special Object Not Found: %s\n",Missiles[j]);
 			Message(Txt,DEBUG_MSG);
 		}
 	}
 
 	// Misc.
 
-	for (j=0,i=32; i<39; j++,i++) {
+	for (j=0,i=32; i<40; j++,i++) {
    		if (!LoadEMSObject(MiscSpecial[j],i)) {
-			sprintf(Txt,gstr108,MiscSpecial[j]);
+			sprintf(Txt,"Special Object Not Found: %s\n",MiscSpecial[j]);
 			Message(Txt,DEBUG_MSG);
 		}
 	}
 
-	EMS3DObjectSlot=39;
+	EMS3DObjectSlot=40;
 	MissileAdd(ML_AIM54C);
 	MissileAdd(ML_AIM7M);
 	MissileAdd(ML_AIM9M);

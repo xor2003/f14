@@ -3,6 +3,12 @@
 #include "sdata.h"
 #include <dos.h>
 
+Rotate2D (int x0, int y0, int Angle, int *x, int *y) {
+
+    *x = ACosB (x0, Angle) + ASinB (y0, Angle);
+    *y = ACosB (y0, Angle) - ASinB (x0, Angle);
+}
+
 rng(int x,int a,int b)
 {
     if (x>b) return b;

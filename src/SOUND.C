@@ -2,6 +2,7 @@
 #include <dos.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <io.h>
 #include "library.h"
 #include "world.h"
 #include "sdata.h"
@@ -114,19 +115,19 @@ InitSpeech()
     UBYTE far  *fptr;
     int         fhand;
     long        size;
-    int         pages;
+	int         flag;
 
-    CanDoSpeech = 0;
-	if (SndData.dig_type==0) return(-1);	// No Digital Card Capab. !!!
+    CanDoSpeech = flag = 0;
+	if (SndData.dig_type==flag) return(-1);	// No Digital Card Capab. !!!
 
     _dos_open (SpeechDriver, O_RDONLY, &fhand);
     size  = filelength (fhand);
-    pages = (size + 15) /16;
     _dos_close (fhand);
 
-    if (AvailSysMem()>pages) {
+    if ((int)((size + 15) /16) < AvailSysMem()) {
 		if (dig_load_overlay(SpeechDriver)==0) {
-			size = LoadBigEMSFile (gstr744, SPEECHSEG);
+			if (SndData.dig_type==0x22) flag=1;
+			size = LoadBigEMSFile (gstr744, SPEECHSEG, flag);
 				if (size!=0) {
 					if (DigSysSetup (SndData.dig_address,
 						SndData.dig_type,

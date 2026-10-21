@@ -132,7 +132,7 @@ int RadarThreats()
 		if (p->rclass==RL_NONE) continue;
 		if (p->status&DESTROYED) continue;
 		if (!(p->status&RTRACK)) continue;
-//		if (!threat_in_rng (p->x,p->y)) continue;
+		if (!threat_in_rng (p->x,p->y)) continue;
 		if (TOTAL_T >= MAXTHREATS) break;
 		// SCOTT
 		rri = GetRadarPtr(p->rclass);

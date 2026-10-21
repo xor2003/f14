@@ -64,6 +64,10 @@ extern int HighlightTarg;
 
 extern int ClrTarg;
 
+extern int InRangeFlash;
+
+extern int DisplayFrame;
+
 
 //***************************************************************************
 DoTID(int CrtNr)
@@ -71,8 +75,38 @@ DoTID(int CrtNr)
     int i;
     struct Planes *psi;
 	TARGET t;
+	struct WayPoint *wp;
+	int clr;
+
+	if (DisplayFrame==0)
+		InRangeFlash ^= 1;
 
     RectFill(RpCRT, 0,0, RpCRT->Width1+1,RpCRT->Length1+1, 82);
+
+	for (i=0,wp=wps; wp<wps+NWAYPOINTS; wp++,i++) {
+		if (wp->x==0 && wp->y==0) continue;
+		if (i==NextWayPoint)
+			clr=89;
+		else
+			clr=85;
+		TIDxy(wp->x, wp->y);
+		if (tempx==0 || tempy==0) continue;
+		if (wp==wps) {
+			DrawLine(RpCRT,tempx-2,tempy-2,tempx+2,tempy-2,clr);
+			DrawLine(RpCRT,tempx-2,tempy-2,tempx-2,tempy,clr);
+			DrawLine(RpCRT,tempx+2,tempy-2,tempx+2,tempy,clr);
+			DrawDot(RpCRT,tempx-1,tempy+1,clr);
+			DrawDot(RpCRT,tempx+1,tempy+1,clr);
+			DrawDot(RpCRT,tempx,tempy+2,clr);
+		} else {
+			DrawDot(RpCRT,tempx,tempy,clr);
+			DrawDot(RpCRT,tempx-1,tempy+1,clr);
+			DrawDot(RpCRT,tempx+1,tempy+1,clr);
+			DrawDot(RpCRT,tempx-2,tempy+2,clr);
+			DrawDot(RpCRT,tempx+2,tempy+2,clr);
+			DrawLine(RpCRT,tempx-3,tempy+3,tempx+3,tempy+3,clr);
+		}
+	}
 
 	TIDTargetCnt=0;
 
@@ -104,9 +138,7 @@ DoTID(int CrtNr)
 	} else {
 		// show aged targets
    		for (i = 0; i < *AGEDTARGFILECNT; i++) {
-			if (DopplerCheck(AGEDTARGFILE + i)) {
-				TID_draw_target(AGEDTARGFILE + i,(AGEDTARGFILE[i].i==LOCKED),0);
-			}
+			TID_draw_target(AGEDTARGFILE + i,(AGEDTARGFILE[i].i==LOCKED),0);
 			TrackDisplayPosition(TARGFILE + i,0);
 		}
 	}
@@ -114,8 +146,7 @@ DoTID(int CrtNr)
 	/* Draw Our Plane */
 	tempx=(RpCRT->Width1/2);
 	tempy=(RpCRT->Length1);
-	draw_circle (RpCRT,tempx,tempy-3,1,20,0);
-    return 1;
+	draw_circle (RpCRT,tempx,tempy-3,1,84,0);
 }
 
 //***************************************************************************
@@ -324,6 +355,21 @@ int TID_DisplayScanLimits()
 }
 
 //***************************************************************************
+static int TargInPhxRange(int i)
+{
+	TARGET t;
+	int    rng;
+
+	SetupNewTarget(&t,i);
+	orient_to_player(&t);
+
+	rng = (t.conv) ? t.d : t.d>>HTOV;
+	if (BIT_2_NM(rng*10) > ORDNANCE[W_AIM_54].rmax)
+		return 0;
+	return 1;
+}
+
+//***************************************************************************
 int TID_draw_target(TARGET *tc, int locked,int dl)
 {
 	int   d, clr,temp;
@@ -333,6 +379,7 @@ int TID_draw_target(TARGET *tc, int locked,int dl)
 	int alt;
 	int i;
 	int found;
+	int drawtail=1;
 	struct Planes *tempps;
 	char s[10];
 	int cnt=0;
@@ -404,6 +451,11 @@ int TID_draw_target(TARGET *tc, int locked,int dl)
 		}
 	}
 
+	if (AWG9_MODE==AWG9_PDSTT) {
+		DrawLine(RpCRT,tempx-2,tempy,tempx,tempy+2,clr);
+		DrawLine(RpCRT,tempx,tempy+2,tempx+2,tempy,clr);
+	}
+
 	if (!dl) {
 		if (AWG9_MODE==AWG9_RWS_AUTHENTIC) return 0;
 		if (AWG9_MODE==AWG9_RWS_NARROW) return 0;
@@ -451,11 +503,14 @@ int TID_draw_target(TARGET *tc, int locked,int dl)
 		}
 
 		if (found) {
+			if (TargInPhxRange(tc->i))
+				drawtail = InRangeFlash;
 			itoa((ipos),s,10);
 			RpPrint(RpCRT,tempx+4,tempy-2,s);
 		}
 	}
 
+	if (drawtail) {
 	switch (d) {
 		case 0:
 			x1 =
@@ -515,5 +570,6 @@ int TID_draw_target(TARGET *tc, int locked,int dl)
   		break;
    }
    DrawLine (RpCRT,x1,y1,x2,y2,clr);
+   }
 }
 

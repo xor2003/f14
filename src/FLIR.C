@@ -6,7 +6,6 @@
 #include "F15defs.h"
 #include "sounds.h"
 #include "speech.h"
-#include <dos.h>
 
 extern UBYTE far * Screen;
 
@@ -49,11 +48,6 @@ static  int HudIntensity=31;
 extern UWORD TransAmount;
 
 
-extern union  REGS D;
-
-extern struct SREGS S;
-
-
 extern	int	InXPLO;
 extern UWORD GRPAGE0[];
 extern UWORD TimeOfDay;
@@ -66,6 +60,7 @@ extern	int	ABOVECLOUDS;
 extern	int	OVERCAST;
 extern	int	GAMNT;
 extern  int BackSeat;
+extern int StormLevel;
 extern int OldG;
 
 extern int OldOvercast;
@@ -125,40 +120,52 @@ UpdatePalette()
     static int   OldCycle =0;
 	extern int NextPalFrame;
 	static int OldPal=0;
+	int i,j;
+	extern UBYTE far SkyDayPal[256*3];
+	extern UBYTE far SkyNitePal[256*3];
 
 	if ((PaletteChanged == 0) && (NextPalFrame^=1))
 		return(1);
 
 	FireColors();
 
-    if (abs(GAMNT)<30) {
-        OverG=0;
-    } else if (!OverG) {
-        OverG=1;
-    }
-
-    if (GAMNT!=OldG) {
+    if (!(GAMNT==OldG)) {
         Sound(N_RedOut, 2, (abs(GAMNT)*15/100));
     }
 
 	TimeConditionCheck();
 
-	OldG = GAMNT;
-
-	if (TransAmount!=OldNight || SelectedPal!=OldPal || OldClouds!=CLOUDAMNT || PaletteChanged ||
-		InXPLO ||OldG!=GAMNT||(abs(GAMNT)==100)||(OldOvercast!=OVERCAST)) {
+	if (TransAmount!=OldNight || OldPal!=SelectedPal || OldClouds!=CLOUDAMNT || PaletteChanged ||
+		InXPLO ||!(GAMNT==OldG)||(abs(GAMNT)==100)) {
 
 		if ((CLOUDAMNT+=InXPLO)>100) CLOUDAMNT=100;
 		if (InXPLO) InXPLO=100;
 
+		if (StormLevel>-1 && (!BackSeat || View!=3)) {
+			if (ABOVECLOUDS) {
+				for (i=0,j=0; i<255*3; i++,j++) {
+					if (WorldColor[i/3] != 2) {
+						Palette[i]=SkyDayPal[j]; DayPal[i]=SkyDayPal[j]; NitePal[i]=SkyDayPal[j];
+						DuskPal[i]=SkyNitePal[j];
+					}
+				}
+			} else {
+				for (i=0,j=0; i<255*3; i++,j++) {
+					if (WorldColor[i/3] != 2) {
+						Palette[i]=TBLOCK[j]; DayPal[i]=TBLOCK[j]; NitePal[i]=TBLOCK[j];
+						DuskPal[i]=DawnPal[j];
+					}
+				}
+			}
+		}
+
         NSetGreyPal(52-InXPLO/2, 52-InXPLO/2, 52-InXPLO/2);
-		InXPLO=0;
 
         OldNight = TransAmount;
 		OldPal = SelectedPal;
         OldClouds = CLOUDAMNT;
 		OldG = GAMNT;
-        OldOvercast = OVERCAST;
+		InXPLO=0;
         PaletteChanged = FALSE;
     }
 }
@@ -304,9 +311,6 @@ NSetGreyPal(int TR, int TG, int TB)
 
 
 //***************************************************************************
-extern union REGS D;
-
-
 extern UBYTE BlueFlame[];
 
 
@@ -355,77 +359,242 @@ ChangeHUDColor(int change)
 int ChangeHUDFilter()
 {
     UBYTE   Buf[3];
-	UBYTE   far *hp;
 
 	if (View == 4) goto out;
 	if (View == 5) goto out;
 
-	hp = &Palette[3*HUD_COLOR];
-	hp[0] = 0x63;
-	hp[1] = 0x35;
-	hp[2] = 0;
-	DuskPal[3*HUD_COLOR+0] = Buf[0] = NitePal[3*HUD_COLOR+0] = DayPal[3*HUD_COLOR+0] = 0x63;
-    DuskPal[3*HUD_COLOR+1] = Buf[1] = NitePal[3*HUD_COLOR+1] = DayPal[3*HUD_COLOR+1] = 0x35;
-    DuskPal[3*HUD_COLOR+2] = Buf[2] = NitePal[3*HUD_COLOR+2] = DayPal[3*HUD_COLOR+2] = 0;
+	Palette[3*HUD_COLOR+0] = 0x63,
+	Palette[3*HUD_COLOR+1] = 0x35,
+	Palette[3*HUD_COLOR+2] = 0,
+	DuskPal[3*HUD_COLOR+0] = Buf[0] = NitePal[3*HUD_COLOR+0] = DayPal[3*HUD_COLOR+0] = 0x63,
+	DuskPal[3*HUD_COLOR+1] = Buf[1] = NitePal[3*HUD_COLOR+1] = DayPal[3*HUD_COLOR+1] = 0x35,
+	DuskPal[3*HUD_COLOR+2] = Buf[2] = NitePal[3*HUD_COLOR+2] = DayPal[3*HUD_COLOR+2] = 0;
 
-    MCGAColors(HUD_COLOR,1,Buf);
+	MCGAColors(HUD_COLOR,1,Buf);
 	return;
-out:
-	return(0);
+out:	return(0);
 }
 
 //***************************************************************************
-int InitSpecialPal(which)
-int which;
+int InitSpecialPal(sel)
+int sel;
 {
-	int i,j;
-	extern char gstr248[];
-	extern char gstr249[];
-	extern char gstr250[];
-	extern char gstr251[];
-    UBYTE PalPkt[256*3 + 6];
+	struct { int which,j,i; UBYTE PalPkt[256*3 + 6]; } v;
+	extern int  StormLevel;
+	extern UBYTE far SkyDayPal[256*3];
+	extern UBYTE far SkyNitePal[256*3];
+	extern char sPLSTDN2[];
+	extern char sPL0DN2[];
+	extern char sPLSTDK2[];
+	extern char sPL0DK2[];
+	extern char sPLSTDY2[];
+	extern char sPL0DY2[];
+	extern char sPLSTNT2[];
+	extern char sPL0NT2[];
+	extern char sPL0DY2a[];
+	extern char sPL0NT2a[];
+	extern char sPL1DY1[];
+	extern char sPL1NT1[];
+	extern char sPL1DY1a[];
+	extern char sPL1NT1a[];
+	extern char sPL4DY1[];
+	extern char sPL4NT1[];
+	extern char sPL2DY1[];
+	extern char sPL2NT1[];
+	extern char sPL6DY1[];
+	extern char sPL6NT1[];
+	extern char sPL3DY1[];
+	extern char sPL3NT1[];
+	extern char sPL5DY1[];
+	extern char sPL5NT1[];
+	extern char sPLSTDN2b[];
+	extern char sPL0DN2b[];
+	extern char sPLSTDK2b[];
+	extern char sPL0DK2b[];
+	extern char sPLSTDY2b[];
+	extern char sPL0DY2b[];
+	extern char sPLSTNT2b[];
+	extern char sPL0NT2b[];
 
-	unsigned char far *P;
-
-	for (i=0,P=Palette; i<256*3; i++,P++) {
-		DayPal[i] = *P;
-		NitePal[i] = *P;
-		DawnPal[i] = *P;
-		DuskPal[i] = *P;
-	}
-
-	LoadPalToPal(gstr248,PalPkt);
-
-	if (PalPkt[0]=='M' && PalPkt[1]=='0') {
-		for (j=6,i=PalPkt[4]*3; i<(PalPkt[5]+1)*3; i++,j++) {
-			DayPal[i] = PalPkt[j];
+	if (sel == -1) {
+		if (StormLevel>-1) LoadPalToPal(sPLSTDN2,v.PalPkt); else LoadPalToPal(sPL0DN2,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			DayPal[v.i] = v.PalPkt[v.j];
 		}
-	}
-
-	LoadPalToPal(gstr249,PalPkt);
-
-	if (PalPkt[0]=='M' && PalPkt[1]=='0') {
-		for (j=6,i=PalPkt[4]*3; i<(PalPkt[5]+1)*3; i++,j++) {
-			NitePal[i] = PalPkt[j];
+		if (StormLevel>-1) LoadPalToPal(sPLSTDK2,v.PalPkt); else LoadPalToPal(sPL0DK2,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			NitePal[v.i] = v.PalPkt[v.j];
 		}
-	}
-
-	LoadPalToPal(gstr250,PalPkt);
-
-	if (PalPkt[0]=='M' && PalPkt[1]=='0') {
-		for (j=6,i=PalPkt[4]*3; i<(PalPkt[5]+1)*3; i++,j++) {
-			DawnPal[i] = PalPkt[j];
+		if (StormLevel>-1) LoadPalToPal(sPLSTDY2,v.PalPkt); else LoadPalToPal(sPL0DY2,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			Palette[v.i] = v.PalPkt[v.j];
+			if (StormLevel>-1) TBLOCK[v.i] = v.PalPkt[v.j];
 		}
-	}
-
-	LoadPalToPal(gstr251,PalPkt);
-
-	if (PalPkt[0]=='M' && PalPkt[1]=='0') {
-		for (j=6,i=PalPkt[4]*3; i<(PalPkt[5]+1)*3; i++,j++) {
-			DuskPal[i] = PalPkt[j];
+		if (StormLevel>-1) LoadPalToPal(sPLSTNT2,v.PalPkt); else LoadPalToPal(sPL0NT2,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			DuskPal[v.i] = v.PalPkt[v.j];
+			if (StormLevel>-1) DawnPal[v.i] = v.PalPkt[v.j];
 		}
+		if (StormLevel>-1) {
+			LoadPalToPal(sPL0DY2a,v.PalPkt);
+			for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+				SkyDayPal[v.i] = v.PalPkt[v.j];
+			}
+			LoadPalToPal(sPL0NT2a,v.PalPkt);
+			for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+				SkyNitePal[v.i] = v.PalPkt[v.j];
+			}
+		}
+		v.which = View;
+	} else
+		v.which = sel;
+
+	switch (v.which) {
+	case 0:
+	case 1:
+		LoadPalToPal(sPL1DY1,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			if (WorldColor[v.i/3]==2) {
+				Palette[v.i] = v.PalPkt[v.j];
+				DayPal[v.i] = v.PalPkt[v.j];
+				NitePal[v.i] = v.PalPkt[v.j];
+			}
+		}
+		LoadPalToPal(sPL1NT1,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			if (WorldColor[v.i/3]==2) DuskPal[v.i] = v.PalPkt[v.j];
+		}
+		break;
+	case 3:
+		if (!BackSeat) {
+			LoadPalToPal(sPL1DY1a,v.PalPkt);
+			for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+				if (WorldColor[v.i/3]==2) {
+					Palette[v.i] = v.PalPkt[v.j];
+					DayPal[v.i] = v.PalPkt[v.j];
+					NitePal[v.i] = v.PalPkt[v.j];
+				}
+			}
+			LoadPalToPal(sPL1NT1a,v.PalPkt);
+			for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+				if (WorldColor[v.i/3]==2) DuskPal[v.i] = v.PalPkt[v.j];
+			}
+		} else {
+			LoadPalToPal(sPL4DY1,v.PalPkt);
+			for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+				Palette[v.i] = v.PalPkt[v.j];
+				DayPal[v.i] = v.PalPkt[v.j];
+				NitePal[v.i] = v.PalPkt[v.j];
+			}
+			LoadPalToPal(sPL4NT1,v.PalPkt);
+			for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+				DuskPal[v.i] = v.PalPkt[v.j];
+			}
+		}
+		break;
+	case 2:
+		LoadPalToPal(sPL2DY1,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			if (WorldColor[v.i/3]==2) {
+				Palette[v.i] = v.PalPkt[v.j];
+				DayPal[v.i] = v.PalPkt[v.j];
+				NitePal[v.i] = v.PalPkt[v.j];
+			}
+		}
+		LoadPalToPal(sPL2NT1,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			if (WorldColor[v.i/3]==2) DuskPal[v.i] = v.PalPkt[v.j];
+		}
+		break;
+	case 71:
+	case 72:
+		LoadPalToPal(sPL6DY1,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			if (WorldColor[v.i/3]==2) {
+				Palette[v.i] = v.PalPkt[v.j];
+				DayPal[v.i] = v.PalPkt[v.j];
+				NitePal[v.i] = v.PalPkt[v.j];
+			}
+		}
+		LoadPalToPal(sPL6NT1,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			if (WorldColor[v.i/3]==2) DuskPal[v.i] = v.PalPkt[v.j];
+		}
+		break;
+	case 4:
+	case 5:
+		if (!BackSeat) {
+			LoadPalToPal(sPL3DY1,v.PalPkt);
+			for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+				if (WorldColor[v.i/3]==2) {
+					Palette[v.i] = v.PalPkt[v.j];
+					DayPal[v.i] = v.PalPkt[v.j];
+					NitePal[v.i] = v.PalPkt[v.j];
+				}
+			}
+			LoadPalToPal(sPL3NT1,v.PalPkt);
+			for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+				if (WorldColor[v.i/3]==2) DuskPal[v.i] = v.PalPkt[v.j];
+			}
+		} else {
+			LoadPalToPal(sPL5DY1,v.PalPkt);
+			for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+				if (WorldColor[v.i/3]==2) {
+					Palette[v.i] = v.PalPkt[v.j];
+					DayPal[v.i] = v.PalPkt[v.j];
+					NitePal[v.i] = v.PalPkt[v.j];
+				}
+			}
+			LoadPalToPal(sPL5NT1,v.PalPkt);
+			for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+				if (WorldColor[v.i/3]==2) DuskPal[v.i] = v.PalPkt[v.j];
+			}
+		}
+		break;
+	default:
+		if (StormLevel>-1) LoadPalToPal(sPLSTDN2b,v.PalPkt); else LoadPalToPal(sPL0DN2b,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			DayPal[v.i] = v.PalPkt[v.j];
+		}
+		if (StormLevel>-1) LoadPalToPal(sPLSTDK2b,v.PalPkt); else LoadPalToPal(sPL0DK2b,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			NitePal[v.i] = v.PalPkt[v.j];
+		}
+		if (StormLevel>-1) LoadPalToPal(sPLSTDY2b,v.PalPkt); else LoadPalToPal(sPL0DY2b,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			Palette[v.i] = v.PalPkt[v.j];
+		}
+		if (StormLevel>-1) LoadPalToPal(sPLSTNT2b,v.PalPkt); else LoadPalToPal(sPL0NT2b,v.PalPkt);
+		for (v.j=6,v.i=v.PalPkt[4]*3; v.i<(v.PalPkt[5]+1)*3; v.i++,v.j++) {
+			DuskPal[v.i] = v.PalPkt[v.j];
+		}
+		break;
 	}
 
+	if (StormLevel==2) {
+		Palette[285] = Palette[702];
+		Palette[286] = Palette[703];
+		Palette[287] = Palette[704];
+		DayPal[285] = DayPal[702];
+		DayPal[286] = DayPal[703];
+		DayPal[287] = DayPal[704];
+		NitePal[285] = NitePal[702];
+		NitePal[286] = NitePal[703];
+		NitePal[287] = NitePal[704];
+		DuskPal[285] = DuskPal[702];
+		DuskPal[286] = DuskPal[703];
+		DuskPal[287] = DuskPal[704];
+		TBLOCK[285] = TBLOCK[702];
+		TBLOCK[286] = TBLOCK[703];
+		TBLOCK[287] = TBLOCK[704];
+		DawnPal[285] = DawnPal[702];
+		DawnPal[286] = DawnPal[703];
+		DawnPal[287] = DawnPal[704];
+	}
+	PaletteChanged = 1;
+	if (View!=4 && View!=5) {
+		ChangeHUDColor(0x63);
+	}
 }
 
 #ifdef YEP

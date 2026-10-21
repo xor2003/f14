@@ -97,6 +97,7 @@ extern int closeplane;
 // (3) Watching a Bandit during a dogfight
 // (4) Watching for additional Bandits during a dogfight
 //***************************************************************************
+#pragma optimize("egl", off)
 DisplayRioHead()
 {
 	int mseg;
@@ -266,6 +267,7 @@ DisplayRioHead()
 							mirrorhead);
 	}
 }
+#pragma optimize("egl", on)
 
 //***************************************************************************
 extern int AutoHead;

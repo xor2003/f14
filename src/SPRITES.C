@@ -207,9 +207,14 @@ extern struct XPLANM XPLOANIMS[];
 DrawXploSprite(RPS *Rp, int X, int Y, int NUM, int SCL, int ROLL)
 {
 	UWORD SEG;
+	register int n = NUM;
 
-	if (SEG=MapInEMSSprite(SPRTXPLSEG,SPRTVLS[NUM].PAGE))	{
-		ScaleRotate( SEG, SPRTVLS[NUM].XC, SPRTVLS[NUM].YC, SPRTVLS[NUM].WID, SPRTVLS[NUM].HT,
+	if (SPRTVLS[n].PAGE==5)
+		SEG=MapInEMSSprite(2,1);
+	else
+		SEG=MapInEMSSprite(SPRTXPLSEG,SPRTVLS[n].PAGE);
+	if (SEG)	{
+		ScaleRotate( SEG, SPRTVLS[n].XC, SPRTVLS[n].YC, SPRTVLS[n].WID, SPRTVLS[n].HT,
 			Rp, X, Y, SCL,ROLL, 0, 0 );
 	}
 }

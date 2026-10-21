@@ -379,6 +379,7 @@ OutSideHeading(RPS *Rp)
 	char	N[90];
 	extern char gstr337[];
 	extern char gstr338[];
+	extern char gstr781[];
 	UWORD V;
 
    S[0]=0;
@@ -407,6 +408,8 @@ OutSideHeading(RPS *Rp)
 
    strcat(N,S);
 
+   if (Status&TRAINING)
+      strcat(N,gstr781);
 
 	Rp->DrawMode= JAM1;
 	Rp->APen= 15;

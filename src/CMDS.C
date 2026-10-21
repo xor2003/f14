@@ -115,6 +115,7 @@ extern  int     Speedy,MinAlt;
 extern  UWORD   FrameRate10, FTicks;
 extern  UBYTE   ExitCode;
 extern  int     BackSeat;
+extern	int		FlipCnt;
 extern  int     Panning;
 extern  UWORD	Joystick;
 extern  UWORD   ThrustStick;
@@ -242,8 +243,9 @@ GetJoystickInputs()
                              -8,  0,  0, PAD6,  KKEY, 0, 0, PAD8};
     int    CoolyVal;
     int    Trigs;
+    int    i;
 
-    j =ReadJoy2(Joystick|RudderStick|ThrustStick|CoolyStick);
+    j =ReadJoy2(Joystick|RudderStick|CoolyStick|ThrustStick);
     mS1n = j.x+128;
     mS2n = j.y+128;
 
@@ -255,24 +257,29 @@ GetJoystickInputs()
 
     ThrustChange=0;
     if (ThrustStick) {
-        ThrustChange = 128-j.z;
+        if (j.z>0) j.z=0;
+        ThrustChange = abs(j.z);
         if (ThrustChange<5) ThrustChange=1; // 1 is the flag
     }
 
 	// ThrustMaster
     if (CoolyStick) {
-        CoolyVal = (128-j.z+16) /32;
-        if (CoolyVal) KEYPRINT = CoolyKeys[CoolyVal];
+        if (j.z>0) j.z=0;
+        CoolyVal = (abs(j.z)+16) /32;
+        if (CoolyVal && KEYPRINT==0) KEYPRINT = CoolyKeys[CoolyVal];
     }
 
 	// Get Trigger Data
    	if (StickType==0)
       	Trigs=0;
-   	else
-      	Trigs = (~inp(0x201)>>4)&15;
+   	else {
+      	Trigs=0;
+      	for (i=3;i>=0;i--)
+          	Trigs = (Trigs<<1) | Trigger2(i);
+	}
 
 	// CH PRO Sticks
-    if (StickType==J_CHPRO) {
+    if (StickType==7 || StickType==6) {
         Trigs = CHKeys[Trigs];
         if (Trigs>0) {
             KEYPRINT = Trigs;
@@ -538,6 +545,10 @@ Cmds()
 	extern char gstr182[];
 	extern char gstr183[];
 	extern char gstr184[];
+	extern char gstr184b[];
+	extern char gstr184c[];
+	extern char gstr184d[];
+	extern char gstr184e[];
 	extern char gstr185[];
 	extern char gstr186[];
 	extern char gstr187[];
@@ -608,12 +619,11 @@ Cmds()
 		case CTRLL:
 			LaunchAircraft();
 		break;
+		case ALTBKEY:
+			TomcatBall();
+		break;
 		case EKEY:
 			EasyLanding();
-		break;
-
-		case SHIFTW:
-			ChangeWeather();
 		break;
 
         case SHIFTE:
@@ -661,11 +671,19 @@ Cmds()
         case JKEY:
 			if (!(Damaged&D_ECM)) {
 				JAMMER ^= 1;
+				if (JAMMER)
+					Message(gstr184b,RIO_NOW_MSG);
+				else
+					Message(gstr184c,RIO_NOW_MSG);
 			}
 		break;
 
         case MKEY:
 			MasterArmSW ^=1;
+			if (MasterArmSW)
+				Message(gstr184d,RIO_NOW_MSG);
+			else
+				Message(gstr184e,RIO_NOW_MSG);
 		break;
 
         case KEY1:
@@ -798,10 +816,19 @@ Cmds()
 			ToggleAutoTrim();
 		break;
 
+		case SHIFTU:
+			CageHeater();
+		break;
+
+		case UKEY:
+			UnCageHeater();
+		break;
+
         case RKEY:
 			AWG9_POWERUP();
 		break;
 
+		case CHNG_DEG:
         case INSERT:
 		case CTRLQ:
 			if (AWG9_REALITY_LEVEL==AWG9_MODERATE) {
@@ -837,6 +864,7 @@ Cmds()
 			AWG9_MODE_BREAK();
 		break;
 
+		case CHNG_AZ:
         case HOME:
 		case CTRLE:
 			if (AWG9_REALITY_LEVEL==AWG9_AUTHENTIC) {
@@ -918,16 +946,22 @@ Cmds()
 
 
 		case RDR_RNG_5:
+			AWG9_SET_RANGE(0);
 		break;
 		case RDR_RNG_10:
+			AWG9_SET_RANGE(1);
 		break;
 		case RDR_RNG_20:
+			AWG9_SET_RANGE(2);
 		break;
 		case RDR_RNG_50:
+			AWG9_SET_RANGE(3);
 		break;
 		case RDR_RNG_100:
+			AWG9_SET_RANGE(4);
 		break;
 		case RDR_RNG_200:
+			AWG9_SET_RANGE(5);
 		break;
 
 		case RDR_ELVN_60:
@@ -947,6 +981,7 @@ Cmds()
 
         case QUOTE:
 			BackSeat^=1;
+			FlipCnt=2;
 			View = FRONT;
 			LookUp();
 		break;
@@ -1027,18 +1062,22 @@ Cmds()
 
         	case ALTSKEY:
 				PyLng += 256L<<Mscale;
+				CheckOurAlt();
 				SlewOurWingmen(0L, (-256L<<Mscale));
 			break;
         	case ALTXKEY:
 				PyLng -= 256L<<Mscale;
+				CheckOurAlt();
 				SlewOurWingmen(0L, (256L<<Mscale));
 			break;
         	case ALTZKEY:
 				PxLng -= 256L<<Mscale;
+				CheckOurAlt();
 				SlewOurWingmen((-256L<<Mscale), 0L);
 			break;
         	case ALTCKEY:
 				PxLng += 256L<<Mscale;
+				CheckOurAlt();
 				SlewOurWingmen((256L<<Mscale), 0L);
 			break;
 		}

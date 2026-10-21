@@ -90,7 +90,7 @@ Trigger2	proc	FAR
 
         cmp     ColoSpecThere,-1
         jne     @F
-        call    ColoSpecSetup
+        call    FAR PTR ColoSpecSetup
 @@:
         cmp     ColoSpecThere,1
         jne     @F
@@ -107,6 +107,7 @@ Trigger2	proc	FAR
         pop     si
         pop     di
         jmp     tr1
+	nop
 @@:
         mov     dx,0201h        ; Joystick port
         in      al,dx
@@ -116,7 +117,8 @@ tr1:
         mov     cx,[bx+4]
         add     cx,4
         shr     al,cl
-        and     ax,1
+        db      025h
+        dw      1
 
         ret
 
@@ -130,7 +132,7 @@ Trigger2	ENDP
 ;������������������������������������������������������������������������
 InitJoy2	proc	far		iMask:byte
 
-        call    ColoSpecSetup
+        call    FAR PTR ColoSpecSetup
 
 
 	push	ds
@@ -240,6 +242,7 @@ JoyRead	proc	NEAR		; AH = bit-mask (input)
         mov     bp,bx
         mov     bx,ax
         jmp     st2
+	nop
 @@:
 
 	cli
@@ -298,6 +301,7 @@ JoyConvert	proc	near
 ;
 Center:	mov	ah,0			; value = 0 for CENTER
 	jmp	GotVal
+	nop
 
 ;
 ;---- JoyIn < Center
@@ -310,6 +314,7 @@ NewMin:	;mov	MinStick[bx],ax		; new MinStick[]
 ;	mov	LowRange[bx],dx		; new LowRange[]
 	mov	ah,-127			; value = -127 for MIN
 	jmp	GotVal
+	nop
 
 MinOK:	xor	ax,ax
 	div	LowRange[bx]
@@ -319,6 +324,7 @@ MinOK:	xor	ax,ax
         sub     ax,ax
 NoDead:	neg	ax			; value = [-127..0]
 	jmp	GotVal
+	nop
 
 ;
 ;---- JoyIn > Center
@@ -330,6 +336,7 @@ NewMax:	;mov	MaxStick[bx],ax		; new MaxStick[]
 ;	mov	HighRange[bx],dx	; new HighRange[]
 	mov	ah,127			; value = 127 for MAX
 	jmp	GotVal
+	nop
 
 MaxOK:	xor	ax,ax
 	div	HighRange[bx]

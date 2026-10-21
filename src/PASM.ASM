@@ -2705,69 +2705,118 @@ DrawFromOFFTBL  ENDP
 
 endif
 
-.8086
+.386
 
-NScaleLine	PROC	USES si di bx ds es,SRCSEG:WORD,BASE:WORD,ADDR2:WORD,X:WORD,Y:WORD,W:WORD,DEST:WORD
+OPTION PROLOGUE:NONE
+OPTION EPILOGUE:NONE
 
+NScaleLine	PROC	SRCSEG:WORD,BASE:WORD,ADDR2:WORD,X:WORD,Y:WORD,W:WORD,DEST:WORD
+
+	enter	0,0
+	push	si
+	push	di
+	push	bx
+	push	ds
+	push	es
+
+	mov	cx,W
+	shr	cx,4
+	jnz	near ptr doit
+	jmp	done
+
+doit:
 	mov	ds,SRCSEG
 	mov	si,BASE
 	mov	ax,DEST
 	mov	es,ax
 
 	mov	ax,Y
-	shl	ax,1
-	shl	ax,1
-	shl	ax,1
-	shl	ax,1
-	shl	ax,1
-	shl	ax,1
+	shl	ax,6
 	mov	bx,ax
-	shl	ax,1
-	shl	ax,1
+	shl	ax,2
 	add	ax,bx
 	mov	di,ax
 	add	di,X
 
-	mov	cx,W
 	mov	bp,ADDR2
-	shr	cx,1
-	shr	cx,1
-
-	shr	cx,1
 
 @@:
 	mov	bx,[bp]
-	mov	al,[bx+si]
+	mov	ax,[bx+si]
 	mov	bx,2[bp]
 	mov	ah,[bx+si]
 	mov	es:[di],ax
 
 	mov	bx,4[bp]
-	mov	al,[bx+si]
+	mov	ax,[bx+si]
 	mov	bx,6[bp]
 	mov	ah,[bx+si]
 	mov	es:2[di],ax
 
 	mov	bx,8[bp]
-	mov	al,[bx+si]
+	mov	ax,[bx+si]
 	mov	bx,10[bp]
 	mov	ah,[bx+si]
 	mov	es:4[di],ax
 
 	mov	bx,12[bp]
-	mov	al,[bx+si]
+	mov	ax,[bx+si]
 	mov	bx,14[bp]
 	mov	ah,[bx+si]
 	mov	es:6[di],ax
 
-        add	bp,16
-	add	di,8
-	loop	@B
+	mov	bx,16[bp]
+	mov	ax,[bx+si]
+	mov	bx,18[bp]
+	mov	ah,[bx+si]
+	mov	es:8[di],ax
 
+	mov	bx,20[bp]
+	mov	ax,[bx+si]
+	mov	bx,22[bp]
+	mov	ah,[bx+si]
+	mov	es:10[di],ax
+
+	mov	bx,24[bp]
+	mov	ax,[bx+si]
+	mov	bx,26[bp]
+	mov	ah,[bx+si]
+	mov	es:12[di],ax
+
+	mov	bx,28[bp]
+	mov	ax,[bx+si]
+	mov	bx,30[bp]
+	mov	ah,[bx+si]
+	mov	es:14[di],ax
+
+	add	bp,32
+	add	di,16
+	dec	cx
+	jz	near ptr done
+	jmp	short @B
+
+done:
+	pop	es
+	pop	ds
+	pop	bx
+	pop	di
+	pop	si
+	pop	bp
 	ret
 NScaleLine	ENDP
 
-NScaleLine2	PROC	USES si di bx ds es,SRCSEG:WORD,BASE:WORD,ADDR2:WORD,X:WORD,Y:WORD,W:WORD,DEST:WORD
+NScaleLine2	PROC	SRCSEG:WORD,BASE:WORD,ADDR2:WORD,X:WORD,Y:WORD,W:WORD,DEST:WORD
+
+	enter	0,0
+	push	si
+	push	di
+	push	bx
+	push	ds
+	push	es
+
+	mov	cx,W
+	shr	cx,3
+	jcxz	done
 
 	mov	ds,SRCSEG
 	mov	si,BASE
@@ -2775,62 +2824,59 @@ NScaleLine2	PROC	USES si di bx ds es,SRCSEG:WORD,BASE:WORD,ADDR2:WORD,X:WORD,Y:W
 	mov	es,ax
 
 	mov	ax,Y
-	shl	ax,1
-	shl	ax,1
-	shl	ax,1
-	shl	ax,1
-	shl	ax,1
-	shl	ax,1
+	shl	ax,6
 	mov	bx,ax
-	shl	ax,1
-	shl	ax,1
+	shl	ax,2
 	add	ax,bx
 	mov	di,ax
 	add	di,X
 
-	mov	cx,W
 	mov	bp,ADDR2
-	shr	cx,1
-	shr	cx,1
-
-	shr	cx,1
 
 @@:
 	mov	bx,[bp]
-	mov	al,[bx+si]
+	mov	ax,[bx+si]
+	mov	ah,al
+	inc	ah
 	mov	es:[di],al
 
-        inc     al
-        mov	es:1[di],al
-
 	mov	bx,4[bp]
-	mov	al,[bx+si]
+	mov	ax,[bx+si]
+	mov	ah,al
+	inc	ah
 	mov	es:2[di],al
 
-        inc     al
-        mov	es:3[di],al
-
 	mov	bx,8[bp]
-	mov	al,[bx+si]
+	mov	ax,[bx+si]
+	mov	ah,al
+	inc	ah
 	mov	es:4[di],al
 
-        inc     al
-        mov	es:5[di],al
-
 	mov	bx,12[bp]
-	mov	al,[bx+si]
+	mov	ax,[bx+si]
+	inc	ah
 	mov	es:6[di],al
-
-        inc     al
-        mov	es:7[di],al
-
 
 	add	bp,16
 	add	di,8
-	loop	@B
+	dec	cx
+	jcxz	done
+	jmp	short @B
 
+done:
+	pop	es
+	pop	ds
+	pop	bx
+	pop	di
+	pop	si
+	pop	bp
 	ret
 NScaleLine2	ENDP
+
+OPTION PROLOGUE:PROLOGUEDEF
+OPTION EPILOGUE:EPILOGUEDEF
+
+.8086
 
 LCNT	dw	1
 

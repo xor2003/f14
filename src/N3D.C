@@ -75,6 +75,8 @@ extern   LPoly(struct CPT32 far *PL, int CNT, char far *D, int TYPE, char far *S
 extern   struct	PT3D far *CheckPointRot(unsigned int Pt );
 
 extern   int   NOTEXTURE;
+extern   int   EMSPagesGrabbed;
+extern   EMSFileUsage();
 
 #define	GOUROUD 1
 #define	TEXTURE 2
@@ -752,6 +754,10 @@ LoadEMSObject( char *Name,int ID)
 
    OBJB+=1;    // skip radius
    P= (char far *)(OBJB);
+
+   if ((NOTEXTURE==0)&&(*(P)!=0)) {
+      if ((EMSPagesGrabbed-EMSFileUsage())<12) NOTEXTURE=1;
+   }
 
    if ( (*(P)==0)|| NOTEXTURE ) {
       objhndls[ID].txtrhndl=0;

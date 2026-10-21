@@ -168,7 +168,7 @@ int IsBombing(int planenum);
 int FriendStatus(int planenum);
 int FriendMatch(int plane1, int plane2);
 int FriendMatchType(int plane1, int isfriend);
-void UpdateOurWPS(int lastwp, int updateall);
+int UpdateOurWPS(int lastwp, int updateall);
 int CloseEnoughFor(int whatcheck, int x, int y);
 int GetPlaneOrgNum(int planenum);
 int CheckForMobileR5(int basenum, int isfriend);

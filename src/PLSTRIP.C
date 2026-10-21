@@ -2977,10 +2977,8 @@ void UpdateHelicopterHPR_SandP () {
 		if(abs(psi->roll) > 0xA00)
 	        spd -= labs( sinXL(psi->roll,spd)) >>1;
 
-        if (REALFLIGHT) {
             a = rng(psi->alt, 5000/4, 30000/4) - 5000/4;
             spd -= ((long)a * spd) / (20*2500L);
-        }
 
 		if(spd < 0L)
 			spd = 0L;
@@ -3095,6 +3093,13 @@ void UpdateHelicopterHPR_SandP () {
     }
 
 	if (psi->alt<0) {  /* Too low, hit the ground */
+		if(!(psi->status & CRASH)) {
+			IndirectWPCorrection(i);
+			LogIt (SLG_AIR_CRASH, i, psi->xL, psi->yL, psi->alt, -999, -999, 0L, LOG_AIR);
+			UpdateMissionData(1, ptype->PlaneEnumId);
+			UpdateMissionData(2, ptype->PlaneEnumId);
+		}
+
         psi->status &= PERMANENTBITS;
 
 		if(CloseEnoughFor(SNDSTUFF, psi->x, psi->y))

@@ -90,8 +90,6 @@ extern struct PlaneData far *GetPlanePtr(int PlaneNo);
 
 extern long labs(long X);
 
-int Do3dObject(int Obj, long OX, long OY, UWORD OZ, int ID,int TYPE);
-
 //***************************************************************************
 Do3dObject(int Obj, long OX, long OY, UWORD OZ, int ID,int TYPE)
 {
@@ -104,7 +102,7 @@ Do3dObject(int Obj, long OX, long OY, UWORD OZ, int ID,int TYPE)
 
 
     dx = OX - ViewX;
-    dy = (ViewY - 0x100000L) + OY;
+    dy = ViewY + OY - 0x100000L;
     dz = OZ - ViewZ;
 
 	if (abs(dz) > 0x3ffe) return (1);
@@ -147,6 +145,8 @@ Do3dObject(int Obj, long OX, long OY, UWORD OZ, int ID,int TYPE)
 
 }
 
+
+int Do3dObject(int Obj, long OX, long OY, UWORD OZ, int ID,int TYPE);
 
 //***************************************************************************
 Boats3D()
@@ -238,7 +238,8 @@ Planes3D()
                 if (sz<0) {
                     if (sz>-32) {
 						tempmissile = GetMissilePtr(ss[i].type);
-                        Do3dObject(tempmissile->objslot, ss[i].x,ss[i].y,ss[i].alt, i,MISSILE_OBJ);
+						if (tempmissile->MissileEnumId != 0x3b)
+							Do3dObject(tempmissile->objslot, ss[i].x,ss[i].y,ss[i].alt, i,MISSILE_OBJ);
                     } else {
                         if (sx!=-1) DrawDot (Rp3D, sx,sy, i<NESAM?HISMISSLCOLOR:ORANGEFLAME);  /* if far away, just draw a dot */
                     }
@@ -501,12 +502,12 @@ DrawCoolF14(int X, int Y, int Z, int SHFT)
 	InvertMatrix();
 
     Trans3X3(O, M);
-    V2[0] = -4*Y;
-    V2[1] = -4*X;
+    V2[0] = -4*X;
+    V2[1] = -4*Y;
     V2[2] = -4*Z;
     Rotate(V2, M);
 
-    dst=X/8+Y/8+Z/8;
+    dst=Y/8+Z/8+X/8;
 
    mydetail=2;
    if (dst>400)
@@ -527,9 +528,9 @@ DrawCoolF14(int X, int Y, int Z, int SHFT)
    if (mydetail==0)
       {
       if (Status&WHEELSUP)
-         DrawSuper3DObject(CoolObj,N3DZ_FLIGHT_F14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj,N3DZ_FLIGHT_F14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
       else
-         DrawSuper3DObject(CoolObj,N3DZ_DECK_F14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj,N3DZ_DECK_F14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
       }
    if (mydetail==1)
       {
@@ -537,21 +538,21 @@ DrawCoolF14(int X, int Y, int Z, int SHFT)
          {
          AnimVals[14]=WingRot;
   		   AnimVals[30]=-(slposx*DEG)+(slposy*DEG);
-			DrawSuper3DObject(CoolObj,N3DZ_L_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
-			NDraw3DObject(N3DZ_C_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+			DrawSuper3DObject(CoolObj,N3DZ_L_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+			NDraw3DObject(N3DZ_C_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
 			AnimVals[14]=-WingRot;
 		   AnimVals[30]=(slposx*DEG)+(slposy*DEG);
-			DrawSuper3DObject(CoolObj,N3DZ_R_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+			DrawSuper3DObject(CoolObj,N3DZ_R_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
          }
       else
          {
 			AnimVals[14]=-WingRot;
          AnimVals[30]=(slposx*DEG)+(slposy*DEG);
-			DrawSuper3DObject(CoolObj,N3DZ_R_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
-			NDraw3DObject(N3DZ_C_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+			DrawSuper3DObject(CoolObj,N3DZ_R_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+			NDraw3DObject(N3DZ_C_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
 			AnimVals[14]=WingRot;
          AnimVals[30]=-(slposx*DEG)+(slposy*DEG);
-			DrawSuper3DObject(CoolObj,N3DZ_L_MEDF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+			DrawSuper3DObject(CoolObj,N3DZ_L_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
          }
       }
    if (mydetail==2)
@@ -561,26 +562,26 @@ DrawCoolF14(int X, int Y, int Z, int SHFT)
 		   AnimVals[14]=WingRot;
 		   AnimVals[29]=(WingRot/8);
   		   AnimVals[30]=-(slposx*DEG)+(slposy*DEG);
-		   DrawSuper3DObject(CoolObj, N3DZ_L_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
-		   DrawSuper3DObject(CoolObj, N3DZ_LM_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
-		   DrawSuper3DObject(CoolObj, N3DZ_RM_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+		   DrawSuper3DObject(CoolObj, N3DZ_L_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+		   DrawSuper3DObject(CoolObj, N3DZ_LM_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+		   DrawSuper3DObject(CoolObj, N3DZ_RM_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
 		   AnimVals[14]=-WingRot;
 		   AnimVals[29]=-(WingRot/8);
 		   AnimVals[30]=(slposx*DEG)+(slposy*DEG);
-		   DrawSuper3DObject(CoolObj, N3DZ_R_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+		   DrawSuper3DObject(CoolObj, N3DZ_R_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
 	      }
       else
          {
          AnimVals[14]=-WingRot;
          AnimVals[29]=-(WingRot/8);
          AnimVals[30]=(slposx*DEG)+(slposy*DEG);
-         DrawSuper3DObject(CoolObj, N3DZ_R_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
-         DrawSuper3DObject(CoolObj, N3DZ_RM_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
-         DrawSuper3DObject(CoolObj, N3DZ_LM_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj, N3DZ_R_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj, N3DZ_RM_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj, N3DZ_LM_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
          AnimVals[14]=WingRot;
          AnimVals[29]=-(WingRot/8);
          AnimVals[30]=-(slposx*DEG)+(slposy*DEG);
-         DrawSuper3DObject(CoolObj, N3DZ_L_COOLF14, Y*bgsscl,X*bgsscl, Z*bgsscl, O, AnimVals);
+         DrawSuper3DObject(CoolObj, N3DZ_L_COOLF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, AnimVals);
 	      }
       }
    Scale3d=1;
@@ -774,15 +775,19 @@ InitOurCoolPlane(InAir)
 
 
 
+extern   int   NPlanes;
+extern   int   LEV;
+
+int MedWingRot;
+
 //***************************************************************************
 DrawTexPlane(int NUM, int X, int Y, int Z, int ID, int SHFT)
 {
-    struct Planes  *psi;
+    register struct Planes  *psi;
     int r;
 	int Anim[50];
 	int M[9];
 	int MedAnimVals[32] = { 0 };
-	static int MedWingRot;
 
 
     int V2[3];
@@ -796,8 +801,11 @@ DrawTexPlane(int NUM, int X, int Y, int Z, int ID, int SHFT)
 
 	if ((planetemp->PlaneEnumId == SO_F_14FDA) || (planetemp->PlaneEnumId == SO_F_14FDB) ||
 		(planetemp->PlaneEnumId == SO_F_14FDC) || (planetemp->PlaneEnumId == SO_F_14MCA) ||
-		(planetemp->PlaneEnumId == SO_F_14MCB) || (planetemp->PlaneEnumId == SO_F_14MCC)) {
+		(planetemp->PlaneEnumId == SO_F_14MCB) || (planetemp->PlaneEnumId == SO_F_14MCC) ||
+		(planetemp->PlaneEnumId == SO_AS_4)) {
 
+			if (planetemp->PlaneEnumId == SO_AS_4)
+				LEV = 1;
 			MakeMatHPR(psi->head, -psi->pitch, psi->roll, O);
    			InvertMatrix();
 
@@ -808,11 +816,11 @@ DrawTexPlane(int NUM, int X, int Y, int Z, int ID, int SHFT)
        		Rotate(V2, M);
 
 			if (SHFT)
-				Shift3X3(O,SHFT);
+				Shift3X3(O,Scale3d=SHFT);
 
-    		MedAnimVals[9] = !(LightsOn);	// Formation is On
-    		MedAnimVals[10] = LightsOn;     // Lights is On
     		MedAnimVals[12] = 1;
+    		MedAnimVals[10] = ((bv[ID].behaveflag & ENEMYNOFIRE) || (psi->status & (TAKEOFF|LANDED|LANDING))) ? LightsOn : 0;
+    		MedAnimVals[9] = (psi->status & (TAKEOFF|LANDED|LANDING)) ? !(LightsOn) : 1;
 
 
 			if(psi->status & TAKEOFF) {
@@ -829,10 +837,9 @@ DrawTexPlane(int NUM, int X, int Y, int Z, int ID, int SHFT)
 			}
 
 
-			MedAnimVals[13]= ((psi->status&TAKEOFF)
-                      ||(detected && !psi->alert && r<0x1000)); // afterburner
+			MedAnimVals[13]= ((psi->status&TAKEOFF) && (bv[ID].basespeed>0)) || (bv[ID].basespeed>=500);
 
-			if (psi->speed < 100)
+			if ((bv[ID].basespeed < 450) && (!(psi->status & TAKEOFF)))
 				MedAnimVals[13] = 0;
 
     		MedAnimVals[15]= r<0x3000;                                // vapor trail
@@ -848,7 +855,7 @@ DrawTexPlane(int NUM, int X, int Y, int Z, int ID, int SHFT)
             if (psi->speed<250)
                MedWingRot = (48*DEG);
             else
-               MedWingRot= (10*DEG)+((38*(psi->speed-250))/100)*DEG;
+               MedWingRot= (10+((38*(psi->speed-250))/100))*DEG;
             }
 
 
@@ -881,14 +888,17 @@ DrawTexPlane(int NUM, int X, int Y, int Z, int ID, int SHFT)
 				MedAnimVals[14]=MedWingRot;
 				DrawSuper3DObject(CoolObj,N3DZ_L_MEDF14, X*bgsscl,Y*bgsscl, Z*bgsscl, O, MedAnimVals);
 			}
+			Scale3d=1;
+			if (planetemp->PlaneEnumId == SO_AS_4)
+				LEV = 0;
 			return(1);
 		}
 
 		*(PalPtr3D+146)= pflashtbl[GFLSH&3];
 		r = abs(psi->roll);
-    	PlaneAnimVals[ 9]=
-		PlaneAnimVals[12] = !(psi->alert==0 && LightsOn);            // var12 = lights
-		PlaneAnimVals[10] = (LightsOn);
+		PlaneAnimVals[10] = ((bv[ID].behaveflag & ENEMYNOFIRE) || (psi->status & (TAKEOFF|LANDED|LANDING))) ? LightsOn : 0;
+		if (ID < NPlanes)
+			PlaneAnimVals[9] = (psi->status & (TAKEOFF|LANDED|LANDING)) ? !(LightsOn) : 1;
 
 		if(psi->status & TAKEOFF) {
 			PlaneAnimVals[6] = 1;
@@ -900,10 +910,12 @@ DrawTexPlane(int NUM, int X, int Y, int Z, int ID, int SHFT)
 			PlaneAnimVals[6] = 0;
 		}
 
-		PlaneAnimVals[13]= ((psi->status&TAKEOFF)
-                      ||(detected && !psi->alert && r<0x1000)); // afterburner
+		if (planetemp->PlaneEnumId == SO_KA_6a)
+			PlaneAnimVals[11] = !((psi->status == 0) & (TAKEOFF|BACKTOBASE));
 
-		if (psi->speed < 100)
+		PlaneAnimVals[13]= ((psi->status&TAKEOFF) && (bv[ID].basespeed>0)) || (bv[ID].basespeed>=500);
+
+		if ((bv[ID].basespeed < 450) && (!(psi->status & TAKEOFF)))
 			PlaneAnimVals[13] = 0;
 
     	PlaneAnimVals[15]= r<0x3000;                                // vapor trail
@@ -914,12 +926,16 @@ DrawTexPlane(int NUM, int X, int Y, int Z, int ID, int SHFT)
     	MakeMatHPR(psi->head, -psi->pitch, psi->roll, O);
 		InvertMatrix();
 
-		if (SHFT)
+		if (SHFT) {
 			Shift3X3(O,SHFT);
+            Scale3d=SHFT;
+        }
+        NOTEXTURE = (psi->status & NEUTRAL) != 0;
 
 		NDraw3DObject(NUM, X,Y,Z, O, PlaneAnimVals);
 
 		*(PalPtr3D+146)= 146*256+146;
+        Scale3d=1;
 }
 
 

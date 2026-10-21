@@ -2071,19 +2071,16 @@ void DamageAI(int planenum, int damage)
 		case 0:
 			damagenum = 0;
 			break;
-		case 3: case 4: case 12: case 30: case 31:
+		case 2: case 3: case 10: case 30: case 31:
 			damagenum = 2;
 			break;
-		case 13: case 14:
+		case 11:
 			damagenum = 3;
 			break;
-		case 15:
+		case 12:
 			damagenum = 4;
 			break;
-		case 1: case 2: case 5: case 6: case 7: case 8: case 9:
-		case 10: case 11: case 16: case 17: case 18: case 19:
-		case 20: case 21: case 22: case 23: case 24: case 25:
-		case 26: case 27: case 28: case 29:
+		default:
 			damagenum = 1;
 	}
 
@@ -2095,8 +2092,8 @@ void DamageAI(int planenum, int damage)
 	for(i = 0; i < damagenum; i++) {
 		if(slot == 0) {
 			damageeffect |= DAMAGERADAR;
-			if(Night)
-				goto gohome;
+			if(!Night)
+				goto next;
 		}
 		else if(slot == 1) {
 			damageeffect |= DAMAGEENGINE;
@@ -2249,6 +2246,17 @@ void GiveSortInfo(int rangarray[], int numarray[], int distarray[], int targetnu
 	extern char gstr516[];
 	extern char gstr517[];
 	extern char gstr518[];
+	extern char gstr519[];
+	extern char gstr521[];
+	extern char gstr522[];
+	extern char gstr523[];
+	extern char gstr525[];
+	extern char gstr514b[];
+	extern char gstr515b[];
+	extern char gstr516b[];
+	extern char gstr516c[];
+	extern char gstr517b[];
+	extern char gstr517c[];
 
 	if(numarray[2] == -1) {
 		if(abs(distarray[0] - distarray[1]) < 10) {
@@ -2300,10 +2308,10 @@ void GiveSortInfo(int rangarray[], int numarray[], int distarray[], int targetnu
 			}
 			if(!tempsort) {
 				if(distarray[tempme] < distarray[1]) {
-					TXA(gstr514);
+					TXA(gstr518);
 				}
 				else {
-					TXA(gstr515);
+					TXA(gstr519);
 				}
 			}
 			Message(Txt,WINGMAN_MSG);
@@ -2311,18 +2319,18 @@ void GiveSortInfo(int rangarray[], int numarray[], int distarray[], int targetnu
 		}
 		else {
 			if(tempsort) {
-				TXA(gstr516);
+				TXA(gstr521);
 				tempother = 0;
 			}
 			else {
-				TXA(gstr517);
+				TXA(gstr522);
 				tempother = 1;
 			}
 			if(distarray[1] < distarray[tempother]) {
-				TXA(gstr514);
+				TXA(gstr523);
 			}
 			else {
-				TXA(gstr515);
+				TXA(gstr525);
 			}
 			Message(Txt,WINGMAN_MSG);
 			return;
@@ -2332,30 +2340,30 @@ void GiveSortInfo(int rangarray[], int numarray[], int distarray[], int targetnu
 		if(targetnum == numarray[0]) {
 			tempme = 0;
 			tempother = 1;
-			TXA(gstr516);
+			TXA(gstr516b);
 		}
 		else if(targetnum == numarray[1]) {
 			tempme = 1;
 			tempother = 0;
-			TXA(gstr516);
+			TXA(gstr516c);
 		}
 		else if(targetnum == numarray[2]) {
 			tempme = 2;
 			tempother = 3;
-			TXA(gstr517);
+			TXA(gstr517b);
 		}
 		else if(targetnum == numarray[3]) {
 			tempme = 3;
 			tempother = 2;
-			TXA(gstr517);
+			TXA(gstr517c);
 		}
 		if(distarray[tempme] < distarray[tempother]) {
-			TXA(gstr514);
+			TXA(gstr514b);
 			Message(Txt,WINGMAN_MSG);
 			return;
 		}
 		else {
-			TXA(gstr515);
+			TXA(gstr515b);
 			Message(Txt,WINGMAN_MSG);
 			return;
 		}
@@ -2773,7 +2781,7 @@ int OvalTurn2(int ovalheight, int ovalwidth, int ovallength)
 void CAPLeg1()
 {
 	int wingnum;
-	extern char gstr520[];
+	extern char gstr520b[];
 	extern char gstr526[];
 
 	i = planecnt;
@@ -2796,7 +2804,7 @@ void CAPLeg1()
 		}
 		if(GetSquadLeader(i) == -1) {
 			GetWingName(i, Txt);
-			TXA(gstr520);
+			TXA(gstr520b);
 			Message(Txt,WINGMAN_MSG);
 		}
 	}
@@ -3020,22 +3028,7 @@ int FlyTo(int xdim, int ydim, int altdim, int ignoredist)
 	else
 		pdest = 0;
 
-	if((tdist < 20) && !ignoredist) {
-		return(1);
-	}
-
-#if 1
-	if((tempvar) && (bv[i].Behavior == AIGoHome)) {
-		TXT(gstr529);
-		TXN(i);
-		TXA(gstr389);
-		TXN(tdist);
-//		TXA(" b ");
-//		TXN(ps[i].base);
-		Message(Txt,DEBUG_MSG);
-	}
-#endif
-	return(0);
+	return((tdist < 20) && !ignoredist);
 }
 
 //void TranslateBehavior(int planenum, int behavenum)
@@ -3512,6 +3505,7 @@ void HelpAIRefuel()
 }
 #endif
 
+#pragma optimize("egl", off)
 void FlyWayPoint()
 {
 	int dx, dy, dz;
@@ -3728,6 +3722,7 @@ void FlyWayPoint()
 	else
 		bv[i].finhead = ps[i].head;
 }
+#pragma optimize("egl", on)
 
 void ShowJettison(int planenum)
 {

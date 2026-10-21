@@ -1220,6 +1220,14 @@ UpdateSpeedAndPosition ()
 		if(!(psi->status & CRASH)) {
 			IndirectWPCorrection(i);
 			LogIt (SLG_AIR_CRASH, i, psi->xL, psi->yL, psi->alt, -999, -999, 0L, LOG_AIR);
+			if(bv[i].leader == -1) {
+				UpdateMissionData(1, ourplanetype);
+				UpdateMissionData(2, ourplanetype);
+			}
+			else {
+				UpdateMissionData(1, ptype->PlaneEnumId);
+				UpdateMissionData(2, ptype->PlaneEnumId);
+			}
 		}
 
         psi->status = 0;
@@ -1507,7 +1515,7 @@ search ()
 				pwtargetnum = GetSquadLeader(targetnum);
 				if(pwtargetnum == -1) pwtargetnum = MAXPLANE;
 				if(pwtargetnum < MAXPLANE) {
-					if((ps[pwtargetnum].time < Gtime) || (!((Gtime + i) & 0xF))) {
+					if((ps[pwtargetnum].time < Gtime) || (!((i + Gtime) & 0xF))) {
 						tempgotcha = 3;
     	        		gotcha(targetnum);          // Detected! (I'm sure you are there now)
 						tempgotcha = -999;
@@ -1692,7 +1700,7 @@ CheckTailAspect (long x, long y) {
         hd =   ps[bv[i].target].head;
     } else {
         dx = x-PxLng;
-        dy = y-(0x100000-PyLng);
+        dy = y+PyLng;
         hd = OurHead;
     }
 
@@ -6352,7 +6360,7 @@ void UpdateHelicopterHPR_SandP () {
 		psi->head += fdroll/FrameRate;
 		droll = rng2(-psi->roll, -(ptype->maneuver<<9), (ptype->maneuver<<9));
 		psi->roll += droll*4L/FrameRate;
-		psi->pitch += (rng2(0xa00 - psi->speed, -0x400, 0x400))*4/FrameRate;
+		psi->pitch += (rng2(0xa00 - psi->pitch, -0x400, 0x400))*4/FrameRate;
 	}
 	else {
    		psi->roll += fdroll;
@@ -6393,10 +6401,8 @@ void UpdateHelicopterHPR_SandP () {
 		if(abs(psi->roll) > 0xA00)
 	        spd -= labs( sinXL(psi->roll,spd)) >>1;
 
-        if (REALFLIGHT) {
             a = rng(psi->alt, 5000/4, 30000/4) - 5000/4;
             spd -= ((long)a * spd) / (20*2500L);
-        }
 
 		if(spd < 0L)
 			spd = 0L;
@@ -6404,9 +6410,9 @@ void UpdateHelicopterHPR_SandP () {
         psi->speed = (int)spd;
 		if(psi->speed == 0)
 			psi->speed = 1;
-		if(bv[i].Behavior == AICarrierLand)
-			psi->speed = bv[i].basespeed;
     }
+	else if(bv[i].Behavior == AICarrierLand)
+		psi->speed = bv[i].basespeed;
 
 //    spd = (psi->speed*27 >>6) /FrameRate;
 
@@ -6513,6 +6519,13 @@ void UpdateHelicopterHPR_SandP () {
     }
 
 	if (psi->alt<0) {  /* Too low, hit the ground */
+		if(!(psi->status & CRASH)) {
+			IndirectWPCorrection(i);
+			LogIt (SLG_AIR_CRASH, i, psi->xL, psi->yL, psi->alt, -999, -999, 0L, LOG_AIR);
+			UpdateMissionData(1, ptype->PlaneEnumId);
+			UpdateMissionData(2, ptype->PlaneEnumId);
+		}
+
         psi->status &= PERMANENTBITS;
 
 		if(CloseEnoughFor(SNDSTUFF, psi->x, psi->y))

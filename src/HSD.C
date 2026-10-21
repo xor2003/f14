@@ -24,6 +24,8 @@ extern RPS *Rp1;
 
 extern int hsdmode;
 
+extern long labs(long X);
+
 
 scaley(y)
 {
@@ -36,8 +38,8 @@ extern int _ph2;
 extern int _ph3;
 fourpoints(char far *screen,int x,int y,int color) {                 // draw 4 symmetric points about a circle
    *(screen+x+y)=color;
-   *(screen+x-y)=color;
    *(screen-x+y)=color;
+   *(screen+x-y)=color;
    *(screen-x-y)=color;
 }
 
@@ -100,12 +102,12 @@ pitchnum(int w,int pitch,int dist,int off,int ox,int oy) { // draw numbers on a 
    Rotate2D( w,off+dist,OurRoll,&x,&y);
    x=x*22/30;
    y=y*22/30;  // rotate 0 into position, dist+off is distance from center of pitch bar
-   RpPrint(RpCRT,ox+x-1,oy+scaley(y)-1,gstr113);
+   RpPrint(RpCRT,x+ox-1,oy+scaley(y)-1,gstr113);
    Rotate2D(-w,off+dist,OurRoll,&x,&y);
    x=x*22/30;
    y=y*22/30;  // rotate 0 to 8 into position
    if (Txt[0]=='1') x+=2;                                      // if printing a '1' then shift over because not using proportional font, ie font 7
-   RpPrint(RpCRT,ox+x-1,oy+scaley(y)-1,Txt);
+   RpPrint(RpCRT,x+ox-1,oy+scaley(y)-1,Txt);
 }
 
 
@@ -126,7 +128,7 @@ pitchbar2(int w,int pitch,int dist,int ox,int oy,int dir,char *text) { // draw p
    Rotate2D( a,b,OurRoll,&c,&d);
    c=scaler(c);
    d=scaler(d);
-   RpPrint(RpCRT,ox+c-t,oy+d-1,text);
+   RpPrint(RpCRT,ox-t+c,oy+d-1,text);
    Rotate2D(-a,b,OurRoll,&c,&d);
    c=scaler(c);
    d=scaler(d);
@@ -270,6 +272,8 @@ HsdCrt(int CrtNr)
 	extern char gstr281[];
 	extern char gstr282[];
 	extern char gstr283[];
+	extern char gstr779[];
+	extern char gstr780[];
 	extern char gstr284[];
 	extern char gstr285[];
 	extern char gstr286[];
@@ -321,7 +325,17 @@ HsdCrt(int CrtNr)
 
 	sprintf(s,gstr282,Knots);
 	RpPrint (RpCRT, (RpCRT->Width1/2)-10,(RpCRT->Length1/2)-2,s);
-	sprintf(s,gstr283,TAStoIAS(Knots));
+	if(OurAlt > 0x9538)
+		x = 0x23d;
+	else
+		x = (int)((0x650B30L - (long)OurAlt*23L)/10000L);
+	i = (int)(Knots*100L/x);
+	bx = i/100;
+	by = i - bx*100;
+	if(by < 10)
+		sprintf(s,gstr779,bx,by);
+	else
+		sprintf(s,gstr780,bx,by);
 	RpPrint (RpCRT, (RpCRT->Width1/2)-9,(RpCRT->Length1/2)+10,s);
 
 	/* Put labels/Numbers on */

@@ -111,6 +111,9 @@ int LoadScottMission()
 	extern char gstr302[];
 	extern char gstr2[];
 	extern char gstr303[];
+	extern char gstr302b[];
+	extern char gstr2b[];
+	extern char gstr303b[];
 	extern char gstr304[];
 	extern char gstr305[];
 	extern char gstr306[];
@@ -173,8 +176,8 @@ int LoadScottMission()
         return 0;
     }
 
-    if ((File = fopen (gstr302, gstr2)) == NULL) {
-		Message(gstr303,SYSTEM_MSG);
+    if ((File = fopen (gstr302b, gstr2b)) == NULL) {
+		Message(gstr303b,SYSTEM_MSG);
         return 0;
     }
 

@@ -422,6 +422,7 @@ RioMap()
 	extern char gstr711[];
 	extern char gstr712[];
 	extern char gstr713[];
+	extern char gstr713b[];
 	extern char gstr714[];
 	extern char gstr715[];
 	extern char gstr716[];
@@ -431,7 +432,7 @@ RioMap()
    RPS *Rtemp  = &Rpdef;
    FILE    *File;
    struct _missionHeader_ start_data;
-   char S[255];
+   char S[376];
 
    RioWingOK=0;
    if (AIWingMan != -999)
@@ -496,7 +497,7 @@ RioMap()
          LoadPicture(1,gstr715);
       break;
       default:
-         LoadPicture(1,gstr713);
+         LoadPicture(1,gstr713b);
       break;
    }
    RioLegend();

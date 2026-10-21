@@ -193,6 +193,7 @@ NHorz(long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER,
 	int  MSK,SHFT;
 	int	 MYM;
 	int	 SAVEBW;
+	int	 DUMMY;
 
 
 	XZD=1;
@@ -214,7 +215,7 @@ NHorz(long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER,
 		ABOVECLOUDS=1;
 	}
 
-	CLOUDAMNT = (CHT<CLOUDTHICK) ? (100 - (CHT/(CLOUDTHICK/100))) : 0;
+	CLOUDAMNT = (CHT>=CLOUDTHICK) ? 0 : (100-(CHT/(CLOUDTHICK/100)));
 
 	if (SKYDETAIL==0) (CLOUDAMNT>>=2);
 
@@ -273,14 +274,17 @@ NHorz(long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER,
       if ((SKYDETAIL==0) || ((M<=0) && !ABOVECLOUDS && BADWEATHER))
          {
          FP_SEG(P)=BUFFER;
-         FP_OFF(P)=MYWID*(i);
+         FP_OFF(P)=(i)*MYWID;
          if (M>0)
             {
             GRY= (M<8)? 0x80+(M&15):0x88;
             }
          else
             {
-            GRY= ((-M)<12)? 0xf0+((-M)&15):0xfc;
+            if (SAVEBW!=BADWEATHER)
+               GRY= MDiv(10, abs(M), ARADD/2);
+            else
+               GRY= ((-M)<12)? 0xf0+((-M)&15):0xfc;
             if (ABOVECLOUDS)
                GRY= ((-M)<3)? 0x80+((-M)&15):0x82;
 
@@ -293,7 +297,7 @@ NHorz(long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER,
       if (M>0) {
 			if (ABOVECLOUDS || (SKYDETAIL==0)) {
             	FP_SEG(P)=BUFFER;
-            	FP_OFF(P)=MYWID*(i);
+            	FP_OFF(P)=(i)*MYWID;
             	GRY= (M<16)? 0x80+(M&15):0x8f;
             	GRY= (GRY<<8)|GRY;
             	fmemfill(P,GRY,MYWID); // remember to grey out the 0x84
@@ -335,14 +339,14 @@ NHorz(long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER,
             {
             MyWaterline2((int)((XS-(XC<<1))>>(13)),(int)((ZS-(ZC<<1))>>(13)),
                         (int)(XADD>>(13)),(int)(ZADD>>(13)),
-                        CLOUDSEG+(GRY), MYWID*(i), BUFFER,
+                        CLOUDSEG+(GRY), (i)*MYWID, BUFFER,
                         MSK, MYWID );
             }
          else
             {
             MyWaterline((int)((XS-(XC<<1))>>(13)),(int)((ZS-(ZC<<1))>>(13)),
                         (int)(XADD>>(13)),(int)(ZADD>>(13)),
-                        CLOUDSEG+(GRY), MYWID*(i), BUFFER,
+                        CLOUDSEG+(GRY), (i)*MYWID, BUFFER,
                         MSK, MYWID );
 
             }
@@ -386,7 +390,7 @@ NHorz(long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER,
             {
 				MyWaterline2((int)((XS-(XC<<1))>>(11)),(int)((ZS-(ZC<<1))>>(11)),
                            (int)(XADD>>(11)),(int)(ZADD>>(11)),
-                           CLOUDSEG+(GRY), MYWID*(i), BUFFER,
+                           CLOUDSEG+(GRY), (i)*MYWID, BUFFER,
                            MSK, MYWID );
 
             }
@@ -394,7 +398,7 @@ NHorz(long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER,
             {
 				MyWaterline((int)((XS-(XC<<1))>>(11)),(int)((ZS-(ZC<<1))>>(11)),
                            (int)(XADD>>(11)),(int)(ZADD>>(11)),
-                           CLOUDSEG+(GRY), MYWID*(i), BUFFER,
+                           CLOUDSEG+(GRY), (i)*MYWID, BUFFER,
                            MSK, MYWID );
 
             }
@@ -432,14 +436,14 @@ NHorz(long XC,long ZC,int YC,int HEAD,int PITCH,int ROLL,int ARIEL,UWORD BUFFER,
             {
 				MyWaterline2((int)((XS-(XC<<1))>>(6)),(int)((ZS-(ZC<<1))>>(6)),
                            (int)(XADD>>(6)),(int)(ZADD>>(6)),
-                           CLOUDSEG+(GRY), MYWID*(i), BUFFER,
+                           CLOUDSEG+(GRY), (i)*MYWID, BUFFER,
                            MSK, MYWID );
             }
          else
             {
 				MyWaterline((int)((XS-(XC<<1))>>(6)),(int)((ZS-(ZC<<1))>>(6)),
                            (int)(XADD>>(6)),(int)(ZADD>>(6)),
-                           CLOUDSEG+(GRY), MYWID*(i), BUFFER,
+                           CLOUDSEG+(GRY), (i)*MYWID, BUFFER,
                            MSK, MYWID );
 
             }

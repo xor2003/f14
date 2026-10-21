@@ -58,7 +58,7 @@ DoDDD(int CrtNr)
 		if ((AWG9_MODE==AWG9_PDSTT) || (AWG9_MODE==AWG9_STANDARD_TRACK)) {
 			DDD_horizon_line();
 			DDDWeaponRanges();
-			draw_circle(RpCRT,DDD_CTR_X+1,DDD_CTR_Y-4,10,20,0);
+			draw_circle(RpCRT,DDD_CTR_X+1,DDD_CTR_Y-4,10,0x55,0);
 		}
 	}
 }
@@ -76,13 +76,13 @@ int show_az_carat()
 //	x+=5;
 
 	if (AZSWEEP_DIR) {
-		DrawLine(RpCRT,x,3,x,AZ_CARAT_Y+7,19);
-		DrawLine(RpCRT,x-1,3,x-1,AZ_CARAT_Y+7,20);
-		DrawLine(RpCRT,x-2,3,x-2,AZ_CARAT_Y+7,20);
+		DrawLine(RpCRT,x,3,x,AZ_CARAT_Y+7,0x56);
+		DrawLine(RpCRT,x-1,3,x-1,AZ_CARAT_Y+7,0x54);
+		DrawLine(RpCRT,x-2,3,x-2,AZ_CARAT_Y+7,0x54);
 	} else {
-		DrawLine(RpCRT,x+1,3,x+1,AZ_CARAT_Y+7,20);
-		DrawLine(RpCRT,x+2,3,x+2,AZ_CARAT_Y+7,20);
-		DrawLine(RpCRT,x,3,x,AZ_CARAT_Y+7,19);
+		DrawLine(RpCRT,x+1,3,x+1,AZ_CARAT_Y+7,0x54);
+		DrawLine(RpCRT,x+2,3,x+2,AZ_CARAT_Y+7,0x54);
+		DrawLine(RpCRT,x,3,x,AZ_CARAT_Y+7,0x56);
 	}
 }
 
@@ -111,13 +111,13 @@ int DDDWeaponRanges()
 //***************************************************************************
 int DopplerCheck(TARGET *t)
 {
-	volatile long closure;
+	long closure;
 
 	if (CheckMode(AWG9_MODE,AWG9_TWSA) || CheckMode(AWG9_MODE,AWG9_TWSM))
 		return 1;
 
 	closure = t->targetclosure;
-	if ((t->targetclosure <= -80) || (t->targetclosure >= 80))
+	if ((closure <= -80) || (closure >= 80))
 		return 1;
 	return 0;
 }
@@ -125,17 +125,13 @@ int DopplerCheck(TARGET *t)
 //************************************************************************
 int ShowTargets()
 {
-	int i;
+	int ofs, i;
 
-	// show aged targets
-	for (i = 0; i < *AGEDTARGFILECNT; i++)
-		if (DopplerCheck(AGEDTARGFILE + i))
-			DDDTargetDraw(AGEDTARGFILE + i, 1);
+	for (i = ofs = 0; i < *TARGFILECNT; ofs += sizeof(TARGET), i++)
+		DDDTargetDraw((TARGET*)((char*)TARGFILE + ofs), 0);
 
-	// show new contacts
-	for (i = 0; i < *TARGFILECNT; i++)
-		if (DopplerCheck(TARGFILE + i))
-			DDDTargetDraw(TARGFILE + i, 0);
+	for (i = ofs = 0; i < *AGEDTARGFILECNT; ofs += sizeof(TARGET), i++)
+		DDDTargetDraw((TARGET*)((char*)AGEDTARGFILE + ofs), 1);
 }
 
 //************************************************************************

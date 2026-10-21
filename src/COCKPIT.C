@@ -44,6 +44,7 @@ extern  int     JAMMER;
 extern  int     JAMMER_ACTIVE;
 extern  int     MLAUNCH;
 extern  int     AIDETECT;
+extern  int     WING_HAVETARG;
 extern	UWORD	OurAlt;
 extern  int     OurRoll;
 extern  long	RadarAlt;
@@ -254,6 +255,8 @@ extern int DesignateMode;
 extern int HighlightTarg;
 
 extern struct PlaneData far *GetPlanePtr(int PlaneNo);
+static int RadarMode=0;
+static int PrevRadar=0;
 extern int RadarRange;
 
 
@@ -261,25 +264,23 @@ extern int RadarRange;
 LoadNewCockpit()
 {
     UBYTE   PalPkt[256*3 + 6];
+    extern char gstr777[];
+    extern char gstr778[];
 
-	LoadPicToPal(1, CockpitFiles[BackSeat][View&VNUM], PalPkt);
-	UpdatePalBuf(PalPkt);
+    if (RIOEmsOk==0 && !BackSeat && (View==REARLEFT || View==REARRIGHT)) {
+		if (View==REARLEFT)
+			LoadPicToPal(1, gstr777, PalPkt);
+		if (View==REARRIGHT)
+			LoadPicToPal(1, gstr778, PalPkt);
+	} else {
+		LoadPicToPal(1, CockpitFiles[BackSeat][View&VNUM], PalPkt);
+	}
+	InitSpecialPal(View);
 
    	ScreenOff();
     ShowPage(1);
 
     ResetCockpitLights();
-
-
-    Rp3D->Width1  = 319;
-    Rp3D->Length1 = Lengths[BackSeat][View&VNUM];
-
-	if (View==PADLOCK || View==PILOT) {
-		OutsideLength = 199;
-	    Rp3D->Length1 = 199;
-	} else {
-		OutsideLength = 170;
-	}
 
     switch (View) {
 		case REARLEFT:
@@ -337,7 +338,7 @@ BuildCockpitSprites()
 		if (View==FRONT) {
 			x = BuildMask(TopCockpitMask,0,0,319,150,1);
 			x = BuildMask(DDDMask,116,106,88,60,1);
-			x = BuildMask(ElevMask,86,106,16,58,1);
+			x = BuildMask(ElevMask,83,108,20,61,1);
 			DDDSwitchRefresh();
 		}
 	}
@@ -356,8 +357,6 @@ LookDown()
 		VdiMask[3] = 57;
 		AdiMask[MASKY] = 26;
 		RawMask[MASKY] = 39;
-	} else {
-		Rp3D->Length1 = 50;
 	}
 }
 
@@ -373,76 +372,44 @@ LookUp ()
 		VdiMask[MASKY] = 138;
 		AdiMask[MASKY] = 136;
 		RawMask[MASKY] = 150;
-	} else {
-		Rp3D->Length1  = 139;
 	}
 }
 
 //***************************************************************************
 Flip ()
 {
-	char str[30];
 	char tmp[80];
 	char s[10];
 	static int lastview=-1;
-	extern char gstr192[];
-	extern char gstr193[];
-
-	struct PlaneData far *tempplane;
+	extern int FlipCnt;
 
 //    FireColors ();
     MouseHIDE ();
 
 	switch(View) {
-		case PILOT:
-		case PADLOCK:
-			RectCopy(Rp3D, 0,0, OutsideWidth, 199, Rp1, (320-OutsideWidth) >>1,0);
-//			RectCopy(Rp3D, 0,0, OutsideWidth, OutsideLength, Rp1, (320-OutsideWidth) >>1,(200-OutsideLength) >>1);
-		break;
-		case MAGICCAM2:
-			if ((DifficultyLevel==0) && (PadLockee > -1)) {
-				tempplane = GetPlanePtr(ps[PadLockee].type);
-				_fstrcpy ((char *)tmp, (char far *)tempplane->name);
-				SetFont(Rp3D,F_3x5B);
-				RpPrint(Rp3D,0,10,tmp);
-			}
-		case FRONTAL:
-			RectCopy(Rp3D, 0,0, OutsideWidth, OutsideLength, Rp1, (320-OutsideWidth) >>1,0);
-//			RectCopy(Rp3D, 0,0, OutsideWidth, OutsideLength, Rp1, (320-OutsideWidth) >>1,(200-OutsideLength) >>1);
-		break;
-		case STEADY:
-		case WINGMAN:
-		case MAGICCAM1:
-		case POVVIEW:
-		case EJECTVIEW:
-		case TOWERVIEW:
-		case LSOVIEW:
-			RectCopy(Rp3D, 0,0, OutsideWidth, OutsideLength, Rp1, (320-OutsideWidth) >>1,0);
-//			RectCopy(Rp3D, 0,0, OutsideWidth, OutsideLength, Rp1, (320-OutsideWidth) >>1,(200-OutsideLength) >>1);
-		break;
-		case REARRIGHT:
-			MaskCopy(TopCockpitMask);
-		break;
-		case REARLEFT:
-			MaskCopy(TopCockpitMask);
-		break;
 		case FRONT:
 			if (!BackSeat) {
-				if (Status&TRAINING) RpPrint (Rp3D, 0,2, gstr192 );
+				if (Status&0x10) RpPrint (Rp3D, 0,2, "TRNG" );
 				if (Speedy>1) {
 					SetFont (Rp3D, F_3x4);
-					RpPrint (Rp3D, 5,8, gstr193);
+					RpPrint (Rp3D, 5,8, "x");
 					RpPrint (Rp3D, 0,8, itoa(Speedy,s,10));
 				}
 				MaskCopy(TopCockpitMask);
 				if (!MsgOnScreen)
 					VdiMask[3] = 57;
 				else
-					VdiMask[3] = 52;
+					VdiMask[3] = 54;
 				MaskCopy(VdiMask);
 				MaskCopy(AdiMask);
 				MaskCopy(RawMask);
 			} else {
+				if (Status&0x10) RpPrint (Rp3D, 0,2, "TRNG" );
+				if (Speedy>1) {
+					SetFont (Rp3D, F_3x4);
+					RpPrint (Rp3D, 5,8, "x");
+					RpPrint (Rp3D, 0,8, itoa(Speedy,s,10));
+				}
 				MaskCopy(TopCockpitMask);
 				MaskCopy(DDDMask);
 				MaskCopy(ElevMask);
@@ -450,6 +417,12 @@ Flip ()
 		break;
 		case DOWN:
 			if (!BackSeat) {
+				if (Status&0x10) RpPrint (Rp3D, 0,2, "TRNG" );
+				if (Speedy>1) {
+					SetFont (Rp3D, F_3x4);
+					RpPrint (Rp3D, 5,8, "x");
+					RpPrint (Rp3D, 0,8, itoa(Speedy,s,10));
+				}
 				MaskCopy(LookDownLMask);
 				MaskCopy(LookDownRMask);
 				MaskCopy(AdiMask);
@@ -460,18 +433,41 @@ Flip ()
 				MaskCopy(TIDMask);
 			}
 		break;
-
-		case RIGHT:
 		case LEFT:
+		case RIGHT:
+		case REARLEFT:
+		case REARRIGHT:
 			MaskCopy(TopCockpitMask);
+		break;
+		case MAGICCAM2:
+		case 17+VFULL+VOFFSET:
+			if ((DifficultyLevel==0) && (PadLockee > -1)) {
+				_fstrcpy ((char *)tmp, (char far *)GetPlanePtr(ps[PadLockee].type)->name);
+				SetFont(Rp3D,F_3x5B);
+				RpPrint(Rp3D,0,10,tmp);
+			}
+		case FRONTAL:
+			RectCopy(Rp3D, 0,0, OutsideWidth, OutsideLength, Rp1, (320-OutsideWidth) >>1,0);
+		break;
+		case PADLOCK:
+		case PILOT:
+		case STEADY:
+		case WINGMAN:
+		case MAGICCAM1:
+		case POVVIEW:
+		case EJECTVIEW:
+		case TOWERVIEW:
+		case LSOVIEW:
+			RectCopy(Rp3D, 0,0, OutsideWidth, OutsideLength, Rp1, (320-OutsideWidth) >>1,0);
 		break;
     }
 
     if (ShowMouse) MouseSHOW ();
-//	if (lastview != View) {
+	if ((lastview != View) || (FlipCnt)) {
     	ScreenOn();
-//		lastview = View;
-//	}
+		lastview = View;
+		if (FlipCnt > 0) FlipCnt--;
+	}
 	if ((SNDDETAIL!=1) || (SNDDETAIL!=3))
     	SndSounds(View>FRONTAL ? N_JetFromOutside:N_JetFromInside);
 }
@@ -505,6 +501,7 @@ DoCockpitDisplays ()
 			DoCRT(1);
  			DoCRT(2);
 			DoCRT(3);
+			DrawVVGauge();
 			DrawAirSpeedGauge();
 			DrawAltGauge();
 			DrawRadarAlt();
@@ -512,7 +509,6 @@ DoCockpitDisplays ()
 			DrawStores();
 			ShowFuel();
 			DrawEngineStat();
-			DrawVVGauge();
 			GDisplay();
    		}
 
@@ -712,23 +708,23 @@ int GDisplay()
 {
 	char txt[10], s[10];
 	int	N;
-	int	dy;
+	int	m;
 	extern char gstr214[];
 	extern char gstr215[];
 
-	dy = 140 - ((View >= 1) ? 0x70 : 0);
+	m = View ? 0x70 : 0;
 	SetFont(Rp2,F_3x5B);
 	Rp2->APen=(LightsOn?54:2);
 
-	RectFill(Rp2,267,dy,20,5,63);
+	RectFill(Rp2,267,140-m,20,5,63);
 	N=abs(Gees+1);
 	txt[0]=0;
 	if (Gees<-1) strcpy(txt,gstr214);
 	strcat(txt, itoa(N/16,s,10));
 	strcat (txt, gstr215);
 	strcat(txt, itoa((10*(N&15))/16,s,10));
-	RpPrint(Rp2,269,dy,txt);
-	RectCopy(Rp2,267,dy,20,5,Rp1,267,dy);
+	RpPrint(Rp2,269,140-m,txt);
+	RectCopy(Rp2,267,140-m,20,5,Rp1,267,140-m);
 }
 
 
@@ -737,29 +733,29 @@ int GDisplay()
 int DisplayTIDSwitches()
 {
 	if (DesignateMode) {
-		ChangeColor(Rp1,117,172,8,5,5,17);
+		ChangeColor(Rp1,134,168,12,7,36,17);
 	} else  {
-		ChangeColor(Rp1,117,172,8,5,17,5);
+		ChangeColor(Rp1,134,168,12,7,17,36);
 	}
 
 	if (ClrTarg) {
-		ChangeColor(Rp1,133,172,8,5,5,17);
+		ChangeColor(Rp1,148,168,12,7,36,17);
 		ClrTarg--;
 		if (ClrTarg<0) ClrTarg=0;
 	} else {
-		ChangeColor(Rp1,133,172,8,5,17,5);
+		ChangeColor(Rp1,148,168,12,7,17,36);
 	}
 
 	if (HighlightTarg) {
-		ChangeColor(Rp1,149,172,8,5,5,17);
+		ChangeColor(Rp1,162,168,12,7,36,17);
 	} else {
-		ChangeColor(Rp1,149,172,8,5,17,5);
+		ChangeColor(Rp1,162,168,12,7,17,36);
 	}
 
 	if (DataLink) {
-		ChangeColor(Rp1,117,184,8,5,5,17);
+		ChangeColor(Rp1,176,168,12,7,36,17);
 	} else {
-		ChangeColor(Rp1,117,184,8,5,17,5);
+		ChangeColor(Rp1,176,168,12,7,17,36);
 	}
 
 }
@@ -767,68 +763,40 @@ int DisplayTIDSwitches()
 //***************************************************************************
 DisplayLeftStuff()
 {
-	int i;
 	int mseg;
 	static int prevstat=-1;
 	int stat;
-	int prevthrust=-1;
 
 	MouseHIDE();
 
 	stat = !(Status & WHEELSUP);
 
-	if ((mseg=MapInEMSSprite(MISCSPRTSEG,1))) {
-		ScaleRotate(mseg,(1+104),(119+26),208,51,Rp2,(69+104),(126+26),0x0100,0,0,0);
-	}
-
 	if ((mseg=MapInEMSSprite(MISCSPRTSEG,0))) {
-		if (stat) {
-//			if (stat != prevstat) {
-//				RectCopy(Rp2,242,127,39,38,Rp1,242,127);
-//			}
+		TransRectCopy(mseg,155,137,161,57,Rp2,79,105,0,0);
 
-			ScaleRotate(mseg,143,7,26,12,Rp2,(237+13),(149+6),0x0100,0,0,0);
-
-			ScaleRotate(mseg,(205+4),(106+3),8,6,Rp1,(280+4),(118+3),0x0100,0,0,0);
-			ScaleRotate(mseg,(205+4),(106+3),8,6,Rp1,(294+4),(118+3),0x0100,0,0,0);
-			ScaleRotate(mseg,(205+4),(106+3),8,6,Rp1,(298+4),(128+3),0x0100,0,0,0);
-
-		} else {
-//			if (stat != prevstat) {
-//				RectCopy(Rp2,242,127,39,38,Rp1,242,127);
-//			}
-
-			ScaleRotate(mseg,176,18,14,34,Rp2,(262+7),(128+17),0x0100,0,0,0);
-
-			ScaleRotate(mseg,(206+4),(94+3),8,6,Rp1,(280+4),(118+3),0x0100,0,0,0);
-			ScaleRotate(mseg,(206+4),(94+3),8,6,Rp1,(294+4),(118+3),0x0100,0,0,0);
-			ScaleRotate(mseg,(206+4),(94+3),8,6,Rp1,(298+4),(128+3),0x0100,0,0,0);
-		}
-
-		if (((Status & BRAKESON) && !(REALFLIGHT && (Damaged&D_HYDRAULICS))))
-			ScaleRotate(mseg,(205+4),(106+3),8,6,Rp1,(284+4),(128+3),0x0100,0,0,0);
+		if (stat)
+			TransRectCopy(mseg,206,89,53,44,Rp2,245,92,0,0);
 		else
-			ScaleRotate(mseg,(206+4),(94+3),8,6,Rp1,(284+4),(128+3),0x0100,0,0,0);
+			TransRectCopy(mseg,263,89,53,44,Rp2,245,92,0,0);
 
-		if (prevthrust != THRUST) {
-//			RectCopy(Rp2,78,132,170,45,Rp1,78,132);
+		RectCopy(Rp2,245,92,53,44,Rp1,245,92);
 
+		if (THRUST != -1) {
    			if ((THRUST <= 25))
-				ScaleRotate(mseg,(130+14),(52+19),29,38,Rp2,(72+14),(136+19),0x0100,0,0,0);
+				TransRectCopy(mseg,117,37,40,41,Rp2,82,118,0,0);
 			if (((THRUST > 25) && (THRUST < 50)) || (THRUST == 50))
-				ScaleRotate(mseg,(166+15),(52+18),31,36,Rp2,(109+15),(133+18),0x0100,0,0,0);
+				TransRectCopy(mseg,159,37,34,46,Rp2,118,108,0,0);
 			if (((THRUST > 50) && (THRUST < 75)) || (THRUST == 75))
-				ScaleRotate(mseg,(206+14),(52+17),29,35,Rp2,(146+14),(130+17),0x0100,0,0,0);
+				TransRectCopy(mseg,195,37,37,45,Rp2,150,107,0,0);
 			if ((THRUST > 75) && (THRUST < 100))
-				ScaleRotate(mseg,(242+16),(53+16),33,33,Rp2,(181+16),(134+16),0x0100,0,0,0);
+				TransRectCopy(mseg,234,37,40,46,Rp2,177,108,0,0);
 	   		if (THRUST >= 100)
-				ScaleRotate(mseg,(282+17),(53+16),34,33,Rp2,(220+17),(139+16),0x0100,0,0,0);
+				TransRectCopy(mseg,276,37,41,40,Rp2,197,112,0,0);
 		}
-		RectCopy(Rp2,69,126,208,51,Rp1,69,126);
+		RectCopy(Rp2,79,105,161,57,Rp1,79,105);
 	}
 
 	prevstat = stat;
-	prevthrust = THRUST;
 
 	if (ShowMouse) MouseShow();
 }
@@ -1076,50 +1044,48 @@ int DrawRadarDials()
 	int mseg;
 
 	if ((mseg=MapInEMSSprite(MISCSPRTSEG,0))) {
-		ScaleRotate(mseg,(38+13),(116+8),26,16,Rp1,(94+13),(146+8),0x0100,0,0,0);
-		ScaleRotate(mseg,(5+14),(115+8),28,16,Rp1,(80+14),(169+8),0x0100,0,0,0);
-
 
 	switch(SELECTED_BAR_NUM) {
 		case BAR_1:
-			ScaleRotate(mseg,(5+11),(70+6),26,12,Rp1,(83+11),(170+6),0x0100,0,0,0);
+			TransRectCopy(mseg,64,175,20,14,Rp2,113,169,0,0);
 			NumBars=0;
 		break;
 		case BAR_2:
-			ScaleRotate(mseg,(33+11),(70+6),26,12,Rp1,(83+11),(170+6),0x0100,0,0,0);
+			TransRectCopy(mseg,43,175,20,14,Rp2,113,169,0,0);
 			NumBars=1;
 		break;
 		case BAR_4:
-			ScaleRotate(mseg,(61+11),(71+6),26,12,Rp1,(83+11),(170+6),0x0100,0,0,0);
+			TransRectCopy(mseg,22,175,20,14,Rp2,113,169,0,0);
 			NumBars=2;
 		break;
 		case BAR_8:
-			ScaleRotate(mseg,(89+11),(72+6),26,12,Rp1,(83+11),(170+6),0x0100,0,0,0);
+			TransRectCopy(mseg,1,175,20,14,Rp2,113,169,0,0);
 			NumBars=3;
 		break;
 
 	}
 
-//	RectCopy(Rp2,98,162,26,12,Rp1,98,162);
+	RectCopy(Rp2,113,169,20,14,Rp1,113,169);
 
 	switch(SELECTED_AZ) {
-		case DEG10:
-			ScaleRotate(mseg,(5+11),(70+6),26,12,Rp1,(96+11),(146+7),0x0100,0,0,0);
-			SweepSize=0;
-		break;
-		case DEG20:
-			ScaleRotate(mseg,(33+11),(70+6),26,12,Rp1,(96+11),(146+7),0x0100,0,0,0);
-			SweepSize=1;
-		break;
-		case DEG40:
-			ScaleRotate(mseg,(61+11),(71+6),26,12,Rp1,(96+11),(147+6),0x0100,0,0,0);
-			SweepSize=2;
-		break;
 		case DEG65:
-			ScaleRotate(mseg,(89+11),(72+6),26,12,Rp1,(96+11),(148+5),0x0100,0,0,0);
+			TransRectCopy(mseg,1,158,22,16,Rp2,95,142,0,0);
 			SweepSize=3;
 		break;
+		case DEG40:
+			TransRectCopy(mseg,24,158,22,16,Rp2,95,142,0,0);
+			SweepSize=2;
+		break;
+		case DEG20:
+			TransRectCopy(mseg,47,158,22,16,Rp2,95,142,0,0);
+			SweepSize=1;
+		break;
+		case DEG10:
+			TransRectCopy(mseg,70,158,22,16,Rp2,95,142,0,0);
+			SweepSize=0;
+		break;
 	}
+	RectCopy(Rp2,95,142,22,16,Rp1,95,142);
 	}
 }
 
@@ -1130,32 +1096,33 @@ TIDShowRange()
 	char   s[10];
 	int    l;
 	int mseg;
+	int d;
 
+	d = MsgOnScreen ? 7 : 0;
 	RectFill(Rp2,146,21,29,9,BLACK);
 	l = pstrlen(Rp2,itoa(RANGES[Tscale],s,10));
 	RpPrint(Rp2,160-(l/2),23,s);
 	RectCopy(Rp2,146,21,29,9,Rp1,146,21);
 
 	if ((mseg=MapInEMSSprite(MISCSPRTSEG,0))) {
-		ScaleRotate(mseg,(2+23),(160+15),46,31,Rp2,(164+23),(164+15),0x0100,0,0,0);
 		switch(Tscale) {
-			case 4:
-				ScaleRotate(mseg,(54+9),(138+7),18,13,Rp2,(174+9),(177+7),0x0100,0,0,0);
-			break;
-			case 3:
-				ScaleRotate(mseg,(15+8),(136+9),16,18,Rp2,(177+8),(173+9),0x0100,0,0,0);
-			break;
-			case 2:
-				ScaleRotate(mseg,(2+5),(136+9),9,17,Rp2,(182+5),(173+9),0x0100,0,0,0);
+			case 0:
+				TransRectCopy(mseg,104,90,24,17,Rp2,128,182,0,0);
 			break;
 			case 1:
-				ScaleRotate(mseg,(34+8),(136+9),16,18,Rp2,(178+8),(173+9),0x0100,0,0,0);
+				TransRectCopy(mseg,78,90,24,17,Rp2,128,182,0,0);
 			break;
-			case 0:
-				ScaleRotate(mseg,(77+10),(138+7),20,13,Rp2,(177+10),(176+7),0x0100,0,0,0);
+			case 2:
+				TransRectCopy(mseg,52,90,24,17,Rp2,128,182,0,0);
+			break;
+			case 3:
+				TransRectCopy(mseg,26,90,24,17,Rp2,128,182,0,0);
+			break;
+			case 4:
+				TransRectCopy(mseg,1,90,23,17,Rp2,129,182,0,0);
 			break;
 		}
-		RectCopy(Rp2,164,164,46,31,Rp1,164,164);
+		RectCopy(Rp2,128,182,24,17-d,Rp1,128,182);
 	}
 }
 
@@ -1206,16 +1173,10 @@ int DDDSwitchRefresh()
 	MouseHIDE();
 
 	if (AWG9_SNIFF) {
-		ChangeColor(Rp1,229,112,14,5,16,34);
-		DrawLine(Rp1,229,112,229,117,27);
-		DrawLine(Rp1,229,111,243,111,26);
-		DrawLine(Rp1,243,112,243,117,27);
+		ChangeColor(Rp1,227,112,14,5,16,34);
 	}
 	if (!(AWG9_SNIFF)) {
-		ChangeColor(Rp1,229,112,14,5,34,16);
-		DrawLine(Rp1,229,112,229,117,29);
-		DrawLine(Rp1,229,111,243,111,29);
-		DrawLine(Rp1,243,112,243,117,29);
+		ChangeColor(Rp1,227,112,14,5,34,16);
 	}
 
 	switch(RadarRange) {
@@ -1243,51 +1204,35 @@ int DDDSwitchRefresh()
 			ChangeColor(Rp1,198,77,12,10,34,16);
 			RpPrint(Rp1,150,92,gstr221);
 		break;
-		RectCopy(Rp2,150,92,23,9,Rp1,160,92);
 	}
 
 	switch(AWG9_MODE) {
+		case AWG9_TWSA:
+		case AWG9_TWSA_MEDIUM:
+		case AWG9_TWSA_NARROW:
+		case AWG9_TWSA_AUTHENTIC:
+			ChangeColor(Rp1,225,147,17,6,34,16);
+		break;
+		case AWG9_TWSM:
+		case AWG9_TWSM_MEDIUM:
+		case AWG9_TWSM_NARROW:
+		case AWG9_TWSM_AUTHENTIC:
+			ChangeColor(Rp1,243,147,17,6,34,16);
+		break;
 		case AWG9_SRCH_WIDE:
-		case AWG9_SRCH_NARROW:
 		case AWG9_SRCH_MEDIUM:
+		case AWG9_SRCH_NARROW:
 		case AWG9_SRCH_AUTHENTIC:
-			ChangeColor(Rp1,243,133,16,6,34,16);
-			DrawLine(Rp1,243,134,243,138,29);
-			DrawLine(Rp1,243,133,259,133,29);
-			DrawLine(Rp1,259,134,259,138,29);
+			ChangeColor(Rp1,243,133,17,6,34,16);
+		break;
+		case AWG9_RWS_WIDE:
+		case AWG9_RWS_MEDIUM:
+		case AWG9_RWS_NARROW:
+		case AWG9_RWS_AUTHENTIC:
+			ChangeColor(Rp1,243,157,16,6,34,16);
 		break;
 		case AWG9_PDSTT:
 			ChangeColor(Rp1,225,133,16,6,34,16);
-			DrawLine(Rp1,225,134,225,139,29);
-			DrawLine(Rp1,225,133,241,133,29);
-			DrawLine(Rp1,241,134,241,139,29);
-		break;
-		case AWG9_TWSA:
-		case AWG9_TWSA_NARROW:
-		case AWG9_TWSA_MEDIUM:
-		case AWG9_TWSA_AUTHENTIC:
-			ChangeColor(Rp1,225,147,16,6,34,16);
-			DrawLine(Rp1,225,148,225,152,29);
-			DrawLine(Rp1,225,147,241,147,29);
-			DrawLine(Rp1,241,148,241,152,29);
-		break;
-		case AWG9_TWSM:
-		case AWG9_TWSM_NARROW:
-		case AWG9_TWSM_MEDIUM:
-		case AWG9_TWSM_AUTHENTIC:
-			ChangeColor(Rp1,243,147,16,6,34,16);
-			DrawLine(Rp1,243,148,243,152,29);
-			DrawLine(Rp1,243,147,259,147,29);
-			DrawLine(Rp1,259,148,259,152,29);
-		break;
-		case AWG9_RWS_WIDE:
-		case AWG9_RWS_NARROW:
-		case AWG9_RWS_MEDIUM:
-		case AWG9_RWS_AUTHENTIC:
-			ChangeColor(Rp1,243,158,16,6,34,16);
-			DrawLine(Rp1,243,159,243,163,29);
-			DrawLine(Rp1,243,158,259,158,29);
-			DrawLine(Rp1,259,159,259,163,29);
 		break;
 	}
 	if (ShowMouse) MouseShow();
@@ -1296,10 +1241,6 @@ int DDDSwitchRefresh()
 //***************************************************************************
 int DDDSwitches()
 {
-	static int RadarOn=0;
-	static int RadarMode=0;
-	static int PrevRadar=0;
-	char s[10];
 	extern char gstr216[];
 	extern char gstr217[];
 	extern char gstr218[];
@@ -1312,24 +1253,15 @@ int DDDSwitches()
 
 
 	MouseHIDE();
-	/* Add check to see if it is already on!!! */
-	if (AWG9_SNIFF && RadarOn) {
-		ChangeColor(Rp1,229,112,14,5,16,34);
-		RadarOn=0;
-		DrawLine(Rp1,229,112,229,117,27);
-		DrawLine(Rp1,229,111,243,111,26);
-		DrawLine(Rp1,243,112,243,117,27);
+	if (AWG9_SNIFF) {
+		ChangeColor(Rp1,227,122,14,5,16,34);
 	}
-	if (!(AWG9_SNIFF) && !(RadarOn)) {
-		ChangeColor(Rp1,229,112,14,5,34,16);
-		RadarOn=1;
-		DrawLine(Rp1,229,112,229,117,29);
-		DrawLine(Rp1,229,111,243,111,29);
-		DrawLine(Rp1,243,112,243,117,29);
+	if (!(AWG9_SNIFF)) {
+		ChangeColor(Rp1,227,122,14,5,34,16);
 	}
 
 
-	if (RadarRange!=PrevRadar) {
+	if (PrevRadar!=RadarRange) {
 		switch(RadarRange) {
 			case 0:
 				ChangeColor(Rp1,113,77,11,10,34,16);
@@ -1380,106 +1312,76 @@ int DDDSwitches()
 		PrevRadar=RadarRange;
 	}
 
-	if (AWG9_MODE!=RadarMode) {
+	if (RadarMode!=AWG9_MODE) {
 		switch(AWG9_MODE) {
+			case AWG9_TWSA:
+			case AWG9_TWSA_MEDIUM:
+			case AWG9_TWSA_NARROW:
+			case AWG9_TWSA_AUTHENTIC:
+				if ((RadarMode == AWG9_TWSA_NARROW)	|| (RadarMode == AWG9_TWSA_MEDIUM)) break;
+				ChangeColor(Rp1,225,147,17,6,34,16);
+			break;
+			case AWG9_TWSM:
+			case AWG9_TWSM_MEDIUM:
+			case AWG9_TWSM_NARROW:
+			case AWG9_TWSM_AUTHENTIC:
+				if ((RadarMode == AWG9_TWSM_NARROW)	|| (RadarMode == AWG9_TWSM_MEDIUM)) break;
+				ChangeColor(Rp1,243,147,17,6,34,16);
+			break;
 			case AWG9_SRCH_WIDE:
-			case AWG9_SRCH_NARROW:
 			case AWG9_SRCH_MEDIUM:
+			case AWG9_SRCH_NARROW:
 			case AWG9_SRCH_AUTHENTIC:
 				if ((RadarMode == AWG9_SRCH_WIDE) || (RadarMode == AWG9_SRCH_NARROW)
 					|| (RadarMode == AWG9_SRCH_MEDIUM)) break;
-				ChangeColor(Rp1,243,133,16,6,34,16);
-				DrawLine(Rp1,243,134,243,138,29);
-				DrawLine(Rp1,243,133,259,133,29);
-				DrawLine(Rp1,259,134,259,138,29);
-			break;
-			case AWG9_PDSTT:
-				ChangeColor(Rp1,225,133,16,6,34,16);
-				DrawLine(Rp1,225,134,225,139,29);
-				DrawLine(Rp1,225,133,241,133,29);
-				DrawLine(Rp1,241,134,241,139,29);
-			break;
-			case AWG9_TWSA:
-			case AWG9_TWSA_NARROW:
-			case AWG9_TWSA_MEDIUM:
-			case AWG9_TWSA_AUTHENTIC:
-				if ((RadarMode == AWG9_TWSA_NARROW)	|| (RadarMode == AWG9_TWSA_MEDIUM)) break;
-				ChangeColor(Rp1,225,147,16,6,34,16);
-				DrawLine(Rp1,225,148,225,152,29);
-				DrawLine(Rp1,225,147,241,147,29);
-				DrawLine(Rp1,241,148,241,152,29);
-			break;
-			case AWG9_TWSM:
-			case AWG9_TWSM_NARROW:
-			case AWG9_TWSM_MEDIUM:
-			case AWG9_TWSM_AUTHENTIC:
-				if ((RadarMode == AWG9_TWSM_NARROW)	|| (RadarMode == AWG9_TWSM_MEDIUM)) break;
-				ChangeColor(Rp1,243,147,16,6,34,16);
-				DrawLine(Rp1,243,148,243,152,29);
-				DrawLine(Rp1,243,147,259,147,29);
-				DrawLine(Rp1,259,148,259,152,29);
+				ChangeColor(Rp1,243,133,17,6,34,16);
 			break;
 			case AWG9_RWS_WIDE:
-			case AWG9_RWS_NARROW:
 			case AWG9_RWS_MEDIUM:
+			case AWG9_RWS_NARROW:
 			case AWG9_RWS_AUTHENTIC:
 				if ((RadarMode == AWG9_RWS_WIDE) || (RadarMode == AWG9_RWS_NARROW)
 					|| (RadarMode == AWG9_RWS_MEDIUM)) break;
-				ChangeColor(Rp1,243,158,16,6,34,16);
-				DrawLine(Rp1,243,159,243,163,29);
-				DrawLine(Rp1,243,158,259,158,29);
-				DrawLine(Rp1,259,159,259,163,29);
+				ChangeColor(Rp1,243,157,16,6,34,16);
+			break;
+			case AWG9_PDSTT:
+				ChangeColor(Rp1,225,133,16,6,34,16);
 			break;
 		}
 
 		switch(RadarMode) {
+			case AWG9_TWSA:
+			case AWG9_TWSA_MEDIUM:
+			case AWG9_TWSA_NARROW:
+			case AWG9_TWSA_AUTHENTIC:
+				if ((AWG9_MODE == AWG9_TWSA_NARROW)	|| (AWG9_MODE == AWG9_TWSA_MEDIUM)) break;
+				ChangeColor(Rp1,225,147,17,6,16,34);
+			break;
+			case AWG9_TWSM:
+			case AWG9_TWSM_MEDIUM:
+			case AWG9_TWSM_NARROW:
+			case AWG9_TWSM_AUTHENTIC:
+				if ((AWG9_MODE == AWG9_TWSM_NARROW)	|| (AWG9_MODE == AWG9_TWSM_MEDIUM)) break;
+				ChangeColor(Rp1,243,147,17,6,16,34);
+			break;
 			case AWG9_SRCH_WIDE:
-			case AWG9_SRCH_NARROW:
 			case AWG9_SRCH_MEDIUM:
+			case AWG9_SRCH_NARROW:
 			case AWG9_SRCH_AUTHENTIC:
 				if ((AWG9_MODE == AWG9_SRCH_WIDE) || (AWG9_MODE == AWG9_SRCH_NARROW)
 					|| (AWG9_MODE == AWG9_SRCH_MEDIUM)) break;
-				ChangeColor(Rp1,243,133,16,6,16,34);
-				DrawLine(Rp1,243,134,243,138,28);
-				DrawLine(Rp1,243,133,259,133,26);
-				DrawLine(Rp1,259,134,259,138,28);
+				ChangeColor(Rp1,243,133,17,6,16,34);
+			break;
+			case AWG9_RWS_WIDE:
+			case AWG9_RWS_MEDIUM:
+			case AWG9_RWS_NARROW:
+			case AWG9_RWS_AUTHENTIC:
+				if ((AWG9_MODE == AWG9_RWS_WIDE) || (AWG9_MODE == AWG9_RWS_NARROW)
+					|| (AWG9_MODE == AWG9_RWS_MEDIUM)) break;
+				ChangeColor(Rp1,243,157,16,6,16,34);
 			break;
 			case AWG9_PDSTT:
 				ChangeColor(Rp1,225,133,16,6,16,34);
-				DrawLine(Rp1,225,134,225,139,28);
-				DrawLine(Rp1,225,133,241,133,26);
-				DrawLine(Rp1,241,134,241,139,28);
-			break;
-			case AWG9_TWSA:
-			case AWG9_TWSA_NARROW:
-			case AWG9_TWSA_MEDIUM:
-			case AWG9_TWSA_AUTHENTIC:
-				if ((AWG9_MODE == AWG9_TWSA_NARROW)	|| (AWG9_MODE == AWG9_TWSA_MEDIUM)) break;
-				ChangeColor(Rp1,225,147,16,6,16,34);
-				DrawLine(Rp1,225,148,225,152,28);
-				DrawLine(Rp1,225,147,241,147,26);
-				DrawLine(Rp1,241,148,241,152,28);
-			break;
-			case AWG9_TWSM:
-			case AWG9_TWSM_NARROW:
-			case AWG9_TWSM_MEDIUM:
-			case AWG9_TWSM_AUTHENTIC:
-				if ((AWG9_MODE == AWG9_TWSM_NARROW)	|| (AWG9_MODE == AWG9_TWSM_MEDIUM)) break;
-				ChangeColor(Rp1,243,147,16,6,16,34);
-				DrawLine(Rp1,243,148,243,152,28);
-				DrawLine(Rp1,243,147,259,147,26);
-				DrawLine(Rp1,259,148,259,152,28);
-			break;
-			case AWG9_RWS_AUTHENTIC:
-			case AWG9_RWS_WIDE:
-			case AWG9_RWS_NARROW:
-			case AWG9_RWS_MEDIUM:
-				if ((AWG9_MODE == AWG9_RWS_WIDE) || (AWG9_MODE == AWG9_RWS_NARROW)
-					|| (AWG9_MODE == AWG9_RWS_MEDIUM)) break;
-				ChangeColor(Rp1,243,158,16,6,16,34);
-				DrawLine(Rp1,243,159,243,163,28);
-				DrawLine(Rp1,243,158,259,158,26);
-				DrawLine(Rp1,259,159,259,163,28);
 			break;
 		}
 		RadarMode=AWG9_MODE;
@@ -1665,16 +1567,16 @@ DrawAOADisplay()
 {
 	int inewaoa;
 
-	RectFill(Rp2,82,109,3,17,29);
-	inewaoa = (PitchAngle/182) * 3;
+	RectFill(Rp2,83,109,3,17,29);
+	inewaoa = NEWAOA/91;
 	if (inewaoa > 30) inewaoa=30;
-	if (inewaoa <0) inewaoa=0;
-	RectFill(Rp2,82,125 - inewaoa,3,inewaoa,2);
+	if (inewaoa < 2) inewaoa=2;
+	RectFill(Rp2,83,125 - inewaoa/2,3,inewaoa/2,2);
 	DrawLine(Rp2,82,110,84,110,34);
 	DrawLine(Rp2,82,115,84,115,34);
 	DrawLine(Rp2,82,120,84,120,34);
  	DrawLine(Rp2,82,125,84,125,34);
-	RectCopy(Rp2,82,109,3,17,Rp1,82,109);
+	RectCopy(Rp2,83,109,3,17,Rp1,83,109);
 }
 
 
@@ -1843,7 +1745,6 @@ DoCRT(int i)
         case VDI:
 			if (VdiMode) {
 				a=VdiCrt(i);
-				FlirCopy(VdiMask);
 			} else {
 				a=DrawGunCameraView();
 				if (ConfigData.GunCamera==2)
@@ -2056,7 +1957,7 @@ static CheckLights(int i)
 		case 1:
 			return !(Status & WHEELSUP);
 		case 2:
-			return ((Status & BRAKESON) && !(REALFLIGHT && (Damaged&D_HYDRAULICS)));
+			return ((Status & BRAKESON) && !(Damaged&D_HYDRAULICS));
 		case 3:
 			return HookDown;
 		case 5:
@@ -2079,7 +1980,7 @@ static CheckLights(int i)
 		case 7:
 			return AIDETECT;
 		case 8:
-			return !(LOCKED == -1);
+			return WING_HAVETARG;
 		case 10:
 			return MasterArmSW;
 		case 11:

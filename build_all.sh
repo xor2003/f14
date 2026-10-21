@@ -28,6 +28,7 @@ CFLAGS="/FPa /G2 /Gs /AM /Osegcl /nologo /c /Zi /Zd"
 # see ~/games/f19ru/F19/DECOMPILATION.md for the evidence basis)
 declare -A MODULE_FLAGS=(
     [ddd]="/FPa /G2 /Gs /AM /Oaegcls /nologo /c /Zi /Zd"
+    [carr]="/FPa /G2 /Gs /AM /Osegcl /nologo /c /Zi /Zd"
 )
 
 flags_for() {
@@ -36,7 +37,7 @@ flags_for() {
 }
 
 # object list from MAKEFILE OBJS — original link order (determines segment layout)
-OBJS="gdseg monoprin adicrt npolys n3d emsload pasm emm nqfly 3dexcept 3dloadt 3dloader 3dmatrix 3dobject 3dplanes 3dscene aaa aaahit armt awacs awg9 billasm boats bullets carr carrai cmds cockpit ctrlvect ddd egraph ems flight2 flir fltmath gmain nhorz horzasm hud2 hsd joystx njoycal keyjoy libglue loadmiss map math mcga mcgamask nmenus message options ovl planes planes2 planes3 radars rastport riohead riomap sams savemode sound sprites stealth support tac tews tgtflir tid trig track views vdi world _rp"
+OBJS="gdseg monoprin adicrt npolys n3d emsload pasm emm nqfly 3dexcept 3dloadt 3dloader 3dmatrix 3dobject 3dplanes 3dscene aaa aaahit armt awacs awg9 billasm boats bullets carr carrai cmds cockpit ctrlvect ddd egraph ems flight2 flir fltmath gmain nhorz horzasm hud2 hsd joystx njoycal keyjoy libglue loadmiss math mcga mcgamask nmenus message options ovl planes planes2 planes3 radars rastport riohead riomap sams savemode sound sprites stealth support tac tews tgtflir tid trig track views vdi world _rp mpsreal"
 
 src_for() {
     local b=$1
@@ -139,6 +140,54 @@ do_asm() {
                 /^[ \t]*(EXTRN|extrn)[ \t].*:FAR/{next}
                 {print}' "$st" > "$st.tmp" && mv "$st.tmp" "$st"
         fi
+        if [ "$b" = pasm ]; then
+            # retail built this module with MASM 6.0/6.1: .386-mode PROCs got
+            # `enter`/`leave` frames, .8086 got push bp. UASM can't reproduce
+            # that, so a custom prologue macro emits enter+USES pushes while
+            # .386 is active (toggled alongside the CPU directives).
+            awk '
+                /^[ \t]*\.386/  {print; print "OPTION PROLOGUE:ENTP"; next}
+                /^[ \t]*\.8086/ {print; print "OPTION PROLOGUE:PROLOGUEDEF"; next}
+                /\.MODEL/ && !m {print; m=1;
+                    print "ENTP\tMACRO\tpn,f,pb,lb,rl,up"
+                    print "\tenter\t0,0"
+                    print "\tIRP\tr,rl"
+                    print "\t\tpush\tr"
+                    print "\tENDM"
+                    print "\tEXITM\t<0>"
+                    print "\tENDM"; next}
+                {print}' "$st" > "$st.tmp" && mv "$st.tmp" "$st"
+            # MASM 6.0 also emitted long-form 0F8x for forward jcc to named
+            # labels under .386 (pass-1 can't prove short); @F/@B stay short.
+            python3 - "$st" <<'PYEOF'
+import re,sys
+p=sys.argv[1]; L=open(p).read().splitlines()
+procs=[]; cur=None
+for i,l in enumerate(L):
+    m=re.match(r'\s*(\w+)\s+PROC\b',l)
+    if m: cur=[i,set()]; procs.append(cur)
+    elif re.search(r'\bENDP\b',l) and cur: cur.append(i); cur=None
+    elif cur is not None:
+        m=re.match(r'\s*(\w+):',l)
+        if m: cur[1].add(m.group(1))
+out=list(L); state86=True
+for i,l in enumerate(L):
+    if re.match(r'\s*\.8086',l): state86=True
+    elif re.match(r'\s*\.386',l): state86=False
+    m=re.match(r'(\s*)(j[a-z]+)\s+(\w+)\s*(;.*)?$',l)
+    if not m or state86: continue
+    mn,tgt=m.group(2).lower(),m.group(3)
+    if mn in ('jmp','jcxz','jecxz'): continue
+    for pr in procs:
+        if len(pr)>2 and pr[0]<=i<=pr[2] and tgt in pr[1]:
+            for j in range(pr[0],pr[2]+1):
+                if re.match(r'\s*%s:'%re.escape(tgt),L[j]):
+                    if j>i: out[i]='%s%s\tnear ptr %s%s'%(m.group(1),m.group(2),m.group(3),m.group(4) or '')
+                    break
+            break
+open(p,'w').write('\n'.join(out)+'\n')
+PYEOF
+        fi
         (cd "$ASTAGE" && "$UASM" -q -Zi -Zd -I. -I"$HDR" \
             -Fo "$OBJ/$(tr 'a-z' 'A-Z' <<< "$b").OBJ" "$st") > "$LOG/$b.masm.log" 2>&1
     else
@@ -191,7 +240,7 @@ link)
     printf 'E:\\F14.EXE\nE:\\F14.MAP\nG:\\MPSLIBM.LIB\n' >> "$rsp"
     "$KV" --mount=C:"$ROOT/C700/" --mount=E:"$OBJ/" --mount=G:"$LIBD/" \
         --mount=H:"$ROOT/c6/" --env='LIB=G:\;H:\LIB' --drive=E \
-        'C:\BIN\LINK.EXE' /MAP /SEG:256 /ST:200 /CODEVIEW "@E:\\f14.lrf" \
+        'C:\BIN\LINK.EXE' /MAP /SEG:256 /ST:2050 /CODEVIEW "@E:\\f14.lrf" \
         > "$LOG/link.log" 2>&1
     tail -20 "$LOG/link.log"
     ;;

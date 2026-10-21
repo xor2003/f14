@@ -726,6 +726,49 @@ void GetInterceptPlane(int planenum, int prewing)
 	}
 }
 
+#define   i     i3
+
+#if 0
+CheckAirSpace(int x, int y, int radardistkm, int friendstat)
+{
+	int cnt, founddist, wingrear;
+	int dx, dy, dx1, dy1, angle;
+	int x, y, targetnum;
+	COORD dist, dist1, distnm;
+	int distflag = 0;
+
+	founddist = 0;
+	if(!(friendstat)) {
+		founddist = 1;
+    	dx = Px-x;
+    	dy = Py-y;
+    	dist = xydist(dx,dy);
+    	CloseGuy=0;
+		targetnum = -1;
+	}
+
+    for (cnt=0; cnt<NPLANES; cnt++) {
+        if ((ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE) &&
+				(ps[cnt].speed) && (cnt != othertarget)) { /* Planes in the air */
+			if((psi->status & FRIENDLY) != (ps[cnt].status & FRIENDLY)) {
+       			dist1 = xydist(dx1=ps[cnt].x-x, dy1=ps[cnt].y-y);
+       			if ((dist1<dist) || (!founddist)) {
+					founddist = 1;
+           			dist=dist1;
+           			dx = dx1;
+           			dy = dy1;
+            		CloseGuy=1;
+					targetnum = cnt;
+       			}
+			}
+		}
+	}
+}
+#endif
+
+#undef i
+#pragma optimize("egl", off)
+
 void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist, int planedetect, int nochange)
 {
     struct  Planes  *psi, *Mini;
@@ -733,22 +776,29 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 	int cnt;
 	struct PlaneData far *ptemp;
 	int carrx, carry, carrangle, carrrelangle;
+	extern int GoalTicked;
 	extern char gstr584[];
 	extern char gstr585[];
 	extern char gstr586[];
-	extern char gstr130[];
 	extern char gstr587[];
 	extern char gstr588[];
 	extern char gstr589[];
-	extern char gstr402[];
-	extern char gstr465[];
-	extern char gstr466[];
-	extern char gstr467[];
-	extern char gstr468[];
 	extern char gstr590[];
 	extern char gstr591[];
 	extern char gstr592[];
 	extern char gstr593[];
+	extern char gstr808[];
+	extern char gstr809[];
+	extern char gstr810[];
+	extern char gstr811[];
+	extern char gstr812[];
+	extern char gstr813[];
+	extern char gstr814[];
+	extern char gstr815[];
+	extern char gstr816[];
+	extern char gstr817[];
+	extern char gstr818[];
+	extern int NPLANESx;
 	UWORD carrdist = 18000;
 	int do_id = 0;
 	int is_target = 0;
@@ -809,23 +859,50 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 		}
 	}
 
+	if(GoalTicked) {
+		eyedist = Dist2D ((Px - eyex), (Py - eyey)) * 2 / 95;
+		if(eyedist > 50) {
+			if(eyedist < 100) {
+				if(Rtime & 2) {
+					Speech (A_CONTACT_BRG);
+					TXA(gstr808);
+					Message(Txt,GAME_MSG);
+					return;
+				}
+			}
+			else if(eyedist < 125) {
+				if(Rtime & 1) {
+					TXA(gstr809);
+					Message(Txt,GAME_MSG);
+					return;
+				}
+			}
+			else {
+				TXA(gstr810);
+				Message(Txt,GAME_MSG);
+				return;
+			}
+		}
+	}
 
 	TXA(OurCallSign);
-	TXA(gstr130);
+	TXA(gstr811);
 
     if (nochange) {
         TXA (gstr587);
+		Message(Txt,GAME_MSG);
+		return;
     } else {
-		bogeyi = planedetect;
 		MinDist = whatdist;
 		MinAngl = whatangle;
+		bogeyi = planedetect;
 
 		eyedist = Dist2D ((ps[bogeyi].x - eyex), (ps[bogeyi].y - eyey));
-		if((ps[whichourcarr].status & ALIVE) && (ps[whichourcarr].status & ACTIVE)) {
+		if(whichourcarr != -999 && (ps[whichourcarr].status & ALIVE) && (ps[whichourcarr].status & ACTIVE)) {
 			carrx = ps[whichourcarr].x;
 			carry = ps[whichourcarr].y;
 			carrdist = Dist2D ((carrx - ps[bogeyi].x), (carry - ps[bogeyi].y));
-			carrangle = angle((carrx - ps[bogeyi].x), -(carry - ps[bogeyi].y));
+			carrangle = angle((carrx - ps[bogeyi].x), (ps[bogeyi].y - carry));
 			carrrelangle = carrangle - ps[bogeyi].head;
 		}
 
@@ -839,23 +916,23 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 
             BearingToText (MinAngl,1);
 
-            TXA (gstr402);
+            TXA (gstr812);
 //	            Speech (V_EMPTY);
 
             MinDist = MinDist*2/95; // convert 15-bit COORD to nm
 
             if (MinDist>=160) {
-                TXA (gstr465);
-                Speech (A_160);
+                TXA (gstr813);
+                Speech (C_160);
             } else if (MinDist>=120) {
-                TXA (gstr466);
-                Speech (A_120);
+                TXA (gstr814);
+                Speech (C_120);
             } else if (MinDist>=80) {
-                TXA (gstr467);
-                Speech (A_80);
+                TXA (gstr815);
+                Speech (C_80);
             } else if (MinDist>=40) {
-                TXA (gstr468);
-                Speech (A_40);
+                TXA (gstr816);
+                Speech (C_40);
             } else {
                 NSpeech (MinDist, 1);
             }
@@ -867,7 +944,7 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 				/*  determin if no factor, otherwise  */
 				/*  see if friendly's nearby for VID else  */
 				if((carrdist < 11250) || ((abs(carrrelangle) < 1554) && (carrdist < 18000))) {
-        			for (i=0; i<NPLANES; i++) {
+        			for (i=0; NPLANESx>i; i++) {
             			if ((ps[i].status & ACTIVE) && (ps[i].status & ALIVE) && (ps[i].status&FRIENDLY) && !(ps[i].status&CRASH)) {
                 			dx = ps[i].x - ps[bogeyi].x;
                 			dy = ps[i].y - ps[bogeyi].y;
@@ -880,10 +957,8 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
             			}
         			}
 
-					is_target = CheckIsWayTarget(bogeyi);
-
-					if(is_target) {
-						TXA(gstr590);
+					if(CheckIsWayTarget(bogeyi) && !(bv[bogeyi].behaveflag & ISHELICOPTER)) {
+						TXA(gstr817);
         		    	Speech (A_RED_FREE);
 					}
 					else if(do_id) {
@@ -897,10 +972,8 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 				}
 				else {
 
-					is_target = CheckIsWayTarget(bogeyi);
-
-					if(is_target) {
-						TXA(gstr590);
+					if(CheckIsWayTarget(bogeyi) && !(bv[bogeyi].behaveflag & ISHELICOPTER)) {
+						TXA(gstr818);
         		    	Speech (A_RED_FREE);
 					}
 					else {
@@ -916,52 +989,17 @@ void LocationPicture (int whotoldorg, int whatis, int whatangle, COORD whatdist,
 	return;
 }
 
-#if 0
-CheckAirSpace(int x, int y, int radardistkm, int friendstat)
-{
-	int cnt, founddist, wingrear;
-	int dx, dy, dx1, dy1, angle;
-	int x, y, targetnum;
-	COORD dist, dist1, distnm;
-	int distflag = 0;
-
-	founddist = 0;
-	if(!(friendstat)) {
-		founddist = 1;
-    	dx = Px-x;
-    	dy = Py-y;
-    	dist = xydist(dx,dy);
-    	CloseGuy=0;
-		targetnum = -1;
-	}
-
-    for (cnt=0; cnt<NPLANES; cnt++) {
-        if ((ps[cnt].status & ALIVE) && (ps[cnt].status&ACTIVE) &&
-				(ps[cnt].speed) && (cnt != othertarget)) { /* Planes in the air */
-			if((psi->status & FRIENDLY) != (ps[cnt].status & FRIENDLY)) {
-       			dist1 = xydist(dx1=ps[cnt].x-x, dy1=ps[cnt].y-y);
-       			if ((dist1<dist) || (!founddist)) {
-					founddist = 1;
-           			dist=dist1;
-           			dx = dx1;
-           			dy = dy1;
-            		CloseGuy=1;
-					targetnum = cnt;
-       			}
-			}
-		}
-	}
-}
-#endif
+#pragma optimize("egl", on)
+#define   i     i3
 
 void CheckE2C(int planenum)
 {
-	int targnum;
-	COORD targdist;
+	register int targnum;
+	long targdist;
 	struct PlaneData far *ptmptype;
     COORD       dist;
-    int         signal;
     int         angl;
+    int         signal;
 
 
 //	targnum = Rtime & 0x7F;
@@ -995,15 +1033,10 @@ void TrooperDrop(int planenum)
 	bv[planenum].basespeed = 150;
 
 	troopernum = ps[planenum].mcnt[0];
-	if((troopernum <= 0) || (troopernum > (NUMPTROOPS - 1))) {
-		troopernum = ps[planenum].mcnt[0] = 0;
-		return;
-	}
-
-	prewing = GetSquadLeader(planenum);
-
-//	if((((Rtime & 3) == (planenum & 3)) && (!(ps[planenum].status & JUSTPUT))) || (((Rtime & 3) == (prewing & 3)) && (ps[planenum].status & JUSTPUT))) {
-	if((Rtime & 3) == (prewing & 3)) {
+	if((troopernum > 0) && (troopernum <= (NUMPTROOPS - 1))) {
+		prewing = GetSquadLeader(planenum);
+		if((Rtime & 3) != (prewing & 3))
+			return;
 		if(troopernum == ptmptype->mcnt[0])
 			LogIt (SLG_AIR_TROOP_DROP, planenum, ps[planenum].xL, ps[planenum].yL, ps[planenum].alt, -999, ptmptype->misl[0], 0L, LOG_AIR);
 
@@ -1017,13 +1050,9 @@ void TrooperDrop(int planenum)
         paratroopers[troopernum].chuteDZ = 0;
 
 		ps[planenum].mcnt[0] = ps[planenum].mcnt[0] - 1;
-
-#if 0
-		else {
-			bv[planenum].Behavior = FlyWayPoint;
-			bv[planenum].basespeed = 250;
-		}
-#endif
+	}
+	else {
+		ps[planenum].mcnt[0] = 0;
 	}
 
 //	FlyWayPoint();
@@ -1845,8 +1874,8 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 	UWORD actionval;
 	int numwp;
 	int returnval = -999;
-	char *wflag;
 	struct _action_ *actptr;
+	extern int GoalTicked;
 
 	*behavenum = -1;
 	*formnum = -1;
@@ -1870,7 +1899,6 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 	if(numactions == 0)
 		return(returnval);
 
-	wflag = (char *)wpflag;
 	for(cnt = startaction, actptr = &aiactions[cnt]; cnt < (startaction + numactions); cnt ++, actptr ++) {
 		whataction = actptr->action;
 		actionval = actptr->value;
@@ -1895,22 +1923,22 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 			*attack = 0xc9;
 		}
 		else if(whataction == SA_DAMAGE) {
-			wflag[0] |= 0x20;
+			((char *)wpflag)[0] |= 0x20;
 		}
 		else if(whataction == SA_DITCH) {
-			wflag[0] |= 0x10;
+			((char *)wpflag)[0] |= 0x10;
 		}
 		else if(whataction == SA_EXPLODE) {
-			wflag[0] |= 0x40;
+			((char *)wpflag)[0] |= 0x40;
 		}
 		else if(whataction == SA_DEFENSIVEBFM) {
-			wflag[1] |= 0x10;
+			((char *)wpflag)[1] |= 0x10;
 		}
 		else if(whataction == SA_OFFENSIVEBFM) {
-			wflag[1] |= 0x20;
+			((char *)wpflag)[1] |= 0x20;
 		}
 		else if(whataction == SA_NEUTRALBFM) {
-			wflag[1] |= 0x40;
+			((char *)wpflag)[1] |= 0x40;
 		}
 		else if(whataction == SA_HARDDECK) {
 			if(!KnockItOffStatus)
@@ -1920,17 +1948,17 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 			warstatus = 0;
 		}
 		else if(whataction == SA_HAWKEYE) {
-			wflag[0] |= 0x80;
+			((char *)wpflag)[0] |= 0x80;
 			OurPath = actionval;
 		}
 		else if(whataction == SA_FORM_ON) {
-			wflag[1] |= 0x1;
+			((char *)wpflag)[1] |= 0x1;
 		}
 		else if(whataction == SA_TROOPERDROP) {
-			wflag[1] |= 0x2;
+			((char *)wpflag)[1] |= 0x2;
 		}
 		else if(whataction == SA_LAND) {
-			wflag[1] |= 0x4;
+			((char *)wpflag)[1] |= 0x4;
 		}
 		else if(whataction == SA_FORMTRAIN) {
 			DOINVISIBLE = 1;
@@ -1939,19 +1967,19 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 			ENEMYNODIE = 1;
 		}
 		else if(whataction == SA_GOALTICK) {
-			tempgotcha = 1;
+			GoalTicked = 1;
 		}
 		else if(whataction == SA_TRAINING) {
 			Status |= TRAINING;
 		}
 		else if(whataction == SA_GOAL) {
-			wflag[1] |= 0x80;
+			((char *)wpflag)[1] |= 0x80;
 		}
 		else if(whataction == SA_DOACTION) {
 			if(wplevel != -1) {
 				LoadWayPointPic(actionval);
 				DoGroupAction(wplevel, 8, actionval);
-				wflag[0] |= 0x8;
+				((char *)wpflag)[0] |= 0x8;
 			}
 		}
 		else if(whataction == SA_FORMATION) {
@@ -1961,7 +1989,7 @@ int GetWayPointChanges(int numorgwp, int *behavenum, int *formnum, int *nspeed, 
 			}
 		}
 		else if(whataction == SA_HOVER) {
-			wflag[1] |= 0x8;
+			((char *)wpflag)[1] |= 0x8;
 			returnval = actionval;
 		}
 		else {
@@ -2750,62 +2778,64 @@ int FriendMatchType(int plane1, int isfriend)
 		return(0);
 }
 
-void UpdateOurWPS(int lastwp, int updateall)
+int UpdateOurWPS(int lastwp, int updateall)
 {
 	int waynum;
 	long xval, yval;
 	extern char gstr650[];
-	UWORD zval;
 	int cnt, cnt2;
-	int iscarr = 0;
+	UWORD zval;
 	int NextNum = 1;
 	int waystart = 0;
+	int iscarr = 0;
+	int nWPs = 0;
 	int behavenum, formnum, speedval, altval, headval, attack, launch, wpflag;
 
-	if(NextWayPoint == 0)
+	if((NextWayPoint == 0) && (updateall == 0))
 		return;
 
 //	waynum = aipaths[OurPath].wp0 + NextWayPoint - 1;
 
-	cnt2 = 1;
-	waynum = aipaths[OurPath].wp0;
+	if(NextWayPoint != 0) {
+		cnt2 = 1;
+		waynum = aipaths[OurPath].wp0;
 
-	if((aiwaypoints[waynum].x == -1L) && ((GetPlaneOrgNum((int)aiwaypoints[waynum].y) == whichourcarr))) {
-		waynum += 1;
-		waystart = 1;
-	}
-	else if(aiwaypoints[waynum].x > -1L) {
-		GetWayPointChanges(waynum, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
-		if(behavenum != SA_CAP) {
+		if((aiwaypoints[waynum].x == -1L) && ((GetPlaneOrgNum((int)aiwaypoints[waynum].y) == whichourcarr))) {
 			waynum += 1;
 			waystart = 1;
 		}
-	}
-
-	for(cnt = 0; cnt < (NextWayPoint - 1); cnt ++) {
-		if(aiwaypoints[waynum].x == -2L)
-			waynum += 1;
-		waynum += 1;
-		cnt2 += 1;
-	}
-
-	if((aiwaypoints[waynum].x == -1L) && ((GetPlaneOrgNum((int)aiwaypoints[waynum].y) == whichourcarr)))
-		iscarr = 1;
-
-	if((waynum >= (aipaths[OurPath].wp0 + aipaths[OurPath].numWPs))  ||
-			((iscarr) && (waynum >= (aipaths[OurPath].wp0 + aipaths[OurPath].numWPs - 1)))){
-		if(lastwp != -999) {
-			if(lastwp == 0) {
-				waynum = aipaths[OurPath].wp0 + aipaths[OurPath].numWPs - 1;
-				NextWayPoint = cnt2;
-			}
-			else {
-				NextWayPoint = 0;
-				return;
+		else if(aiwaypoints[waynum].x > -1L) {
+			GetWayPointChanges(waynum, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
+			if(behavenum != SA_CAP) {
+				waynum += 1;
+				waystart = 1;
 			}
 		}
-		else
-			waynum = aipaths[OurPath].wp0 + aipaths[OurPath].numWPs - 1;
+		for(cnt = 0; cnt < (NextWayPoint - 1); cnt ++) {
+			if(aiwaypoints[waynum].x == -2L)
+				waynum += 1;
+			waynum += 1;
+			cnt2 += 1;
+		}
+
+		if((aiwaypoints[waynum].x == -1L) && ((GetPlaneOrgNum((int)aiwaypoints[waynum].y) == whichourcarr)))
+			iscarr = 1;
+
+		if((waynum >= (aipaths[OurPath].wp0 + aipaths[OurPath].numWPs))  ||
+				((iscarr) && (waynum >= (aipaths[OurPath].wp0 + aipaths[OurPath].numWPs - 1)))){
+			if(lastwp != -999) {
+				if(lastwp == 0) {
+					waynum = aipaths[OurPath].wp0 + aipaths[OurPath].numWPs - 1;
+					NextWayPoint = cnt2;
+				}
+				else {
+					NextWayPoint = 0;
+					return nWPs;
+				}
+			}
+			else
+				waynum = aipaths[OurPath].wp0 + aipaths[OurPath].numWPs - 1;
+		}
 	}
 
 //	if((!(Rtime & 127)) || (Gtime < 2)) {
@@ -2821,6 +2851,7 @@ void UpdateOurWPS(int lastwp, int updateall)
 				if(aiwaypoints[waynum].x == -2L)
 					cnt += 1;
 			}
+			nWPs = NextNum;
 			NextNum += 1;
 		}
 	}
@@ -2838,6 +2869,9 @@ void UpdateOurWPS(int lastwp, int updateall)
 		Message(Txt);
 	}
 #endif
+	if(nWPs > 3)
+		nWPs = 3;
+	return nWPs;
 }
 
 int CloseEnoughFor(int whatcheck, int x, int y)
@@ -3030,14 +3064,12 @@ int CheckForMobileR5(int basenum, int isfriend)
 
 	wingcnt = returnval;
 	while(wingcnt >= 0) {
-		otherplane = bv[wingcnt].wingman;
-		if(otherplane >= 0) {
-			MovePlane(otherplane, xval, yval);
+		if((cnt = bv[wingcnt].wingman) >= 0) {
+			MovePlane(cnt, xval, yval);
 			yval = yval + 2;
 		}
-		otherplane = bv[wingcnt].nextsec;
-		if(otherplane >= 0) {
-			MovePlane(otherplane, xval, yval);
+		if((cnt = bv[wingcnt].nextsec) >= 0) {
+			MovePlane(cnt, xval, yval);
 			yval = yval + 2;
 		}
 		wingcnt = bv[wingcnt].nextsec;
@@ -3267,7 +3299,7 @@ void SetUpLaunch(int planenum, int waypt)
 	ps[planenum].alt = 1;
 	if(GetPlanePtr(ps[planenum].type)->bclass == HELICOPTER_OBJCLASS)
 		return;
-	if((aiwaypoints[waypt].x <= (long)-1) && (ps[planenum].status & FRIENDLY)) {
+	if((aiwaypoints[waypt].x <= (long)-1) && (aiwaypoints[waypt].y == (long)bv[whichourcarr].orgnum) && (ps[planenum].status & FRIENDLY)) {
 #if 0
 		TXT(gstr660);
 		TXN(lastcatused);
@@ -3439,13 +3471,13 @@ void DoAltHover()
 		wayval = bv[i].groundt;
 		if(wayval < 0)
 			return;
-		if(((int)aiwaypoints[wayval].x == -2) && ((int)aiwaypoints[wayval].y == -1))
+		if(aiwaypoints[wayval].x == -2)
 			wayval = bv[i].groundt + 2;
 		else
 			wayval = bv[i].groundt + 1;
 
 		bv[i].groundt = wayval;
-		bv[i].Behavior = FlyWayPoint;
+		bv[i].Behavior = Formation;
 		GetWayPointChanges(wayval, &behavenum, &formnum, &speedval, &altval, &headval, &attack, &launch, &wpflag, -1);
 		if(speedval == -1)
 			bv[planecnt].basespeed = 90;
@@ -3823,6 +3855,7 @@ void CheckTurnStuff(int planenum)
 }
 
 #define DBEHINDCARR 14400
+#pragma optimize("egl", off)
 void AICarrierLand()
 {
 	int V[3];
@@ -4035,6 +4068,7 @@ void AICarrierLand()
 		}
 	}
 }
+#pragma optimize("egl", on)
 
 void MoveAIToElevator(int planenum, int elevator)
 {
