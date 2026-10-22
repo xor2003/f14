@@ -237,3 +237,43 @@ Small rewrites move the emitted code:
   Object-level verdict: identical bytes except real FIXUPPs replacing
   baked literals (better) and a MASM LEDATA tail pad byte past
   declared segment size (harmless).
+  Pass-2 additions (MPSLIBM): `jmp far ptr cs:[x]`/`call far ptr cs:[x]`
+  fails A2065 "Label cannot have segment override" — the far-indirect
+  forms are `jmp/call dword ptr cs:[x]`; a `jmp short` whose target
+  lands mid-instruction (gold `eb 02` into `mov si,1`'s operand byte)
+  is expressed as `tgt EQU <label> + <k>` then `jmp short tgt` — MASM
+  computes the rel8 from the EQU'd address fine; segment-tail opcode
+  fragments (a lone `db 0e9h`/`db 02bh` whose operand lives across the
+  segment boundary or is runtime-patched) must stay raw `db` — a real
+  mnemonic would append operand bytes and change segment size.
+- **Dropped-symbol operand → baked literal (runtime killer, found by
+  gdb, not OMF diff).** The lift writes some operands as a separate
+  `dw offset <sym>` word after the `db` opcode. Merging that into one
+  mnemonic must keep the *symbol* — `mov cs:[cs_ss],ss` — not the
+  numeric displacement. Writing `mov cs:[0],ss` bakes a literal `0`
+  (no FIXUPP emitted) where the original had a relocation to the cell.
+  Byte-identical width, so OMF segment-size + fixup-resolution checks
+  pass while the linked value is silently wrong. In `g646c` (the
+  `_LoadOverlay` int21 wrapper) this saved SS:SP to `cs:[0]` but
+  restored from the still-`00` `cs_ss`/`cs_sp` cells → `SS:SP=0:0`
+  after every mode-03 EXEC → `retf` into an unloaded region
+  (`0x80a3`, all zeros) → black screen / data execution. Fixed at
+  MPSLIBM.ASM:782. Verification gap to remember: a *missing* fixup is
+  invisible to a fixup-target diff — also assert that every `dw/dd
+  <sym>` carrier in the lift still resolves to a symbol in the result,
+  or diff the *resolved* operand bytes, not just fixup presence.
+- **libdosbox runtime verification — two env/display knobs.** The
+  instrument build defaults to runtime-info collection that tracks
+  every guest memory access (huge slow-down; the 30000-cycle `full`
+  interpreter took ~40min to reach the drivers). Disable for gameplay
+  runs: `M2C_COLLECT_VARS=0 M2C_COLLECT_RT=0` → boots in seconds. For a
+  visible window use `output = texture` + `texture_renderer = auto` —
+  `output = surface`/`software` falls back to texture but never
+  presents frames to X (guest renders a real image to `0xa0000` while
+  the SDL surface stays black — affects gold `F14.EXE` identically).
+- **Launch chain.** `F14.COM → playflc.exe (intro) → F.EXE (front-end)
+  → F14.EXE (flight engine)`. `F14.EXE` run standalone loads its
+  overlays then exits `255` — it needs `F.EXE` to set up shared state
+  first (DOS comm-zone pattern, like F-19). Both gold and rebuilt
+  `F14.EXE` do this identically — the rebuilt is behaviourally
+  equivalent through the whole chain.

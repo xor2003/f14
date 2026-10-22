@@ -2630,3 +2630,34 @@ Remaining DIFF triage (all classified, no further source action):
   `_DrawSweepDisplay`/`_SndSounds`/`_vsprintf`/`__amsg_exit`/`_detect`
   — MPSLIBM/CRT library bodies (absent originals).
 - `_search` — binary-search helper, same-structure reloc diffs.
+
+MPSLIBM.ASM readable-assembly conversion (pass 2):
+- Converted every remaining byte-lifted code region to readable MASM:
+  the cs_j1/cs_j2 self-modifying dispatch cells (jmp/call dword ptr
+  cs:[0000h], operand patched at runtime), the g6524 DGROUP-init thunk,
+  g653a/g66de/g66e2 helper thunks, the int 33h mouse scaling sequence,
+  the g6acc/g6ad2/g6aee/g6b63 mouse callback+state block (reg stores
+  to 05a8eh-05a94h, cs_lock flag, callback via [05a8ah]), the p41271
+  prologue region, _strnicmp (ASCII-fold length-limited compare),
+  _intdosx (register-struct load, int 21h, result+cflag store),
+  plus lone db 099h->cwd and db 090h->nop pads.
+- Label sweep removed 2400 unreferenced generated gNNNN/pNNNN labels
+  (241 referenced kept; no referenced-but-undefined; all 50 PUBLIC
+  symbols unaffected).
+- Remaining db lines are all justified non-code cells: the MPSLIBM_TEXT
+  tail e9 byte (operand read across the segment boundary at runtime),
+  the external far call to 4140:0d2c (no expressible target), an
+  unresolved jne whose target lands past segment end, and the PIC_TEXT
+  tail 2bh truncation. Each is annotated.
+- MASM 5.10 notes hit during conversion: [const] without a segment
+  override on mov/cmp assembles as immediate operand — ds:[imm] is
+  required for memory loads; far indirect needs 'dword ptr cs:[x]',
+  not 'far ptr cs:[x]' (A2065). _intdosx's original jmp short lands
+  mid-instruction (eb 02 into mov si,1's operand) — preserved via
+  l_id_mid EQU l_id_err + 2.
+- Object verification vs pre-change OBJ: identical segment sizes and
+  content in all 4 segments except 26 bytes at 12 operand sites, all
+  of which are operands that now carry real FIXUPPs (verified to
+  resolve to the previously baked values: g6132/g6540/g66ee/cs_lock/
+  g605e/g6088/g6b22/g6bbe/p411e2). 0 fixups removed, 12 added. Linked
+  output unchanged; relocations are now robust to layout shifts.
