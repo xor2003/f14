@@ -297,12 +297,28 @@ expects (it has no `0x4252 'RB'` signature). Its MZ header lies:
   503/507 decompiled (33K lines).
 - **Shared functions:** `analysis/f_f14g_shared_funcs.txt` — 32 funcs
   byte-identical mnemonic streams vs `F14G.EXE` (DumpSigs.java).
-- **Chain/comm-zone interface** (`FUN_2000_22ea`/`FUN_2000_2356`):
-  `int21 AH=48` alloc → `AX=4B03` exec-**overlay** loads `F14.EXE`
-  *without running it* → `FUN_2000_2356` copies `n` far-pointers from
-  `childseg:0x32` into `DAT_0000_36a8` — **the child exports a jump
-  table of far entry points at offset 0x32**; `(*_DAT_0000_36a8)(...)`
-  calls through it. That is the F.EXE→F14 handoff (the DOS comm zone).
+- **MicroProse driver-overlay ABI** (`FUN_2000_22ea`/`FUN_2000_2356`):
+  `int21 AH=48` alloc → `AX=4B03` exec-**overlay** loads a driver
+  *without running it* → resize `4A` → `FUN_2000_2356` reads the driver's
+  export table and builds far-pointers in host DGROUP. **ABI:** any
+  driver MZ has `u16 service_count @ image+0x30`, then `service_count`
+  u16 offsets `@ 0x32` (entry points in the driver segment). Host tags
+  each offset with the child seg → `(*ptr)()` calls in.
+  - Sound drivers `?SOUND.14G` (game) / `?SOUND.14W` (front-end):
+    **count=11**. Letter = card: N=none,G=GS/GM,A=AdLib,I=?,R=Roland,P=PCspk;
+    first byte of name patched by `_DAT_0000_95b4` selector → `?SOUND.14W`.
+    Entries used by F.EXE: `0`=init(9 args, called right after load),
+    `1`=poll, `2`=play/queue.
+  - `MGRAPHIC.EXE` (graphics driver): **count=52** — same ABI.
+  - `F14G.EXE` has the *same* loader (`4B03` @ img `0x20538`) — the game
+    loads `Mgraphic.exe` + `?sound.14g` through the identical mechanism.
+- **F.EXE→F14.EXE handoff is FILES, not a shared overlay.** No `F14.EXE`
+  string exists in F.EXE; the front-end writes state to `.f14` data
+  files (`mission.f14`, `stat.f14`, `instant.f14`, `lastmiss.f14`,
+  `joy.f14`, `sounds.f14`, `config.f14`, `log.f14`, `hof.f14`,
+  `cams.f14`, `eastwest.f14`), exits to DOS, and the chain
+  (`F14.COM`/`F14.EXE`) picks them up — the "DOS comm zone" = the file
+  set, not shared memory.
 - **int21 surface:** 45 calls — exec `4B03`, mem `48/4A`, file `3C/3D/
   3E/3F/40/41/42`, ioctl `4400`, alloc `48`, free `49`, `4A`, flush
   `68`, getlist `52`, vectors `2500/3500`, `0x49` free.
