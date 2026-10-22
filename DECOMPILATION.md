@@ -277,3 +277,32 @@ Small rewrites move the emitted code:
   first (DOS comm-zone pattern, like F-19). Both gold and rebuilt
   `F14.EXE` do this identically — the rebuilt is behaviourally
   equivalent through the whole chain.
+
+## F.EXE (front-end) — unpacked and decompiled
+
+`F.EXE` is **EXEPACK-compressed** — the early bit-level LZ variant
+(LINK /E v1), *not* the later `0xB0/0xB2` RLE format w4kfu/unEXEPACK
+expects (it has no `0x4252 'RB'` signature). Its MZ header lies:
+`nreloc=0` is real (the packed delta-reloc stream is empty `00 01 00`).
+
+- **Unpacker:** `tools/exepack_unpack.py` — implements the bit stream
+  (literal/match, 2-bit+byte / word match forms, eager word refill after
+  each 16th bit). Verified **byte-identical** vs the exe's own stub run
+  under kvikdos: patch the stub's final `jmp far cs:[bx]` (file offset
+  `0x15875`) to `hlt`, run with `kvikdos --hlt-dump=mem.bin`, image lands
+  at `PSP+0x100 = 0x1100` — python decode matched 0 diffs.
+- **Output:** `analysis/F_unpacked.exe` (146KB image, real entry
+  `21f1:0010`, ss:sp=`340f:0080`) → Ghidra real-mode now finds
+  **508 functions** (was: 1 — the stub). `analysis/F_decompiled.c` =
+  503/507 decompiled (33K lines).
+- **Shared functions:** `analysis/f_f14g_shared_funcs.txt` — 32 funcs
+  byte-identical mnemonic streams vs `F14G.EXE` (DumpSigs.java).
+- **Chain/comm-zone interface** (`FUN_2000_22ea`/`FUN_2000_2356`):
+  `int21 AH=48` alloc → `AX=4B03` exec-**overlay** loads `F14.EXE`
+  *without running it* → `FUN_2000_2356` copies `n` far-pointers from
+  `childseg:0x32` into `DAT_0000_36a8` — **the child exports a jump
+  table of far entry points at offset 0x32**; `(*_DAT_0000_36a8)(...)`
+  calls through it. That is the F.EXE→F14 handoff (the DOS comm zone).
+- **int21 surface:** 45 calls — exec `4B03`, mem `48/4A`, file `3C/3D/
+  3E/3F/40/41/42`, ioctl `4400`, alloc `48`, free `49`, `4A`, flush
+  `68`, getlist `52`, vectors `2500/3500`, `0x49` free.
