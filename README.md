@@ -62,10 +62,15 @@ Layout in `zip/`:
 
 ### Non-trivial / caveats (tested)
 
-- **`PLANCOMP` produced a 507 MB `F14PD01.DAT`** under kvikdos —
-  apparently writes far more than the ~7 KB record table (a seek/extend
-  bug or expects a specific environment). Use the shipped `.DAT`, treat
-  its recompile with suspicion until the write behaviour is understood.
+- **Oversized `.DAT` output — two overlapping causes.** All compilers
+  use `while (fscanf(fmt…) != EOF) fwrite(rec)`. At end-of-data `fscanf`
+  can return `0` (0 fields matched) instead of `EOF`, which loops forever
+  re-writing the last record. Verified: (a) the **MSC-built** tools are
+  correct under real DOSBox (`MISLCOMP`→2436 B) but runaway under kvikdos
+  (`→~600 MB`) — a genuine **kvikdos bug** in buffered-read/EOF handling;
+  (b) **Turbo-C-built** tools runaway under *both* emulators — a Turbo
+  `fscanf` EOF quirk. **Safest output comes from the prebuilt MSC `.EXE`s
+  under real DOSBox** — or recompile but audit the `fscanf!=EOF` loop.
 - **`MISREAD`/`MISCOMP` are not standalone** — both consult `BASEDEF`
   (object names) and `ENUMS.H`/`MISSION.H`; running them outside the
   data dir gives `bad entry`/`Unexpected end of input` errors.
@@ -74,15 +79,24 @@ Layout in `zip/`:
   in the archive. (`READFILE` is a shared helper `.OBJ` the compilers
   link, not a standalone tool.)
 
-### Building the tools
+### Building the tools (verified)
 
-Sources use **only standard DOS C headers** (`stdio.h`,`io.h`,`fcntl.h`,
-`dos.h`,`sys/*.h`,`stdlib.h`) — no exotic libs — so they build under any
-period DOS C compiler. Borland C (`BCC.EXE`) under kvikdos currently
-fails on A20/DPMI setup; use the project's MSC path (`C700/BIN/CL.EXE`)
-or a real DOS box — a straightforward `cl MISLCOMP.C` / `bcc MISLCOMP.C`
-single-file compile should suffice for the standalone tools, while the
-mission tools additionally link `READFILE.C`/`READMIS.C` + `MISSION.H`.
+**Working recipe: real-mode Turbo C 2.0 under kvikdos** — no DPMI needed.
+`kvikdos --root=<dir> TCC.EXE -ml -eFOO.EXE FOO.C` (`TURBOC.CFG` =
+`-IC:\INCLUDE` / `-LC:\LIB`, with the TC2 `INCLUDE/`,`LIB/` copied in).
+**Sources must be CRLF** — a LF-only `.C` compiles to an empty `_main`-less
+OBJ under kvikdos *and* DOSBox (TC 2.0 quirk, not an emulator bug).
+
+Built OK this way: `MISLCOMP`, `OBJCHECK`, `PLANREAD`, `MILCOMP`, `TEST`.
+
+Failed (missing deps / newer syntax, not fundamental):
+`3DZVIEW` (needs `mouse.h`,`keys.h` — absent), `LOGCHK` (`setup.h`),
+`START` (`setup_data`/`f15_data` structs), `VALREAD` (unterminated
+comment l.34), `READFILE` (24 errs — uses newer C than TC 2.0), `MISREAD`
+(needs `READFILE`).
+
+MSC 7 `CL.EXE` under kvikdos+DPMI fails (`DOSX32 internal error`) — it's a
+32-bit extender program; stick to a real-mode compiler.
 
 ### F-15 / F-19 applicability
 
